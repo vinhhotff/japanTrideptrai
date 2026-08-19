@@ -3215,9 +3215,18 @@
                     <div>
                         <!-- Word card -->
                         <div class="word-card" id="word-card">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                                <div class="word-index" id="word-index">1 / 10</div>
-                                <div id="combo-badge" class="combo-pill" style="display:none;">🔥 COMBO x0</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="word-index" id="word-index">1 / 10</div>
+                                    <div id="combo-badge" class="combo-pill" style="display:none;">🔥 COMBO x0</div>
+                                </div>
+                                <!-- Quick VOICEVOX Speaker Switcher -->
+                                <div class="quick-voice-bar" style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); padding: 3px 8px; border-radius: 10px;">
+                                    <span style="font-size: 0.78rem; color: var(--text3); display: flex; align-items: center; gap: 4px;">🎙️ Đổi giọng:</span>
+                                    <select id="quick-voicevox-speaker" class="form-input" style="padding: 2px 8px; font-size: 0.8rem; height: 28px; width: auto; max-width: 170px; border-radius: 6px; background: var(--bg); color: var(--text);" onchange="onQuickVoicevoxChange(this.value)">
+                                    </select>
+                                    <button type="button" class="btn btn-hint" style="padding: 2px 7px; font-size: 0.75rem; height: 28px; border-radius: 6px;" onclick="replayCurrentWordAudio()" title="Nghe lại với giọng này">🔊 Nghe</button>
+                                </div>
                             </div>
                             <div class="word-parts-info" id="word-parts-info"></div>
                             <div class="kanji-display" id="kanji-display">—</div>
@@ -5730,6 +5739,45 @@
             if (optionsEl) {
                 optionsEl.style.display = engine === 'voicevox' ? 'flex' : 'none';
             }
+            syncQuickVoicevoxDropdown();
+        }
+
+        function syncQuickVoicevoxDropdown() {
+            const speakerSelect = document.getElementById('voicevox-speaker-select');
+            const quickSelect = document.getElementById('quick-voicevox-speaker');
+            if (!speakerSelect || !quickSelect) return;
+            
+            quickSelect.innerHTML = `<option value="webspeech">🌐 Web Speech Browser</option>` + speakerSelect.innerHTML;
+            const engine = localStorage.getItem('tts_engine') || 'webspeech';
+            const speaker = localStorage.getItem('voicevox_speaker') || '3';
+            quickSelect.value = engine === 'voicevox' ? speaker : 'webspeech';
+        }
+
+        function onQuickVoicevoxChange(speakerVal) {
+            if (speakerVal === 'webspeech') {
+                localStorage.setItem('tts_engine', 'webspeech');
+                const engineSelect = document.getElementById('tts-engine-select');
+                if (engineSelect) engineSelect.value = 'webspeech';
+                showToast('🎙️ Đã chuyển sang giọng Web Speech', 'info');
+            } else {
+                localStorage.setItem('tts_engine', 'voicevox');
+                localStorage.setItem('voicevox_speaker', speakerVal);
+                const engineSelect = document.getElementById('tts-engine-select');
+                const speakerSelect = document.getElementById('voicevox-speaker-select');
+                if (engineSelect) engineSelect.value = 'voicevox';
+                if (speakerSelect) speakerSelect.value = speakerVal;
+                
+                const quickSelect = document.getElementById('quick-voicevox-speaker');
+                const selectedText = quickSelect ? quickSelect.options[quickSelect.selectedIndex]?.text : speakerVal;
+                showToast(`🎙️ Đã đổi giọng: ${selectedText}`, 'success');
+            }
+            
+            // Replay current word to immediately hear the new voice!
+            replayCurrentWordAudio();
+            
+            // Maintain focus on romaji input so typing is not interrupted
+            const inputEl = document.getElementById('romaji-input');
+            if (inputEl) inputEl.focus();
         }
 
         function loadTtsSettings() {
@@ -5746,6 +5794,7 @@
             if (endpointInput) endpointInput.value = endpoint;
             if (speakerSelect) speakerSelect.value = speaker;
             if (optionsEl) optionsEl.style.display = engine === 'voicevox' ? 'flex' : 'none';
+            syncQuickVoicevoxDropdown();
         }
 
         async function playVoicevoxTTS(text, speakerId = '3', endpoint = 'http://127.0.0.1:50021') {
@@ -5861,6 +5910,7 @@
                 });
                 const savedSpeaker = localStorage.getItem('voicevox_speaker') || '3';
                 select.value = savedSpeaker;
+                syncQuickVoicevoxDropdown();
                 showToast(`✅ Đã tải ${select.options.length} kiểu giọng VOICEVOX!`, 'success');
             } catch (e) {
                 showToast('❌ Không tải được danh sách nhân vật. Hãy bật VOICEVOX trước!', 'error');
