@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>⚔️ N3 Ninja Quest — Luyện gõ & học từ vựng</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥷</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0e14; --bg2:#121826; --bg3:#1a2234; --card:#1b2336; --card2:#232d45;
+  --ink:#e8ecf4; --ink2:#a6b0c8; --ink3:#6b7690;
+  --red:#ef4444; --red2:#b91c1c; --red3:#7f1d1d;
+  --gold:#f59e0b; --green:#10b981; --cyan:#06b6d4; --violet:#8b5cf6; --pink:#ec4899;
+  --border:#2a3550; --glow:0 0 20px rgba(239,68,68,.35);
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'Inter','Noto Sans JP',sans-serif;
+  min-height:100vh; overflow-x:hidden;
+}
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(239,68,68,.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 100%, rgba(139,92,246,.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 60% 50%, rgba(6,182,212,.05) 0%, transparent 60%);
+}
+.app{position:relative; z-index:1; max-width:960px; margin:0 auto; padding:16px; padding-bottom:90px}
+
+/* ===== TOP BAR ===== */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:10px 4px; margin-bottom:8px; flex-wrap:wrap;
+}
+.logo{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
+.logo .emblem{
+  width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--red),var(--red3)); font-size:24px;
+  box-shadow:var(--glow); border:1px solid rgba(239,68,68,.5);
+}
+.logo small{display:block; font-size:10px; font-weight:600; color:var(--ink3); letter-spacing:2px}
+.logo span.title{font-size:18px; font-family:'Orbitron',sans-serif; letter-spacing:1px}
+
+.hud{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.badge{
+  display:flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px;
+  background:var(--card); border:1px solid var(--border); font-size:13px; font-weight:600;
+}
+.badge .ico{font-size:15px}
+.badge .val{font-weight:800; color:var(--gold)}
+.badge.xp .val{color:var(--cyan)}
+.badge.streak .val{color:#fb923c}
+.badge.level .val{color:var(--violet)}
+
+/* progress XP bar */
+.xpbar{height:5px; border-radius:99px; background:var(--bg3); overflow:hidden; margin-top:4px}
+.xpbar>div{height:100%; width:0%; background:linear-gradient(90deg,var(--cyan),var(--violet)); transition:width .5s}
+
+/* ===== NAV TABS ===== */
+.tabs{
+  display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:12px 0 16px;
+}
+.tab{
+  padding:12px 8px; border-radius:14px; border:1px solid var(--border); background:var(--card);
+  color:var(--ink2); cursor:pointer; text-align:center; font-weight:600; font-size:13px;
+  transition:.2s; display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.tab .ti{font-size:22px}
+.tab:hover{border-color:var(--red); color:var(--ink); transform:translateY(-2px)}
+.tab.active{
+  background:linear-gradient(135deg,var(--red2),var(--red3)); color:#fff;
+  border-color:var(--red); box-shadow:var(--glow);
+}
+.tab small{font-weight:500; font-size:10px; opacity:.75}
+
+/* ===== PANELS ===== */
+.panel{display:none}
+.panel.active{display:block; animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:20px; margin-bottom:14px; position:relative;
+}
+.card h2{font-size:18px; font-weight:800; margin-bottom:4px; display:flex; align-items:center; gap:8px}
+.card .sub{color:var(--ink3); font-size:13px; margin-bottom:14px}
+
+/* difficulty chip */
+.chip{display:inline-block; padding:3px 10px; border-radius:99px; font-size:11px; font-weight:700; background:var(--bg3); color:var(--ink2); border:1px solid var(--border)}
+
+/* ===== SETTINGS ROW ===== */
+.setting-row{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:14px}
+select,input[type=number],input[type=text]{
+  background:var(--bg3); border:1px solid var(--border); color:var(--ink);
+  border-radius:10px; padding:9px 12px; font-size:14px; font-family:inherit; outline:none;
+}
+select:focus,input:focus{border-color:var(--red)}
+label.lbl{font-size:13px; color:var(--ink2); font-weight:600}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px; border:none; cursor:pointer;
+  border-radius:12px; padding:11px 20px; font-weight:700; font-size:14px; font-family:inherit;
+  transition:.18s; color:#fff;
+}
+.btn.primary{background:linear-gradient(135deg,var(--red),var(--red3)); box-shadow:0 4px 14px rgba(239,68,68,.3)}
+.btn.primary:hover{transform:translateY(-2px); box-shadow:0 6px 20px rgba(239,68,68,.45)}
+.btn.ghost{background:var(--card2); color:var(--ink); border:1px solid var(--border)}
+.btn.ghost:hover{border-color:var(--red); color:#fff}
+.btn.gold{background:linear-gradient(135deg,#f59e0b,#b45309); box-shadow:0 4px 14px rgba(245,158,11,.3)}
+.btn:disabled{opacity:.4; cursor:not-allowed; transform:none!important}
+.btn.sm{padding:7px 14px; font-size:13px; border-radius:10px}
+
+/* ===== TYPING MODE ===== */
+.battle-scene{
+  text-align:center; padding:26px 18px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(239,68,68,.12) 0%, transparent 60%), var(--card);
+  border:1px solid var(--border); border-radius:var(--radius); position:relative; overflow:hidden;
+}
+.enemy{
+  font-size:64px; line-height:1; margin:6px 0 2px; filter:drop-shadow(0 6px 16px rgba(0,0,0,.4));
+  display:inline-block; transition:.25s;
+}
+.enemy.hit{transform:scale(.85) rotate(-8deg)}
+.enemy.defeated{transform:translateY(40px) rotate(90deg); opacity:0}
+.hpbar{max-width:320px; margin:10px auto 4px; height:14px; border-radius:99px; background:var(--bg3); overflow:hidden; border:1px solid var(--border)}
+.hpbar>div{height:100%; width:100%; background:linear-gradient(90deg,#22c55e,#84cc16); transition:width .3s, background .3s}
+.hpbar.low>div{background:linear-gradient(90deg,var(--red),#f97316)}
+.hp-num{font-size:11px; color:var(--ink3); font-weight:600}
+
+.word-display{font-family:'Noto Sans JP',sans-serif}
+.word-display .kanji{font-size:52px; font-weight:900; letter-spacing:2px; margin:14px 0 2px; text-shadow:0 4px 20px rgba(0,0,0,.5)}
+.word-display .hint{font-size:16px; color:var(--ink2); min-height:24px; margin-bottom:6px}
+.meaning{font-size:15px; color:var(--ink3); margin-bottom:14px}
+
+.kana-box{
+  display:flex; flex-wrap:wrap; gap:6px; justify-content:center; min-height:52px;
+  padding:14px; background:var(--bg3); border:2px dashed var(--border); border-radius:14px; margin-bottom:16px;
+}
+.kana-box.flash-wrong{border-color:var(--red); animation:shake .3s}
+.kana-box.flash-good{border-color:var(--green); animation:pulseGood .4s}
+@keyframes shake{0%,100%{transform:none}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes pulseGood{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+.kana-cell{
+  min-width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Sans JP',sans-serif; font-size:22px; font-weight:500;
+  background:var(--card2); border:1px solid var(--border); border-radius:8px;
+  color:var(--ink3); transition:.15s;
+}
+.kana-cell.filled{color:var(--ink); border-color:var(--cyan); background:rgba(6,182,212,.12); animation:pop .2s}
+.kana-cell.correct{color:#fff; border-color:var(--green); background:rgba(16,185,129,.3)}
+.kana-cell.wrong-char{color:#fff; border-color:var(--red); background:rgba(239,68,68,.35)}
+@keyframes pop{from{transform:scale(.7)}to{transform:scale(1)}}
+
+.romaji-hint{font-family:'Orbitron',monospace; font-size:14px; color:var(--ink3); letter-spacing:1px; min-height:20px; margin-bottom:8px}
+
+.romaji-input-wrap{display:flex; gap:8px; justify-content:center; margin-bottom:14px; flex-wrap:wrap}
+.type-input{
+  flex:1; max-width:340px; background:var(--bg3); border:2px solid var(--border); color:var(--ink);
+  border-radius:12px; padding:13px 16px; font-size:18px; font-family:'Orbitron',monospace; outline:none;
+  text-align:center; letter-spacing:1px; transition:.2s;
+}
+.type-input:focus{border-color:var(--red); box-shadow:var(--glow)}
+.type-input.correct{border-color:var(--green); box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+.type-input.wrong{border-color:var(--red); box-shadow:0 0 0 3px rgba(239,68,68,.2); animation:shake .3s}
+
+.controls{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:8px}
+.control-btn{
+  width:44px;height:44px;border-radius:12px;border:1px solid var(--border);background:var(--card2);
+  color:var(--ink2);font-size:18px;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;
+}
+.control-btn:hover{border-color:var(--red); color:#fff; transform:translateY(-2px)}
+.control-btn.hint-used{opacity:.3; pointer-events:none}
+
+.combo-indicator{position:absolute; top:14px; right:16px; font-family:'Orbitron',sans-serif; font-weight:800; font-size:15px; color:var(--gold); text-shadow:0 0 12px rgba(245,158,11,.5)}
+.quote{font-size:12px; color:var(--ink3); font-style:italic; min-height:18px}
+
+/* ===== QUIZ ===== */
+.quiz-q{font-family:'Noto Sans JP',sans-serif; font-size:42px; font-weight:900; text-align:center; margin:10px 0 18px}
+.quiz-q .yomigana{display:block; font-size:18px; font-weight:500; color:var(--ink2); margin-top:4px}
+.options{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.opt{
+  padding:16px 12px; border-radius:14px; background:var(--card2); border:1px solid var(--border);
+  color:var(--ink); font-size:15px; font-weight:600; cursor:pointer; transition:.15s; text-align:center;
+}
+.opt:hover{border-color:var(--red); transform:translateY(-2px)}
+.opt.correct{background:rgba(16,185,129,.25); border-color:var(--green); color:#fff}
+.opt.wrong{background:rgba(239,68,68,.25); border-color:var(--red); color:#fff}
+.opt:disabled{cursor:default; opacity:.7}
+@media(max-width:520px){.options{grid-template-columns:1fr}}
+
+/* ===== FLASHCARD ===== */
+.flash-wrap{perspective:1200px; max-width:420px; margin:0 auto; cursor:pointer}
+.flash-inner{position:relative; width:100%; height:260px; transition:transform .5s; transform-style:preserve-3d}
+.flash-wrap.flip .flash-inner{transform:rotateY(180deg)}
+.flash-face{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  background:var(--card2); border:2px solid var(--border); padding:20px;
+}
+.flash-face.front{background:linear-gradient(145deg,var(--card2),var(--card)); box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.flash-face.back{transform:rotateY(180deg); background:linear-gradient(145deg,#1c2a4a,#16203a); border-color:var(--cyan)}
+.flash-face .big{font-family:'Noto Sans JP',sans-serif; font-size:44px; font-weight:900}
+.flash-face .small{color:var(--ink2); font-size:16px}
+.flash-nav{display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap}
+
+/* ===== MEMORY ===== */
+.mem-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+.mem-card{aspect-ratio:1; cursor:pointer; perspective:600px}
+.mem-inner{position:relative; width:100%; height:100%; transition:transform .4s; transform-style:preserve-3d}
+.mem-card.flip .mem-inner{transform:rotateY(180deg)}
+.mem-face{position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; text-align:center; padding:6px}
+.mem-face.front{background:linear-gradient(135deg,var(--red2),var(--red3)); color:#fff; font-size:26px}
+.mem-face.back{transform:rotateY(180deg); background:var(--card2); border:1px solid var(--border); color:var(--ink)}
+.mem-face.back.jp{font-family:'Noto Sans JP',sans-serif; font-size:20px}
+.mem-card.matched{pointer-events:none}
+.mem-card.matched .mem-inner{opacity:.35}
+@media(max-width:520px){.mem-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* ===== IMPORT / MANAGER ===== */
+.import-area textarea{
+  width:100%; min-height:140px; background:var(--bg3); border:1px solid var(--border); color:var(--ink);
+  border-radius:12px; padding:14px; font-size:13px; font-family:'SF Mono',Menlo,monospace; outline:none; resize:vertical;
+  line-height:1.6;
+}
+.import-area textarea:focus{border-color:var(--red)}
+.import-area .fmt-hint{font-size:12px; color:var(--ink3); margin:8px 0 4px; line-height:1.5}
+.import-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+.import-summary{font-size:13px; color:var(--ink2); font-weight:600; margin-top:10px}
+.import-list{max-height:280px; overflow-y:auto; margin-top:10px}
+.imp-row{display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--bg3); border-radius:10px; margin-bottom:6px; font-size:13px}
+.imp-row .jp{font-family:'Noto Sans JP',sans-serif; font-weight:700}
+.imp-row .rd{color:var(--ink2)}
+.imp-row .me{color:var(--ink3); margin-left:auto; text-align:right}
+.imp-row .del{cursor:pointer; color:var(--red); font-weight:700; padding:2px 6px; border-radius:6px}
+.imp-row .del:hover{background:rgba(239,68,68,.2)}
+
+/* ===== AI / OPENROUTER ===== */
+.ai-row{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px}
+.ai-row label{font-size:13px; color:var(--ink2); font-weight:600; min-width:70px}
+.ai-row input[type=password], .ai-row select{flex:1; min-width:200px}
+.ai-prompt{width:100%; min-height:70px; background:var(--bg3); border:1px solid var(--border); color:var(--ink);
+  border-radius:12px; padding:12px; font-size:13px; font-family:inherit; outline:none; resize:vertical}
+.ai-prompt:focus{border-color:var(--cyan)}
+.ai-status{font-size:13px; margin-top:10px; min-height:20px; color:var(--ink2)}
+
+/* ===== STATS / RESULTS ===== */
+.result-banner{text-align:center; padding:20px}
+.result-banner .emoji{font-size:60px; margin-bottom:8px}
+.result-banner .score{font-family:'Orbitron',sans-serif; font-size:34px; font-weight:800; color:var(--gold)}
+.result-banner .detail{color:var(--ink2); margin:6px 0 14px; font-size:14px}
+.stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:14px 0}
+.stat-box{background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center}
+.stat-box .n{font-family:'Orbitron',sans-serif; font-size:24px; font-weight:800}
+.stat-box .l{font-size:11px; color:var(--ink3); font-weight:600; margin-top:2px; text-transform:uppercase; letter-spacing:1px}
+
+.wrong-list{text-align:left; margin-top:12px}
+.wrong-list h3{font-size:14px; margin-bottom:8px; color:var(--red)}
+.wrong-row{display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--bg3); border-radius:10px; margin-bottom:6px; font-size:13px}
+.wrong-row .jp{font-family:'Noto Sans JP',sans-serif; font-weight:700}
+.wrong-row .rd{color:var(--ink2)}
+.wrong-row .me{color:var(--ink3); margin-left:auto; text-align:right}
+
+/* ===== TOAST ===== */
+#toast{
+  position:fixed; bottom:100px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--card2); border:1px solid var(--border); color:var(--ink);
+  padding:12px 22px; border-radius:14px; font-weight:600; font-size:14px; z-index:999;
+  opacity:0; pointer-events:none; transition:.3s; box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+#toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+/* ===== MODAL LEVELUP ===== */
+#modal-level{position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:1000; backdrop-filter:blur(4px)}
+#modal-level.show{display:flex}
+.level-card{background:var(--card); border:2px solid var(--gold); border-radius:20px; padding:30px 40px; text-align:center; animation:pop .4s}
+.level-card .lvl{font-family:'Orbitron',sans-serif; font-size:52px; font-weight:800; color:var(--gold); margin:6px 0}
+.level-card h3{font-size:20px; margin-bottom:6px}
+.level-card p{color:var(--ink2); font-size:14px; margin-bottom:16px}
+@keyframes pop{from{transform:scale(.6); opacity:0}to{transform:scale(1); opacity:1}}
+
+/* ===== FLOATING +FX ===== */
+.fx{position:fixed; pointer-events:none; font-weight:800; z-index:900; animation:fxUp 1s ease-out forwards}
+@keyframes fxUp{0%{opacity:1; transform:translateY(0) scale(1)}100%{opacity:0; transform:translateY(-60px) scale(1.3)}}
+
+/* scrollbar */
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:99px}
+::-webkit-scrollbar-track{background:transparent}
+
+@media(max-width:560px){
+  .tabs{grid-template-columns:repeat(3,1fr)}
+  .kanji-display{font-size:44px}
+  .enemy{font-size:52px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="logo">
+      <div class="emblem">⚔️</div>
+      <div>
+        <span class="title">N3 NINJA QUEST</span>
+        <small>LUYỆN GÕ & TỪ VỰNG</small>
+      </div>
+    </div>
+    <div class="hud">
+      <div class="badge level"><span class="ico">🥷</span><span id="hud-level" class="val">LV 1</span></div>
+      <div class="badge xp"><span class="ico">✦</span><span id="hud-xp" class="val">0</span>XP</div>
+      <div class="badge streak"><span class="ico">🔥</span><span id="hud-streak" class="val">0</span> ngày</div>
+    </div>
+  </div>
+  <div class="xpbar"><div id="xpbar-fill"></div></div>
+
+  <!-- NAV -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-mode="typing"><span class="ti">⌨️</span>Luyện gõ<small>Hiragana</small></div>
+    <div class="tab" data-mode="quiz"><span class="ti">⚔️</span>Trắc nghiệm<small>4 đáp án</small></div>
+    <div class="tab" data-mode="flash"><span class="ti">🎴</span>Flashcard<small>Lật thẻ</small></div>
+    <div class="tab" data-mode="memory"><span class="ti">🧩</span>Ghép cặp<small>Memory</small></div>
+    <div class="tab" data-mode="manage"><span class="ti">📚</span>Quản lý<small>Import từ</small></div>
+  </div>
+
+  <!-- ============ TYPING PANEL ============ -->
+  <div class="panel active" id="panel-typing">
+    <div class="setting-row">
+      <label class="lbl">Chủ đề:</label>
+      <select id="type-topic"></select>
+      <label class="lbl">Số từ:</label>
+      <select id="type-count">
+        <option value="5">5 từ</option>
+        <option value="10" selected>10 từ</option>
+        <option value="20">20 từ</option>
+        <option value="0">Tất cả</option>
+      </select>
+      <button class="btn primary sm" id="type-start">▶ Bắt đầu</button>
+    </div>
+
+    <div id="type-battle" class="battle-scene" style="display:none">
+      <div class="combo-indicator" id="type-combo">COMBO ×0</div>
+      <div class="enemy" id="type-enemy">👹</div>
+      <div class="hpbar" id="type-hpbar"><div></div></div>
+      <div class="hp-num" id="type-hpnum">HP 100/100</div>
+      <div class="word-display">
+        <div class="kanji" id="type-kanji">―</div>
+        <div class="hint" id="type-hint">Gõ romaji bên dưới ⬇</div>
+        <div class="meaning" id="type-meaning">―</div>
+      </div>
+      <div class="romaji-input-wrap">
+        <input type="text" id="type-input" class="type-input" placeholder="Gõ romaji... (vd: nihongo)"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="btn primary sm" id="type-check" onclick="typeCheck()">✓ Kiểm tra</button>
+      </div>
+      <div class="kana-box" id="type-kana"></div>
+      <div class="romaji-hint" id="type-typed"></div>
+      <div class="controls">
+        <button class="control-btn" id="type-skip" title="Bỏ qua">⏭️</button>
+        <button class="control-btn" id="type-speak" title="Đọc to">🔊</button>
+      </div>
+      <div class="quote" id="type-quote">Bắt đầu chiến đấu nào, ninja!</div>
+    </div>
+    <div id="type-result"></div>
+  </div>
+
+  <!-- ============ QUIZ PANEL ============ -->
+  <div class="panel" id="panel-quiz">
+    <div class="setting-row">
+      <label class="lbl">Chủ đề:</label>
+      <select id="quiz-topic"></select>
+      <label class="lbl">Số câu:</label>
+      <select id="quiz-count">
+        <option value="5">5 câu</option>
+        <option value="10" selected>10 câu</option>
+        <option value="20">20 câu</option>
+        <option value="0">Tất cả</option>
+      </select>
+      <button class="btn primary sm" id="quiz-start">▶ Bắt đầu</button>
+    </div>
+    <div class="card" id="quiz-body" style="display:none">
+      <div class="combo-indicator" style="position:static;text-align:right;margin-bottom:4px" id="quiz-combo">COMBO ×0</div>
+      <div class="quiz-q"><span id="quiz-kanji">―</span><span class="yomigana" id="quiz-yomi"></span></div>
+      <div class="options" id="quiz-opts"></div>
+      <div style="text-align:center;margin-top:14px;color:var(--ink3);font-size:13px" id="quiz-progress">1 / 10</div>
+    </div>
+    <div id="quiz-result"></div>
+  </div>
+
+  <!-- ============ FLASH PANEL ============ -->
+  <div class="panel" id="panel-flash">
+    <div class="setting-row">
+      <label class="lbl">Chủ đề:</label>
+      <select id="flash-topic"></select>
+      <button class="btn primary sm" id="flash-start">▶ Bắt đầu</button>
+    </div>
+    <div class="card" id="flash-body" style="display:none">
+      <div class="flash-wrap" id="flash-wrap">
+        <div class="flash-inner">
+          <div class="flash-face front">
+            <div class="small" id="flash-idx">1 / 10</div>
+            <div class="big" id="flash-front">―</div>
+          </div>
+          <div class="flash-face back">
+            <div class="big" id="flash-yomi">―</div>
+            <div class="small" id="flash-meaning">―</div>
+          </div>
+        </div>
+      </div>
+      <div class="flash-nav">
+        <button class="btn ghost sm" id="flash-prev">◀ Trước</button>
+        <button class="btn gold sm" id="flash-speak">🔊 Đọc</button>
+        <button class="btn primary sm" id="flash-next">Sau ▶</button>
+      </div>
+      <div style="text-align:center;margin-top:12px">
+        <button class="btn ghost sm" id="flash-shuffle">🔀 Trộn thẻ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MEMORY PANEL ============ -->
+  <div class="panel" id="panel-memory">
+    <div class="setting-row">
+      <label class="lbl">Chủ đề:</label>
+      <select id="mem-topic"></select>
+      <button class="btn primary sm" id="mem-start">▶ Bắt đầu</button>
+    </div>
+    <div class="card" id="mem-body" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span class="chip" id="mem-pairs">Cặp: 0</span>
+        <span class="chip" id="mem-moves">Lượt: 0</span>
+        <span class="chip" id="mem-timer">⏱ 0:00</span>
+      </div>
+      <div class="mem-grid" id="mem-grid"></div>
+    </div>
+    <div id="mem-result"></div>
+  </div>
+
+  <!-- ============ MANAGE PANEL ============ -->
+  <div class="panel" id="panel-manage">
+    <div class="card">
+      <h2>📥 Import từ vựng</h2>
+      <div class="sub">Dán danh sách từ theo định dạng dưới đây — mỗi từ 1 dòng. Dấu phân cách có thể là <b>=</b>, <b>|</b>, hoặc tab.</div>
+      <div class="import-area">
+        <textarea id="import-text" placeholder="kanji = cách đọc = nghĩa&#10;例：&#10;勉強 = べんきょう = Học tập&#10;旅行 = りょこう = Du lịch&#10;食べる = たべる = Ăn"></textarea>
+        <div class="fmt-hint">📌 Định dạng: <code>kanji = cách đọc = nghĩa</code> · mỗi từ một dòng.<br>
+        Nếu dòng có <b>2 phần</b>: <code>kanji = nghĩa</code> (tự dùng kanji làm cách đọc).</div>
+        <div class="import-actions">
+          <button class="btn primary sm" onclick="importWords()">📥 Import</button>
+          <button class="btn ghost sm" onclick="clearImported()">🗑 Xóa từ đã import</button>
+          <button class="btn ghost sm" onclick="toggleAiPanel()">🤖 AI (OpenRouter)</button>
+        </div>
+        <div class="import-summary" id="import-summary"></div>
+        <div class="import-list" id="import-list"></div>
+      </div>
+    </div>
+
+    <div class="card" id="ai-panel" style="display:none">
+      <h2>🤖 AI — OpenRouter</h2>
+      <div class="sub">Dùng AI để tạo câu ví dụ tiếng Nhật cho từ vựng, giúp học ngữ cảnh thực tế.</div>
+      <div class="ai-row">
+        <label>API Key:</label>
+        <input type="password" id="or-key" placeholder="sk-or-v1-..." value="">
+      </div>
+      <div class="ai-row">
+        <label>Model:</label>
+        <select id="or-model">
+          <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nvidia Nemotron 3 Ultra 550B (Free)</option>
+          <option value="google/gemini-2.5-flash">Gemini 2.5 Flash (Nhanh & Tốt)</option>
+          <option value="meta-llama/llama-3.3-70b-instruct">Llama 3.3 70B</option>
+          <option value="deepseek/deepseek-chat">DeepSeek Chat</option>
+          <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+        </select>
+      </div>
+      <div class="ai-row">
+        <label>Loại:</label>
+        <select id="or-task">
+          <option value="sentence">📝 Tạo câu ví dụ</option>
+          <option value="quiz">❓ Tạo câu hỏi trắc nghiệm</option>
+          <option value="meaning">💡 Giải thích từ</option>
+        </select>
+      </div>
+      <div class="ai-row">
+        <label>Ghi chú:</label>
+        <input type="text" id="or-extra" placeholder="VD: chủ đề du lịch, trình độ N3..." style="flex:1">
+      </div>
+      <div class="ai-actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px">
+        <button class="btn gold sm" onclick="runAI()">✨ Chạy AI</button>
+        <button class="btn ghost sm" onclick="saveAiSettings()">💾 Lưu cài đặt</button>
+      </div>
+      <div class="ai-status" id="or-status">Điền API Key và bấm "Chạy AI".</div>
+      <div class="ai-output" id="or-output"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+<!-- LEVEL UP MODAL -->
+<div id="modal-level"><div class="level-card"><div>🥷</div><h3>LEVEL UP!</h3><div class="lvl" id="lvl-num">2</div><p id="lvl-title">Chuẩn bị hành trang mới...</p><button class="btn gold" onclick="closeLevel()">Tiếp tục</button></div></div>
+
+<script src="vocab-data.js"></script>
+<script>
+/* ============ STATE ============ */
+const $ = id => document.getElementById(id);
+let session = null; // active game session
+const MODES = { typing:'typing', quiz:'quiz', flash:'flash', memory:'memory' };
+
+/* ============ TOPICS FROM DATA ============ */
+const TOPICS = buildTopics();
+function buildTopics(){
+  const map = new Map();
+  for(const w of N3_VOCAB){
+    const k = w.k[0] || '#';
+    if(!map.has(k)) map.set(k, []);
+    map.get(k).push(w);
+  }
+  const arr = [...map.entries()].map(([k,v]) => ({key:k, words:v})).sort((a,b)=>a.key.localeCompare(b.key,'ja'));
+  return arr;
+}
+function topicOptions(selId){
+  const sel = $(selId);
+  sel.innerHTML = '';
+  const all = document.createElement('option');
+  all.value = 'all'; all.textContent = `📚 Tất cả (${allWords().length} từ)`;
+  sel.appendChild(all);
+  TOPICS.forEach((t,i)=>{
+    const o = document.createElement('option');
+    o.value = i; o.textContent = `${t.custom ? '⭐ ' : ''}${t.key} — ${t.words.length} từ`;
+    sel.appendChild(o);
+  });
+}
+
+/* ============ CUSTOM WORDS (import) ============ */
+const CUSTOM_KEY = 'n3ninja_custom_v1';
+function loadCustom(){ try{ return JSON.parse(localStorage.getItem(CUSTOM_KEY) || '[]'); }catch(e){ return []; } }
+function saveCustom(arr){ try{ localStorage.setItem(CUSTOM_KEY, JSON.stringify(arr)); }catch(e){} }
+function allWords(){
+  return [...loadCustom(), ...N3_VOCAB];
+}
+function refreshTopics(){
+  // rebuild from custom + builtin (custom first so it appears on top)
+  const combined = allWords();
+  const map = new Map();
+  for(const w of combined){
+    const k = w.k[0] || '#';
+    if(!map.has(k)) map.set(k, []);
+    map.get(k).push(w);
+  }
+  TOPICS.length = 0;
+  TOPICS.push(...[...map.entries()].map(([k,v])=>({key:k, words:v, custom:v.some(w=>w.custom)})).sort((a,b)=>{
+    // custom topics first
+    if(a.custom!==b.custom) return a.custom? -1 : 1;
+    return a.key.localeCompare(b.key,'ja');
+  }));
+  ['type-topic','quiz-topic','flash-topic','mem-topic'].forEach(t=>topicOptions(t));
+}
+function parseImportText(raw){
+  const lines = raw.split(/\r?\n/);
+  const result = [];
+  for(let line of lines){
+    line = line.trim();
+    if(!line || line.startsWith('//') || line.startsWith('#')) continue;
+    // split by =, |, or tab
+    const parts = line.split(/[=|\t]/).map(p=>p.trim());
+    if(parts.length >= 3){
+      result.push({ k:parts[0], h:parts[1], m:parts[2] });
+    } else if(parts.length === 2){
+      result.push({ k:parts[0], h:parts[0], m:parts[1] });
+    }
+  }
+  return result;
+}
+function importWords(){
+  const raw = $('import-text').value;
+  if(!raw.trim()){ toast('Hãy dán từ vào ô trên trước!'); return; }
+  const parsed = parseImportText(raw);
+  if(!parsed.length){ toast('Không parse được từ nào. Kiểm tra lại định dạng!', true); return; }
+  const custom = loadCustom();
+  let added = 0, skipped = 0;
+  const seen = new Set(custom.map(w=>w.k+'|'+w.h));
+  for(const p of parsed){
+    if(!p.k || !p.h || !p.m) continue;
+    if(seen.has(p.k+'|'+p.h)){ skipped++; continue; }
+    seen.add(p.k+'|'+p.h);
+    custom.push({ k:p.k, h:p.h, m:p.m, custom:true });
+    added++;
+  }
+  saveCustom(custom);
+  refreshTopics();
+  renderImportList();
+  toast(`✅ Đã import ${added} từ${skipped?` (bỏ ${skipped} trùng)`:''}`);
+  $('import-text').value = '';
+}
+function clearImported(){
+  const custom = loadCustom();
+  if(!custom.length){ toast('Chưa có từ nào để xóa'); return; }
+  if(!confirm(`Xóa toàn bộ ${custom.length} từ đã import?`)) return;
+  saveCustom([]);
+  refreshTopics();
+  renderImportList();
+  toast('Đã xóa từ import');
+}
+function renderImportList(){
+  const custom = loadCustom();
+  $('import-summary').textContent = `Từ đã import: ${custom.length} từ`;
+  const list = $('import-list');
+  if(!custom.length){ list.innerHTML = '<div class="import-summary" style="color:var(--ink3)">Chưa có từ import.</div>'; return; }
+  list.innerHTML = custom.map((w,i)=>`
+    <div class="imp-row">
+      <span class="jp">${w.k}</span>
+      <span class="rd">${w.h}</span>
+      <span class="me">${w.m}</span>
+      <span class="del" onclick="deleteImported(${i})" title="Xóa">✕</span>
+    </div>`).join('');
+}
+function deleteImported(i){
+  const custom = loadCustom();
+  custom.splice(i,1);
+  saveCustom(custom);
+  refreshTopics();
+  renderImportList();
+}
+
+/* ============ OPENROUTER AI ============ */
+const OR_KEY = 'n3ninja_or_key';
+const OR_MODEL = 'n3ninja_or_model';
+const OR_TASK = 'n3ninja_or_task';
+function toggleAiPanel(){
+  const p = $('ai-panel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+  loadAiSettings();
+  if(p.style.display === 'block') renderImportList();
+}
+function loadAiSettings(){
+  const key = localStorage.getItem(OR_KEY) || '';
+  const model = localStorage.getItem(OR_MODEL) || 'nvidia/nemotron-3-ultra-550b-a55b:free';
+  const task = localStorage.getItem(OR_TASK) || 'sentence';
+  $('or-key').value = key;
+  $('or-model').value = model;
+  $('or-task').value = task;
+}
+function saveAiSettings(){
+  localStorage.setItem(OR_KEY, $('or-key').value.trim());
+  localStorage.setItem(OR_MODEL, $('or-model').value);
+  localStorage.setItem(OR_TASK, $('or-task').value);
+  toast('💾 Đã lưu cài đặt AI');
+}
+function getAiSettings(){
+  return {
+    key: localStorage.getItem(OR_KEY) || '',
+    model: localStorage.getItem(OR_MODEL) || 'nvidia/nemotron-3-ultra-550b-a55b:free',
+    task: localStorage.getItem(OR_TASK) || 'sentence'
+  };
+}
+async function runAI(){
+  const { key, model, task } = getAiSettings();
+  if(!key){ setAIStatus('❌ Thiếu API Key OpenRouter!', true); return; }
+  const words = allWords();
+  if(!words.length){ setAIStatus('Chưa có từ vựng nào!'); return; }
+  // pick up to 5 words (custom first)
+  const pool = loadCustom().length ? loadCustom() : words.slice(0,5);
+  const chosen = pool.slice(0, 5);
+  const extra = $('or-extra').value.trim();
+  setAIStatus('⏳ Đang gọi AI...');
+  const btn = document.querySelector('.ai-actions .btn-gold, .ai-actions .btn'); // just visual
+  try{
+    const output = await callOpenRouter(chosen, task, extra, key, model);
+    $('or-output').innerHTML = output;
+    setAIStatus('✅ Hoàn tất!');
+    playSound('levelup');
+  }catch(e){
+    setAIStatus('❌ ' + e.message, true);
+  }
+}
+function setAIStatus(msg, isErr){
+  const el = $('or-status');
+  el.textContent = msg;
+  el.style.color = isErr ? 'var(--red)' : 'var(--ink2)';
+}
+function buildAIPrompt(words, task, extra){
+  const wordList = words.map((w,i)=>`${i+1}. ${w.k} [${w.h}] = ${w.m}`).join('\n');
+  let instr = '';
+  if(task === 'sentence'){
+    instr = `Hãy tạo 1 câu ví dụ tiếng Nhật cho MỖI từ bên dưới (trình độ N3).
+Yêu cầu: câu ngắn gọn (5-12 từ), tự nhiên, có nghĩa tiếng Việt.
+Trả về theo đúng format mỗi từ 1 dòng, dùng dấu | để phân cách:
+kanji = câu tiếng Nhật = nghĩa tiếng Việt của câu`;
+  } else if(task === 'quiz'){
+    instr = `Hãy tạo 1 câu hỏi trắc nghiệm tiếng Nhật cho MỖI từ bên dưới (trình độ N3).
+Câu hỏi dùng từ đó trong một câu có chỗ trống ____, 4 đáp án A-D.
+Trả về theo đúng format mỗi từ 1 dòng:
+kanji = câu hỏi = đáp án đúng = A)... B)... C)... D)...`;
+  } else {
+    instr = `Hãy giải thích ngắn gọn (1-2 câu tiếng Việt) cho MỖI từ bên dưới, kèm 1 ví dụ tiếng Nhật nhỏ.
+Trả về theo đúng format mỗi từ 1 dòng:
+kanji = giải thích tiếng Việt`;
+  }
+  if(extra) instr += `\nGhi chú thêm: ${extra}`;
+  return `Bộ từ vựng tiếng Nhật:\n${wordList}\n\n${instr}\n\nHãy trả về kết quả trực tiếp, không thêm lời dẫn.`;
+}
+async function callOpenRouter(words, task, extra, key, model){
+  const prompt = buildAIPrompt(words, task, extra);
+  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${key}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": "https://typing-jp-vinh.surge.sh",
+      "X-Title": "N3 Ninja Quest"
+    },
+    body: JSON.stringify({
+      model: model,
+      messages: [{ role: "user", content: prompt }]
+    })
+  });
+  if(!response.ok) throw new Error(`API Error: ${response.status}`);
+  const data = await response.json();
+  if(data.error) throw new Error(data.error.message || 'Lỗi API');
+  if(!data.choices || !data.choices.length || !data.choices[0].message) throw new Error('AI không trả về kết quả hợp lệ!');
+  let text = data.choices[0].message.content || '';
+  text = text.replace(/```json/gi, '').replace(/```/g, '').trim();
+  return formatAIResult(text, words);
+}
+function formatAIResult(text, words){
+  // Try to match per-word lines
+  const lines = text.split(/\r?\n/).filter(l=>l.trim());
+  let html = '<div style="margin-top:10px">';
+  for(const w of words){
+    // find a line that starts with this word
+    const line = lines.find(l => l.trim().startsWith(w.k));
+    const parts = line ? line.split(/[=|]/).map(p=>p.trim()) : null;
+    if(parts && parts.length >= 2){
+      html += `<div class="imp-row"><span class="jp">${w.k}</span><span class="rd">${parts[1]}</span><span class="me">${parts.slice(2).join(' · ') || w.m}</span></div>`;
+    } else {
+      html += `<div class="imp-row"><span class="jp">${w.k}</span><span class="me">${w.m}</span></div>`;
+    }
+  }
+  html += '</div>';
+  // Also show raw
+  html += `<div style="margin-top:10px"><details><summary style="cursor:pointer;color:var(--ink2);font-size:13px">Xem chi tiết</summary><pre style="white-space:pre-wrap;background:var(--bg3);border-radius:10px;padding:12px;font-size:12px;color:var(--ink2);margin-top:8px">${escHtml(text)}</pre></details></div>`;
+  return html;
+}
+function escHtml(s){ return s.replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function getWords(selId){
+  const sel = $(selId);
+  if(sel.value === 'all') return allWords();
+  return TOPICS[+sel.value].words;
+}
+function pickWords(selId, count){
+  const pool = getWords(selId);
+  const n = count === 0 ? pool.length : Math.min(count, pool.length);
+  const arr = [...pool];
+  // shuffle
+  for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  return arr.slice(0,n);
+}
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+const LEVELS = [
+  {x:0,   t:'🥷 Tân binh Genin'},
+  {x:50,  t:'⛩️ Chūnin sơ tập'},
+  {x:150, t:'🏯 Chūnin'},
+  {x:300, t:'🔥 Jōnin cấp 3'},
+  {x:500, t:'🌪️ Jōnin cấp 2'},
+  {x:800, t:'⚡ Jōnin cấp 1'},
+  {x:1200,t:'🌀 Tokubetsu Jōnin'},
+  {x:1800,t:'👑 Kage - Hokage'},
+  {x:2600,t:'☠️ Anbu Huyền thoại'},
+];
+const QUOTES = [
+  'Ganbatte! Cứ thế nhé!', 'Chính xác, ninja!', 'Một đòn trí mạng!',
+  'Bạn đang lên tay rồi đấy!', 'Konoha tự hào về bạn!', 'Cú đánh này quá đẹp!',
+  'Tinh thần samurai!', 'Chỉ số ninja của bạn rất cao!', 'Kage sẽ ấn tượng lắm!'
+];
+const EMOJI_MONSTERS = ['👹','👺','💀','👻','🐲','🦖','🐙','🦂','🤖','🧟','🐍','🕷️','👾','🥷','🎃'];
+const ENEMY_NAMES = ['Bạo Chúa 鬼','Quỷ Đầu 山','Hắc Ám 闇','Quái Thú 獣','Ác Linh 霊','Yêu Quái 妖','Ma Vương 魔','Rồng Đen 竜','Cừu Nhân 人','Bóng Đêm 影'];
+
+/* ============ ROMAJI → HIRAGANA ============ */
+const romajiMap = [
+  ['tchi','っち'],['cchi','っち'],['ttsu','っつ'],['ssh','っし'],
+  ['chi','ち'],['shi','し'],['tsu','つ'],
+  ['sha','しゃ'],['shu','しゅ'],['she','しぇ'],['sho','しょ'],
+  ['cha','ちゃ'],['chu','ちゅ'],['che','ちぇ'],['cho','ちょ'],
+  ['tya','ちゃ'],['tyi','ち'],['tyu','ちゅ'],['tye','ちぇ'],['tyo','ちょ'],
+  ['nya','にゃ'],['nyu','にゅ'],['nye','にぇ'],['nyo','にょ'],
+  ['hya','ひゃ'],['hyu','ひゅ'],['hye','ひぇ'],['hyo','ひょ'],
+  ['mya','みゃ'],['myu','みゅ'],['mye','みぇ'],['myo','みょ'],
+  ['rya','りゃ'],['ryu','りゅ'],['rye','りぇ'],['ryo','りょ'],
+  ['kya','きゃ'],['kyu','きゅ'],['kyo','きょ'],
+  ['gya','ぎゃ'],['gyu','ぎゅ'],['gyo','ぎょ'],
+  ['pya','ぴゃ'],['pyu','ぴゅ'],['pyo','ぴょ'],
+  ['bya','びゃ'],['byu','びゅ'],['byo','びょ'],
+  ['ja','じゃ'],['ji','じ'],['ju','じゅ'],['je','じぇ'],['jo','じょ'],
+  ['za','ざ'],['zi','じ'],['zu','ず'],['ze','ぜ'],['zo','ぞ'],
+  ['da','だ'],['di','ぢ'],['du','づ'],['de','で'],['do','ど'],
+  ['ba','ば'],['bi','び'],['bu','ぶ'],['be','べ'],['bo','ぼ'],
+  ['pa','ぱ'],['pi','ぴ'],['pu','ぷ'],['pe','ぺ'],['po','ぽ'],
+  ['fa','ふぁ'],['fi','ふぃ'],['fu','ふ'],['fe','ふぇ'],['fo','ふぉ'],
+  ['ka','か'],['ki','き'],['ku','く'],['ke','け'],['ko','こ'],
+  ['ga','が'],['gi','ぎ'],['gu','ぐ'],['ge','げ'],['go','ご'],
+  ['sa','さ'],['si','し'],['su','す'],['se','せ'],['so','そ'],
+  ['ta','た'],['ti','ち'],['tu','つ'],['te','て'],['to','と'],
+  ['na','な'],['ni','に'],['nu','ぬ'],['ne','ね'],['no','の'],
+  ['ha','は'],['hi','ひ'],['hu','ふ'],['he','へ'],['ho','ほ'],
+  ['ma','ま'],['mi','み'],['mu','む'],['me','め'],['mo','も'],
+  ['ya','や'],['yu','ゆ'],['yo','よ'],
+  ['ra','ら'],['ri','り'],['ru','る'],['re','れ'],['ro','ろ'],
+  ['wa','わ'],['wi','ゐ'],['we','ゑ'],['wo','を'],
+  ['a','あ'],['i','い'],['u','う'],['e','え'],['o','お'],
+  ['nnya','んにゃ'],['nnyu','んにゅ'],['nnyo','んにょ'],
+  ['nna','んな'],['nni','んに'],['nnu','んぬ'],['nne','んね'],['nno','んの'],
+  ['nn','ん'],['n','ん']
+];
+function romajiToHiragana(str, targetHira = ''){
+  let s = str.toLowerCase().trim();
+  let result = '', i = 0, hiraIdx = 0;
+  while(i < s.length){
+    if(i+1 < s.length && s[i] !== 'n' && s[i] === s[i+1] && /[bcdfghjklmnpqrstvwxyz]/.test(s[i])){
+      result += 'っ'; i++; hiraIdx++; continue;
+    }
+    let matches = [];
+    for(const [rom,hira] of romajiMap){
+      if(s.startsWith(rom, i)) matches.push({rom,hira});
+    }
+    if(matches.length){
+      matches.sort((a,b)=>b.rom.length-a.rom.length);
+      let best = matches[0];
+      if(targetHira){
+        for(const m of matches){
+          if(targetHira.startsWith(m.hira, hiraIdx)){ best = m; break; }
+        }
+      }
+      result += best.hira; i += best.rom.length; hiraIdx += best.hira.length;
+    } else {
+      result += s[i]; i++; hiraIdx++;
+    }
+  }
+  return result;
+}
+function hiraganaToRomaji(hira){
+  // Build reverse map (first match by longest romaji per hira sequence)
+  const rev = new Map();
+  for(const [rom,hira] of romajiMap){ rev.set(hira, rom); }
+  let out = '', i = 0;
+  while(i < hira.length){
+    if(hira[i] === 'っ' && i+1 < hira.length){
+      const nextHira = hira[i+1];
+      const nextRom = rev.get(nextHira) || '';
+      if(nextRom){ out += nextRom[0]; i++; continue; }
+    }
+    let found = false;
+    for(let len=3; len>=1; len--){
+      const sub = hira.substr(i, len);
+      if(rev.has(sub)){ out += rev.get(sub); i += len; found = true; break; }
+    }
+    if(!found){ out += hira[i]; i++; }
+  }
+  return out;
+}
+// Strip trailing non-hiragana (unconverted romaji leftovers) from a partial conversion
+function convPrefix(typed, target){
+  let c = romajiToHiragana(typed, target);
+  let end = c.length;
+  while(end > 0 && !/^[ぁ-ゖーッ]/.test(c[end-1])) end--;
+  c = c.slice(0, end);
+  // Pending 'n': strip trailing ん if the next target kana at that spot is an
+  // n-vowel (なにぬねの) or n-yōon (にゃにゅにょ). The ん isn't committed yet —
+  // the user still needs to type the following vowel/glide, and the n may have
+  // been consumed early by the greedy converter (e.g. 'kiny' → きにゅ, not きん).
+  if(c && c.endsWith('ん')){
+    const pos = c.length - 1;
+    if(pos < target.length && /^[なにぬねの]|^に[ゃゅょ]/.test(target.slice(pos))){
+      c = c.slice(0, -1);
+    }
+  }
+  return c;
+}
+// ---- Romaji spellings of a hiragana reading ----
+const hiraRomChoices = new Map([
+  ['し',['shi','si']],['ち',['chi','ti','tyi']],['つ',['tsu','tu']],
+  ['ふ',['fu','hu']],['じ',['ji','zi']],['ぢ',['di']],['づ',['du']],
+  ['を',['wo','o']],['ん',['n','nn']]
+]);
+const smallKana = new Map([['ゃ','ya'],['ゅ','yu'],['ょ','yo'],['ぃ','i'],['ぇ','e'],['ぁ','a']]);
+const hiraRomRev = (()=>{ const m=new Map(); for(const [rom,hira] of romajiMap) m.set(hira,rom); return m; })();
+function hiraBaseRom(ch){ return hiraRomRev.get(ch) || ch; }
+// Romaji for a single kana (or kana+small) — returns [spelling] list
+function kanaSpellings(ch, nextCh){
+  if(nextCh && smallKana.has(nextCh)){
+    const base = hiraBaseRom(ch);
+    const glide = smallKana.get(nextCh);
+    // e.g. きゃ → kya ; しゅ → shu/syu ; じょ → jo/zyo
+    const list = [];
+    if(ch === 'し'){
+      // し + ya/yu/yo → sha/shu/sho (drop the i)
+      if(glide === 'ya' || glide === 'yu' || glide === 'yo'){
+        list.push('sh'+glide[1], 'sy'+glide[1]);
+      } else {
+        list.push('shi'+glide, 'si'+glide);
+      }
+    }
+    else if(ch === 'ち'){
+      if(glide === 'ya' || glide === 'yu' || glide === 'yo'){
+        list.push('ch'+glide[1], 'ty'+glide[1]);
+      } else {
+        list.push('chi'+glide, 'ti'+glide);
+      }
+    }
+    else if(ch === 'じ'){
+      // じ + ya/yu/yo → ja/ju/jo (drop the i); + others → ji + glide
+      if(glide === 'ya' || glide === 'yu' || glide === 'yo'){
+        list.push('j'+glide[1], 'zy'+glide[1]);
+      } else {
+        list.push('ji'+glide, 'zi'+glide);
+      }
+    }
+    else if(ch === 'ぢ'){
+      list.push('dj'+glide);
+    }
+    else list.push(base.slice(0,-1) + glide);
+    return list;
+  }
+  return hiraRomChoices.get(ch) || [hiraBaseRom(ch)];
+}
+// All romaji spellings (full) of a hiragana string
+function spellings(h){
+  const out = [];
+  function rec(idx, acc){
+    if(idx >= h.length){ out.push(acc); return; }
+    const ch = h[idx];
+    if(ch === 'っ' && idx+1 < h.length){
+      // sokuon: doubled consonant of next kana, then that kana's spelling
+      const nsp = kanaSpellings(h[idx+1], h[idx+2]);
+      const nextCons = nsp[0][0];
+      // the doubled kana may itself be a yōon pair (e.g. っぴょ) → spans 2 kana
+      const kanaSpan = (h[idx+2] && smallKana.has(h[idx+2])) ? 2 : 1;
+      for(const nr of nsp){ rec(idx+1+kanaSpan, acc + nextCons + nr); }
+      return;
+    }
+    if(smallKana.has(ch)) return; // handled by pair below
+    const nsp = kanaSpellings(ch, h[idx+1]);
+    if(h[idx+1] && smallKana.has(h[idx+1])){
+      for(const s of nsp){ rec(idx+2, acc + s); }
+      return;
+    }
+    for(const s of nsp){ rec(idx+1, acc + s); }
+  }
+  rec(0,'');
+  return out;
+}
+const spellCache = new Map();
+function spellFor(target){ if(!spellCache.has(target)) spellCache.set(target, spellings(target)); return spellCache.get(target); }
+// Is the typed romaji a valid partial prefix of target reading?
+function isTypingValid(typed, target){
+  const sp = spellFor(target);
+  return sp.some(r => r.startsWith(typed));
+}
+// Has the user typed a complete spelling of the target?
+function isTypingComplete(typed, target){
+  return spellFor(target).includes(typed);
+}
+// The hiragana substring of `target` covered by the typed romaji prefix
+function hiraganaProgress(typed, target){
+  const sp = spellFor(target);
+  let bestHi = 0;
+  for(const r of sp){
+    if(!r.startsWith(typed)) continue;
+    // Map romaji progress → number of target kana fully covered, using the
+    // same per-kana spelling lengths as `spellings`.
+    let acc = 0, hi = 0;
+    while(hi < target.length){
+      const ch = target[hi];
+      let segLen, kanaSpan;
+      if(ch === 'っ' && hi+1 < target.length){
+        segLen = 1 + (kanaSpellings(target[hi+1], target[hi+2])[0]).length;
+        kanaSpan = 1 + ((hi+2 < target.length && smallKana.has(target[hi+2])) ? 2 : 1);
+      } else if(hi+1 < target.length && smallKana.has(target[hi+1])){
+        segLen = (kanaSpellings(ch, target[hi+1])[0]).length;
+        kanaSpan = 2;
+      } else {
+        segLen = (hiraRomChoices.get(ch) || [hiraBaseRom(ch)])[0].length;
+        kanaSpan = 1;
+      }
+      if(acc + segLen > typed.length) break;
+      acc += segLen; hi += kanaSpan;
+    }
+    if(hi > bestHi) bestHi = hi;
+  }
+  return target.slice(0, bestHi);
+}
+
+/* ============ AUDIO ============ */
+let audioCtx = null;
+function initAudio(){
+  if(!audioCtx){
+    try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+  }
+  if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+}
+function playTone(freq, dur=0.15, type='square', vol=0.08, when=0){
+  if(!audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  osc.type = type; osc.frequency.value = freq;
+  const t = audioCtx.currentTime + when;
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(vol, t+0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+  osc.connect(g).connect(audioCtx.destination);
+  osc.start(t); osc.stop(t+dur+0.05);
+}
+function playSound(type){
+  initAudio();
+  if(!audioCtx) return;
+  switch(type){
+    case 'correct': playTone(660,.12,'square',.06); playTone(880,.18,'square',.06,.09); break;
+    case 'wrong':   playTone(220,.25,'sawtooth',.07); break;
+    case 'combo':   playTone(523,.1,'square',.05); playTone(659,.1,'square',.05,.07); playTone(784,.16,'square',.05,.14); break;
+    case 'win':     playTone(523,.12,'triangle',.07); playTone(659,.12,'triangle',.07,.1); playTone(784,.12,'triangle',.07,.2); playTone(1047,.28,'triangle',.08,.3); break;
+    case 'lose':    playTone(330,.2,'sawtooth',.06); playTone(262,.3,'sawtooth',.06,.18); break;
+    case 'levelup': playTone(392,.12,'triangle',.08); playTone(523,.12,'triangle',.08,.1); playTone(659,.12,'triangle',.08,.2); playTone(784,.2,'triangle',.09,.3); playTone(1047,.3,'triangle',.09,.42); break;
+    case 'click':   playTone(440,.06,'sine',.04); break;
+    case 'flip':    playTone(600,.05,'sine',.03); break;
+    case 'match':   playTone(700,.1,'sine',.05); playTone(900,.1,'sine',.05,.08); break;
+  }
+}
+function speakJP(text){
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ja-JP'; u.rate = 0.85;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ============ XP / PROGRESS ============ */
+const STORE_KEY = 'n3ninja_progress_v1';
+let prog = loadProgress();
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return { xp:0, streak:0, lastDay:'', wrongs:{}, seen:0, best:{typing:0,quiz:0,memory:0} };
+}
+function saveProgress(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(prog)); }catch(e){} }
+function levelFor(xp){
+  let lvl = 0;
+  for(let i=0;i<LEVELS.length;i++){ if(xp >= LEVELS[i].x) lvl = i; }
+  return lvl;
+}
+function addXP(n){
+  const before = levelFor(prog.xp);
+  prog.xp += n;
+  const after = levelFor(prog.xp);
+  if(after > before && after < LEVELS.length){
+    showLevelUp(after);
+    playSound('levelup');
+  }
+  saveProgress(); updateHUD();
+}
+function updateHUD(){
+  const lvl = levelFor(prog.xp);
+  $('hud-level').textContent = 'LV ' + (lvl+1);
+  $('hud-xp').textContent = prog.xp;
+  $('hud-streak').textContent = prog.streak;
+  const nextXp = lvl+1 < LEVELS.length ? LEVELS[lvl+1].x : LEVELS[lvl].x + 300;
+  const prevXp = LEVELS[lvl].x;
+  const pct = lvl+1 < LEVELS.length ? Math.min(100, Math.round((prog.xp-prevXp)/(nextXp-prevXp)*100)) : 100;
+  $('xpbar-fill').style.width = pct + '%';
+}
+function todayKey(){ const d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+function checkStreak(){
+  const tk = todayKey();
+  if(prog.lastDay !== tk){
+    // if yesterday, streak continues; else resets to 1 (only count today's first session)
+    const y = new Date(); y.setDate(y.getDate()-1);
+    const yk = y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();
+    prog.streak = (prog.lastDay === yk) ? prog.streak + 1 : 1;
+    prog.lastDay = tk;
+    saveProgress();
+  }
+  updateHUD();
+}
+function addWrong(word){
+  const key = word.k;
+  if(!prog.wrongs[key]) prog.wrongs[key] = {k:word.k,h:word.h,m:word.m,count:0};
+  prog.wrongs[key].count++;
+  saveProgress();
+}
+function fxText(text, x, y, cls){
+  const el = document.createElement('div');
+  el.className = 'fx'; el.textContent = text;
+  el.style.left = (x||window.innerWidth/2)+'px';
+  el.style.top = (y||window.innerHeight/2)+'px';
+  el.style.color = cls || 'var(--gold)';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 1000);
+}
+let toastTimer;
+function toast(msg){
+  const t = $('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 1800);
+}
+function showLevelUp(level){
+  $('lvl-num').textContent = level+1;
+  $('lvl-title').textContent = LEVELS[level].t;
+  $('modal-level').classList.add('show');
+}
+function closeLevel(){ $('modal-level').classList.remove('show'); }
+function renderResult(container, data){
+  const { score, total, correct, wrongs, xp, title } = data;
+  const pct = total ? Math.round(correct/total*100) : 0;
+  const emoji = pct >= 90 ? '🏆' : pct >= 70 ? '🥷' : pct >= 50 ? '💪' : '🌱';
+  let html = `
+  <div class="card result-banner">
+    <div class="emoji">${emoji}</div>
+    <div class="score">${score}</div>
+    <div class="detail">${title} — Đúng <b>${correct}</b>/${total} (${pct}%) · <span style="color:var(--cyan)">+${xp} XP</span></div>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="n" style="color:var(--green)">${pct}%</div><div class="l">Độ chính xác</div></div>
+      <div class="stat-box"><div class="n" style="color:var(--gold)">${correct}</div><div class="l">Đúng</div></div>
+      <div class="stat-box"><div class="n" style="color:var(--red)">${total-correct}</div><div class="l">Sai</div></div>
+    </div>
+    ${wrongs.length ? `<div class="wrong-list"><h3>📝 Cần ôn lại (${wrongs.length})</h3>
+      ${wrongs.map(w=>`<div class="wrong-row"><span class="jp">${w.k}</span><span class="rd">${w.h}</span><span class="me">${w.m}</span></div>`).join('')}
+    </div>` : `<p style="color:var(--green);font-weight:700;margin-top:8px">✨ Không sai từ nào! Ninja xuất sắc!</p>`}
+    <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn primary" onclick="startAgain()">🔄 Chơi lại</button>
+      <button class="btn ghost" onclick="switchMode('${session?.mode||'typing'}')">🏠 Màn hình chính</button>
+    </div>
+  </div>`;
+  $(container).innerHTML = html;
+}
+
+/* ============ TYPING MODE ============ */
+let typeState = null;
+function startTyping(){
+  const words = pickWords('type-topic', +$('type-count').value);
+  if(!words.length){ toast('Không có từ nào trong chủ đề này!'); return; }
+  typeState = {
+    mode:'typing', words, idx:0, correct:0, wrong:0, combo:0, maxCombo:0,
+    xp:0, score:0, wrongs:[], hintUsed:false, maxHp:100, hp:100, busy:false
+  };
+  session = typeState;
+  checkStreak();
+  $('type-battle').style.display = 'block';
+  $('type-result').innerHTML = '';
+  $('type-start').disabled = true;
+  loadTypeWord();
+}
+function spawnEnemy(){
+  const i = Math.floor(Math.random()*EMOJI_MONSTERS.length);
+  return { emoji:EMOJI_MONSTERS[i], name:ENEMY_NAMES[i] };
+}
+function loadTypeWord(){
+  const s = typeState;
+  if(s.idx >= s.words.length){ finishTyping(); return; }
+  const w = s.words[s.idx];
+  const enemy = spawnEnemy();
+  s.enemy = enemy; s.hp = s.maxHp; s.hintUsed = false;
+  s.typedRomaji = ''; s.combo = 0; s.busy = false;
+  $('type-kanji').textContent = w.k;
+  $('type-meaning').textContent = '';
+  $('type-hint').textContent = 'Gõ romaji rồi nhấn Enter để kiểm tra';
+  $('type-enemy').textContent = enemy.emoji;
+  $('type-enemy').classList.remove('defeated','hit');
+  $('type-enemy').title = enemy.name;
+  updateHp();
+  renderKana('', w.h);
+  $('type-typed').textContent = '';
+  $('type-typed').style.color = 'var(--ink2)';
+  const inp = $('type-input');
+  inp.value = ''; inp.classList.remove('correct','wrong');
+  inp.disabled = false;
+  $('type-check').disabled = false;
+  $('type-quote').textContent = `${enemy.name} xuất hiện! Gõ đúng "${w.h}"`;
+  updateCombo(0);
+  $('type-skip').disabled = false;
+  $('type-kana').classList.remove('flash-wrong','flash-good');
+  setTimeout(()=>inp.focus(), 50);
+}
+function updateHp(){
+  const pct = Math.max(0, typeState.hp);
+  const bar = $('type-hpbar');
+  const fill = bar.querySelector('div');
+  fill.style.width = pct + '%';
+  bar.classList.toggle('low', pct < 40);
+  $('type-hpnum').textContent = `HP ${Math.round(pct)}/100`;
+}
+function updateCombo(c){
+  $('type-combo').textContent = 'COMBO ×' + c;
+  $('type-combo').style.color = c >= 5 ? 'var(--gold)' : 'var(--ink3)';
+}
+// Render the kana cells. `typed` is the user's hiragana conversion.
+// Matched kana = green, mismatched = red, unfilled = placeholder.
+function renderKana(typed, target){
+  const box = $('type-kana');
+  box.innerHTML = '';
+  // typed may be romaji (during live preview) — normalize to hiragana progress
+  const t = /[ぁ-ゖ]/.test(typed) ? typed : hiraganaProgress(typed, target);
+  for(let i=0;i<target.length;i++){
+    const cell = document.createElement('div');
+    const filled = i < t.length;
+    cell.className = 'kana-cell';
+    if(filled){
+      cell.textContent = t[i];
+      if(t[i] === target[i]) cell.classList.add('correct');
+      else cell.classList.add('wrong-char');
+    } else {
+      cell.textContent = '＿';
+    }
+    box.appendChild(cell);
+  }
+}
+function typeKeyHandler(e){
+  // Only Enter is meaningful here — the free-form input handles letters itself.
+  if(e.key === 'Enter' && typeState && !typeState.busy && $('type-battle').style.display === 'block'){
+    e.preventDefault();
+    typeCheck();
+  }
+}
+// Live: as the user types romaji, convert to hiragana and render it below.
+// No verdict shown until Enter.
+function typeLivePreview(){
+  if(!typeState || typeState.busy) return;
+  const w = typeState.words[typeState.idx];
+  const raw = $('type-input').value;
+  const hira = convertToHiragana(raw, w.h, true);
+  renderKana(raw, w.h);
+  $('type-typed').textContent = raw ? (hira + '') : '';
+  $('type-typed').style.color = 'var(--ink2)';
+}
+// Convert user input (romaji OR already-hiragana) to hiragana.
+// When `live` is true (typing preview), only return the committed hiragana
+// so an incomplete syllable doesn't show raw romaji letters (e.g. 'taif' → 'たい').
+function convertToHiragana(raw, target, live){
+  if(/[ぁ-ゖ]/.test(raw)){
+    // input already contains hiragana — use it directly (strip non-kana)
+    return raw.replace(/[^ぁ-ゖーッ]/g, '');
+  }
+  const h = romajiToHiragana(raw, target);
+  if(live) return hiraganaProgress(raw, target);
+  return h;
+}
+// Does the user's input match the target reading (accepts romaji or hiragana)?
+function inputMatches(raw, target){
+  const hira = convertToHiragana(raw, target);
+  if(!hira) return false;
+  return hira === target;
+}
+function typeCheck(){
+  if(!typeState || typeState.busy) return;
+  const s = typeState;
+  const w = s.words[s.idx];
+  const raw = $('type-input').value.trim().toLowerCase();
+  const inp = $('type-input');
+  if(!raw){ inp.focus(); return; }
+  s.busy = true;
+  inp.disabled = true; $('type-check').disabled = true;
+  const hira = convertToHiragana(raw, w.h);
+  const isRight = inputMatches(raw, w.h);
+  renderKana(hira, w.h);
+  if(isRight){
+    s.combo++; s.maxCombo = Math.max(s.maxCombo, s.combo);
+    s.correct++;
+    const base = 10 + w.k.length;
+    const bonus = Math.min(20, s.combo*2);
+    const xpGain = base + bonus;
+    s.xp += xpGain; s.score += xpGain; s.hp = Math.min(100, s.hp + 5);
+    prog.seen = (prog.seen||0) + 1;
+    inp.classList.add('correct');
+    boxGlow(true);
+    playSound(s.combo >= 5 ? 'combo' : 'correct');
+    fxText('+'+xpGain+' XP', undefined, undefined, 'var(--cyan)');
+    $('type-typed').textContent = `✓ "${raw}" → ${w.h}`;
+    $('type-typed').style.color = 'var(--green)';
+    $('type-enemy').classList.add('hit');
+    setTimeout(()=>{
+      $('type-enemy').classList.add('defeated');
+      $('type-quote').textContent = QUOTES[Math.floor(Math.random()*QUOTES.length)];
+      setTimeout(()=>{ s.idx++; loadTypeWord(); }, 900);
+    }, 250);
+  } else {
+    s.wrong++; addWrong(w); s.combo = 0;
+    updateCombo(0);
+    inp.classList.add('wrong');
+    boxGlow(false);
+    playSound('wrong');
+    $('type-typed').textContent = `✗ Đúng là: ${w.h}`;
+    $('type-typed').style.color = 'var(--red)';
+    $('type-quote').textContent = 'Sai rồi! Gõ lại nhé ninja.';
+    // Keep the red kana visible briefly, then clear for retry
+    setTimeout(()=>{
+      s.busy = false;
+      inp.disabled = false; $('type-check').disabled = false;
+      inp.value = ''; inp.classList.remove('wrong');
+      renderKana('', w.h);
+      $('type-typed').textContent = '';
+      inp.focus();
+    }, 1400);
+  }
+}
+function boxGlow(good){
+  const box = $('type-kana');
+  box.classList.remove('flash-wrong','flash-good');
+  void box.offsetWidth;
+  box.classList.add(good ? 'flash-good' : 'flash-wrong');
+  setTimeout(()=>box.classList.remove('flash-good','flash-wrong'), 500);
+}
+function typeSkip(){
+  if(!typeState || typeState.busy) return;
+  const s = typeState;
+  const w = s.words[s.idx];
+  s.wrong++; addWrong(w);
+  s.combo = 0; updateCombo(0);
+  playSound('lose');
+  renderKana('', w.h);
+  $('type-input').value = '';
+  $('type-typed').textContent = 'Bỏ qua! Đáp án đúng: ' + w.h;
+  $('type-enemy').classList.add('defeated');
+  $('type-quote').textContent = 'Đừng nản, lần sau chắc chắn hơn nhé!';
+  s.busy = true;
+  setTimeout(()=>{ s.idx++; loadTypeWord(); }, 1200);
+}
+function finishTyping(){
+  const s = typeState;
+  const total = s.words.length;
+  const xpGain = s.xp;
+  addXP(xpGain);
+  prog.best.typing = Math.max(prog.best.typing, s.maxCombo);
+  saveProgress();
+  $('type-battle').style.display = 'none';
+  $('type-start').disabled = false;
+  playSound(s.correct === total ? 'win' : s.correct/total >= .7 ? 'levelup' : 'lose');
+  renderResult('type-result', {
+    score: s.score, total, correct: s.correct, wrongs: s.wrongs,
+    xp: xpGain, title: '⚔️ Nhiệm vụ luyện gõ'
+  });
+  session = { mode:'typing' };
+  typeState = null;
+}
+
+/* ============ QUIZ MODE ============ */
+let quizState = null;
+function startQuiz(){
+  const words = pickWords('quiz-topic', +$('quiz-count').value);
+  if(!words.length){ toast('Không có từ nào!'); return; }
+  quizState = {
+    mode:'quiz', words, idx:0, correct:0, wrong:0, combo:0, maxCombo:0,
+    xp:0, score:0, wrongs:[], answered:false, total:words.length
+  };
+  session = quizState;
+  checkStreak();
+  $('quiz-body').style.display = 'block';
+  $('quiz-result').innerHTML = '';
+  $('quiz-start').disabled = true;
+  loadQuizQ();
+}
+function loadQuizQ(){
+  const s = quizState;
+  if(s.idx >= s.total){ finishQuiz(); return; }
+  const w = s.words[s.idx];
+  s.answered = false;
+  s.combo = 0;
+  updateQuizCombo(0);
+  $('quiz-kanji').textContent = w.k;
+  const showYomi = Math.random() < 0.5; // sometimes show hiragana as question (ask meaning)
+  $('quiz-yomi').textContent = '';
+  $('quiz-progress').textContent = (s.idx+1) + ' / ' + s.total;
+  // build options: 1 correct + 3 random meanings
+  let opts = [w];
+  while(opts.length < 4){
+    const r = N3_VOCAB[Math.floor(Math.random()*N3_VOCAB.length)];
+    if(!opts.find(o=>o.m === r.m)) opts.push(r);
+  }
+  opts = shuffle(opts);
+  $('quiz-opts').innerHTML = '';
+  opts.forEach(o=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.textContent = o.m;
+    b.addEventListener('click', ()=>answerQuiz(o, w, b, opts));
+    $('quiz-opts').appendChild(b);
+  });
+  playSound('flip');
+}
+function updateQuizCombo(c){
+  const el = $('quiz-combo');
+  el.textContent = 'COMBO ×' + c;
+  el.style.color = c >= 5 ? 'var(--gold)' : 'var(--ink3)';
+}
+function answerQuiz(chosen, correct, btn, allOpts){
+  const s = quizState;
+  if(s.answered) return;
+  s.answered = true;
+  allOpts.forEach(o=>o.disabled = true);
+  const isRight = chosen.m === correct.m;
+  btn.classList.add(isRight ? 'correct' : 'wrong');
+  if(isRight){
+    s.correct++; s.combo++; s.maxCombo = Math.max(s.maxCombo, s.combo);
+    const xpGain = 8 + s.combo*2;
+    s.xp += xpGain; s.score += xpGain;
+    playSound(s.combo >= 4 ? 'combo' : 'correct');
+    fxText('+'+xpGain, undefined, undefined, 'var(--green)');
+  } else {
+    s.wrong++; s.combo = 0; addWrong(correct); s.wrongs.push(correct);
+    allOpts.find(o=>o.m===correct.m).classList.add('correct');
+    playSound('wrong');
+    updateQuizCombo(0);
+  }
+  updateQuizCombo(s.combo);
+  setTimeout(()=>{ s.idx++; loadQuizQ(); }, 1000);
+}
+function finishQuiz(){
+  const s = quizState;
+  addXP(s.xp);
+  saveProgress();
+  $('quiz-body').style.display = 'none';
+  $('quiz-start').disabled = false;
+  playSound(s.correct === s.total ? 'win' : s.correct/s.total >= .7 ? 'levelup' : 'lose');
+  renderResult('quiz-result', {
+    score: s.score, total: s.total, correct: s.correct, wrongs: s.wrongs,
+    xp: s.xp, title: '⚔️ Trận chiến trắc nghiệm'
+  });
+  session = { mode:'quiz' };
+  quizState = null;
+}
+
+/* ============ FLASH MODE ============ */
+let flashState = null;
+let flashFlipped = false;
+function startFlash(){
+  const words = pickWords('flash-topic', 0);
+  if(!words.length){ toast('Không có từ nào!'); return; }
+  flashState = { mode:'flash', words, idx:0 };
+  session = flashState;
+  checkStreak();
+  $('flash-body').style.display = 'block';
+  $('flash-start').disabled = true;
+  $('flash-wrap').classList.remove('flip');
+  flashFlipped = false;
+  renderFlash();
+}
+function renderFlash(){
+  const s = flashState;
+  $('flash-idx').textContent = (s.idx+1) + ' / ' + s.words.length;
+  const w = s.words[s.idx];
+  $('flash-front').textContent = w.k;
+  $('flash-yomi').textContent = w.h;
+  $('flash-meaning').textContent = w.m;
+}
+function flipFlash(){
+  flashFlipped = !flashFlipped;
+  $('flash-wrap').classList.toggle('flip', flashFlipped);
+  playSound('flip');
+  if(flashFlipped){ prog.seen = (prog.seen||0)+1; prog.xp += 1; updateHUD(); }
+}
+function flashPrev(){ if(!flashState) return; flashState.idx = Math.max(0, flashState.idx-1); flashFlipped=false; $('flash-wrap').classList.remove('flip'); renderFlash(); playSound('flip'); }
+function flashNext(){ if(!flashState) return; flashState.idx = Math.min(flashState.words.length-1, flashState.idx+1); flashFlipped=false; $('flash-wrap').classList.remove('flip'); renderFlash(); playSound('flip'); }
+function flashShuffle(){ if(!flashState) return; flashState.words = shuffle(flashState.words); flashState.idx = 0; flashFlipped=false; $('flash-wrap').classList.remove('flip'); renderFlash(); playSound('flip'); }
+function flashSpeak(){ if(!flashState) return; speakJP(flashState.words[flashState.idx].k); }
+
+/* ============ MEMORY MODE ============ */
+let memState = null;
+let memTimerInt = null;
+function startMemory(){
+  let words = getWords('mem-topic');
+  if(words.length > 8) words = shuffle(words).slice(0, 8);
+  if(words.length < 2){ toast('Cần ít nhất 2 từ!'); return; }
+  const pairs = shuffle(words);
+  const cards = [];
+  pairs.forEach((w,i)=>{
+    cards.push({type:'jp', w, id: i*2, matched:false});
+    cards.push({type:'vi', w, id: i*2+1, matched:false});
+  });
+  // shuffle cards
+  for(let i=cards.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [cards[i],cards[j]]=[cards[j],cards[i]]; }
+  memState = { mode:'memory', cards, moves:0, matched:0, total:pairs.length, start:Date.now(), first:null, lock:false };
+  session = memState;
+  checkStreak();
+  $('mem-body').style.display = 'block';
+  $('mem-result').innerHTML = '';
+  $('mem-start').disabled = true;
+  if(memTimerInt) clearInterval(memTimerInt);
+  renderMem();
+  memTimerInt = setInterval(updateMemTimer, 1000);
+}
+function renderMem(){
+  const s = memState;
+  $('mem-pairs').textContent = 'Cặp: ' + s.matched + '/' + s.total;
+  $('mem-moves').textContent = 'Lượt: ' + s.moves;
+  const grid = $('mem-grid');
+  grid.innerHTML = '';
+  s.cards.forEach((c, i)=>{
+    const d = document.createElement('div');
+    d.className = 'mem-card' + (c.matched ? ' matched' : '');
+    d.innerHTML = `
+      <div class="mem-inner">
+        <div class="mem-face front">🥷</div>
+        <div class="mem-face back ${c.type==='jp'?'jp':''}">${c.type==='jp' ? c.w.k : c.w.m}</div>
+      </div>`;
+    d.addEventListener('click', ()=>memFlip(i));
+    grid.appendChild(d);
+  });
+  updateMemTimer();
+}
+function updateMemTimer(){
+  if(!memState) return;
+  const el = $('mem-timer');
+  const sec = Math.floor((Date.now() - memState.start)/1000);
+  el.textContent = '⏱ ' + Math.floor(sec/60) + ':' + String(sec%60).padStart(2,'0');
+}
+function memFlip(i){
+  const s = memState;
+  if(s.lock || s.cards[i].matched) return;
+  const c = s.cards[i];
+  const el = $('mem-grid').children[i];
+  if(el.classList.contains('flip')) return; // already open
+  el.classList.add('flip');
+  playSound('flip');
+  if(!s.first){ s.first = i; return; }
+  // second card
+  s.moves++;
+  s.lock = true;
+  const first = s.cards[s.first];
+  const el1 = $('mem-grid').children[s.first];
+  const match = first.w === c.w && first.type !== c.type;
+  if(match){
+    first.matched = true; c.matched = true;
+    s.matched++;
+    el1.classList.add('matched'); el.classList.add('matched');
+    playSound('match');
+    fxText('+5 XP', undefined, undefined, 'var(--green)');
+    prog.xp += 5; prog.seen = (prog.seen||0)+1; updateHUD(); saveProgress();
+    s.first = null; s.lock = false;
+    updateMemCount();
+    if(s.matched === s.total){ clearInterval(memTimerInt); setTimeout(()=>finishMemory(), 600); }
+  } else {
+    setTimeout(()=>{
+      el1.classList.remove('flip'); el.classList.remove('flip');
+      s.first = null; s.lock = false;
+      playSound('wrong');
+    }, 700);
+  }
+}
+function updateMemCount(){
+  $('mem-pairs').textContent = 'Cặp: ' + memState.matched + '/' + memState.total;
+  $('mem-moves').textContent = 'Lượt: ' + memState.moves;
+}
+function finishMemory(){
+  const s = memState;
+  const timeSec = Math.max(1, Math.round((Date.now() - s.start)/1000));
+  const xpGain = s.total * 5;
+  addXP(xpGain);
+  saveProgress();
+  $('mem-body').style.display = 'none';
+  $('mem-start').disabled = false;
+  playSound('win');
+  renderResult('mem-result', {
+    score: xpGain, total: s.total, correct: s.total, wrongs: [],
+    xp: xpGain, title: `🧩 Ghép cặp — hoàn thành trong ${Math.floor(timeSec/60)}:${String(timeSec%60).padStart(2,'0')}, ${s.moves} lượt`
+  });
+  session = { mode:'memory' };
+  memState = null;
+}
+
+/* ============ NAV / GLOBAL ============ */
+function switchMode(mode){
+  playSound('click');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.mode === mode));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  $('panel-'+mode).classList.add('active');
+}
+function startAgain(){
+  const mode = session?.mode || 'typing';
+  if(mode === 'typing') startTyping();
+  else if(mode === 'quiz') startQuiz();
+  else if(mode === 'memory') startMemory();
+}
+function init(){
+  topicOptions('type-topic');
+  topicOptions('quiz-topic');
+  topicOptions('flash-topic');
+  topicOptions('mem-topic');
+  updateHUD();
+  checkStreak();
+  // nav tabs
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click', ()=>switchMode(t.dataset.mode));
+  });
+  // typing events
+  $('type-start').addEventListener('click', startTyping);
+  $('type-skip').addEventListener('click', typeSkip);
+  $('type-check').addEventListener('click', typeCheck);
+  $('type-input').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); typeCheck(); } });
+  $('type-input').addEventListener('input', typeLivePreview);
+  $('type-speak').addEventListener('click', ()=>{ if(typeState) speakJP(typeState.words[typeState.idx].k); });
+  document.addEventListener('keydown', typeKeyHandler);
+  // quiz events
+  $('quiz-start').addEventListener('click', startQuiz);
+  // flash events
+  $('flash-start').addEventListener('click', startFlash);
+  $('flash-wrap').addEventListener('click', flipFlash);
+  $('flash-prev').addEventListener('click', flashPrev);
+  $('flash-next').addEventListener('click', flashNext);
+  $('flash-shuffle').addEventListener('click', flashShuffle);
+  $('flash-speak').addEventListener('click', flashSpeak);
+  // memory events
+  $('mem-start').addEventListener('click', startMemory);
+  // manage panel
+  loadAiSettings();
+  renderImportList();
+  // audio init on first interaction
+  document.addEventListener('click', ()=>initAudio(), { once:true });
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

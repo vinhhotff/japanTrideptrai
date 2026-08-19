@@ -1,0 +1,4076 @@
+[
+  {
+    "kanji": "男性",
+    "hiragana": "だんせい",
+    "romaji": "",
+    "meaning": "Nam giới"
+  },
+  {
+    "kanji": "女性",
+    "hiragana": "じょせい",
+    "romaji": "",
+    "meaning": "Nữ giới"
+  },
+  {
+    "kanji": "理想",
+    "hiragana": "りそう",
+    "romaji": "",
+    "meaning": "Lý tưởng"
+  },
+  {
+    "kanji": "高齢",
+    "hiragana": "こうれい",
+    "romaji": "",
+    "meaning": "Cao tuổi"
+  },
+  {
+    "kanji": "年上",
+    "hiragana": "としうえ",
+    "romaji": "",
+    "meaning": "Hơn tuổi"
+  },
+  {
+    "kanji": "目上",
+    "hiragana": "めうえ",
+    "romaji": "",
+    "meaning": "Người trên"
+  },
+  {
+    "kanji": "敬語",
+    "hiragana": "けいご",
+    "romaji": "",
+    "meaning": "Kính ngữ"
+  },
+  {
+    "kanji": "先輩",
+    "hiragana": "せんぱい",
+    "romaji": "",
+    "meaning": "Tiền bối"
+  },
+  {
+    "kanji": "後輩",
+    "hiragana": "こうはい",
+    "romaji": "",
+    "meaning": "Hậu bối"
+  },
+  {
+    "kanji": "職場",
+    "hiragana": "しょくば",
+    "romaji": "",
+    "meaning": "Nơi làm việc"
+  },
+  {
+    "kanji": "上司",
+    "hiragana": "じょうし",
+    "romaji": "",
+    "meaning": "Cấp trên"
+  },
+  {
+    "kanji": "決定",
+    "hiragana": "けってい",
+    "romaji": "",
+    "meaning": "Quyết định"
+  },
+  {
+    "kanji": "相手",
+    "hiragana": "あいて",
+    "romaji": "",
+    "meaning": "Đối tác"
+  },
+  {
+    "kanji": "就職",
+    "hiragana": "しゅうしょく",
+    "romaji": "",
+    "meaning": "Có việc làm"
+  },
+  {
+    "kanji": "友人",
+    "hiragana": "ゆうじん",
+    "romaji": "",
+    "meaning": "Bạn thân"
+  },
+  {
+    "kanji": "時代",
+    "hiragana": "じだい",
+    "romaji": "",
+    "meaning": "Thời đại"
+  },
+  {
+    "kanji": "仲",
+    "hiragana": "なか",
+    "romaji": "",
+    "meaning": "Quan hệ"
+  },
+  {
+    "kanji": "生年月日",
+    "hiragana": "せいねんがっぴ",
+    "romaji": "",
+    "meaning": "Ngày tháng năm sinh"
+  },
+  {
+    "kanji": "誕生",
+    "hiragana": "たんじょう",
+    "romaji": "",
+    "meaning": "Ra đời"
+  },
+  {
+    "kanji": "出身",
+    "hiragana": "しゅっしん",
+    "romaji": "",
+    "meaning": "Xuất thân"
+  },
+  {
+    "kanji": "命",
+    "hiragana": "いのち",
+    "romaji": "",
+    "meaning": "Số mệnh, cuộc sống"
+  },
+  {
+    "kanji": "計画",
+    "hiragana": "けいかく",
+    "romaji": "",
+    "meaning": "Kế hoạch"
+  },
+  {
+    "kanji": "故郷",
+    "hiragana": "こきょう",
+    "romaji": "",
+    "meaning": "Quê hương"
+  },
+  {
+    "kanji": "事業",
+    "hiragana": "じぎょう",
+    "romaji": "",
+    "meaning": "Sự nghiệp"
+  },
+  {
+    "kanji": "喜ぶ",
+    "hiragana": "よろこぶ",
+    "romaji": "",
+    "meaning": "Hạnh phúc"
+  },
+  {
+    "kanji": "記入する",
+    "hiragana": "きにゅうする",
+    "romaji": "",
+    "meaning": "Nhập vào"
+  },
+  {
+    "kanji": "立てる",
+    "hiragana": "たてる",
+    "romaji": "",
+    "meaning": "Lập (kế hoạch)"
+  },
+  {
+    "kanji": "頼む",
+    "hiragana": "たのむ",
+    "romaji": "",
+    "meaning": "Nhờ vả"
+  },
+  {
+    "kanji": "成長する",
+    "hiragana": "せいちょうする",
+    "romaji": "",
+    "meaning": "Trưởng thành"
+  },
+  {
+    "kanji": "成人する",
+    "hiragana": "せいじんする",
+    "romaji": "",
+    "meaning": "Người lớn"
+  },
+  {
+    "kanji": "合格する",
+    "hiragana": "ごうかくする",
+    "romaji": "",
+    "meaning": "Đỗ (kỳ thi)"
+  },
+  {
+    "kanji": "進学する",
+    "hiragana": "しんがくする",
+    "romaji": "",
+    "meaning": "Đi học"
+  },
+  {
+    "kanji": "退学する",
+    "hiragana": "たいがくする",
+    "romaji": "",
+    "meaning": "Bỏ học"
+  },
+  {
+    "kanji": "就職する",
+    "hiragana": "しゅうしょくする",
+    "romaji": "",
+    "meaning": "Có việc làm"
+  },
+  {
+    "kanji": "介護",
+    "hiragana": "かいご",
+    "romaji": "",
+    "meaning": "Chăm sóc"
+  },
+  {
+    "kanji": "決める",
+    "hiragana": "きめる",
+    "romaji": "",
+    "meaning": "Quyết định"
+  },
+  {
+    "kanji": "退職する",
+    "hiragana": "たいしょくする",
+    "romaji": "",
+    "meaning": "Nghỉ việc"
+  },
+  {
+    "kanji": "倒産する",
+    "hiragana": "とうさんする",
+    "romaji": "",
+    "meaning": "Phá sản"
+  },
+  {
+    "kanji": "失業する",
+    "hiragana": "しつぎょうする",
+    "romaji": "",
+    "meaning": "Thất nghiệp"
+  },
+  {
+    "kanji": "残業する",
+    "hiragana": "ざんぎょうする",
+    "romaji": "",
+    "meaning": "Làm thêm giờ"
+  },
+  {
+    "kanji": "疲れる",
+    "hiragana": "つかれる",
+    "romaji": "",
+    "meaning": "Mệt"
+  },
+  {
+    "kanji": "生活する",
+    "hiragana": "せいかつする",
+    "romaji": "",
+    "meaning": "Cuộc sống"
+  },
+  {
+    "kanji": "通勤する",
+    "hiragana": "つうきんする",
+    "romaji": "",
+    "meaning": "Đi làm"
+  },
+  {
+    "kanji": "学歴",
+    "hiragana": "がくれき",
+    "romaji": "",
+    "meaning": "Bằng cấp"
+  },
+  {
+    "kanji": "実力",
+    "hiragana": "じつりょく",
+    "romaji": "",
+    "meaning": "Thực lực"
+  },
+  {
+    "kanji": "給料",
+    "hiragana": "きゅうりょう",
+    "romaji": "",
+    "meaning": "Lương"
+  },
+  {
+    "kanji": "面接する",
+    "hiragana": "めんせつする",
+    "romaji": "",
+    "meaning": "Phỏng vấn"
+  },
+  {
+    "kanji": "休憩する",
+    "hiragana": "きゅうけいする",
+    "romaji": "",
+    "meaning": "Nghỉ giải lao"
+  },
+  {
+    "kanji": "観光する",
+    "hiragana": "かんこうする",
+    "romaji": "",
+    "meaning": "Thăm quan"
+  },
+  {
+    "kanji": "帰国する",
+    "hiragana": "きこくする",
+    "romaji": "",
+    "meaning": "Về nước"
+  },
+  {
+    "kanji": "帰省する",
+    "hiragana": "きせいする",
+    "romaji": "",
+    "meaning": "Về quê"
+  },
+  {
+    "kanji": "帰宅する",
+    "hiragana": "きたくする",
+    "romaji": "",
+    "meaning": "Về nhà"
+  },
+  {
+    "kanji": "参加する",
+    "hiragana": "さんかする",
+    "romaji": "",
+    "meaning": "Tham gia"
+  },
+  {
+    "kanji": "活動",
+    "hiragana": "かつどう",
+    "romaji": "",
+    "meaning": "Hoạt động"
+  },
+  {
+    "kanji": "出席する",
+    "hiragana": "しゅっせきする",
+    "romaji": "",
+    "meaning": "Tham gia"
+  },
+  {
+    "kanji": "欠席する",
+    "hiragana": "けっせきする",
+    "romaji": "",
+    "meaning": "Không tham gia"
+  },
+  {
+    "kanji": "寝坊",
+    "hiragana": "ねぼう",
+    "romaji": "",
+    "meaning": "Ngủ quên"
+  },
+  {
+    "kanji": "遅刻する",
+    "hiragana": "ちこくする",
+    "romaji": "",
+    "meaning": "Đến muộn"
+  },
+  {
+    "kanji": "化粧する",
+    "hiragana": "けしょうする",
+    "romaji": "",
+    "meaning": "Trang điểm"
+  },
+  {
+    "kanji": "苦手",
+    "hiragana": "にがて",
+    "romaji": "",
+    "meaning": "Kém"
+  },
+  {
+    "kanji": "計算する",
+    "hiragana": "けいさんする",
+    "romaji": "",
+    "meaning": "Tính toán"
+  },
+  {
+    "kanji": "計画する",
+    "hiragana": "けいかくする",
+    "romaji": "",
+    "meaning": "Kế hoạch"
+  },
+  {
+    "kanji": "成功する",
+    "hiragana": "せいこうする",
+    "romaji": "",
+    "meaning": "Thành công"
+  },
+  {
+    "kanji": "失敗する",
+    "hiragana": "しっぱいする",
+    "romaji": "",
+    "meaning": "Thất bại"
+  },
+  {
+    "kanji": "実験",
+    "hiragana": "じっけん",
+    "romaji": "",
+    "meaning": "Thực nghiệm"
+  },
+  {
+    "kanji": "準備する",
+    "hiragana": "じゅんびする",
+    "romaji": "",
+    "meaning": "Chuẩn bị"
+  },
+  {
+    "kanji": "整理する",
+    "hiragana": "せいりする",
+    "romaji": "",
+    "meaning": "Sắp xếp"
+  },
+  {
+    "kanji": "書類",
+    "hiragana": "しょるい",
+    "romaji": "",
+    "meaning": "Giấy tờ"
+  },
+  {
+    "kanji": "品",
+    "hiragana": "しな",
+    "romaji": "",
+    "meaning": "Hàng hóa"
+  },
+  {
+    "kanji": "届く",
+    "hiragana": "とどく",
+    "romaji": "",
+    "meaning": "Đến nơi"
+  },
+  {
+    "kanji": "注文する",
+    "hiragana": "ちゅうもんする",
+    "romaji": "",
+    "meaning": "Đặt hàng"
+  },
+  {
+    "kanji": "貯金する",
+    "hiragana": "ちょきんする",
+    "romaji": "",
+    "meaning": "Tiết kiệm"
+  },
+  {
+    "kanji": "増える",
+    "hiragana": "ふえる",
+    "romaji": "",
+    "meaning": "Tăng"
+  },
+  {
+    "kanji": "徹夜する",
+    "hiragana": "てつやする",
+    "romaji": "",
+    "meaning": "Thức xuyên đêm"
+  },
+  {
+    "kanji": "身長",
+    "hiragana": "しんちょう",
+    "romaji": "",
+    "meaning": "Chiều cao"
+  },
+  {
+    "kanji": "体重",
+    "hiragana": "たいじゅう",
+    "romaji": "",
+    "meaning": "Cân nặng"
+  },
+  {
+    "kanji": "怪我",
+    "hiragana": "けが",
+    "romaji": "",
+    "meaning": "Bị thương"
+  },
+  {
+    "kanji": "趣味",
+    "hiragana": "しゅみ",
+    "romaji": "",
+    "meaning": "Sở thích"
+  },
+  {
+    "kanji": "読書",
+    "hiragana": "どくしょ",
+    "romaji": "",
+    "meaning": "Đọc sách"
+  },
+  {
+    "kanji": "興味",
+    "hiragana": "きょうみ",
+    "romaji": "",
+    "meaning": "Hứng thú"
+  },
+  {
+    "kanji": "歴史",
+    "hiragana": "れきし",
+    "romaji": "",
+    "meaning": "Lịch sử"
+  },
+  {
+    "kanji": "思い出",
+    "hiragana": "おもいで",
+    "romaji": "",
+    "meaning": "Hồi ức"
+  },
+  {
+    "kanji": "冗談",
+    "hiragana": "じょうだん",
+    "romaji": "",
+    "meaning": "Đùa cợt"
+  },
+  {
+    "kanji": "本気",
+    "hiragana": "ほんき",
+    "romaji": "",
+    "meaning": "Sự thật"
+  },
+  {
+    "kanji": "目的",
+    "hiragana": "もくてき",
+    "romaji": "",
+    "meaning": "Mục đích"
+  },
+  {
+    "kanji": "約束する",
+    "hiragana": "やくそくする",
+    "romaji": "",
+    "meaning": "Lời hứa"
+  },
+  {
+    "kanji": "おしゃべりする",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Nói chuyện"
+  },
+  {
+    "kanji": "怒る",
+    "hiragana": "おこる",
+    "romaji": "",
+    "meaning": "Tức giận"
+  },
+  {
+    "kanji": "遠慮する",
+    "hiragana": "えんりょ",
+    "romaji": "",
+    "meaning": "Ngại ngần"
+  },
+  {
+    "kanji": "我慢する",
+    "hiragana": "がまんする",
+    "romaji": "",
+    "meaning": "Chịu đựng"
+  },
+  {
+    "kanji": "迷惑する",
+    "hiragana": "めいわくする",
+    "romaji": "",
+    "meaning": "Làm phiền"
+  },
+  {
+    "kanji": "捨てる",
+    "hiragana": "すてる",
+    "romaji": "",
+    "meaning": "Vứt"
+  },
+  {
+    "kanji": "希望",
+    "hiragana": "きぼう",
+    "romaji": "",
+    "meaning": "Hi vọng"
+  },
+  {
+    "kanji": "夢",
+    "hiragana": "ゆめ",
+    "romaji": "",
+    "meaning": "Giấc mơ, ước mơ"
+  },
+  {
+    "kanji": "怖い",
+    "hiragana": "こわい",
+    "romaji": "",
+    "meaning": "Đáng sợ"
+  },
+  {
+    "kanji": "賛成する",
+    "hiragana": "さんせいする",
+    "romaji": "",
+    "meaning": "Tán thành"
+  },
+  {
+    "kanji": "挙げる",
+    "hiragana": "あげる",
+    "romaji": "",
+    "meaning": "Giơ tay"
+  },
+  {
+    "kanji": "反対する",
+    "hiragana": "はんたいする",
+    "romaji": "",
+    "meaning": "Phản đối"
+  },
+  {
+    "kanji": "想像する",
+    "hiragana": "そうぞう",
+    "romaji": "",
+    "meaning": "Tưởng tượng"
+  },
+  {
+    "kanji": "現実",
+    "hiragana": "げんじつ",
+    "romaji": "",
+    "meaning": "Hiện thực, sự thật"
+  },
+  {
+    "kanji": "努力する",
+    "hiragana": "どりょくする",
+    "romaji": "",
+    "meaning": "Nỗ lực"
+  },
+  {
+    "kanji": "太陽",
+    "hiragana": "たいよう",
+    "romaji": "",
+    "meaning": "Mặt trời"
+  },
+  {
+    "kanji": "昇る",
+    "hiragana": "のぼる",
+    "romaji": "",
+    "meaning": "Lên cao, tăng lên"
+  },
+  {
+    "kanji": "地球",
+    "hiragana": "ちきゅう",
+    "romaji": "",
+    "meaning": "Trái đất"
+  },
+  {
+    "kanji": "環境",
+    "hiragana": "かんきょう",
+    "romaji": "",
+    "meaning": "Môi trường"
+  },
+  {
+    "kanji": "温度",
+    "hiragana": "おんど",
+    "romaji": "",
+    "meaning": "Nhiệt độ"
+  },
+  {
+    "kanji": "湿度",
+    "hiragana": "しつど",
+    "romaji": "",
+    "meaning": "Độ ẩm"
+  },
+  {
+    "kanji": "湿気",
+    "hiragana": "しっけ",
+    "romaji": "",
+    "meaning": "Hơi ẩm"
+  },
+  {
+    "kanji": "梅雨",
+    "hiragana": "つゆ",
+    "romaji": "",
+    "meaning": "Mùa mưa"
+  },
+  {
+    "kanji": "かび",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Nấm mốc"
+  },
+  {
+    "kanji": "時期",
+    "hiragana": "じき",
+    "romaji": "",
+    "meaning": "Thời kì"
+  },
+  {
+    "kanji": "暖房",
+    "hiragana": "だんぼう",
+    "romaji": "",
+    "meaning": "Thiết bị làm ấm"
+  },
+  {
+    "kanji": "皮",
+    "hiragana": "かわ",
+    "romaji": "",
+    "meaning": "Vỏ, da"
+  },
+  {
+    "kanji": "画面",
+    "hiragana": "がめん",
+    "romaji": "",
+    "meaning": "Màn hình"
+  },
+  {
+    "kanji": "番組",
+    "hiragana": "ばんぐみ",
+    "romaji": "",
+    "meaning": "Chương trình"
+  },
+  {
+    "kanji": "記事",
+    "hiragana": "きじ",
+    "romaji": "",
+    "meaning": "Kí sự"
+  },
+  {
+    "kanji": "近所",
+    "hiragana": "きんじょ",
+    "romaji": "",
+    "meaning": "Hàng xóm, xung quanh"
+  },
+  {
+    "kanji": "盗む",
+    "hiragana": "ぬすむ",
+    "romaji": "",
+    "meaning": "Ăn trộm"
+  },
+  {
+    "kanji": "警官",
+    "hiragana": "けいかん",
+    "romaji": "",
+    "meaning": "Cảnh sát"
+  },
+  {
+    "kanji": "犯人",
+    "hiragana": "はんにん",
+    "romaji": "",
+    "meaning": "Tội phạm"
+  },
+  {
+    "kanji": "小銭",
+    "hiragana": "こぜに",
+    "romaji": "",
+    "meaning": "Tiền lẻ"
+  },
+  {
+    "kanji": "お祝う",
+    "hiragana": "おいわう",
+    "romaji": "",
+    "meaning": "Chúc mừng"
+  },
+  {
+    "kanji": "ごちそう",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Chiêu đãi"
+  },
+  {
+    "kanji": "作者",
+    "hiragana": "さくしゃ",
+    "romaji": "",
+    "meaning": "Tác giả"
+  },
+  {
+    "kanji": "作品",
+    "hiragana": "さくひん",
+    "romaji": "",
+    "meaning": "Tác phẩm"
+  },
+  {
+    "kanji": "展示",
+    "hiragana": "てんじ",
+    "romaji": "",
+    "meaning": "Trưng bày"
+  },
+  {
+    "kanji": "制服",
+    "hiragana": "せいふく",
+    "romaji": "",
+    "meaning": "Đồng phục"
+  },
+  {
+    "kanji": "食器",
+    "hiragana": "しょっき",
+    "romaji": "",
+    "meaning": "Bát đĩa"
+  },
+  {
+    "kanji": "洗剤",
+    "hiragana": "せんざい",
+    "romaji": "",
+    "meaning": "Chất tẩy rửa"
+  },
+  {
+    "kanji": "底",
+    "hiragana": "そこ",
+    "romaji": "",
+    "meaning": "Đáy"
+  },
+  {
+    "kanji": "進む",
+    "hiragana": "すすむ",
+    "romaji": "",
+    "meaning": "Tiến lên, triển, bộ"
+  },
+  {
+    "kanji": "開発",
+    "hiragana": "かいはつ",
+    "romaji": "",
+    "meaning": "Phát triển"
+  },
+  {
+    "kanji": "都市",
+    "hiragana": "とし",
+    "romaji": "",
+    "meaning": "Thành phố"
+  },
+  {
+    "kanji": "寺",
+    "hiragana": "てら",
+    "romaji": "",
+    "meaning": "Chùa"
+  },
+  {
+    "kanji": "道路",
+    "hiragana": "どうろ",
+    "romaji": "",
+    "meaning": "Con đường"
+  },
+  {
+    "kanji": "坂",
+    "hiragana": "さか",
+    "romaji": "",
+    "meaning": "Dốc"
+  },
+  {
+    "kanji": "煙",
+    "hiragana": "けむり",
+    "romaji": "",
+    "meaning": "Khói"
+  },
+  {
+    "kanji": "逃げる",
+    "hiragana": "にげる",
+    "romaji": "",
+    "meaning": "Bỏ chạy, tẩu thoát"
+  },
+  {
+    "kanji": "火事",
+    "hiragana": "かじ",
+    "romaji": "",
+    "meaning": "Hỏa hoạn"
+  },
+  {
+    "kanji": "灰",
+    "hiragana": "はい",
+    "romaji": "",
+    "meaning": "Tro tàn"
+  },
+  {
+    "kanji": "判",
+    "hiragana": "はん",
+    "romaji": "",
+    "meaning": "Con dấu"
+  },
+  {
+    "kanji": "名刺",
+    "hiragana": "めいし",
+    "romaji": "",
+    "meaning": "Danh thiếp"
+  },
+  {
+    "kanji": "交換",
+    "hiragana": "こうかん",
+    "romaji": "",
+    "meaning": "Trao đổi"
+  },
+  {
+    "kanji": "免許",
+    "hiragana": "めんきょ",
+    "romaji": "",
+    "meaning": "Giấy phép"
+  },
+  {
+    "kanji": "必要（な）",
+    "hiragana": "ひつよう",
+    "romaji": "",
+    "meaning": "Cần thiết"
+  },
+  {
+    "kanji": "調理師",
+    "hiragana": "ちょうりし",
+    "romaji": "",
+    "meaning": "Đầu bếp"
+  },
+  {
+    "kanji": "多く",
+    "hiragana": "おおく",
+    "romaji": "",
+    "meaning": "Nhiều"
+  },
+  {
+    "kanji": "前半",
+    "hiragana": "ぜんはん",
+    "romaji": "",
+    "meaning": "Phần đầu"
+  },
+  {
+    "kanji": "後半",
+    "hiragana": "こうはん",
+    "romaji": "",
+    "meaning": "Phần sau"
+  },
+  {
+    "kanji": "退屈",
+    "hiragana": "たいくつ",
+    "romaji": "",
+    "meaning": "Buồn tẻ, chán ngắt"
+  },
+  {
+    "kanji": "最高",
+    "hiragana": "さいこう",
+    "romaji": "",
+    "meaning": "Cao nhất"
+  },
+  {
+    "kanji": "最低",
+    "hiragana": "さいてい",
+    "romaji": "",
+    "meaning": "Thấp nhất"
+  },
+  {
+    "kanji": "最初",
+    "hiragana": "さいしょ",
+    "romaji": "",
+    "meaning": "Đầu tiên"
+  },
+  {
+    "kanji": "最後",
+    "hiragana": "さいご",
+    "romaji": "",
+    "meaning": "Cuối cùng"
+  },
+  {
+    "kanji": "花束",
+    "hiragana": "はなたば",
+    "romaji": "",
+    "meaning": "Bó hoa"
+  },
+  {
+    "kanji": "自動",
+    "hiragana": "じどう",
+    "romaji": "",
+    "meaning": "Tự động"
+  },
+  {
+    "kanji": "種類",
+    "hiragana": "しゅるい",
+    "romaji": "",
+    "meaning": "Chủng loại"
+  },
+  {
+    "kanji": "性格",
+    "hiragana": "せいかく",
+    "romaji": "",
+    "meaning": "Tính cách"
+  },
+  {
+    "kanji": "性質",
+    "hiragana": "せいしつ",
+    "romaji": "",
+    "meaning": "Tính chất"
+  },
+  {
+    "kanji": "布",
+    "hiragana": "ぬの",
+    "romaji": "",
+    "meaning": "Vải"
+  },
+  {
+    "kanji": "順番",
+    "hiragana": "じゅんばん",
+    "romaji": "",
+    "meaning": "Thứ tự"
+  },
+  {
+    "kanji": "発表",
+    "hiragana": "はっぴょう",
+    "romaji": "",
+    "meaning": "Phát biểu"
+  },
+  {
+    "kanji": "商品",
+    "hiragana": "しょうひん",
+    "romaji": "",
+    "meaning": "Sản phẩm"
+  },
+  {
+    "kanji": "番",
+    "hiragana": "ばん",
+    "romaji": "",
+    "meaning": "Lượt"
+  },
+  {
+    "kanji": "方法",
+    "hiragana": "ほうほう",
+    "romaji": "",
+    "meaning": "Phương pháp"
+  },
+  {
+    "kanji": "検査",
+    "hiragana": "ちょうさ",
+    "romaji": "",
+    "meaning": "Kiểm tra"
+  },
+  {
+    "kanji": "完成",
+    "hiragana": "かんせい",
+    "romaji": "",
+    "meaning": "Hoàn thành"
+  },
+  {
+    "kanji": "製品",
+    "hiragana": "せいひん",
+    "romaji": "",
+    "meaning": "Sản phẩm, thành phẩm"
+  },
+  {
+    "kanji": "値上がり",
+    "hiragana": "ねあがり",
+    "romaji": "",
+    "meaning": "Tăng giá"
+  },
+  {
+    "kanji": "生",
+    "hiragana": "なま",
+    "romaji": "",
+    "meaning": "Tươi, mới (chưa chế biến)"
+  },
+  {
+    "kanji": "渇く",
+    "hiragana": "かわく",
+    "romaji": "",
+    "meaning": "Khát"
+  },
+  {
+    "kanji": "嗅ぐ",
+    "hiragana": "かぐ",
+    "romaji": "",
+    "meaning": "Ngửi"
+  },
+  {
+    "kanji": "叩く",
+    "hiragana": "たたく",
+    "romaji": "",
+    "meaning": "Vỗ, đánh, gõ"
+  },
+  {
+    "kanji": "お尻",
+    "hiragana": "おしり",
+    "romaji": "",
+    "meaning": "Mông"
+  },
+  {
+    "kanji": "殴る",
+    "hiragana": "なぐる",
+    "romaji": "",
+    "meaning": "Đánh"
+  },
+  {
+    "kanji": "蹴る",
+    "hiragana": "ける",
+    "romaji": "",
+    "meaning": "Đá"
+  },
+  {
+    "kanji": "抱く",
+    "hiragana": "だく",
+    "romaji": "",
+    "meaning": "Ôm"
+  },
+  {
+    "kanji": "両手",
+    "hiragana": "りょうて",
+    "romaji": "",
+    "meaning": "Hai tay"
+  },
+  {
+    "kanji": "台風",
+    "hiragana": "たいふう",
+    "romaji": "",
+    "meaning": "Bão"
+  },
+  {
+    "kanji": "倒れる",
+    "hiragana": "たおれる",
+    "romaji": "",
+    "meaning": "Bị gãy,đổ,rơi"
+  },
+  {
+    "kanji": "倒す",
+    "hiragana": "たおす",
+    "romaji": "",
+    "meaning": "Chặt đổ, quật ngã"
+  },
+  {
+    "kanji": "起きる",
+    "hiragana": "おきる",
+    "romaji": "",
+    "meaning": "Thức dậy"
+  },
+  {
+    "kanji": "起こす",
+    "hiragana": "おこす",
+    "romaji": "",
+    "meaning": "Đánh thức"
+  },
+  {
+    "kanji": "尋ねる",
+    "hiragana": "たずねる",
+    "romaji": "",
+    "meaning": "Hỏi, thăm hỏi"
+  },
+  {
+    "kanji": "呼ぶ",
+    "hiragana": "よぶ",
+    "romaji": "",
+    "meaning": "Gọi"
+  },
+  {
+    "kanji": "叫ぶ",
+    "hiragana": "さけぶ",
+    "romaji": "",
+    "meaning": "Gào, hét, rú lên"
+  },
+  {
+    "kanji": "黙る",
+    "hiragana": "だまる",
+    "romaji": "",
+    "meaning": "Im lặng"
+  },
+  {
+    "kanji": "飼う",
+    "hiragana": "かう",
+    "romaji": "",
+    "meaning": "Nuôi"
+  },
+  {
+    "kanji": "数える",
+    "hiragana": "かぞえる",
+    "romaji": "",
+    "meaning": "Đếm"
+  },
+  {
+    "kanji": "数",
+    "hiragana": "かず",
+    "romaji": "",
+    "meaning": "Số"
+  },
+  {
+    "kanji": "乾く",
+    "hiragana": "かわく",
+    "romaji": "",
+    "meaning": "Khô"
+  },
+  {
+    "kanji": "乾かす",
+    "hiragana": "かわかす",
+    "romaji": "",
+    "meaning": "Làm khô"
+  },
+  {
+    "kanji": "濡れる",
+    "hiragana": "ぬれる",
+    "romaji": "",
+    "meaning": "Ướt"
+  },
+  {
+    "kanji": "畳む",
+    "hiragana": "たたむ",
+    "romaji": "",
+    "meaning": "Gấp, gập, xếp"
+  },
+  {
+    "kanji": "畳",
+    "hiragana": "じょう",
+    "romaji": "",
+    "meaning": "Cái chiếu"
+  },
+  {
+    "kanji": "誘う",
+    "hiragana": "さそう",
+    "romaji": "",
+    "meaning": "Mời, rủ"
+  },
+  {
+    "kanji": "奢る",
+    "hiragana": "おごる",
+    "romaji": "",
+    "meaning": "Chiêu đãi, khao"
+  },
+  {
+    "kanji": "預かる",
+    "hiragana": "あずかる",
+    "romaji": "",
+    "meaning": "Chăm sóc, trông nom"
+  },
+  {
+    "kanji": "預ける",
+    "hiragana": "あずける",
+    "romaji": "",
+    "meaning": "Giao cho, gửi"
+  },
+  {
+    "kanji": "決まる",
+    "hiragana": "きまる",
+    "romaji": "",
+    "meaning": "Bị quyết định"
+  },
+  {
+    "kanji": "が　写る",
+    "hiragana": "うつる",
+    "romaji": "",
+    "meaning": "Được chụp"
+  },
+  {
+    "kanji": "写す",
+    "hiragana": "うつす",
+    "romaji": "",
+    "meaning": "Chụp lại"
+  },
+  {
+    "kanji": "思い出す",
+    "hiragana": "おもいだす",
+    "romaji": "",
+    "meaning": "Nhớ nhung"
+  },
+  {
+    "kanji": "教わる",
+    "hiragana": "おそわる",
+    "romaji": "",
+    "meaning": "Được dạy"
+  },
+  {
+    "kanji": "申し込む",
+    "hiragana": "もうしこむ",
+    "romaji": "",
+    "meaning": "Đăng kí"
+  },
+  {
+    "kanji": "断る",
+    "hiragana": "ことわる",
+    "romaji": "",
+    "meaning": "Từ chối"
+  },
+  {
+    "kanji": "指輪",
+    "hiragana": "ゆびわ",
+    "romaji": "",
+    "meaning": "Nhẫn"
+  },
+  {
+    "kanji": "見つかる",
+    "hiragana": "みつかる",
+    "romaji": "",
+    "meaning": "Được tìm thấy"
+  },
+  {
+    "kanji": "見つける",
+    "hiragana": "みつける",
+    "romaji": "",
+    "meaning": "Tìm thấy"
+  },
+  {
+    "kanji": "捕まる",
+    "hiragana": "つかまる",
+    "romaji": "",
+    "meaning": "Bị bắt, bị tóm"
+  },
+  {
+    "kanji": "捕まえる",
+    "hiragana": "つかまえる",
+    "romaji": "",
+    "meaning": "Đi bắt"
+  },
+  {
+    "kanji": "乗る",
+    "hiragana": "のる",
+    "romaji": "",
+    "meaning": "Lên"
+  },
+  {
+    "kanji": "乗せる",
+    "hiragana": "のせる",
+    "romaji": "",
+    "meaning": "Cho lên, xếp lên"
+  },
+  {
+    "kanji": "下りる,降りる",
+    "hiragana": "おりる",
+    "romaji": "",
+    "meaning": "Xuống"
+  },
+  {
+    "kanji": "直る",
+    "hiragana": "なおる",
+    "romaji": "",
+    "meaning": "Được sửa, sửa chữa"
+  },
+  {
+    "kanji": "治る",
+    "hiragana": "なおる",
+    "romaji": "",
+    "meaning": "Khôi phục"
+  },
+  {
+    "kanji": "亡くなる",
+    "hiragana": "なくなる",
+    "romaji": "",
+    "meaning": "Chết"
+  },
+  {
+    "kanji": "父親",
+    "hiragana": "ちちおや",
+    "romaji": "",
+    "meaning": "Cha mẹ"
+  },
+  {
+    "kanji": "生まれる",
+    "hiragana": "うまれる",
+    "romaji": "",
+    "meaning": "Được sinh ra"
+  },
+  {
+    "kanji": "産む",
+    "hiragana": "うむ",
+    "romaji": "",
+    "meaning": "Sinh, đẻ"
+  },
+  {
+    "kanji": "先日",
+    "hiragana": "せんじつ",
+    "romaji": "",
+    "meaning": "Mấy ngày trước"
+  },
+  {
+    "kanji": "出会う",
+    "hiragana": "であう",
+    "romaji": "",
+    "meaning": "Gặp gỡ ngẫu nhiên"
+  },
+  {
+    "kanji": "訪ねる",
+    "hiragana": "たずねる",
+    "romaji": "",
+    "meaning": "Thăm, ghé thăm"
+  },
+  {
+    "kanji": "付き合う",
+    "hiragana": "つきあう",
+    "romaji": "",
+    "meaning": "Hẹn hò"
+  },
+  {
+    "kanji": "効く",
+    "hiragana": "きく",
+    "romaji": "",
+    "meaning": "Hiệu quả"
+  },
+  {
+    "kanji": "頭痛",
+    "hiragana": "ずつう",
+    "romaji": "",
+    "meaning": "Đau đầu"
+  },
+  {
+    "kanji": "流行する",
+    "hiragana": "りゅうこうする",
+    "romaji": "",
+    "meaning": "Lưu hành"
+  },
+  {
+    "kanji": "経つ",
+    "hiragana": "たつ",
+    "romaji": "",
+    "meaning": "Trải qua"
+  },
+  {
+    "kanji": "間に合う",
+    "hiragana": "まにあう",
+    "romaji": "",
+    "meaning": "Kịp giờ"
+  },
+  {
+    "kanji": "通う",
+    "hiragana": "かよう",
+    "romaji": "",
+    "meaning": "Đi đi về về"
+  },
+  {
+    "kanji": "込む",
+    "hiragana": "こむ",
+    "romaji": "",
+    "meaning": "Đông, tắc"
+  },
+  {
+    "kanji": "すれ違う",
+    "hiragana": "すれちがう",
+    "romaji": "",
+    "meaning": "Vượt qua, lướt qua"
+  },
+  {
+    "kanji": "動く",
+    "hiragana": "うごく",
+    "romaji": "",
+    "meaning": "Bị chuyển động"
+  },
+  {
+    "kanji": "離れる",
+    "hiragana": "はなれる",
+    "romaji": "",
+    "meaning": "Tách rời"
+  },
+  {
+    "kanji": "ぶつかる",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Bị đâm"
+  },
+  {
+    "kanji": "涙",
+    "hiragana": "なみだ",
+    "romaji": "",
+    "meaning": "Nước mắt"
+  },
+  {
+    "kanji": "溢れる",
+    "hiragana": "こぼれる",
+    "romaji": "",
+    "meaning": "Tràn ra"
+  },
+  {
+    "kanji": "拭く",
+    "hiragana": "ふく",
+    "romaji": "",
+    "meaning": "Lau, chùi, gạt"
+  },
+  {
+    "kanji": "片付く",
+    "hiragana": "かたづく",
+    "romaji": "",
+    "meaning": "Ngăn nắp"
+  },
+  {
+    "kanji": "包む",
+    "hiragana": "つつむ",
+    "romaji": "",
+    "meaning": "Bọc"
+  },
+  {
+    "kanji": "貼る",
+    "hiragana": "はる",
+    "romaji": "",
+    "meaning": "Dán"
+  },
+  {
+    "kanji": "無くなる",
+    "hiragana": "なくなる",
+    "romaji": "",
+    "meaning": "Bị mất"
+  },
+  {
+    "kanji": "足りる",
+    "hiragana": "たりる",
+    "romaji": "",
+    "meaning": "Đủ"
+  },
+  {
+    "kanji": "収入",
+    "hiragana": "しゅうにゅう",
+    "romaji": "",
+    "meaning": "Thu nhập"
+  },
+  {
+    "kanji": "残る",
+    "hiragana": "のこる",
+    "romaji": "",
+    "meaning": "Còn lại, sót lại"
+  },
+  {
+    "kanji": "腐る",
+    "hiragana": "くさる",
+    "romaji": "",
+    "meaning": "Ôi, thiu"
+  },
+  {
+    "kanji": "剥ける",
+    "hiragana": "むける",
+    "romaji": "",
+    "meaning": "Bóc, gọt"
+  },
+  {
+    "kanji": "滑る",
+    "hiragana": "すべる",
+    "romaji": "",
+    "meaning": "Trượt"
+  },
+  {
+    "kanji": "雪",
+    "hiragana": "ゆき",
+    "romaji": "",
+    "meaning": "Tuyết"
+  },
+  {
+    "kanji": "積もる",
+    "hiragana": "つもる",
+    "romaji": "",
+    "meaning": "Chất đống"
+  },
+  {
+    "kanji": "空く",
+    "hiragana": "あく",
+    "romaji": "",
+    "meaning": "Trống rỗng, vắng vẻ"
+  },
+  {
+    "kanji": "下がる",
+    "hiragana": "さがる",
+    "romaji": "",
+    "meaning": "Giảm"
+  },
+  {
+    "kanji": "冷える",
+    "hiragana": "ひえる",
+    "romaji": "",
+    "meaning": "Lạnh, cóng"
+  },
+  {
+    "kanji": "燃える",
+    "hiragana": "もえる",
+    "romaji": "",
+    "meaning": "Cháy"
+  },
+  {
+    "kanji": "沸く",
+    "hiragana": "わく",
+    "romaji": "",
+    "meaning": "Nước sôi"
+  },
+  {
+    "kanji": "お湯",
+    "hiragana": "おゆ",
+    "romaji": "",
+    "meaning": "Nước nóng,sôi"
+  },
+  {
+    "kanji": "鳴る",
+    "hiragana": "なる",
+    "romaji": "",
+    "meaning": "Kêu"
+  },
+  {
+    "kanji": "役に立つ",
+    "hiragana": "やくにたつ",
+    "romaji": "",
+    "meaning": "Có tác dụng"
+  },
+  {
+    "kanji": "飾る",
+    "hiragana": "かざる",
+    "romaji": "",
+    "meaning": "Trang trí"
+  },
+  {
+    "kanji": "遊ぶ",
+    "hiragana": "あそぶ",
+    "romaji": "",
+    "meaning": "Chơi"
+  },
+  {
+    "kanji": "集まる",
+    "hiragana": "あつまる",
+    "romaji": "",
+    "meaning": "Sưu tập"
+  },
+  {
+    "kanji": "踊る",
+    "hiragana": "おどる",
+    "romaji": "",
+    "meaning": "Nhảy"
+  },
+  {
+    "kanji": "思う",
+    "hiragana": "おもう",
+    "romaji": "",
+    "meaning": "Suy nghĩ"
+  },
+  {
+    "kanji": "考える",
+    "hiragana": "かんがえる",
+    "romaji": "",
+    "meaning": "Nghĩ"
+  },
+  {
+    "kanji": "手伝う",
+    "hiragana": "てつだう",
+    "romaji": "",
+    "meaning": "Giúp đỡ"
+  },
+  {
+    "kanji": "働く",
+    "hiragana": "はたらく",
+    "romaji": "",
+    "meaning": "Hoạt động"
+  },
+  {
+    "kanji": "騒ぐ",
+    "hiragana": "さわぐ",
+    "romaji": "",
+    "meaning": "Làm ồn,rùng beng"
+  },
+  {
+    "kanji": "知らせる",
+    "hiragana": "しらせる",
+    "romaji": "",
+    "meaning": "Thông báo"
+  },
+  {
+    "kanji": "違う",
+    "hiragana": "ちがう",
+    "romaji": "",
+    "meaning": "Khác"
+  },
+  {
+    "kanji": "始める",
+    "hiragana": "はじめる",
+    "romaji": "",
+    "meaning": "Bắt đầu"
+  },
+  {
+    "kanji": "続く",
+    "hiragana": "つづく",
+    "romaji": "",
+    "meaning": "Tiếp tục"
+  },
+  {
+    "kanji": "暮れる",
+    "hiragana": "くれる",
+    "romaji": "",
+    "meaning": "Lặn(mặt trời, hết(ngày)"
+  },
+  {
+    "kanji": "別れる",
+    "hiragana": "わかれる",
+    "romaji": "",
+    "meaning": "Chia tay, ly biệt"
+  },
+  {
+    "kanji": "優勝する",
+    "hiragana": "ゆうしょうする",
+    "romaji": "",
+    "meaning": "Vô địch"
+  },
+  {
+    "kanji": "笑う",
+    "hiragana": "わらう",
+    "romaji": "",
+    "meaning": "Cười"
+  },
+  {
+    "kanji": "驚く",
+    "hiragana": "おどろく",
+    "romaji": "",
+    "meaning": "Kinh ngạc"
+  },
+  {
+    "kanji": "殺人",
+    "hiragana": "さつじん",
+    "romaji": "",
+    "meaning": "Sát nhân"
+  },
+  {
+    "kanji": "幸せ（な）",
+    "hiragana": "しあわせ",
+    "romaji": "",
+    "meaning": "Hạnh phúc"
+  },
+  {
+    "kanji": "得意（な）",
+    "hiragana": "とくい",
+    "romaji": "",
+    "meaning": "Giỏi"
+  },
+  {
+    "kanji": "熱心（な）",
+    "hiragana": "ねっしん",
+    "romaji": "",
+    "meaning": "Nhiệt tình"
+  },
+  {
+    "kanji": "認め",
+    "hiragana": "みとめ",
+    "romaji": "",
+    "meaning": "Thừa nhận"
+  },
+  {
+    "kanji": "昇進",
+    "hiragana": "しょうしん",
+    "romaji": "",
+    "meaning": "Thăng tiến"
+  },
+  {
+    "kanji": "夢中（な）",
+    "hiragana": "むちゅう",
+    "romaji": "",
+    "meaning": "Say mê"
+  },
+  {
+    "kanji": "観客",
+    "hiragana": "かんきゃく",
+    "romaji": "",
+    "meaning": "Khánh hàng"
+  },
+  {
+    "kanji": "健康（な）",
+    "hiragana": "けんこう",
+    "romaji": "",
+    "meaning": "Khỏe khoắn"
+  },
+  {
+    "kanji": "育てる",
+    "hiragana": "そだてる",
+    "romaji": "",
+    "meaning": "Nuôi dạy"
+  },
+  {
+    "kanji": "苦しい",
+    "hiragana": "くるしい",
+    "romaji": "",
+    "meaning": "Cực khổ"
+  },
+  {
+    "kanji": "悪口",
+    "hiragana": "わるぐち",
+    "romaji": "",
+    "meaning": "Nói xấu"
+  },
+  {
+    "kanji": "平気（な）",
+    "hiragana": "へいき",
+    "romaji": "",
+    "meaning": "Bình thản"
+  },
+  {
+    "kanji": "悔しい",
+    "hiragana": "くやしい",
+    "romaji": "",
+    "meaning": "Đáng tiếc, đáng ân hận"
+  },
+  {
+    "kanji": "羨ましい",
+    "hiragana": "うらやましい",
+    "romaji": "",
+    "meaning": "Ghen tị"
+  },
+  {
+    "kanji": "才能",
+    "hiragana": "さいのう",
+    "romaji": "",
+    "meaning": "Tài năng"
+  },
+  {
+    "kanji": "豊か",
+    "hiragana": "ゆたか",
+    "romaji": "",
+    "meaning": "Phong phú"
+  },
+  {
+    "kanji": "蚊",
+    "hiragana": "か",
+    "romaji": "",
+    "meaning": "Muỗi"
+  },
+  {
+    "kanji": "首",
+    "hiragana": "くび",
+    "romaji": "",
+    "meaning": "Cái cổ"
+  },
+  {
+    "kanji": "痒い",
+    "hiragana": "かゆい",
+    "romaji": "",
+    "meaning": "Ngứa"
+  },
+  {
+    "kanji": "大人しい",
+    "hiragana": "おとなしい",
+    "romaji": "",
+    "meaning": "Hiền lành"
+  },
+  {
+    "kanji": "我慢強い",
+    "hiragana": "がまんづよい",
+    "romaji": "",
+    "meaning": "Chịu đựng giỏi"
+  },
+  {
+    "kanji": "正直（な）",
+    "hiragana": "しょうじき",
+    "romaji": "",
+    "meaning": "Trung thực"
+  },
+  {
+    "kanji": "けち（な）",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Kiệt xỉ"
+  },
+  {
+    "kanji": "我儘（な）",
+    "hiragana": "わがまま",
+    "romaji": "",
+    "meaning": "Ích kỉ"
+  },
+  {
+    "kanji": "積極的（な）",
+    "hiragana": "せっきょくてき",
+    "romaji": "",
+    "meaning": "Tính tích cực"
+  },
+  {
+    "kanji": "消極的（な）",
+    "hiragana": "しょうきょくてき",
+    "romaji": "",
+    "meaning": "Tính tiêu cực"
+  },
+  {
+    "kanji": "満足（な）",
+    "hiragana": "まんぞく",
+    "romaji": "",
+    "meaning": "Mãn nguyện"
+  },
+  {
+    "kanji": "不満（な）",
+    "hiragana": "ふまん",
+    "romaji": "",
+    "meaning": "Bất mãn"
+  },
+  {
+    "kanji": "不安（な）",
+    "hiragana": "ふあん",
+    "romaji": "",
+    "meaning": "Bất an"
+  },
+  {
+    "kanji": "大変（な）",
+    "hiragana": "たいへん",
+    "romaji": "",
+    "meaning": "Vất vả"
+  },
+  {
+    "kanji": "無理（な）",
+    "hiragana": "むり",
+    "romaji": "",
+    "meaning": "Vô lý"
+  },
+  {
+    "kanji": "不注意（な）",
+    "hiragana": "ふちゅうい",
+    "romaji": "",
+    "meaning": "Không chú ý"
+  },
+  {
+    "kanji": "楽（な）",
+    "hiragana": "らく",
+    "romaji": "",
+    "meaning": "Thoải mái, nhàn hạ"
+  },
+  {
+    "kanji": "面倒（な）",
+    "hiragana": "めんどう",
+    "romaji": "",
+    "meaning": "Phiền hà, quấy rầy"
+  },
+  {
+    "kanji": "手続き",
+    "hiragana": "てつづき",
+    "romaji": "",
+    "meaning": "Thủ tục"
+  },
+  {
+    "kanji": "失礼（な）",
+    "hiragana": "しつれい",
+    "romaji": "",
+    "meaning": "Mất lịch sự"
+  },
+  {
+    "kanji": "当然（な）",
+    "hiragana": "とうぜん",
+    "romaji": "",
+    "meaning": "Đương nhiên"
+  },
+  {
+    "kanji": "意外（な）",
+    "hiragana": "いがい",
+    "romaji": "",
+    "meaning": "Ngoài ý muốn"
+  },
+  {
+    "kanji": "調査",
+    "hiragana": "ちょうさ",
+    "romaji": "",
+    "meaning": "Điều tra"
+  },
+  {
+    "kanji": "事故",
+    "hiragana": "じこ",
+    "romaji": "",
+    "meaning": "Tai nạn, sự cố"
+  },
+  {
+    "kanji": "結構（な）",
+    "hiragana": "けっこう",
+    "romaji": "",
+    "meaning": "Tốt, cũng được"
+  },
+  {
+    "kanji": "派手（な）",
+    "hiragana": "はで",
+    "romaji": "",
+    "meaning": "Lòe loẹt, màu mè"
+  },
+  {
+    "kanji": "地味（な）",
+    "hiragana": "じみ",
+    "romaji": "",
+    "meaning": "Giản dị, đơn giản"
+  },
+  {
+    "kanji": "お洒落（な）",
+    "hiragana": "おしゃれ",
+    "romaji": "",
+    "meaning": "Thời trang thịnh hành"
+  },
+  {
+    "kanji": "変（な）",
+    "hiragana": "へん",
+    "romaji": "",
+    "meaning": "Lạ, kỳ quặc"
+  },
+  {
+    "kanji": "不思議（な）",
+    "hiragana": "ふしぎ",
+    "romaji": "",
+    "meaning": "Bí hiểm, kỳ quái"
+  },
+  {
+    "kanji": "無駄（な）",
+    "hiragana": "むだ",
+    "romaji": "",
+    "meaning": "Lãng phí"
+  },
+  {
+    "kanji": "自由（な）",
+    "hiragana": "じゆう",
+    "romaji": "",
+    "meaning": "Tự do"
+  },
+  {
+    "kanji": "暖まる",
+    "hiragana": "あたたまる",
+    "romaji": "",
+    "meaning": "Ấm lên"
+  },
+  {
+    "kanji": "高まる",
+    "hiragana": "たかまる",
+    "romaji": "",
+    "meaning": "Bốc lên, nâng lên"
+  },
+  {
+    "kanji": "強まる",
+    "hiragana": "つよまる",
+    "romaji": "",
+    "meaning": "Khỏe,mạnh lên"
+  },
+  {
+    "kanji": "弱まる",
+    "hiragana": "よわまる",
+    "romaji": "",
+    "meaning": "Yếu đi"
+  },
+  {
+    "kanji": "広まる",
+    "hiragana": "ひろまる",
+    "romaji": "",
+    "meaning": "Được lan truyền"
+  },
+  {
+    "kanji": "深まる",
+    "hiragana": "ふかまる",
+    "romaji": "",
+    "meaning": "Sâu sắc thêm"
+  },
+  {
+    "kanji": "世話",
+    "hiragana": "せわ",
+    "romaji": "",
+    "meaning": "Giúp đỡ"
+  },
+  {
+    "kanji": "家庭",
+    "hiragana": "かてい",
+    "romaji": "",
+    "meaning": "Gia đình"
+  },
+  {
+    "kanji": "厳しい",
+    "hiragana": "きびしい",
+    "romaji": "",
+    "meaning": "Nghiêm khắc"
+  },
+  {
+    "kanji": "易しい",
+    "hiragana": "やさしい",
+    "romaji": "",
+    "meaning": "Dễ"
+  },
+  {
+    "kanji": "協力する",
+    "hiragana": "きょうりょくする",
+    "romaji": "",
+    "meaning": "Hiệp lực"
+  },
+  {
+    "kanji": "感謝する",
+    "hiragana": "かんしゃする",
+    "romaji": "",
+    "meaning": "Cảm ơn, biết ơn"
+  },
+  {
+    "kanji": "お詫び",
+    "hiragana": "おわび",
+    "romaji": "",
+    "meaning": "Xin lỗi"
+  },
+  {
+    "kanji": "迷惑をかける",
+    "hiragana": "めいわくをかける",
+    "romaji": "",
+    "meaning": "Làm phiền"
+  },
+  {
+    "kanji": "お辞儀",
+    "hiragana": "おじぎ",
+    "romaji": "",
+    "meaning": "Cúi chào"
+  },
+  {
+    "kanji": "丁寧（な）",
+    "hiragana": "ていねい",
+    "romaji": "",
+    "meaning": "Lịch sự"
+  },
+  {
+    "kanji": "握手",
+    "hiragana": "あくしゅ",
+    "romaji": "",
+    "meaning": "Bắt tay"
+  },
+  {
+    "kanji": "意地悪する",
+    "hiragana": "いじわるする",
+    "romaji": "",
+    "meaning": "Tâm địa xấu, xấu bụng"
+  },
+  {
+    "kanji": "節約する",
+    "hiragana": "せつやくする",
+    "romaji": "",
+    "meaning": "Tiết kiệm, dành dụm"
+  },
+  {
+    "kanji": "生活費",
+    "hiragana": "せいかつひ",
+    "romaji": "",
+    "meaning": "Phí sinh hoạt"
+  },
+  {
+    "kanji": "経営する",
+    "hiragana": "けいえいする",
+    "romaji": "",
+    "meaning": "Quản lý kinh doanh"
+  },
+  {
+    "kanji": "反省する",
+    "hiragana": "はんせいする",
+    "romaji": "",
+    "meaning": "Kiểm điểm"
+  },
+  {
+    "kanji": "実行する",
+    "hiragana": "じっこうする",
+    "romaji": "",
+    "meaning": "Thực hành"
+  },
+  {
+    "kanji": "進歩する",
+    "hiragana": "しんぽする",
+    "romaji": "",
+    "meaning": "Tiến bộ"
+  },
+  {
+    "kanji": "変化する",
+    "hiragana": "へんかする",
+    "romaji": "",
+    "meaning": "Thay đổi"
+  },
+  {
+    "kanji": "発達する",
+    "hiragana": "はったつする",
+    "romaji": "",
+    "meaning": "Phát triển, phát đạt"
+  },
+  {
+    "kanji": "体力",
+    "hiragana": "たいりょく",
+    "romaji": "",
+    "meaning": "Thể lực"
+  },
+  {
+    "kanji": "低下",
+    "hiragana": "ていか",
+    "romaji": "",
+    "meaning": "Suy giảm"
+  },
+  {
+    "kanji": "若者",
+    "hiragana": "わかもの",
+    "romaji": "",
+    "meaning": "Giới trẻ"
+  },
+  {
+    "kanji": "出場する",
+    "hiragana": "しゅつじょうする",
+    "romaji": "",
+    "meaning": "Ra mặt, ra mắt(trình diễn)"
+  },
+  {
+    "kanji": "活躍する",
+    "hiragana": "かつやくする",
+    "romaji": "",
+    "meaning": "Hoạt động"
+  },
+  {
+    "kanji": "競争する",
+    "hiragana": "きょうそうする",
+    "romaji": "",
+    "meaning": "Cạnh tranh"
+  },
+  {
+    "kanji": "成績",
+    "hiragana": "せいせき",
+    "romaji": "",
+    "meaning": "Thành tích"
+  },
+  {
+    "kanji": "応援する",
+    "hiragana": "おうえんする",
+    "romaji": "",
+    "meaning": "Cổ vũ, hỗ trợ"
+  },
+  {
+    "kanji": "拍手する",
+    "hiragana": "はくしゅする",
+    "romaji": "",
+    "meaning": "Vỗ tay"
+  },
+  {
+    "kanji": "噂する",
+    "hiragana": "うわさする",
+    "romaji": "",
+    "meaning": "Lời đồn, bàn tán"
+  },
+  {
+    "kanji": "情報",
+    "hiragana": "じょうほう",
+    "romaji": "",
+    "meaning": "Thông tin"
+  },
+  {
+    "kanji": "交換する",
+    "hiragana": "こうかんする",
+    "romaji": "",
+    "meaning": "Trao đổi"
+  },
+  {
+    "kanji": "宣伝する",
+    "hiragana": "せんでんする",
+    "romaji": "",
+    "meaning": "Tuyền truyền"
+  },
+  {
+    "kanji": "広告",
+    "hiragana": "こうこく",
+    "romaji": "",
+    "meaning": "Quảng cáo"
+  },
+  {
+    "kanji": "注目する",
+    "hiragana": "ちゅうもくする",
+    "romaji": "",
+    "meaning": "Tập trung sự chú ý"
+  },
+  {
+    "kanji": "通訳する",
+    "hiragana": "つうやくする",
+    "romaji": "",
+    "meaning": "Thông dịch"
+  },
+  {
+    "kanji": "翻訳する",
+    "hiragana": "ほんやくする",
+    "romaji": "",
+    "meaning": "Phiên dịch"
+  },
+  {
+    "kanji": "伝言する",
+    "hiragana": "でんごんする",
+    "romaji": "",
+    "meaning": "Nhắn tin"
+  },
+  {
+    "kanji": "報告する",
+    "hiragana": "ほうこくする",
+    "romaji": "",
+    "meaning": "Báo cáo"
+  },
+  {
+    "kanji": "録画",
+    "hiragana": "ろくが",
+    "romaji": "",
+    "meaning": "Ghi hình"
+  },
+  {
+    "kanji": "混雑する",
+    "hiragana": "こんざつする",
+    "romaji": "",
+    "meaning": "Hỗn tạp, đông đúc"
+  },
+  {
+    "kanji": "渋滞する",
+    "hiragana": "じゅうたいする",
+    "romaji": "",
+    "meaning": "Tắc đường, tắc nghẽn"
+  },
+  {
+    "kanji": "衝突する",
+    "hiragana": "しょうとつする",
+    "romaji": "",
+    "meaning": "Xung đột, va chạm"
+  },
+  {
+    "kanji": "場面",
+    "hiragana": "ばめん",
+    "romaji": "",
+    "meaning": "Hiện trường"
+  },
+  {
+    "kanji": "被害",
+    "hiragana": "ひがい",
+    "romaji": "",
+    "meaning": "Thiệt hại"
+  },
+  {
+    "kanji": "事件",
+    "hiragana": "じけん",
+    "romaji": "",
+    "meaning": "Sự kiện"
+  },
+  {
+    "kanji": "故障する",
+    "hiragana": "こしょうする",
+    "romaji": "",
+    "meaning": "Hỏng hóc, trục trặc"
+  },
+  {
+    "kanji": "修理する",
+    "hiragana": "しゅうりする",
+    "romaji": "",
+    "meaning": "Sửa chữa"
+  },
+  {
+    "kanji": "停電",
+    "hiragana": "ていでん",
+    "romaji": "",
+    "meaning": "Mất điện"
+  },
+  {
+    "kanji": "雷",
+    "hiragana": "かみなり",
+    "romaji": "",
+    "meaning": "Sấm sét"
+  },
+  {
+    "kanji": "調子",
+    "hiragana": "ちょうし",
+    "romaji": "",
+    "meaning": "Tình trạng"
+  },
+  {
+    "kanji": "自信",
+    "hiragana": "じしん",
+    "romaji": "",
+    "meaning": "Tự tin"
+  },
+  {
+    "kanji": "自慢",
+    "hiragana": "じまん",
+    "romaji": "",
+    "meaning": "Tự mãn"
+  },
+  {
+    "kanji": "関心",
+    "hiragana": "かんしん",
+    "romaji": "",
+    "meaning": "Quan tâm"
+  },
+  {
+    "kanji": "感動する",
+    "hiragana": "かんどうする",
+    "romaji": "",
+    "meaning": "Cảm động"
+  },
+  {
+    "kanji": "興奮する",
+    "hiragana": "こうふんする",
+    "romaji": "",
+    "meaning": "Hưng phấn"
+  },
+  {
+    "kanji": "感想",
+    "hiragana": "かんそう",
+    "romaji": "",
+    "meaning": "Cảm tưởng"
+  },
+  {
+    "kanji": "予想する",
+    "hiragana": "よそうする",
+    "romaji": "",
+    "meaning": "Đoán trước, trù liệu"
+  },
+  {
+    "kanji": "専門",
+    "hiragana": "せんもん",
+    "romaji": "",
+    "meaning": "Chuyên môn"
+  },
+  {
+    "kanji": "研究する",
+    "hiragana": "けんきゅうする",
+    "romaji": "",
+    "meaning": "Nghiên cứu"
+  },
+  {
+    "kanji": "原因",
+    "hiragana": "げんいん",
+    "romaji": "",
+    "meaning": "Nguyên nhân"
+  },
+  {
+    "kanji": "結果",
+    "hiragana": "けっか",
+    "romaji": "",
+    "meaning": "Kết quả"
+  },
+  {
+    "kanji": "解決",
+    "hiragana": "かいけつ",
+    "romaji": "",
+    "meaning": "Quải quyết"
+  },
+  {
+    "kanji": "確かめる",
+    "hiragana": "たしかめる",
+    "romaji": "",
+    "meaning": "Xác nhận, kiểm tra"
+  },
+  {
+    "kanji": "間違う",
+    "hiragana": "まちがう",
+    "romaji": "",
+    "meaning": "Sai"
+  },
+  {
+    "kanji": "利用する",
+    "hiragana": "りようする",
+    "romaji": "",
+    "meaning": "Sử dụng"
+  },
+  {
+    "kanji": "減る",
+    "hiragana": "へる",
+    "romaji": "",
+    "meaning": "Giảm"
+  },
+  {
+    "kanji": "理解する",
+    "hiragana": "りかいする",
+    "romaji": "",
+    "meaning": "Lý giải"
+  },
+  {
+    "kanji": "発見する",
+    "hiragana": "はっけんする",
+    "romaji": "",
+    "meaning": "Phát hiện"
+  },
+  {
+    "kanji": "発明する",
+    "hiragana": "はつめいする",
+    "romaji": "",
+    "meaning": "Phát minh"
+  },
+  {
+    "kanji": "関係する",
+    "hiragana": "かんけいする",
+    "romaji": "",
+    "meaning": "Quan hệ"
+  },
+  {
+    "kanji": "団体",
+    "hiragana": "だんたい",
+    "romaji": "",
+    "meaning": "Đoàn thể, nhóm"
+  },
+  {
+    "kanji": "博物館",
+    "hiragana": "はくぶつかん",
+    "romaji": "",
+    "meaning": "Viện bảo tàng"
+  },
+  {
+    "kanji": "選挙",
+    "hiragana": "せんきょ",
+    "romaji": "",
+    "meaning": "Bầu cử"
+  },
+  {
+    "kanji": "行う",
+    "hiragana": "おこなう",
+    "romaji": "",
+    "meaning": "Tổ chức"
+  },
+  {
+    "kanji": "税金",
+    "hiragana": "ぜいきん",
+    "romaji": "",
+    "meaning": "Tiền thuế"
+  },
+  {
+    "kanji": "責任",
+    "hiragana": "せきにん",
+    "romaji": "",
+    "meaning": "Trách nhiệm"
+  },
+  {
+    "kanji": "題名",
+    "hiragana": "だいめい",
+    "romaji": "",
+    "meaning": "Nhan đề"
+  },
+  {
+    "kanji": "条件",
+    "hiragana": "じょうけん",
+    "romaji": "",
+    "meaning": "Điều kiện"
+  },
+  {
+    "kanji": "採用",
+    "hiragana": "さいよう",
+    "romaji": "",
+    "meaning": "Tuyển dụng"
+  },
+  {
+    "kanji": "締め切り",
+    "hiragana": "しめきり",
+    "romaji": "",
+    "meaning": "Hạn cuối"
+  },
+  {
+    "kanji": "期間",
+    "hiragana": "きかん",
+    "romaji": "",
+    "meaning": "Khoảng thời gian"
+  },
+  {
+    "kanji": "倍",
+    "hiragana": "ばい",
+    "romaji": "",
+    "meaning": "Gấp đôi"
+  },
+  {
+    "kanji": "近道",
+    "hiragana": "ちかみち",
+    "romaji": "",
+    "meaning": "Đường tắt"
+  },
+  {
+    "kanji": "中心",
+    "hiragana": "ちゅうしん",
+    "romaji": "",
+    "meaning": "Trung tâm"
+  },
+  {
+    "kanji": "辺り",
+    "hiragana": "あたり",
+    "romaji": "",
+    "meaning": "Xung quanh"
+  },
+  {
+    "kanji": "周り",
+    "hiragana": "まわり",
+    "romaji": "",
+    "meaning": "Xung quanh"
+  },
+  {
+    "kanji": "穴",
+    "hiragana": "あな",
+    "romaji": "",
+    "meaning": "Lỗ"
+  },
+  {
+    "kanji": "地面",
+    "hiragana": "じめん",
+    "romaji": "",
+    "meaning": "Mặt đất"
+  },
+  {
+    "kanji": "掘る",
+    "hiragana": "ほる",
+    "romaji": "",
+    "meaning": "Đào"
+  },
+  {
+    "kanji": "列",
+    "hiragana": "れつ",
+    "romaji": "",
+    "meaning": "Hàng (xếp hàng)"
+  },
+  {
+    "kanji": "幅",
+    "hiragana": "はば",
+    "romaji": "",
+    "meaning": "Chiều rộng"
+  },
+  {
+    "kanji": "範囲",
+    "hiragana": "はんい",
+    "romaji": "",
+    "meaning": "Phạm vi"
+  },
+  {
+    "kanji": "内容",
+    "hiragana": "ないよう",
+    "romaji": "",
+    "meaning": "Nội dung"
+  },
+  {
+    "kanji": "中身",
+    "hiragana": "なかみ",
+    "romaji": "",
+    "meaning": "Nội dung bên trong"
+  },
+  {
+    "kanji": "特徴",
+    "hiragana": "とくちょう",
+    "romaji": "",
+    "meaning": "Đặc trưng"
+  },
+  {
+    "kanji": "普通",
+    "hiragana": "ふつう",
+    "romaji": "",
+    "meaning": "Phổ thông, thông thường"
+  },
+  {
+    "kanji": "当たり前",
+    "hiragana": "あたりまえ",
+    "romaji": "",
+    "meaning": "Dĩ nhiên"
+  },
+  {
+    "kanji": "偽",
+    "hiragana": "にせ",
+    "romaji": "",
+    "meaning": "Giả (giả dối)"
+  },
+  {
+    "kanji": "国籍",
+    "hiragana": "こくせき",
+    "romaji": "",
+    "meaning": "Quốc tịch"
+  },
+  {
+    "kanji": "東洋",
+    "hiragana": "とうよう",
+    "romaji": "",
+    "meaning": "Phương Đông"
+  },
+  {
+    "kanji": "西洋",
+    "hiragana": "せいよう",
+    "romaji": "",
+    "meaning": "Phương Tây"
+  },
+  {
+    "kanji": "比べる",
+    "hiragana": "くらべる",
+    "romaji": "",
+    "meaning": "So sánh"
+  },
+  {
+    "kanji": "文化",
+    "hiragana": "ぶんか",
+    "romaji": "",
+    "meaning": "Văn hóa"
+  },
+  {
+    "kanji": "国際",
+    "hiragana": "こくさい",
+    "romaji": "",
+    "meaning": "Quốc tế"
+  },
+  {
+    "kanji": "支社",
+    "hiragana": "ししゃ",
+    "romaji": "",
+    "meaning": "Chi nhánh"
+  },
+  {
+    "kanji": "企業",
+    "hiragana": "きぎょう",
+    "romaji": "",
+    "meaning": "Công ty, xí nghiệp"
+  },
+  {
+    "kanji": "発展",
+    "hiragana": "はってん",
+    "romaji": "",
+    "meaning": "Phát triển"
+  },
+  {
+    "kanji": "自然",
+    "hiragana": "しぜん",
+    "romaji": "",
+    "meaning": "Tự nhiên"
+  },
+  {
+    "kanji": "景色",
+    "hiragana": "けしき",
+    "romaji": "",
+    "meaning": "Phong cảnh"
+  },
+  {
+    "kanji": "宗教",
+    "hiragana": "しゅうきょう",
+    "romaji": "",
+    "meaning": "Tôn giáo"
+  },
+  {
+    "kanji": "愛",
+    "hiragana": "あい",
+    "romaji": "",
+    "meaning": "Yêu"
+  },
+  {
+    "kanji": "届ける",
+    "hiragana": "とどける",
+    "romaji": "",
+    "meaning": "Chuyển đến"
+  },
+  {
+    "kanji": "掻く",
+    "hiragana": "かく",
+    "romaji": "",
+    "meaning": "Gãi, cào, bới"
+  },
+  {
+    "kanji": "掴む",
+    "hiragana": "つかむ",
+    "romaji": "",
+    "meaning": "Tóm, chộp"
+  },
+  {
+    "kanji": "びっくりする",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Ngạc nhiên, giật mình"
+  },
+  {
+    "kanji": "握る",
+    "hiragana": "にぎる",
+    "romaji": "",
+    "meaning": "Bắt, bíu, nắm"
+  },
+  {
+    "kanji": "押さえる",
+    "hiragana": "おさえる",
+    "romaji": "",
+    "meaning": "Giữ, ôm(bụng)"
+  },
+  {
+    "kanji": "が　近づく",
+    "hiragana": "ちかづく",
+    "romaji": "",
+    "meaning": "Đến gần, tới gần"
+  },
+  {
+    "kanji": "不図",
+    "hiragana": "ふと",
+    "romaji": "",
+    "meaning": "Đột nhiên"
+  },
+  {
+    "kanji": "が　当たる",
+    "hiragana": "あたる",
+    "romaji": "",
+    "meaning": "Bị đánh"
+  },
+  {
+    "kanji": "似合う",
+    "hiragana": "にあう",
+    "romaji": "",
+    "meaning": "Hợp"
+  },
+  {
+    "kanji": "似る",
+    "hiragana": "にる",
+    "romaji": "",
+    "meaning": "Giống"
+  },
+  {
+    "kanji": "財産",
+    "hiragana": "ざいさん",
+    "romaji": "",
+    "meaning": "Tài sản"
+  },
+  {
+    "kanji": "足す",
+    "hiragana": "たす",
+    "romaji": "",
+    "meaning": "Cộng vào, thêm vào"
+  },
+  {
+    "kanji": "薄い",
+    "hiragana": "うすい",
+    "romaji": "",
+    "meaning": "Nhạt, mỏng"
+  },
+  {
+    "kanji": "塩",
+    "hiragana": "しお",
+    "romaji": "",
+    "meaning": "Muối"
+  },
+  {
+    "kanji": "引く",
+    "hiragana": "ひく",
+    "romaji": "",
+    "meaning": "Trừ"
+  },
+  {
+    "kanji": "店長",
+    "hiragana": "てんちょう",
+    "romaji": "",
+    "meaning": "Chủ tiệm"
+  },
+  {
+    "kanji": "譲る",
+    "hiragana": "ゆずる",
+    "romaji": "",
+    "meaning": "Nhường nhin, nhượng bộ"
+  },
+  {
+    "kanji": "助かる",
+    "hiragana": "たすかる",
+    "romaji": "",
+    "meaning": "Được giúp"
+  },
+  {
+    "kanji": "虐める",
+    "hiragana": "いじめる",
+    "romaji": "",
+    "meaning": "Bị bắt nạt"
+  },
+  {
+    "kanji": "騙す",
+    "hiragana": "だます",
+    "romaji": "",
+    "meaning": "Lừa đảo, lạm dụng"
+  },
+  {
+    "kanji": "独身",
+    "hiragana": "どくしん",
+    "romaji": "",
+    "meaning": "Độc thân"
+  },
+  {
+    "kanji": "留守中",
+    "hiragana": "るすちゅう",
+    "romaji": "",
+    "meaning": "Trong khi vắng nhà"
+  },
+  {
+    "kanji": "が　刺さる",
+    "hiragana": "ささる",
+    "romaji": "",
+    "meaning": "Mắc, hóc"
+  },
+  {
+    "kanji": "殺す",
+    "hiragana": "ころす",
+    "romaji": "",
+    "meaning": "Giết"
+  },
+  {
+    "kanji": "が　隠れる",
+    "hiragana": "かくれる",
+    "romaji": "",
+    "meaning": "Ẩn nấp, núp"
+  },
+  {
+    "kanji": "が　埋まる",
+    "hiragana": "うまる",
+    "romaji": "",
+    "meaning": "Bị lấp,chôn"
+  },
+  {
+    "kanji": "囲む",
+    "hiragana": "かこむ",
+    "romaji": "",
+    "meaning": "Bao quanh, vây hãm"
+  },
+  {
+    "kanji": "が　詰まる",
+    "hiragana": "つまる",
+    "romaji": "",
+    "meaning": "Chặt, đầy"
+  },
+  {
+    "kanji": "開く",
+    "hiragana": "ひらく",
+    "romaji": "",
+    "meaning": "Mở"
+  },
+  {
+    "kanji": "閉じる",
+    "hiragana": "とじる",
+    "romaji": "",
+    "meaning": "Đóng"
+  },
+  {
+    "kanji": "が　飛ぶ",
+    "hiragana": "とぶ",
+    "romaji": "",
+    "meaning": "Bay"
+  },
+  {
+    "kanji": "振る",
+    "hiragana": "ふる",
+    "romaji": "",
+    "meaning": "Vẫy (tay)"
+  },
+  {
+    "kanji": "捲る",
+    "hiragana": "めくる",
+    "romaji": "",
+    "meaning": "Xắn, quấn"
+  },
+  {
+    "kanji": "見かける",
+    "hiragana": "みかける",
+    "romaji": "",
+    "meaning": "Tình cờ gặp"
+  },
+  {
+    "kanji": "試す",
+    "hiragana": "ためす",
+    "romaji": "",
+    "meaning": "Mặc thử"
+  },
+  {
+    "kanji": "洋服",
+    "hiragana": "ようふく",
+    "romaji": "",
+    "meaning": "Quần áo kiểu Tây Âu"
+  },
+  {
+    "kanji": "繰り返す",
+    "hiragana": "くりかえす",
+    "romaji": "",
+    "meaning": "Lặp lại"
+  },
+  {
+    "kanji": "体操する",
+    "hiragana": "たいそうする",
+    "romaji": "",
+    "meaning": "Tập thể dục"
+  },
+  {
+    "kanji": "訳す",
+    "hiragana": "やくす",
+    "romaji": "",
+    "meaning": "Dịch"
+  },
+  {
+    "kanji": "許す",
+    "hiragana": "ゆるす",
+    "romaji": "",
+    "meaning": "Tha thứ, tha lỗi"
+  },
+  {
+    "kanji": "謝る",
+    "hiragana": "あやまる",
+    "romaji": "",
+    "meaning": "Xin lỗi"
+  },
+  {
+    "kanji": "が　慣れる",
+    "hiragana": "なれる",
+    "romaji": "",
+    "meaning": "Quen"
+  },
+  {
+    "kanji": "が　立つ",
+    "hiragana": "たつ",
+    "romaji": "",
+    "meaning": "Bị đứng"
+  },
+  {
+    "kanji": "が　建つ",
+    "hiragana": "たつ",
+    "romaji": "",
+    "meaning": "Được xây"
+  },
+  {
+    "kanji": "が　育つ",
+    "hiragana": "そだつ",
+    "romaji": "",
+    "meaning": "Lớn lên, khôn lớn"
+  },
+  {
+    "kanji": "が　生える",
+    "hiragana": "はえる",
+    "romaji": "",
+    "meaning": "Mọc, phát triển"
+  },
+  {
+    "kanji": "が　汚れる",
+    "hiragana": "よごれる",
+    "romaji": "",
+    "meaning": "Bị bẩn"
+  },
+  {
+    "kanji": "が　壊れる",
+    "hiragana": "こわれる",
+    "romaji": "",
+    "meaning": "Bị hỏng"
+  },
+  {
+    "kanji": "が　割れる",
+    "hiragana": "われる",
+    "romaji": "",
+    "meaning": "Bị vỡ"
+  },
+  {
+    "kanji": "が　折れる",
+    "hiragana": "おれる",
+    "romaji": "",
+    "meaning": "Gãy"
+  },
+  {
+    "kanji": "が　破れる",
+    "hiragana": "やぶれる",
+    "romaji": "",
+    "meaning": "Rách"
+  },
+  {
+    "kanji": "が　曲がる",
+    "hiragana": "まがる",
+    "romaji": "",
+    "meaning": "Bị gập, cong"
+  },
+  {
+    "kanji": "が　外れる",
+    "hiragana": "はずれる",
+    "romaji": "",
+    "meaning": "Rời ra, tách ra"
+  },
+  {
+    "kanji": "が　揺れる",
+    "hiragana": "ゆれる",
+    "romaji": "",
+    "meaning": "Bi rung"
+  },
+  {
+    "kanji": "が　流れる",
+    "hiragana": "ながれる",
+    "romaji": "",
+    "meaning": "Chảy, trôi đi"
+  },
+  {
+    "kanji": "都心",
+    "hiragana": "としん",
+    "romaji": "",
+    "meaning": "Trung tâm"
+  },
+  {
+    "kanji": "が　濡れる",
+    "hiragana": "ぬれる",
+    "romaji": "",
+    "meaning": "Bị ướt"
+  },
+  {
+    "kanji": "が　迷う",
+    "hiragana": "まよう",
+    "romaji": "",
+    "meaning": "Lạc đường"
+  },
+  {
+    "kanji": "悩む",
+    "hiragana": "なやむ",
+    "romaji": "",
+    "meaning": "Phiền muội, lo lắng"
+  },
+  {
+    "kanji": "が　慌てる",
+    "hiragana": "あわてる",
+    "romaji": "",
+    "meaning": "Luống cuống, vội vàng"
+  },
+  {
+    "kanji": "が　覚める",
+    "hiragana": "さめる",
+    "romaji": "",
+    "meaning": "Tỉnh giấc, tỉnh dậy"
+  },
+  {
+    "kanji": "夜中",
+    "hiragana": "よなか",
+    "romaji": "",
+    "meaning": "Giữa đêm"
+  },
+  {
+    "kanji": "が　眠る",
+    "hiragana": "ねむる",
+    "romaji": "",
+    "meaning": "Ngủ"
+  },
+  {
+    "kanji": "緊張する",
+    "hiragana": "きんちょうする",
+    "romaji": "",
+    "meaning": "Căng thẳng, lo lắng"
+  },
+  {
+    "kanji": "祈る",
+    "hiragana": "いのる",
+    "romaji": "",
+    "meaning": "Cầu nguyện"
+  },
+  {
+    "kanji": "祝う",
+    "hiragana": "いわう",
+    "romaji": "",
+    "meaning": "Chúc mừng"
+  },
+  {
+    "kanji": "感じる",
+    "hiragana": "かんじる",
+    "romaji": "",
+    "meaning": "Cảm thấy"
+  },
+  {
+    "kanji": "濃い",
+    "hiragana": "こい",
+    "romaji": "",
+    "meaning": "Nồng, đậm"
+  },
+  {
+    "kanji": "酸っぱい",
+    "hiragana": "すっぱい",
+    "romaji": "",
+    "meaning": "Chua"
+  },
+  {
+    "kanji": "臭い",
+    "hiragana": "くさい",
+    "romaji": "",
+    "meaning": "Thối, tanh"
+  },
+  {
+    "kanji": "可笑しい",
+    "hiragana": "かわいい",
+    "romaji": "",
+    "meaning": "Buồn cười"
+  },
+  {
+    "kanji": "格好いい",
+    "hiragana": "かっこいい",
+    "romaji": "",
+    "meaning": "Đẹp trai, bảnh bao"
+  },
+  {
+    "kanji": "うまい",
+    "hiragana": "うまい",
+    "romaji": "",
+    "meaning": "Ngon"
+  },
+  {
+    "kanji": "親しい",
+    "hiragana": "したしい",
+    "romaji": "",
+    "meaning": "Thân thiện, gần gũi"
+  },
+  {
+    "kanji": "詳しい",
+    "hiragana": "くわしい",
+    "romaji": "",
+    "meaning": "Tường tận, tỉ mỉ"
+  },
+  {
+    "kanji": "細かい",
+    "hiragana": "こまかい",
+    "romaji": "",
+    "meaning": "Chi tiết, chi li"
+  },
+  {
+    "kanji": "浅い",
+    "hiragana": "あさい",
+    "romaji": "",
+    "meaning": "Nông, cạn"
+  },
+  {
+    "kanji": "硬い,固い",
+    "hiragana": "かたい",
+    "romaji": "",
+    "meaning": "Cứng, dai"
+  },
+  {
+    "kanji": "温い",
+    "hiragana": "ぬるい",
+    "romaji": "",
+    "meaning": "Nguội"
+  },
+  {
+    "kanji": "眩しい",
+    "hiragana": "まぶしい",
+    "romaji": "",
+    "meaning": "Chói mắt, sáng chói"
+  },
+  {
+    "kanji": "蒸し暑い",
+    "hiragana": "むしあつい",
+    "romaji": "",
+    "meaning": "Nóng ẩm"
+  },
+  {
+    "kanji": "清潔（な）",
+    "hiragana": "せいけつ",
+    "romaji": "",
+    "meaning": "Thanh khiết, sạch sẽ"
+  },
+  {
+    "kanji": "新鮮（な）",
+    "hiragana": "しんせん",
+    "romaji": "",
+    "meaning": "Tươi, mới"
+  },
+  {
+    "kanji": "立派（な）",
+    "hiragana": "りっぱい",
+    "romaji": "",
+    "meaning": "Siêu"
+  },
+  {
+    "kanji": "正確（な）",
+    "hiragana": "せいかく",
+    "romaji": "",
+    "meaning": "Chính xác"
+  },
+  {
+    "kanji": "確か（な）",
+    "hiragana": "たしか",
+    "romaji": "",
+    "meaning": "Xác thực"
+  },
+  {
+    "kanji": "重要（な）",
+    "hiragana": "じゅうよう",
+    "romaji": "",
+    "meaning": "Trọng yếu"
+  },
+  {
+    "kanji": "勿体無い（な）",
+    "hiragana": "もったいない",
+    "romaji": "",
+    "meaning": "Lãng phí, hoang phí"
+  },
+  {
+    "kanji": "凄い",
+    "hiragana": "すごい",
+    "romaji": "",
+    "meaning": "Giỏi, xuất sắc"
+  },
+  {
+    "kanji": "酷い",
+    "hiragana": "ひどい",
+    "romaji": "",
+    "meaning": "Kinh khủng, khủng khiếp"
+  },
+  {
+    "kanji": "激しい",
+    "hiragana": "はげしい",
+    "romaji": "",
+    "meaning": "Mãnh liệt"
+  },
+  {
+    "kanji": "そっくり（な）",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Giống"
+  },
+  {
+    "kanji": "急（な）",
+    "hiragana": "きゅう",
+    "romaji": "",
+    "meaning": "Gấp"
+  },
+  {
+    "kanji": "適当（な）",
+    "hiragana": "てきとう",
+    "romaji": "",
+    "meaning": "Thích hợp, vừa phải"
+  },
+  {
+    "kanji": "特別（な）",
+    "hiragana": "とくべつ",
+    "romaji": "",
+    "meaning": "Đặc biệt"
+  },
+  {
+    "kanji": "完全（な）",
+    "hiragana": "かんぜん",
+    "romaji": "",
+    "meaning": "Hoàn toàn"
+  },
+  {
+    "kanji": "盛ん（な）",
+    "hiragana": "さかん",
+    "romaji": "",
+    "meaning": "Thịnh vượng"
+  },
+  {
+    "kanji": "様々（な）",
+    "hiragana": "さまざま",
+    "romaji": "",
+    "meaning": "Nhiều loại"
+  },
+  {
+    "kanji": "可能（な）",
+    "hiragana": "かのう",
+    "romaji": "",
+    "meaning": "Khả năng"
+  },
+  {
+    "kanji": "基本的（な）",
+    "hiragana": "きほんてき",
+    "romaji": "",
+    "meaning": "Tính cơ bản"
+  },
+  {
+    "kanji": "国際的（な）",
+    "hiragana": "こくさいてき",
+    "romaji": "",
+    "meaning": "Tính quốc tế"
+  },
+  {
+    "kanji": "ばらばら（な）",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Bừa bộn, lung tung"
+  },
+  {
+    "kanji": "ぼろぼろ（な）",
+    "hiragana": "",
+    "romaji": "",
+    "meaning": "Rách nát"
+  },
+  {
+    "kanji": "読書する",
+    "hiragana": "どくしょ",
+    "romaji": "",
+    "meaning": "Đọc sách"
+  },
+  {
+    "kanji": "演奏",
+    "hiragana": "えんそう",
+    "romaji": "",
+    "meaning": "Trình diễn, biểu diễn"
+  },
+  {
+    "kanji": "芸術",
+    "hiragana": "げいじゅつ",
+    "romaji": "",
+    "meaning": "Nghệ thuật"
+  },
+  {
+    "kanji": "胃",
+    "hiragana": "い",
+    "romaji": "",
+    "meaning": "Dạ dày"
+  },
+  {
+    "kanji": "血液",
+    "hiragana": "けつえき",
+    "romaji": "",
+    "meaning": "Máu"
+  },
+  {
+    "kanji": "治療する",
+    "hiragana": "ちりょうする",
+    "romaji": "",
+    "meaning": "Trị liệu"
+  },
+  {
+    "kanji": "症状",
+    "hiragana": "しょうじょう",
+    "romaji": "",
+    "meaning": "Triệu chứng"
+  },
+  {
+    "kanji": "鼻水",
+    "hiragana": "はなみず",
+    "romaji": "",
+    "meaning": "Nước mũi"
+  },
+  {
+    "kanji": "予防する",
+    "hiragana": "よぼうする",
+    "romaji": "",
+    "meaning": "Dự phòng"
+  },
+  {
+    "kanji": "栄養",
+    "hiragana": "えいよう",
+    "romaji": "",
+    "meaning": "Dinh dưỡng"
+  },
+  {
+    "kanji": "手術",
+    "hiragana": "しゅじゅつ",
+    "romaji": "",
+    "meaning": "Phẫu thuật"
+  },
+  {
+    "kanji": "死亡する",
+    "hiragana": "しぼうする",
+    "romaji": "",
+    "meaning": "Tử vong"
+  },
+  {
+    "kanji": "一生",
+    "hiragana": "いっしょう",
+    "romaji": "",
+    "meaning": "Cuộc đời, suốt đời"
+  },
+  {
+    "kanji": "誤解する",
+    "hiragana": "ごかいする",
+    "romaji": "",
+    "meaning": "Hiểu nhầm"
+  },
+  {
+    "kanji": "後悔",
+    "hiragana": "こうかい",
+    "romaji": "",
+    "meaning": "Hối hận"
+  },
+  {
+    "kanji": "訳",
+    "hiragana": "わけ",
+    "romaji": "",
+    "meaning": "Lý do"
+  },
+  {
+    "kanji": "態度",
+    "hiragana": "たいど",
+    "romaji": "",
+    "meaning": "Thái độ"
+  },
+  {
+    "kanji": "癖",
+    "hiragana": "くせ",
+    "romaji": "",
+    "meaning": "Thói quen"
+  },
+  {
+    "kanji": "礼儀",
+    "hiragana": "れいぎ",
+    "romaji": "",
+    "meaning": "Lễ nghi"
+  },
+  {
+    "kanji": "文句",
+    "hiragana": "もんく",
+    "romaji": "",
+    "meaning": "Kêu ca, phàn nàn"
+  },
+  {
+    "kanji": "表情",
+    "hiragana": "ひょうじょう",
+    "romaji": "",
+    "meaning": "Biểu tình"
+  },
+  {
+    "kanji": "表面",
+    "hiragana": "ひょうめん",
+    "romaji": "",
+    "meaning": "Bề ngoài, bề mặt"
+  },
+  {
+    "kanji": "禁煙する",
+    "hiragana": "きんえんする",
+    "romaji": "",
+    "meaning": "Cấm hút thuốc"
+  },
+  {
+    "kanji": "禁止する",
+    "hiragana": "きんしする",
+    "romaji": "",
+    "meaning": "Cấm"
+  },
+  {
+    "kanji": "課題",
+    "hiragana": "かだい",
+    "romaji": "",
+    "meaning": "Chủ đề"
+  },
+  {
+    "kanji": "例外",
+    "hiragana": "れいがい",
+    "romaji": "",
+    "meaning": "Ngoại lệ"
+  },
+  {
+    "kanji": "基本",
+    "hiragana": "きほん",
+    "romaji": "",
+    "meaning": "Cơ bản"
+  },
+  {
+    "kanji": "記録する",
+    "hiragana": "きろくする",
+    "romaji": "",
+    "meaning": "Ghi chép, ghi lại"
+  },
+  {
+    "kanji": "状態",
+    "hiragana": "じょうたい",
+    "romaji": "",
+    "meaning": "Trạng thái"
+  },
+  {
+    "kanji": "出来事",
+    "hiragana": "できごと",
+    "romaji": "",
+    "meaning": "Việc đã xảy ra"
+  },
+  {
+    "kanji": "機会",
+    "hiragana": "きかい",
+    "romaji": "",
+    "meaning": "Cơ hội"
+  },
+  {
+    "kanji": "距離",
+    "hiragana": "きょり",
+    "romaji": "",
+    "meaning": "Cư ly"
+  },
+  {
+    "kanji": "提案する",
+    "hiragana": "ていあんする",
+    "romaji": "",
+    "meaning": "Đề xuất"
+  },
+  {
+    "kanji": "やり取りする",
+    "hiragana": "やりとりする",
+    "romaji": "",
+    "meaning": "Trao đổi"
+  },
+  {
+    "kanji": "知識",
+    "hiragana": "ちしき",
+    "romaji": "",
+    "meaning": "Tri thức"
+  },
+  {
+    "kanji": "手段",
+    "hiragana": "しゅだん",
+    "romaji": "",
+    "meaning": "Phương pháp, thủ đoạn"
+  },
+  {
+    "kanji": "代表する",
+    "hiragana": "だいひょうする",
+    "romaji": "",
+    "meaning": "Đại biểu"
+  },
+  {
+    "kanji": "影響する",
+    "hiragana": "えいきょうする",
+    "romaji": "",
+    "meaning": "Ảnh hưởng"
+  },
+  {
+    "kanji": "効果",
+    "hiragana": "こうか",
+    "romaji": "",
+    "meaning": "Hiệu quả"
+  },
+  {
+    "kanji": "印象",
+    "hiragana": "いんしょう",
+    "romaji": "",
+    "meaning": "Ấn tượng"
+  },
+  {
+    "kanji": "印",
+    "hiragana": "しるし",
+    "romaji": "",
+    "meaning": "Dấu hiệu"
+  },
+  {
+    "kanji": "合図",
+    "hiragana": "あいず",
+    "romaji": "",
+    "meaning": "Dấu hiệu"
+  },
+  {
+    "kanji": "共通する",
+    "hiragana": "きょうつうする",
+    "romaji": "",
+    "meaning": "Điểm chung"
+  },
+  {
+    "kanji": "強調する",
+    "hiragana": "きょうちょうする",
+    "romaji": "",
+    "meaning": "Nhấn mạnh"
+  },
+  {
+    "kanji": "大事",
+    "hiragana": "だいじ",
+    "romaji": "",
+    "meaning": "Quan trọng"
+  },
+  {
+    "kanji": "説明する",
+    "hiragana": "せつめいする",
+    "romaji": "",
+    "meaning": "Thuyết minh"
+  },
+  {
+    "kanji": "省略する",
+    "hiragana": "しょうりゃくする",
+    "romaji": "",
+    "meaning": "Lược bỏ"
+  },
+  {
+    "kanji": "挑戦する",
+    "hiragana": "ちょうせんする",
+    "romaji": "",
+    "meaning": "Khiêu chiến, thách thức"
+  },
+  {
+    "kanji": "やる気",
+    "hiragana": "やるき",
+    "romaji": "",
+    "meaning": "Có hứng thú làm"
+  },
+  {
+    "kanji": "勇気",
+    "hiragana": "ゆうき",
+    "romaji": "",
+    "meaning": "Dũng khí"
+  },
+  {
+    "kanji": "資格",
+    "hiragana": "しかく",
+    "romaji": "",
+    "meaning": "Tư cách"
+  },
+  {
+    "kanji": "弁護士",
+    "hiragana": "べんごし",
+    "romaji": "",
+    "meaning": "Luật sư"
+  },
+  {
+    "kanji": "申請する",
+    "hiragana": "しんせいする",
+    "romaji": "",
+    "meaning": "Yêu cầu, thỉnh cầu"
+  },
+  {
+    "kanji": "通帳",
+    "hiragana": "つうちょう",
+    "romaji": "",
+    "meaning": "Sổ tiết kiệm"
+  },
+  {
+    "kanji": "本人",
+    "hiragana": "ほんにん",
+    "romaji": "",
+    "meaning": "Người chính"
+  },
+  {
+    "kanji": "契約する",
+    "hiragana": "けいやくする",
+    "romaji": "",
+    "meaning": "Hợp đồng"
+  },
+  {
+    "kanji": "証明する",
+    "hiragana": "しょうめいする",
+    "romaji": "",
+    "meaning": "Chứng minh"
+  },
+  {
+    "kanji": "変更する",
+    "hiragana": "へんこうする",
+    "romaji": "",
+    "meaning": "Sửa đổi"
+  },
+  {
+    "kanji": "保存する",
+    "hiragana": "ほぞんする",
+    "romaji": "",
+    "meaning": "Bảo tồn"
+  },
+  {
+    "kanji": "保護する",
+    "hiragana": "ほごする",
+    "romaji": "",
+    "meaning": "Bảo hộ"
+  },
+  {
+    "kanji": "郊外",
+    "hiragana": "こうがい",
+    "romaji": "",
+    "meaning": "Ngoại ô"
+  },
+  {
+    "kanji": "資源",
+    "hiragana": "しげん",
+    "romaji": "",
+    "meaning": "Tài nguyên"
+  },
+  {
+    "kanji": "有効",
+    "hiragana": "ゆうこう",
+    "romaji": "",
+    "meaning": "Hữu hiệu"
+  },
+  {
+    "kanji": "不足する",
+    "hiragana": "ふそくする",
+    "romaji": "",
+    "meaning": "Không đủ"
+  },
+  {
+    "kanji": "平均する",
+    "hiragana": "へいきんする",
+    "romaji": "",
+    "meaning": "Trung bình"
+  },
+  {
+    "kanji": "割合",
+    "hiragana": "わりあい",
+    "romaji": "",
+    "meaning": "Tỉ lệ"
+  },
+  {
+    "kanji": "商売する",
+    "hiragana": "しょうばいする",
+    "romaji": "",
+    "meaning": "Thương mại"
+  },
+  {
+    "kanji": "質",
+    "hiragana": "しつ",
+    "romaji": "",
+    "meaning": "Chất"
+  },
+  {
+    "kanji": "型",
+    "hiragana": "かた",
+    "romaji": "",
+    "meaning": "Mẫu, khuôn"
+  },
+  {
+    "kanji": "生産する",
+    "hiragana": "せいさんする",
+    "romaji": "",
+    "meaning": "Sản xuất"
+  },
+  {
+    "kanji": "農業",
+    "hiragana": "のうぎょう",
+    "romaji": "",
+    "meaning": "Nông nghiệp"
+  },
+  {
+    "kanji": "消費する",
+    "hiragana": "しょうひする",
+    "romaji": "",
+    "meaning": "Tiêu phí"
+  },
+  {
+    "kanji": "物価",
+    "hiragana": "ぶっか",
+    "romaji": "",
+    "meaning": "Giá cả"
+  },
+  {
+    "kanji": "携帯",
+    "hiragana": "けいたい",
+    "romaji": "",
+    "meaning": "Cầm tay"
+  },
+  {
+    "kanji": "現代",
+    "hiragana": "げんだい",
+    "romaji": "",
+    "meaning": "Hiện đại"
+  },
+  {
+    "kanji": "世紀",
+    "hiragana": "せいき",
+    "romaji": "",
+    "meaning": "Thế kỉ"
+  },
+  {
+    "kanji": "地方",
+    "hiragana": "ちほう",
+    "romaji": "",
+    "meaning": "Địa phương"
+  },
+  {
+    "kanji": "戦争する",
+    "hiragana": "せんそうする",
+    "romaji": "",
+    "meaning": "Chiến tranh"
+  },
+  {
+    "kanji": "平和",
+    "hiragana": "へいわ",
+    "romaji": "",
+    "meaning": "Hòa bình"
+  },
+  {
+    "kanji": "が　上る",
+    "hiragana": "のぼる",
+    "romaji": "",
+    "meaning": "Leo lên"
+  },
+  {
+    "kanji": "階段",
+    "hiragana": "かいだん",
+    "romaji": "",
+    "meaning": "Cầu thang"
+  },
+  {
+    "kanji": "下る",
+    "hiragana": "くだる",
+    "romaji": "",
+    "meaning": "Đi xuống"
+  },
+  {
+    "kanji": "が　通る",
+    "hiragana": "とおる",
+    "romaji": "",
+    "meaning": "Đi qua"
+  },
+  {
+    "kanji": "光",
+    "hiragana": "ひかり",
+    "romaji": "",
+    "meaning": "Ánh sáng"
+  },
+  {
+    "kanji": "空気",
+    "hiragana": "くうき",
+    "romaji": "",
+    "meaning": "Không khí"
+  },
+  {
+    "kanji": "が　越える,超える",
+    "hiragana": "こえる",
+    "romaji": "",
+    "meaning": "Vượt qua"
+  },
+  {
+    "kanji": "が　過ぎる",
+    "hiragana": "すぎる",
+    "romaji": "",
+    "meaning": "Quá"
+  },
+  {
+    "kanji": "が　移る",
+    "hiragana": "うつる",
+    "romaji": "",
+    "meaning": "Di chuyển"
+  },
+  {
+    "kanji": "本社",
+    "hiragana": "ほんしゃ",
+    "romaji": "",
+    "meaning": "Trụ sở chính"
+  },
+  {
+    "kanji": "連れる",
+    "hiragana": "つれる",
+    "romaji": "",
+    "meaning": "Dẫn, dắt"
+  },
+  {
+    "kanji": "が　寄る",
+    "hiragana": "よる",
+    "romaji": "",
+    "meaning": "Ghé thăm"
+  },
+  {
+    "kanji": "奨学金",
+    "hiragana": "しょうがくきん",
+    "romaji": "",
+    "meaning": "Học bổng"
+  },
+  {
+    "kanji": "与える",
+    "hiragana": "あたえる",
+    "romaji": "",
+    "meaning": "Cung cấp, đưa"
+  },
+  {
+    "kanji": "得る",
+    "hiragana": "える",
+    "romaji": "",
+    "meaning": "Đạt được"
+  },
+  {
+    "kanji": "が　向く",
+    "hiragana": "むく",
+    "romaji": "",
+    "meaning": "Đối diện"
+  },
+  {
+    "kanji": "勧める",
+    "hiragana": "すすめる",
+    "romaji": "",
+    "meaning": "Mời, rủ, gợi ý"
+  },
+  {
+    "kanji": "任せる",
+    "hiragana": "まかせる",
+    "romaji": "",
+    "meaning": "Để cho ai làm gì"
+  },
+  {
+    "kanji": "守る",
+    "hiragana": "まもる",
+    "romaji": "",
+    "meaning": "Giữ, tuân thủ"
+  },
+  {
+    "kanji": "争う",
+    "hiragana": "あらそう",
+    "romaji": "",
+    "meaning": "Gây gổ, tranh nhau"
+  },
+  {
+    "kanji": "望む",
+    "hiragana": "のぞむ",
+    "romaji": "",
+    "meaning": "Ước"
+  },
+  {
+    "kanji": "信じる",
+    "hiragana": "しんじる",
+    "romaji": "",
+    "meaning": "Tin tưởng"
+  },
+  {
+    "kanji": "が　通じる",
+    "hiragana": "つうじる",
+    "romaji": "",
+    "meaning": "Thông qua"
+  },
+  {
+    "kanji": "飽く",
+    "hiragana": "あく",
+    "romaji": "",
+    "meaning": "Chán"
+  },
+  {
+    "kanji": "思いつく",
+    "hiragana": "おもいつく",
+    "romaji": "",
+    "meaning": "Nghĩ"
+  },
+  {
+    "kanji": "思いやる",
+    "hiragana": "おもいやる",
+    "romaji": "",
+    "meaning": "Quan tâm, thông cảm"
+  },
+  {
+    "kanji": "熱中する",
+    "hiragana": "ねっちゅうする",
+    "romaji": "",
+    "meaning": "Nghiện (karaoke)"
+  },
+  {
+    "kanji": "暮らす",
+    "hiragana": "くらす",
+    "romaji": "",
+    "meaning": "Sinh sống"
+  },
+  {
+    "kanji": "巻く",
+    "hiragana": "まく",
+    "romaji": "",
+    "meaning": "Quấn"
+  },
+  {
+    "kanji": "結ぶ",
+    "hiragana": "むすぶ",
+    "romaji": "",
+    "meaning": "Buộc"
+  },
+  {
+    "kanji": "紐",
+    "hiragana": "ひも",
+    "romaji": "",
+    "meaning": "Dây"
+  },
+  {
+    "kanji": "が　済む",
+    "hiragana": "すむ",
+    "romaji": "",
+    "meaning": "Kết thúc"
+  },
+  {
+    "kanji": "出来る",
+    "hiragana": "できる",
+    "romaji": "",
+    "meaning": "Hoàn thành, có thể"
+  },
+  {
+    "kanji": "切れる",
+    "hiragana": "きれる",
+    "romaji": "",
+    "meaning": "Cắt, hết"
+  },
+  {
+    "kanji": "が　伝わる",
+    "hiragana": "つたわる",
+    "romaji": "",
+    "meaning": "Truyền đi"
+  },
+  {
+    "kanji": "が　繋がる",
+    "hiragana": "つながる",
+    "romaji": "",
+    "meaning": "Kết nối"
+  },
+  {
+    "kanji": "伸びる",
+    "hiragana": "のびる",
+    "romaji": "",
+    "meaning": "Cao lên, phát triển lên"
+  },
+  {
+    "kanji": "延びる",
+    "hiragana": "のびる",
+    "romaji": "",
+    "meaning": "Trì hoãn"
+  },
+  {
+    "kanji": "が　重なる",
+    "hiragana": "かさなる",
+    "romaji": "",
+    "meaning": "Chồng lên"
+  },
+  {
+    "kanji": "が　広がる",
+    "hiragana": "ひろがる",
+    "romaji": "",
+    "meaning": "Rộng"
+  },
+  {
+    "kanji": "が　載る",
+    "hiragana": "のる",
+    "romaji": "",
+    "meaning": "Lên, vừa"
+  },
+  {
+    "kanji": "が　揃う",
+    "hiragana": "そろう",
+    "romaji": "",
+    "meaning": "Thu thập"
+  },
+  {
+    "kanji": "が　纏まる",
+    "hiragana": "まとまる",
+    "romaji": "",
+    "meaning": "Tập hợp, thống nhất"
+  },
+  {
+    "kanji": "が　付く",
+    "hiragana": "つく",
+    "romaji": "",
+    "meaning": "Dính, gắn, có"
+  },
+  {
+    "kanji": "が　貯まる",
+    "hiragana": "たまる",
+    "romaji": "",
+    "meaning": "Tiết kiệm"
+  },
+  {
+    "kanji": "が　交じる,混じる",
+    "hiragana": "まじる",
+    "romaji": "",
+    "meaning": "Giao vào, lẫn vào"
+  },
+  {
+    "kanji": "が　溶ける,解ける",
+    "hiragana": "とける",
+    "romaji": "",
+    "meaning": "Giải quyết, giải đông"
+  },
+  {
+    "kanji": "含む",
+    "hiragana": "ふくむ",
+    "romaji": "",
+    "meaning": "Bao gồm"
+  },
+  {
+    "kanji": "が　抜ける",
+    "hiragana": "ぬける",
+    "romaji": "",
+    "meaning": "Tháo, tuột"
+  },
+  {
+    "kanji": "が　現れる",
+    "hiragana": "あらわれる",
+    "romaji": "",
+    "meaning": "Xuất hiện, hiện ra"
+  },
+  {
+    "kanji": "が　表れる",
+    "hiragana": "あらわれる",
+    "romaji": "",
+    "meaning": "Hiện ra"
+  },
+  {
+    "kanji": "が　散る",
+    "hiragana": "ちる",
+    "romaji": "",
+    "meaning": "Tàn"
+  },
+  {
+    "kanji": "差す",
+    "hiragana": "さす",
+    "romaji": "",
+    "meaning": "Giương, giơ"
+  }
+]

@@ -1,0 +1,824 @@
+STT	漢字	Hán Việt	ひらがな	Nghĩa	Chưa thuộc	Từ loại
+1	男性	Nam tính	だんせい	Nam giới		
+2	女性	Nữ tính	じょせい	Nữ giới		
+3	理想	Lý tưởng	りそう	Lý tưởng		
+4	高齢	Cao linh	こうれい	Cao tuổi		
+5	年上	Niên thượng	としうえ	Hơn tuổi		
+6	目上	Mục thượng	めうえ	Người trên		
+7	敬語	Kính ngữ	けいご	Kính ngữ		
+8	先輩	Tiền bối	せんぱい	Tiền bối		
+9	後輩	Hậu bối	こうはい	Hậu bối		
+10	職場	Chức trường	しょくば	Nơi làm việc		
+11	上司	Thượng ty	じょうし	Cấp trên		
+12	決定	Quyết định	けってい	Quyết định		
+13	相手	Tương thủ	あいて	Đối tác		
+15	就職	Tựu chức	しゅうしょく	Có việc làm		
+17	友人	Hữu nhân	ゆうじん	Bạn thân		
+18	時代	Thời đại	じだい	Thời đại		
+19	仲	Trọng	なか	Quan hệ		
+21	生年月日	Sinh Niên Nguyệt Nhật	せいねんがっぴ	Ngày tháng năm sinh		
+22	誕生	Đản sinh	たんじょう	Ra đời		
+26	出身	Xuất thân	しゅっしん	Xuất thân		
+23	命	Mệnh	いのち	Số mệnh, cuộc sống		
+25	計画	Kế hoạch	けいかく	Kế hoạch		
+27	故郷	Cố hương	こきょう	Quê hương		
+28	事業	Sự nghiệp	じぎょう	Sự nghiệp		
+29	喜ぶ	Hỉ	よろこぶ	Hạnh phúc		
+20	記入する	Kí nhập	きにゅうする	Nhập vào		
+24	立てる	Lập	たてる	Lập ( kế hoạch		
+16	頼む	Lại	たのむ	Nhờ vả		
+30	成長する	Thành trường	せいちょうする	Trưởng thành		
+31	成人する	Thành nhân	せいじんする	Người lớn		
+32	合格する	Hợp cách	ごうかくする	Đỗ (kỳ thi		
+33	進学する	Tiến học	しんがくする	Đi học		
+34	退学する	Thoái học	たいがくする	Bỏ học		
+35	就職する	Tựu chức	しゅうしょくする	Có việc làm		
+36	介護	Giới hộ	かいご	Chăm sóc		
+37	決める	Quyết	きめる	Quyết định		
+38	退職する	Thoái chức	たいしょくする	Nghỉ việc		
+39	倒産する	Đảo sản	とうさんする	Phá sản		
+40	失業する	Thất nghiệp	しつぎょうする	Thất nghiệp		
+41	残業する	Tàn nghiệp	ざんぎょうする	Làm thêm giờ		
+42	疲れる	Bì	つかれる	Mệt		
+43	生活する	Sinh hoạt	せいかつする	Cuộc sống		
+44	通勤する	Thông cần	つうきんする	Đi làm		
+45	学歴	Học lịch	がくれき	Bằng cấp		
+46	実力	Thực lực	じつりょく	Thực lực		
+47	給料	Cấp liệu	きゅうりょう	Lương		
+48	面接する	Diện tiếp	めんせつする	Phỏng vấn		
+49	休憩する	Hưu khế	きゅうけいする	Nghỉ giải lao		
+50	観光する	Quan quang	かんこうする	Thăm quan		
+51	帰国する	Quy quốc	きこくする	Về nước		
+52	帰省する	Quy tỉnh	きせいする	Về quê		
+53	帰宅する	Quy trạch	きたくする	Về nhà		
+54	参加する	Tham gia	さんかする	Tham gia		
+55	活動	Hoạt động	かつどう	Hoạt động		
+56	出席する	Xuất tịch	しゅっせきする	Tham gia		
+57	欠席する	Khuyết tịch	けっせきする	Không tham gia		
+58	寝坊	Tẩm phường	ねぼう	Ngủ quên		
+59	遅刻する	Trì khắc	ちこくする	Đến muộn		
+60	化粧する	Hóa trang	けしょうする	Trang điểm		
+61	苦手	Khổ thủ	にがて	Kém		
+62	計算する	Kế toán	けいさんする	Tính toán		
+63	計画する	Kế hoạch	けいかくする	Kế hoạch		
+64	成功する	Thành công	せいこうする	Thành công		
+65	失敗する	Thất bại	しっぱいする	Thất bại		
+66	実験	Thực nghiệm	じっけん	Thực nghiệm		
+67	準備する	Chuẩn bị	じゅんびする	Chuẩn bị		
+68	整理する	Chỉnh lý	せいりする	Sắp xếp		
+69	書類	Thư loại	しょるい	Giấy tờ		
+70	品	Phẩm	しな	Hàng hóa		
+71	届く	Giới	とどく	Đến nơi		
+72	注文する	Chú văn	ちゅうもんする	Đặt hàng		
+73	貯金する	Trữ kim	ちょきんする	Tiết kiệm		
+74	増える	Tăng	ふえる	Tăng		
+75	徹夜する	Triệt dạ	てつやする	Thức xuyên đêm		
+76	身長	Thân trường	しんちょう	Chiều cao		
+77	体重	Thể trọng	たいじゅう	Cân nặng		
+78	怪我	Quái ngã	けが	Bị thương		
+79	趣味	Thú vị	しゅみ	Sở thích		
+80	読書	Độc thư	どくしょ	Đọc sách		
+81	興味	Hưng vị	きょうみ	Hứng thú		
+82	歴史	Lịch sử	れきし	Lịch sử		
+83	思い出	Tư xuất	おもいで	Hồi ức		
+84	冗談	Nhũng đàm	じょうだん	Đùa cợt		
+85	本気	Bản khí	ほんき	Sự thật		
+86	目的	Mục đích	もくてき	Mục đích		
+87	約束する	Ước thúc	やくそくする	Lời hứa		
+88	おしゃべりする			Nói chuyện		
+89	怒る	Nộ	おこる	Tức giận		
+90	遠慮する	Viễn lự	えんりょ	Ngại ngần		
+91	我慢する	Ngã mạn	がまんする	Chịu đựng		
+92	迷惑する	Mê hoặc	めいわくする	Làm phiền		
+93	捨てる	Vứt	すてる	Vứt		
+94	希望	Hi vọng	きぼう	Hi vọng		
+95	夢	Mộng	ゆめ	Giấc mơ, ước mơ		
+96	怖い	Bố	こわい	Đáng sợ		
+97	賛成する	Tán thành	さんせいする	Tán thành		
+98	挙げる	Cử	あげる	Giơ tay		
+99	反対する	Phản đối	はんたいする	Phản đối		
+100	想像する	Tưởng tượng	そうぞう	Tưởng tượng		
+101	現実	Hiện thực	げんじつ	Hiện thực, sự thật		
+102	努力する	Nỗ lực	どりょくする	Nỗ lực		
+103	太陽	Thái dương	たいよう	Mặt trời		
+104	昇る	Thăng	のぼる	Lên cao, tăng lên		
+105	地球	Địa cầu	ちきゅう	Trái đất		
+106	環境	Hoàn cảnh	かんきょう	Môi trường		
+107	温度	Ôn độ	おんど	Nhiệt độ		
+108	湿度	Thấp độ	しつど	Độ ẩm		
+109	湿気	Thấp khí	しっけ	Hơi ẩm		
+110	梅雨	Mai vũ	つゆ	Mùa mưa		
+111	かび			Nấm mốc		
+112	時期	Thời kì	じき	Thời kì		
+113	暖房	Noãn phòng	だんぼう	Thiết bị làm ấm		
+114	皮	Bì	かわ	Vỏ, da		
+115	画面	Họa diện	がめん	Màn hình		
+116	番組	Phiên tổ	ばんぐみ	Chương trình		
+117	記事	Kí sự	きじ	Kí sự		
+118	近所	Cận sở	きんじょ	Hàng xóm, xung quanh		
+119	盗む	Đạo	ぬすむ	Ăn trộm		
+120	警官	Cảnh quan	けいかん	Cảnh sát		
+121	犯人	Phạm nhân	はんにん	Tội phạm		
+122	小銭	Tiểu tiền	こぜに	Tiền lẻ		
+123	お祝う	Chúc	おいわう	Chúc mừng		
+124	ごちそう			Chiêu đãi		
+125	作者	Tác giả	さくしゃ	Tác giả		
+126	作品	Tác phẩm	さくひん	Tác phẩm		
+127	展示	Triển thị	てんじ	Trưng bày		
+128	制服	Chế phục	せいふく	Đồng phục		
+129	食器	Thực khí	しょっき	Bát đĩa		
+130	洗剤	Tẩy tễ	せんざい	Chất tẩy rửa		
+131	底	Để	そこ	Đáy		
+132	進む	Tiến	すすむ	Tiến lên,triển,bộ		
+133	開発	Khai phát	かいはつ	Phát triển		
+134	都市	Đô thị	とし	Thành phố		
+135	寺	Tự	てら	Chùa		
+136	道路	Đạo lộ	どうろ	Con đường		
+137	坂	Phản	さか	Dốc		
+138	煙	Yên	けむり	Khói		
+139	逃げる	Đào	にげる	Bỏ chạy, tẩu thoát		
+140	火事	Hỏa sự	かじ	Hỏa hoạn		
+141	灰	Hôi	はい	Tro tàn		
+142	判	Phán	はん	Con dấu		
+143	名刺	Danh thích	めいし	Danh thiếp		
+144	交換	Giao hoán	こうかん	Trao đổi		
+145	免許	Miễn hứa	めんきょ	Giấy phép		
+146	必要（な）	Tất yếu	ひつよう	Cần thiết		
+147	調理師	Điều lý sư	ちょうりし	Đầu bếp		
+148	多く	Đa	おおく	Nhiều		
+149	前半	Tiền bán	ぜんはん	Phần đầu		
+150	後半	Hậu bán	こうはん	Phần sau		
+151	退屈	Thoái khuất	たいくつ	Buồn tẻ, chán ngắt		
+152	最高	Tối cao	さいこう	Cao nhất		
+153	最低	Tối đê	さいてい	Thấp nhất		
+154	最初	Tối sơ	さいしょ	Đầu tiên		
+155	最後	Tối hậu	さいご	Cuối cùng		
+156	花束	Hoa thúc	はなたば	Bó hoa		
+157	自動	Tự động	じどう	Tự động		
+158	種類	Chủng loại	しゅるい	Chủng loại		
+159	性格	Tính cách	せいかく	Tính cách		
+160	性質	Tính chất	せいしつ	Tính chất		
+161	布	Bố	ぬの	Vải		
+162	順番	Thuận phiên	じゅんばん	Thứ tự		
+163	発表	Phát biểu	はっぴょう	Phát biểu		
+164	商品	Thương phẩm	しょうひん	Phần thưởng		
+165	番	Phiên	ばん	Lượt		
+166	方法	Phương pháp	ほうほう	Phương pháp		
+167	検査	Kiểm tra	ちょうさ	Kiểm tra		
+168	完成	Hoàn thành	かんせい	Hoàn thành		
+169	製品	Chế phẩm	せいひん	Sản phẩm, thành phẩm		
+170	値上がり	Trị thượng	ねあがり	Tăng giá		
+171	生	Sinh	なま	Tươi, mới (chưa chế biến		
+172	渇く	Khát	かわく	Khát		
+173	嗅ぐ	Khứu	かぐ	Ngửi		
+174	叩く	Khấu	たたく	Vỗ, đánh, gõ		
+175	お尻	Khào	おしり	Mông		
+176	殴る	Ẩu	なぐる	Đánh		
+177	蹴る	Xúc	ける	Đá		
+178	抱く	Bão	だく	Ôm		
+179	両手	Lưỡng thủ	りょうて	Hai tay		
+180	台風	Đài phong	たいふう	Bão		
+181	倒れる	Đảo	たおれる	Bị gãy,đổ,rơi		
+182	倒す	Đảo	たおす	Chặt đổ, quật ngã		
+183	起きる	Khởi	おきる	Thức dậy		
+184	起こす	Khởi	おこす	Đánh thức		
+185	尋ねる	Tầm	たずねる	Hỏi, thăm hỏi		
+186	呼ぶ	Hô	よぶ	Gọi		
+187	叫ぶ	Khiếu	さけぶ	Gào, hét, rú lên		
+188	黙る	Mặc	だまる	Im lặng		
+189	飼う	Tự	かう	Nuôi		
+190	数える	Số	かぞえる	Đếm		
+191	数	Số	かず	Số		
+192	乾く	Can	かわく	Khô		
+193	乾かす	Can	かわかす	Làm khô		
+194	濡れる	Nhu	ぬれる	Ướt		
+195	畳む	Điệp	たたむ	Gấp, gập, xếp		
+196	畳	Điệp	じょう	Cái chiếu		
+197	誘う	Dụ	さそう	Mời , rủ		
+198	奢る	Xa	おごる	Chiêu đãi, khao		
+199	預かる	Dự	あずかる	Chăm sóc, trông nom		
+200	預ける	Dự	あずける	Giao cho, gửi		
+201	決まる	Quyết	きまる	Bị quyết định		
+202	決める	Quyết	きめる	Quyết định		
+203	が　写る	Tả	うつる	Được chụp		
+204	写す	Tả	うつす	Chụp lại		
+205	思い出す	Tư xuất	おもいだす	Nhớ nhung		
+206	教わる	Giáo	おそわる	Được dạy		
+207	申し込む	Thân nhập	もうしこむ	Đăng kí		
+208	断る	Đoạn	ことわる	Từ chối		
+209	指輪	Chỉ luân	ゆびわ	Nhẫn		
+210	見つかる	Kiến	みつかる	Được tìm thấy		
+211	見つける	Kiến	みつける	Tìm thấy		
+212	捕まる	Bộ	つかまる	Bị bắt, bị tóm		
+213	捕まえる	Bộ	つかまえる	Đi bắt		
+214	乗る	Thừa	のる	Lên		
+215	乗せる	Thừa	のせる	Cho lên, xếp lên		
+216	下りる,降りる	Hạ, Giáng	おりる	Xuống		
+217	下ろす、降ろす	Hạ, Giáng	おろす	Cho xuống		
+218	直る	Trực	なおる	Được sửa, sửa chữa		
+219	直す	Trực	なおす	Sửa xong		
+220	治る	Trị	なおる	Khôi phục		
+221	治す	Trị	なおす	Chữa trị		
+222	亡くなる	Vong	なくなる	Chết		
+223	亡くす	Vong	なくす	Mất		
+224	父親	Phụ thân	ちちおや	Cha mẹ		
+225	生まれる	Sinh	うまれる	Được sinh ra		
+226	産む	Sản	うむ	Sinh, đẻ		
+227	先日	Tiên nhật	せんじつ	Mấy ngày trước		
+228	出会う	Xuất hội	であう	Gặp gỡ ngẫu nhiên		
+229	訪ねる	Phỏng	たずねる	Thăm, ghé thăm		
+230	付き合う	Phó hợp	つきあう	Hẹn hò		
+231	効く	Hiệu	きく	Hiệu quả		
+232	頭痛	Đầu thống	ずつう	Đau đầu		
+233	流行する	Lưu hành	りゅうこうする	Lưu hành		
+234	経つ	Kinh	たつ	Trải qua		
+235	間に合う	Gian hợp	まにあう	Kịp giờ		
+236	間に合わせる	Gian hợp	まにあわせる	Đúng giờ		
+237	通う	Thống	かよう	Đi đi về về		
+238	込む	Nhập	こむ	Đông, tắc		
+239	すれ違う	Vi	すれちがう	Vượt qua, lướt qua		
+240	動く	Động	うごく	Bị chuyển động		
+241	動かす	Động	うごかす	Di chuyển		
+242	離れる	Ly	はなれる	Tách rời		
+243	離す	Ly	はなす	Để xa ra, làm tránh ra		
+244	ぶつかる			Bị đâm		
+245	ぶつける			Đâm vào		
+246	涙	Lệ	なみだ	Nước mắt		
+247	溢れる	Dật	こぼれる	Tràn ra		
+248	溢す	Dật	こぼす	Làm tràn ra		
+249	拭く	Thức	ふく	Lau, chùi, gạt		
+250	片付く	Phiến phó	かたづく	Ngăn nắp		
+251	片付ける	Phiến phó	かたづける	Dọn dẹp		
+252	包む	Bao	つつむ	Bọc		
+253	貼る	Thiếp	はる	Dán		
+254	無くなる	Vô	なくなる	Bị mất		
+255	無くす	Vô	なくす	Làm mất		
+256	足りる	Túc	たりる	Đủ		
+257	収入	Thu nhập	しゅうにゅう	Thu nhập		
+258	残る	Tàn	のこる	Còn lại, sót lại		
+259	残す	Tàn	のこす	Thừa lại, sót lại		
+260	腐る	Hủ	くさる	Ôi, thiu		
+261	剥ける	Bác	むける	Bóc, gọt		
+262	剥く	Bác	むく	Bóc, gọt		
+263	滑る	Hoạt	すべる	Trượt		
+264	雪	Tuyết	ゆき	Tuyết		
+265	積もる	Tích	つもる	Chất đống		
+266	積む	Tích	つむ	Để lên, chất lên		
+267	空く	Không	あく	Trống rỗng, vắng vẻ		
+268	空ける	Không	あける	Giữ chỗ		
+269	下がる	Hạ	さがる	Giảm		
+270	下げる	Hạ	さげる	Hạ xuống		
+271	冷える	Lãnh	ひえる	Lạnh, cóng		
+272	冷やす	Lãnh	ひやす	Làm lạnh		
+273	冷める	Lãnh	さめる	Nguội		
+274	冷ます	Lãnh	さます	Làm nguội		
+275	燃える	Nhiên	もえる	Cháy		
+276	燃やす	Nhiên	もやす	Đốt cháy		
+277	沸く	Phất	わく	Nước sôi		
+278	沸かす	Phất	わかす	Đun sôi		
+279	お湯	Thang	おゆ	Nước nóng,sôi		
+280	鳴る	Minh	なる	Kêu		
+281	鳴らす	Minh	ならす	Làm cho kêu		
+282	役に立つ	Dịch lập	やくにたつ	Có tác dụng		
+283	役に立てる	Dịch lập	やくにたてる	Có tác dụng, có ích		
+284	飾る	Sức	かざる	Trang trí		
+285	遊ぶ	Du	あそぶ	Chơi		
+286	集まる	Tập	あつまる	Sưu tập		
+287	踊る	Dũng	おどる	Nhảy		
+288	思う	Tư	おもう	Suy nghĩ		
+289	考える	Khảo	かんがえる	Nghĩ		
+290	手伝う	Thủ truyền	てつだう	Giúp đỡ		
+291	働く	Động	はたらく	Hoạt động		
+292	決まる	Quyết	きまる	Luật lệ, quy định		
+293	騒ぐ	Tao	さわぐ	Làm ồn,rùng beng		
+294	知らせる	Tri	しらせる	Thông báo		
+295	頼む	Lại	たのむ	Nhờ vả		
+296	疲れる	Bì	つかれる	Mệt		
+297	違う	Vi	ちがう	Khác		
+298	始める	Thủy	はじめる	Bắt đầu		
+299	続く	Tục	つづく	Tiếp tục		
+300	暮れる	Mộ 	くれる	Lặn(mặt trời, hết(ngày		
+301	別れる	Biệt	わかれる	Chia tay, ly biệt		
+302	喜ぶ	Hỉ	よろこぶ	Hạnh phúc		
+303	優勝する	Ưu thắng	ゆうしょうする	Vô địch		
+304	笑う	Tiếu	わらう	Cười		
+305	驚く	Kinh	おどろく	Kinh ngạc		
+306	怒る	Nộ	いかる	Nổi giận		
+307	殺人	Sát nhân	さつじん	Sát nhân		
+308	幸せ（な）	Hạnh	しあわせ	Hạnh phúc		
+309	得意（な）	Đắc ý	とくい	Giỏi		
+310	苦手（な）	Khổ thủ	にがて	Kém		
+311	熱心（な）	Nhiệt tâm	ねっしん	Nhiệt tình		
+312	認め	Nhận	みとめ	Thừa nhận		
+313	昇進	Thăng tiến	しょうしん	Thăng tiến		
+314	夢中（な）	Mộng trung	むちゅう	Say mê		
+315	観客	Quan khách	かんきゃく	Khánh hàng		
+316	退屈（な）	Thoái khuất	たいくつ	Chán, tẻ nhạt		
+317	健康（な）	Kiện khang	けんこう	Khỏe khoắn		
+318	育てる	Dục	そだてる	Nuôi dạy		
+319	苦しい	Khổ	くるしい	Cực khổ		
+320	悪口	Ác khẩu	わるぐち	Nói xấu		
+321	平気（な）	Bình khí	へいき	Bình thản		
+322	悔しい	Hối	くやしい	Đáng tiếc, đáng ân hận		
+323	羨ましい	Tiện	うらやましい	Ghen tị		
+324	才能	Tài năng	さいのう	Tài năng		
+325	豊か	Phong	ゆたか	Phong phú		
+326	蚊	Văn	か	Muỗi		
+327	首	Thủ	くび	Cái cổ		
+328	痒い	Dưỡng	かゆい	Ngứa		
+329	大人しい	Đại nhân	おとなしい	Hiền lành		
+330	我慢強い	Ngã mạn cường	がまんづよい	Chịu đựng giỏi		
+331	正直（な）	Chính trực	しょうじき	Trung thực		
+332	けち（な）			Kiệt xỉ		
+333	我儘（な）	Ngã tận	わがまま	Ích kỉ		
+334	積極的（な）	Tích cực tính	せっきょくてき	Tính tích cực		
+335	消極的（な）	Tiêu cực tính	しょうきょくてき	Tính tiêu cực		
+336	満足（な）	Mãn túc	まんぞく	Mãn nguyện		
+337	不満（な）	Bất mãn	ふまん	Bất mãn		
+338	不安（な）	Bất an	ふあん	Bất an		
+339	大変（な）	Đại biến	たいへん	Vất vả		
+340	無理（な）	Vô lý	むり	Vô lý		
+341	不注意（な）	Bất chú ý	ふちゅうい	Không chú ý		
+342	楽（な）	Lạc	らく	Thoải mái, nhàn hạ		
+343	面倒（な）	Diện đảo	めんどう	Phiền hà, quấy rầy		
+344	手続き	Thủ tục	てつづき	Thủ tục		
+345	失礼（な）	Thất lễ	しつれい	Mất lịch sự		
+346	当然（な）	Đương nhiên	とうぜん	Đương nhiên		
+347	意外（な）	Ý ngoại	いがい	Ngoài ý muốn		
+348	調査	Điều tra	ちょうさ	Điều tra		
+349	事故	Sự cố	じこ	Tai nạn, sự cố		
+350	結構（な）	Kết cấu	けっこう	Tốt, cũng được		
+351	派手（な）	Phái thủ	はで	Lòe loẹt, màu mè		
+352	地味（な）	Địa vị	じみ	Giản dị, đơn giản		
+353	お洒落（な）	Sái lạc	おしゃれ	Thời trang thịnh hành		
+354	変（な）	Biến	へん	Lạ, kỳ quặc		
+355	不思議（な）	Bất tư nghĩa	ふしぎ	Bí hiểm, kỳ quái		
+356	増し（な）	Tăng	まし	Tốt lên		
+357	無駄（な）	Vô đả	むだ	Lãng phí		
+358	自由（な）	Tự do	じゆう	Tự do		
+359	不自由（な）	Bất tự do	ふじゆう	Không tự do, tàn phế		
+360	暖まる	Noãn	あたたまる	Ấm lên		
+361	暖める	Noãn	あたためる	Làm ấm		
+362	高まる	Cao	たかまる	Bốc lên, nâng lên		
+363	高める	Cao	たかめる	Làm cho lên, dựng lên		
+364	強まる	Cường	つよまる	Khỏe,mạnh lên		
+365	強める	Cường	つよめる	Làm khỏe lên		
+366	弱まる	Nhược	よわまる	Yếu đi		
+367	弱める	Nhược	よわめる	Làm yếu đi		
+368	広まる	Quảng	ひろまる	Được lan truyền		
+369	広める	Quảng	ひろめる	Loan tin, tuyên truyền		
+370	深まる	Thâm	ふかまる	Sâu sắc thêm		
+371	深める	Thâm	ふかめる	Làm sâu sắc thêm		
+372	世話	Thế thoại	せわ	Giúp đỡ		
+373	家庭	Gia đình	かてい	Gia đình		
+374	厳しい	Nghiêm	きびしい	Nghiêm khắc		
+375	易しい	Dị	やさしい	Dễ		
+376	協力する	Hiệp lực	きょうりょくする	Hiệp lực		
+377	介護	Giới hộ	かいご	Chăm sóc		
+378	感謝する	Cảm tạ	かんしゃする	Cảm ơn, biết ơn		
+379	お詫び	Sá	おわび	Xin lỗi		
+380	迷惑をかける	Mê hoặc	めいわくをかける	Làm phiền		
+381	お辞儀	Từ nghi	おじぎ	Cúi chào		
+382	丁寧（な）	Đinh ninh	ていねい	Lịch sự		
+383	握手	Ác thủ	あくしゅ	Bắt tay		
+384	意地悪する	Ý địa ác	いじわるする	Tâm địa xấu, xấu bụng		
+385	悪戯する	Ác hí	いたずらする	Nghịch ngợm		
+386	節約する	Tiết ước	せつやくする	Tiết kiệm, dành dụm		
+387	生活費	Sinh hoạt phí	せいかつひ	Phí sinh hoạt		
+388	経営する	Kinh doanh	けいえいする	Quản lý kinh doanh		
+389	反省する	Phản tỉnh	はんせいする	Kiểm điểm		
+390	実行する	Thực hành	じっこうする	Thực hành		
+391	進歩する	Tiến bộ	しんぽする	Tiến bộ		
+392	変化する	Biến hóa	へんかする	Thay đổi		
+393	発達する	Phát đạt	はったつする	Phát triển, phát đạt		
+394	体力	Thể lực	たいりょく	Thể lực		
+395	低下	Đê hạ	ていか	Suy giảm		
+396	若者	Nhã giả	わかもの	Giới trẻ		
+397	出場する	Xuất trường	しゅつじょうする	Ra mặt, ra mắt(trình diễn		
+398	活躍する	Hoạt dược	かつやくする	Hoạt động		
+399	競争する	Cạnh tranh	きょうそうする	Cạnh tranh		
+400	成績	Thành tích	せいせき	Thành tích		
+401	応援する	Ứng viên	おうえんする	Cổ vũ, hỗ trợ		
+402	拍手する	Phách thủ	はくしゅする	Vỗ tay		
+403	噂する	Đồn	うわさする	Lời đồn, bàn tán		
+404	情報	Tình báo	じょうほう	Thông tin		
+405	流行する	Lưu hành	りゅうこうする	Lưu hành		
+406	交換する	Giao hoán	こうかんする	Trao đổi		
+407	宣伝する	Tuyên truyền	せんでんする	Tuyền truyền		
+408	広告	Quảng cáo	こうこく	Quảng cáo		
+409	注目する	Chú mục	ちゅうもくする	Tập trung sự chú ý		
+410	通訳する	Thông dịch	つうやくする	Thông dịch		
+411	翻訳する	Phiên dịch	ほんやくする	Phiên dịch		
+412	伝言する	Truyền ngôn	でんごんする	Nhắn tin		
+413	報告する	Báo cáo	ほうこくする	Báo cáo		
+414	録画	Lục họa	ろくが	Ghi hình		
+415	混雑する	Hỗn tạp	こんざつする	Hỗn tạp, đông đúc		
+416	渋滞する	Sáp trệ	じゅうたいする	Tắc đường, tắc nghẽn		
+417	衝突する	Xung đột	しょうとつする	Xung đột, va chạm		
+418	場面	Trường diện	ばめん	Hiện trường		
+419	被害	Bị hại	ひがい	Thiệt hại		
+420	事故	Sự cố	じこ	Tại nạn, sự cố		
+421	事件	Sự kiện	じけん	Sự kiện		
+422	故障する	Cố chướng	こしょうする	Hỏng hóc, trục trặc		
+423	修理する	Tu lý	しゅうりする	Sửa chữa		
+424	停電	Đình điện	ていでん	Mất điện		
+425	雷	Lôi	かみなり	Sấm sét		
+426	調子	Điều tử	ちょうし	Tình trạng		
+428	自信	Tự tín	じしん	Tự tin		
+429	自慢	Tự mãn	じまん	Tự mãn		
+430	関心	Quan tâm	かんしん	Quan tâm		
+431	感動する	Cảm động	かんどうする	Cảm động		
+432	興奮する	Hưng phấn	こうふんする	Hưng phấn		
+433	感想	Cảm tưởng	かんそう	Cảm tưởng		
+434	予想する	Dự tưởng	よそうする	Đoán trước, trù liệu		
+435	専門	Chuyên môn	せんもん	Chuyên môn		
+436	研究する	Nghiên cứu	けんきゅうする	Nghiên cứu		
+437	調査する	Điều tra	ちょうさする	Điều tra		
+438	原因	Nguyên nhân	げんいん	Nguyên nhân		
+439	結果	Kết quả	けっか	Kết quả		
+440	解決	Giải quyết	かいけつ	Quải quyết		
+441	確かめる	Xác	たしかめる	Xác nhận, kiểm tra		
+442	間違う	Gian vi	まちがう	Sai		
+443	利用する	Lợi dụng	りようする	Sử dụng		
+444	減る	Giảm	へる	Giảm		
+445	理解する	Lý giải	りかいする	Lý giải		
+446	発見する	Phát kiến	はっけんする	Phát hiện		
+447	発明する	Phát minh	はつめいする	Phát minh		
+448	関係する	Quan hệ	かんけいする	Quan hệ		
+449	団体	Đoàn thể	だんたい	Đoàn thể, nhóm		
+450	博物館	Bác học quán	はくぶつかん	Viện bảo tàng		
+451	選挙	Tuyển cử	せんきょ	Bầu cử		
+452	行う	Hành	おこなう	Tổ chức		
+453	税金	Thuế kim	ぜいきん	Tiền thuế		
+454	責任	Trách nhiệm	せきにん	Trách nhiệm		
+455	書類	Thư loại	しょるい	Giấy tờ		
+456	題名	Đề danh	だいめい	Nhan đề		
+457	条件	Điều kiện	じょうけん	Điều kiện		
+458	採用	Thải dụng	さいよう	Tuyển dụng		
+459	締め切り	Đế thiết	しめきり	Hạn cuối		
+460	期間	Kì gian	きかん	期間		
+461	倍	Bối	ばい	Gấp đôi		
+462	近道	Cận đạo	ちかみち	Đường tắt		
+463	中心	Trung tâm	ちゅうしん	Trung tâm		
+464	辺り	Biên	あたり	Xung quanh		
+465	周り	Chu	まわり	Xung quanh		
+466	穴	Huyệt	あな	Lỗ		
+467	地面	Địa diện	じめん	Mặt đất		
+468	掘る	Quật	ほる	Đào		
+469	列	Liệt	れつ	Hàng ( xếp hàng		
+470	幅	Phúc	はば	Chiều rộng		
+471	範囲	Phạm vi	はんい	Phạm vi		
+472	内容	Nội dung	ないよう	Nội dung		
+473	中身	Trung thân	なかみ	Nội dung bên trong		
+474	特徴	Đặc trưng	とくちょう	Đặc trưng		
+475	普通	Phổ thông	ふつう	Phổ thông, thông thường		
+476	当たり前	Đương tiền	あたりまえ	Dĩ nhiên		
+477	偽	Ngụy	にせ	Giả (giả dối		
+478	別れる	Biệt	わかれる	Chia tay, ly biệt		
+479	国籍	Quốc tịch	こくせき	Quốc tịch		
+480	東洋	Đông dương	とうよう	Phương Đông		
+481	西洋	Tây dương	せいよう	Phương Tây		
+482	比べる	Tỷ	くらべる	So sánh		
+483	文化	Văn hóa	ぶんか	Văn hóa		
+484	国際	Quốc tế	こくさい	Quốc tế		
+485	支社	Chi xã	ししゃ	Chi nhánh		
+486	企業	Xí nghiệp	きぎょう	Công ty, xí nghiệp		
+487	発展	Phát triển	はってん	Phát triển		
+488	自然	Tự nhiên	しぜん	Tự nhiên		
+489	景色	Cảnh sắc	けしき	Phong cảnh		
+490	宗教	Tôn giáo	しゅうきょう	Tôn giáo		
+491	愛	Ái	あい	Yêu		
+492	が　届く	Giới	とどく	Được gửi đến		
+493	届ける	Giới	とどける	Chuyển đến		
+494	掻く	Tao	かく	Gãi, cào, bới		
+495	掴む	Quặc	つかむ	Tóm, chộp		
+496	びっくりする			Ngạc nhiên, giật mình		
+497	握る	Ác	にぎる	Bắt, bíu, nắm		
+498	押さえる	Áp	おさえる	Giữ, ôm(bụng		
+499	が　近づく	Cận	ちかづく	Đến gần, tới gần		
+500	近づける	Cận	ちかづける	Kết thân, mang lại gần		
+501	が　合う	Hợp	あう	Chạm mặt		
+502	不図	Bất đồ	ふと	Đột nhiên		
+503	合わせる	Hợp	あわせる	Hiệp sức		
+504	が　当たる	Đương	あたる	Bị đánh		
+505	当てる	Đương	あてる	Đánh trúng		
+506	比べる	Tỷ	くらべる	So sánh		
+507	似合う	Tự hợp	にあう	Hợp		
+508	似る	Tự	にる	Giống		
+509	似せる	Tự	にせる	Bắt chước		
+510	が　分かれる	Phân	わかれる	Phân chia		
+511	分ける	Phân	わける	Chia 		
+512	財産	Tài sản	ざいさん	Tài sản		
+513	足す	Túc	たす	Cộng vào, thêm vào		
+514	薄い	Bạc	うすい	Nhạt, mỏng		
+515	塩	Diêm	しお	Muối		
+516	引く	Dẫn	ひく	Trừ		
+517	が　増える	Tăng	ふえる	Tăng lên		
+518	増やす	Tăng	ふやす	Làm tăng lên		
+519	が　減る	Giảm	へる	Giảm 		
+520	減らす	Giảm	へらす	Làm giảm		
+521	店長	Điếm trường	てんちょう	Chủ tiệm		
+522	が　返る	Phản	かえる	Được trả lại		
+523	返す	Phản	かえす	Trả lại		
+524	譲る	Nhượng	ゆずる	Nhường nhin, nhượng bộ		
+525	が　助かる	Trợ	たすかる	Được giúp		
+526	助ける	Trợ	たすける	Giúp đỡ		
+527	虐める	Ngược	いじめる	Bị bắt nạt		
+528	騙す	Phiến	だます	Lừa đảo, lạm dụng		
+529	独身	Độc thân	どくしん	Độc thân		
+530	女性	Nữ giới	じょせい	Nữ giới		
+531	付き合う	Phó hợp	つきあう	Hẹn hò		
+532	盗む	Đạo	ぬすむ	Ăn trộm		
+533	留守中	Lưu thủ trung	るすちゅう	Trong khi vắng nhà		
+534	が　刺さる	Thích	ささる	Mắc, hóc		
+535	刺す	Thích	さす	Đâm, chọc		
+536	殺す	Sát	ころす	Giết		
+537	が　隠れる	Ẩn	かくれる	Ẩn nấp, núp		
+538	隠す	Ẩn	かくす	Che giấu		
+539	が　埋まる	Mai	うまる	Bị lấp,chôn		
+540	埋める	Mai	うめる	Chôn lấp		
+541	囲む	Vi	かこむ	Bao quanh, vây hãm		
+542	が　詰まる	Cật	つまる	Chặt, đầy		
+543	詰める	Cật	つめる	Nhét vào, tống vào		
+544	開く	Khai	ひらく	Mở		
+545	閉じる	Bế	とじる	Đóng		
+546	が　飛ぶ	Phi	とぶ	Bay		
+547	飛ばす	Phi	とばす	Làm cho bay		
+548	振る	Chấn	ふる	Vẫy (tay		
+549	捲る	Quyển	めくる	Xắn, quấn 		
+550	見かける	Kiến	みかける	Tình cờ gặp		
+551	確かめる	Xác	たしかめる	Xác nhận, kiểm tra		
+552	試す	Thí	ためす	Mặc thử		
+554	洋服	Dương phục	ようふく	Quần áo kiểu Tây Âu		
+555	繰り返す	Sào phản	くりかえす	Lặp lại		
+556	体操する	Thể thao	たいそうする	Tập thể dục		
+557	訳す	Dịch	やくす	Dịch		
+558	行う	Hành	おこなう	Tổ chức		
+559	が　間違う	Gian vi	まちがう	Bị sai		
+560	間違える	Gian vi	まちがえる	Làm sai		
+561	許す	Hứa	ゆるす	Tha thứ, tha lỗi		
+562	謝る	Tạ	あやまる	Xin lỗi		
+563	が　慣れる	Quán	なれる	Quen		
+564	慣らす	Quán	ならす	Làm quen, khởi động		
+565	が　立つ	Lập	たつ	Bị đứng		
+566	立てる	Lập	たてる	Đứng lên		
+567	が　建つ	Kiến	たつ	Được xây		
+568	建てる	Kiến	たてる	Xây lên		
+569	が　育つ	Dục	そだつ	Lớn lên, khôn lớn		
+570	育てる	Dục	そだてる	Nuôi, dạy		
+571	が　生える	Sinh	はえる	Mọc, phát triển		
+572	生やす	Sinh	はやす	Để dài (râu		
+573	が　汚れる	Ô	よごれる	Bị bẩn		
+574	汚す	Ô	よごす	Làm bẩn		
+575	が　壊れる	Hoại	こわれる	Bị hỏng		
+576	壊す	Hoại	こわす	Làm hỏng		
+577	が　割れる	Cát	われる	Bị vỡ		
+578	割る	Cát	わる	Làm vỡ		
+579	が　折れる	Triết	おれる	Gãy		
+580	折る	Triết	おる	Làm gãy		
+581	が　破れる	Phá	やぶれる	Rách		
+582	破る	Phá	やぶる	Xé rách		
+583	が　曲がる	Khúc	まがる	Bị gập, cong		
+584	曲げる	Khúc	まげる	Gập, bẻ cong		
+585	が　外れる	Ngoại	はずれる	Rời ra, tách ra		
+586	外す	Ngoại	はずす	Làm rời ra, tách ra		
+587	が　揺れる	Dao	ゆれる	Bi rung		
+588	揺らす	Dao	ゆらす	Rung, đung đưa		
+589	が　流れる	Lưu	ながれる	Chảy, trôi đi		
+590	流す	Lưu	ながす	Cho chảy		
+591	都心	Đô tâm	としん	Trung tâm		
+592	が　濡れる	Nhu	ぬれる	Bị ướt		
+593	濡らす	Nhu	ぬらす	Làm ướt		
+594	が　迷う	Mê	まよう	Lạc đường		
+595	悩む	Não	なやむ	Phiền muội, lo lắng		
+596	が　慌てる	Hoảng	あわてる	Luống cuống, vội vàng		
+597	が　覚める	Giác	さめる	Tỉnh giấc, tỉnh dậy		
+598	覚ます	Giác	さます	Làm cho tỉnh lại		
+599	夜中	Dạ trung	よなか	Giữa đêm		
+600	が　眠る	Miên	ねむる	Ngủ		
+601	緊張する	Khẩn trương	きんちょうする	Căng thẳng, lo lắng		
+602	祈る	Kì	いのる	Cầu nguyện		
+603	祝う	Chúc	いわう	Chúc mừng		
+604	感じる	Cảm	かんじる	Cảm thấy		
+605	濃い	Nùng	こい	Nồng, đậm		
+606	薄い	Bạc	うすい	Nhạt		
+607	酸っぱい	Toan	すっぱい	Chua		
+608	臭い	Xú	くさい	Thối, tanh		
+609	可笑しい	Khả tiếu	かわいい	Buồn cười		
+610	格好いい	Cách hảo	かっこいい	Đẹp trai, bảnh bao		
+611	うまい		うまい	Ngon		
+612	親しい	Thân	したしい	Thân thiện, gần gũi		
+613	詳しい	Tường	くわしい	Tường tận, tỉ mỉ		
+614	細かい	Tế	こまかい	Chi tiết, chi li		
+615	浅い	Thiển	あさい	Nông, cạn		
+616	硬い,固い	Ngạch,Cố	かたい	Cứng, dai		
+617	温い	Ôn	ぬるい	Nguội		
+618	眩しい	Huyễn	まぶしい	Chói mắt, sáng chói		
+619	蒸し暑い	Chưng thử	むしあつい	Nóng ẩm		
+620	清潔（な）	Thanh khiết	せいけつ	Thanh khiết, sạch sẽ		
+621	新鮮（な）	Tân tiến	しんせん	Tươi, mới		
+622	豊か（な）	Phong	ゆたか	Giàu có		
+623	立派（な）	Lập phái	りっぱい	Siêu		
+624	正確（な）	Chính xác	せいかく	Chính xác		
+625	確か（な）	Xác	たしか	Xác thực		
+626	重要（な）	Trọng yếu	じゅうよう	Trọng yếu		
+627	必要（な）	Tất yếu	ひつよう	Cần thiết		
+628	勿体無い（な）	Vật thể vô	もったいない	Lãng phí, hoang phí		
+629	凄い	Thê	すごい	Giỏi, xuất sắc		
+630	酷い	Khốc	ひどい	Kinh khủng, khủng khiếp		
+631	激しい	Kích	はげしい	Mãnh liệt		
+632	そっくり（な）			Giống		
+633	急（な）		きゅう	Gấp		
+634	適当（な）	Thích đương	てきとう	Thích hợp, vừa phải		
+635	特別（な）	Đặc biệt	とくべつ	Đặc biệt		
+636	完全（な）	Hoàn toàn	かんぜん	Hoàn toàn		
+637	盛ん（な）	Thịnh	さかん	Thịnh vượng		
+638	様々（な）	Dạng	さまざま	Nhiều loại		
+639	可能（な）	Khả năng	かのう	Khả năng		
+640	不可能（な）	Bất khả năng	ふかのう	Không khả thi		
+641	基本的（な）	Cơ bản đích	きほんてき	Tính cơ bản		
+642	国際的（な）	Quốc tế đích	こくさいてき	Tính quốc tế		
+643	ばらばら（な）			Bừa bộn, lung tung		
+644	ぼろぼろ（な）			Rách nát		
+645	読書する	Độc thư	どくしょ	Đọc sách		
+646	演奏	Diễn tẫu	えんそう	Trình diễn, biểu diễn		
+647	芸術	Nghệ thuật	げいじゅつ	Nghệ thuật		
+648	検査する	Kiểm tra	ちょうさする	Kiểm tra		
+649	胃	Vị	い	Dạ dày		
+650	血液	Huyết dịch	けつえき	Máu		
+651	流れる	Lưu	ながれる	Chảy, trôi đi		
+652	治療する	Trị liệu	ちりょうする	Trị liệu		
+653	症状	Chứng trạng	しょうじょう	Triệu chứng		
+654	鼻水	Tị thủy	はなみず	Nước mũi		
+655	予防する	Dự phòng	よぼうする	Dự phòng		
+656	栄養	Vinh dưỡng 	えいよう	Dinh dưỡng		
+657	手術	Thủ thuật	しゅじゅつ	Phẫu thuật		
+658	死亡する	Tử vong	しぼうする	Tử vong		
+659	命	Mệnh	いのち	Cuộc sống		
+660	一生	Sinh	いっしょう	Cuộc đời, suốt đời		
+661	誤解する	Ngộ giải	ごかいする	Hiểu nhầm		
+662	後悔	Hậu hối	こうかい	Hối hận		
+663	訳	Dịch	わけ	Lý do		
+664	態度	Thái độ	たいど	Thái độ		
+665	癖	Phích	くせ	Thói quen		
+666	礼儀	Lễ nghi	れいぎ	Lễ nghi		
+667	文句	Văn cú	もんく	Kêu ca, phàn nàn		
+668	表情	Biểu tình	ひょうじょう	Biểu tình		
+669	表面	Biểu diện	ひょうめん	Bề ngoài, bề mặt		
+670	禁煙する	Cấm yên	きんえんする	Cấm hút thuốc		
+671	禁止する	Cấm chỉ	きんしする	Cấm		
+672	完成する	Hoàn thành	かんせいする	Hoàn thành		
+673	課題	Khóa đề	かだい	Chủ đề		
+674	例外	Lệ ngoại	れいがい	Ngoại lệ		
+675	基本	Cơ bản	きほん	Cơ bản		
+676	記録する	Kí lục	きろくする	Ghi chép, ghi lại		
+677	状態	Trạng thái	じょうたい	Trạng thái		
+678	出来事	Xuất lai sự	できごと	Việc đã xảy ra		
+679	場面	Trường diện	ばめん	Hiện trường, bối cảnh		
+680	機会	Cơ hội	きかい	Cơ hội		
+681	距離	Cự ly	きょり	Cư ly		
+682	提案する	Đề án	ていあんする	Đề xuất		
+683	やり取りする	Thủ	やりとりする	Trao đổi		
+684	知識	Tri thức	ちしき	Tri thức		
+685	実力	Thực lực	じつりょく	Thực lực		
+686	手段	Thủ đoạn	しゅだん	Phương pháp, thủ đoạn		
+687	代表する	Đại biểu	だいひょうする	Đại biểu		
+688	影響する	Ảnh hưởng	えいきょうする	Ảnh hưởng		
+689	効果	Hiệu quả	こうか	Hiệu quả		
+690	印象	Ấn tượng	いんしょう	Ấn tượng		
+691	印	Ấn	しるし	Dấu hiệu		
+692	合図	Hợp đồ	あいず	Dấu hiệu		
+693	共通する	Cộng thông	きょうつうする	Điểm chung		
+694	強調する	Cường điều	きょうちょうする	Nhấn mạnh		
+695	大事	Đại sự	だいじ	Quan trọng		
+696	説明する	Thuyết minh	せつめいする	Thuyết minh		
+697	省略する	Tỉnh lược	しょうりゃくする	Lược bỏ		
+698	詳しい	Tường	くわしい	Tường tận, cụ thể		
+699	挑戦する	Thiêu chiến	ちょうせんする	Khiêu chiến, thách thức		
+700	やる気	Khí	やるき	Có hứng thú làm		
+701	勇気	Dũng khí	ゆうき	Dũng khí		
+702	資格	Tư cách	しかく	Tư cách		
+703	弁護士	Biện hộ sĩ	べんごし	Luật sư		
+704	申請する	Thân thỉnh	しんせいする	Yêu cầu, thỉnh cầu		
+705	通帳	Thông trướng	つうちょう	Sổ tiết kiệm		
+706	貯金する	Trữ kim	ちょきんする	Tiết kiệm, dành dụm		
+707	本人	Bản nhân	ほんにん	Người chính		
+708	契約する	Khế ước	けいやくする	Hợp đồng		
+709	証明する	Chứng minh	しょうめいする	Chứng minh		
+710	変更する	Biến canh	へんこうする	Sửa đổi		
+711	保存する	Bảo tồn	ほぞんする	Bảo tồn		
+712	保護する	Bảo hộ	ほごする	Bảo hộ		
+714	郊外	Giao ngoại	こうがい	Ngoại ô		
+715	都心	Đô tâm	としん	Trung tâm		
+716	資源	Tư nguyên	しげん	Tài nguyên		
+717	有効	Hữu hiệu	ゆうこう	Hữu hiệu		
+718	不足する	Bất túc	ふそくする	Không đủ		
+719	平均する	Bình quân	へいきんする	Trung bình		
+720	割合	Cát hợp	わりあい	Tỉ lệ		
+721	商売する	Thương mại	しょうばいする	Thương mại		
+722	商品	Thương phẩm	しょうひん	Sản phẩm		
+723	質	Chất	しつ	Chất		
+724	型	Hình	かた	Mẫu, khuôn		
+725	生産する	Sinh sản	せいさんする	Sản xuất		
+726	農業	Nông nghiệp	のうぎょう	Nông nghiệp		
+727	消費する	Tiêu phí	しょうひする	Tiêu phí		
+728	物価	Vật giá	ぶっか	Giá cả		
+729	倒産する	Đảo sản	とうさんする	Phá sản		
+730	携帯	Huề đới	けいたい	Cầm tay		
+731	現代	Hiện đại	げんだい	Hiện đại		
+732	情報	Tình báo	じょうほう	Thông tin		
+733	世紀	Thế kỉ	せいき	Thế kỉ		
+734	文化	Văn hóa	ぶんか	Văn hóa		
+735	都市	Đô thị	とし	Thành phố		
+736	地方	Địa phương	ちほう	Địa phương		
+737	戦争する	Chiến tranh	せんそうする	Chiến tranh		
+738	平和	Bình hòa	へいわ	Hòa bình		
+739	が　上る	Thượng	のぼる	Leo lên		
+740	階段	Giai đoạn	かいだん	Cầu thang		
+741	坂	Phản	さか	Dốc		
+742	下る	Hạ	くだる	Đi xuống		
+743	が　進む	Tiến	すすむ	Tiến lên		
+744	進める		すすめる	Đi tiến lên		
+745	が　通る	Thông	とおる	Đi qua		
+746	通す		とおす	Xuyên qua		
+747	光	Quang	ひかり	Ánh sáng		
+748	布	Bố	ぬの	Vải		
+749	空気	Không khí	くうき	Không khí		
+750	が　越える,超える	Việt,Triệu	こえる	Vượt qua		
+751	が　過ぎる	Quá	すぎる	Quá		
+752	過ごす	Quá	すごす	Trải qua		
+753	が　移る	Di	うつる	Di chuyển		
+754	移す	Di	うつす	Chuyển		
+755	本社	Bản xã	ほんしゃ	Trụ sở chính		
+756	連れる	Liên	つれる	Dẫn, dắt		
+757	が　寄る	Kỳ	よる	Ghé thăm		
+758	寄せる	Kỳ	よせる	Ghé vào		
+759	奨学金	Tưởng học kim	しょうがくきん	Học bổng		
+760	成績	Thành tích	せいせき	Thành tích		
+761	与える	Dữ	あたえる	Cung cấp, đưa		
+762	得る	Đắc	える	Đạt được		
+763	が　向く	Hướng	むく	Đối diện		
+764	向ける	Hướng	むける	Quay, hướng đến		
+765	勧める	Khuyến	すすめる	Mời, rủ, gợi ý		
+766	薦める	Tiến	すすめる	Gợi ý, giới thiệu		
+768	任せる	Nhiệm	まかせる	Để cho ai làm gì		
+769	守る	Thủ	まもる	Giữ, tuân thủ		
+770	争う	Tranh	あらそう	Gây gổ, tranh nhau		
+771	望む	Vọng	のぞむ	Ước		
+772	信じる	Tín	しんじる	Tin tưởng		
+773	が　通じる	Thông	つうじる	Thông qua		
+774	飽く	Bão	あく	Chán		
+775	思いつく	Tư	おもいつく	Nghĩ		
+776	思いやる	Tư	おもいやる	Quan tâm, thông cảm		
+777	熱中する	Nhiệt trung	ねっちゅうする	Nghiện (karaoke		
+778	暮らす	Mộ	くらす	Sinh sống		
+779	巻く	Quyển	まく	Quấn		
+780	結ぶ	Kết	むすぶ	Buộc		
+781	紐	Nữu	ひも	Dây		
+782	が　済む	Tế	すむ	Kết thúc		
+783	済ます	Tế	すます	Kết thúc		
+784	出来る	Xuất lai	できる	Hoàn thành, có thể		
+785	切れる	Thiết	きれる	Cắt, hết		
+786	切らす	Thiết	きらす	Hết mất tiêu		
+787	が　伝わる	Truyền	つたわる	Truyền đi		
+788	伝える	Truyền	つたえる	Truyền đi		
+789	が　続く	Tục	つづく	Tiếp tục		
+790	続ける	Tục	つづける	Tiếp tục		
+791	が　繋がる	Hệ	つながる	Kết nối		
+792	繋ぐ	Hệ	つなぐ	Kết nối		
+793	繋げる	Hệ	つなげる	Làm chặt thêm		
+794	伸びる	Thân	のびる	Cao lên, phát triển lên		
+795	伸ばす	Thân	のばす	Làm cao,phát triển lên		
+796	延びる	Duyên	のびる	Trì hoãn		
+797	延ばす	Duyên	のばす	Hoãn		
+799	が　重なる	Trọng	かさなる	Chồng lên		
+800	重ねる	Trọng	かさねる	Chồng		
+801	が　広がる	Quảng	ひろがる	Rộng		
+802	広げる	Quảng	ひろげる	Mở rộng		
+803	が　載る	Tải	のる	Lên, vừa		
+804	載せる	Tải	のせる	Cho lên, cho vào		
+805	が　揃う	Tiễn	そろう	Thu thập		
+806	揃える	Tiễn	そろえる	Tập hợp		
+807	が　纏まる	Triền	まとまる	Tập hợp, thống nhất		
+808	纏める	Triền	まとめる	Tập hợp		
+809	が　付く	Phó	つく	Dính, gắn, có		
+810	付ける	Phó	つける	Gắn, thêm vào		
+811	が　貯まる	Trữ	たまる	Tiết kiệm		
+812	貯める	Trữ	ためる	Tiết kiệm		
+813	が　交じる,混じる	Giao,Hỗn	まじる	Giao vào, lẫn vào		
+814	が　交ざる,混ざる	Giao,Hỗn	まざる	Lẫn vào		
+815	交ぜる,混ぜる	Giao,Hỗn	まぜる	Trộn vào		
+816	が　溶ける,解ける	Dong,Giải	とける	Giải quyết, giải đông		
+817	解く,溶く,溶かす	Dong,Giải	とく,とかす	Giải quyết, giải đông		
+818	含む	Hàm	ふくむ	Bao gồm		
+819	含める	Hàm	ふくめる	Bao gồm		
+820	が　抜ける	Bạt	ぬける	Tháo, tuột		
+821	抜く	Bạt	ぬく	Lấy ra		
+822	が　現れる	Hiện	あらわれる	Xuất hiện, hiện ra		
+823	現す	Hiện	あらわす	Đã xuất hiện		
+824	が　表れる	Biểu	あらわれる	Hiện ra		
+825	表す	Biểu	あらわす	Biểu thị, biểu lộ		
+826	が　散る	Tàn	ちる	Tàn		
+827	散らす	Tàn	ちらす	Tàn		
+828	差す	Sai	さす	Giương, giơ		
+829						

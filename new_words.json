@@ -1,0 +1,821 @@
+[
+  {
+    "kanji": "拡大",
+    "hiragana": "かくだい",
+    "romaji": "",
+    "meaning": "sự mở rộng, sự phóng to, sự khuếch đại"
+  },
+  {
+    "kanji": "資金",
+    "hiragana": "しきん",
+    "romaji": "",
+    "meaning": "vốn, quỹ, tiền vốn"
+  },
+  {
+    "kanji": "年寄",
+    "hiragana": "としより",
+    "romaji": "",
+    "meaning": "người già, người cao tuổi, lão nhân"
+  },
+  {
+    "kanji": "投書",
+    "hiragana": "とうしょ",
+    "romaji": "",
+    "meaning": "thư bạn đọc, bài cộng tác, thư độc giả"
+  },
+  {
+    "kanji": "都合",
+    "hiragana": "つごう",
+    "romaji": "",
+    "meaning": "hoàn cảnh, thuận tiện, tiện lợi"
+  },
+  {
+    "kanji": "経営",
+    "hiragana": "けいえい",
+    "romaji": "",
+    "meaning": "quản lý, kinh doanh, điều hành"
+  },
+  {
+    "kanji": "診察",
+    "hiragana": "しんさつ",
+    "romaji": "",
+    "meaning": "khám bệnh, chẩn đoán, kiểm tra sức khỏe"
+  },
+  {
+    "kanji": "日常",
+    "hiragana": "にちじょう",
+    "romaji": "",
+    "meaning": "thường ngày, hằng ngày, sinh hoạt"
+  },
+  {
+    "kanji": "恵まれ",
+    "hiragana": "めぐまれる",
+    "romaji": "",
+    "meaning": "được ban cho, ban phước, trời phú"
+  },
+  {
+    "kanji": "やり取り",
+    "hiragana": "やりとり",
+    "romaji": "",
+    "meaning": "trao đổi, giao dịch, tương tác"
+  },
+  {
+    "kanji": "格段",
+    "hiragana": "かくだん",
+    "romaji": "",
+    "meaning": "đáng kể, rõ rệt, hơn hẳn"
+  },
+  {
+    "kanji": "目覚まし",
+    "hiragana": "めざまし",
+    "romaji": "",
+    "meaning": "báo thức, chuông báo thức, đánh thức"
+  },
+  {
+    "kanji": "直接",
+    "hiragana": "ちょくせつ",
+    "romaji": "",
+    "meaning": "trực tiếp, thẳng, Trực tiếp"
+  },
+  {
+    "kanji": "浮かび",
+    "hiragana": "うかぶ",
+    "romaji": "",
+    "meaning": "nổi lên, hiện lên, hiện ra"
+  },
+  {
+    "kanji": "精神",
+    "hiragana": "せいしん",
+    "romaji": "",
+    "meaning": "tinh thần, tâm thần, linh hồn"
+  },
+  {
+    "kanji": "挟む",
+    "hiragana": "はさむ",
+    "romaji": "",
+    "meaning": "kẹp, giắt, xen"
+  },
+  {
+    "kanji": "適度",
+    "hiragana": "てきど",
+    "romaji": "",
+    "meaning": "vừa phải, hợp lý, thích hợp"
+  },
+  {
+    "kanji": "状態",
+    "hiragana": "じょうたい",
+    "romaji": "",
+    "meaning": "trạng thái, tình trạng, hiện trạng"
+  },
+  {
+    "kanji": "逆",
+    "hiragana": "ぎゃく",
+    "romaji": "",
+    "meaning": "ngược, nghịch, trái lại"
+  },
+  {
+    "kanji": "捉え",
+    "hiragana": "とらえ",
+    "romaji": "",
+    "meaning": "hiểu, bắt, nắm"
+  },
+  {
+    "kanji": "保存",
+    "hiragana": "ほぞん",
+    "romaji": "",
+    "meaning": "lưu trữ, giữ gìn, bảo tồn"
+  },
+  {
+    "kanji": "脳",
+    "hiragana": "のう",
+    "romaji": "",
+    "meaning": "não, bộ não, đại não"
+  },
+  {
+    "kanji": "暗記",
+    "hiragana": "あんき",
+    "romaji": "",
+    "meaning": "Ghi nhớ, ghi nhớ, học thuộc"
+  },
+  {
+    "kanji": "絶対",
+    "hiragana": "ぜったい",
+    "romaji": "",
+    "meaning": "nhất định, chắc chắn, tuyệt đối"
+  },
+  {
+    "kanji": "短期間",
+    "hiragana": "たんきかん",
+    "romaji": "",
+    "meaning": "thời gian ngắn, ngắn hạn, chốc lát"
+  },
+  {
+    "kanji": "結びつける",
+    "hiragana": "むすびつける",
+    "romaji": "",
+    "meaning": "liên kết, buộc lại, gắn liền"
+  },
+  {
+    "kanji": "文脈",
+    "hiragana": "ぶんみゃく",
+    "romaji": "",
+    "meaning": "bối cảnh, ngữ cảnh, văn cảnh"
+  },
+  {
+    "kanji": "管理",
+    "hiragana": "かんり",
+    "romaji": "",
+    "meaning": "quản lý, sự quản lý, kiểm soát"
+  },
+  {
+    "kanji": "論理",
+    "hiragana": "ろんり",
+    "romaji": "",
+    "meaning": "logic, luận lý, lý luận"
+  },
+  {
+    "kanji": "区別",
+    "hiragana": "くべつ",
+    "romaji": "",
+    "meaning": "phân biệt, khác biệt, sự phân biệt"
+  },
+  {
+    "kanji": "意識",
+    "hiragana": "いしき",
+    "romaji": "",
+    "meaning": "ý thức, nhận thức, ý nghĩ"
+  },
+  {
+    "kanji": "動詞",
+    "hiragana": "どうし",
+    "romaji": "",
+    "meaning": "động từ, từ động, hành động từ"
+  },
+  {
+    "kanji": "実際",
+    "hiragana": "じっさい",
+    "romaji": "",
+    "meaning": "thực tế, thực sự, Thực tế"
+  },
+  {
+    "kanji": "試し",
+    "hiragana": "ためし",
+    "romaji": "",
+    "meaning": "thử nghiệm, thử, sự thử"
+  },
+  {
+    "kanji": "非常",
+    "hiragana": "ひじょう",
+    "romaji": "",
+    "meaning": "rất, cực kỳ, vô cùng"
+  },
+  {
+    "kanji": "課題",
+    "hiragana": "かだい",
+    "romaji": "",
+    "meaning": "bài tập, vấn đề, thử thách"
+  },
+  {
+    "kanji": "磨く",
+    "hiragana": "みがく",
+    "romaji": "",
+    "meaning": "đánh bóng, mài, trau dồi"
+  },
+  {
+    "kanji": "独学",
+    "hiragana": "どくがく",
+    "romaji": "",
+    "meaning": "tự học, Tự học, học một mình"
+  },
+  {
+    "kanji": "家事",
+    "hiragana": "かじ",
+    "romaji": "",
+    "meaning": "việc nhà, công việc gia đình, việc nội trợ"
+  },
+  {
+    "kanji": "達成",
+    "hiragana": "たっせい",
+    "romaji": "",
+    "meaning": "hoàn thành, sự đạt được, thành tựu"
+  },
+  {
+    "kanji": "筆者",
+    "hiragana": "ひっしゃ",
+    "romaji": "",
+    "meaning": "người viết, tác giả, nhà văn"
+  },
+  {
+    "kanji": "真面目",
+    "hiragana": "まじめ",
+    "romaji": "",
+    "meaning": "nghiêm túc, chăm chỉ, chân thành"
+  },
+  {
+    "kanji": "ふざけ",
+    "hiragana": "ふざける",
+    "romaji": "",
+    "meaning": "đùa cợt, trêu chọc, nghịch ngợm"
+  },
+  {
+    "kanji": "深刻",
+    "hiragana": "しんこく",
+    "romaji": "",
+    "meaning": "sâu sắc, nghiêm trọng, thâm thúy"
+  },
+  {
+    "kanji": "黒板",
+    "hiragana": "こくばん",
+    "romaji": "",
+    "meaning": "bảng đen, tấm đen, bảng viết"
+  },
+  {
+    "kanji": "欠か",
+    "hiragana": "かか",
+    "romaji": "",
+    "meaning": "thiếu, khuyết, thiếu sót"
+  },
+  {
+    "kanji": "身",
+    "hiragana": "み",
+    "romaji": "",
+    "meaning": "bản thân, cơ thể, thân mình"
+  },
+  {
+    "kanji": "冷静",
+    "hiragana": "れいせい",
+    "romaji": "",
+    "meaning": "bình tĩnh, điềm tĩnh, tỉnh táo"
+  },
+  {
+    "kanji": "後悔",
+    "hiragana": "こうかい",
+    "romaji": "",
+    "meaning": "ân hận, tiếc nuối, hối tiếc"
+  },
+  {
+    "kanji": "常に",
+    "hiragana": "つねに",
+    "romaji": "",
+    "meaning": "luôn luôn, thường xuyên, Luôn luôn"
+  },
+  {
+    "kanji": "順調",
+    "hiragana": "じゅんちょう",
+    "romaji": "",
+    "meaning": "thuận lợi, trôi chảy, tốt đẹp"
+  },
+  {
+    "kanji": "効率",
+    "hiragana": "こうりつ",
+    "romaji": "",
+    "meaning": "hiệu quả, năng suất, hiệu suất"
+  },
+  {
+    "kanji": "仲間",
+    "hiragana": "なかま",
+    "romaji": "",
+    "meaning": "đồng đội, bạn bè, đồng bọn"
+  },
+  {
+    "kanji": "収める",
+    "hiragana": "おさめる",
+    "romaji": "",
+    "meaning": "đạt được, cất giữ, thu hoạch"
+  },
+  {
+    "kanji": "目標",
+    "hiragana": "もくひょう",
+    "romaji": "",
+    "meaning": "Mục tiêu, mục tiêu, mục đích"
+  },
+  {
+    "kanji": "避け",
+    "hiragana": "sake",
+    "romaji": "",
+    "meaning": "tránh, né, tránh khỏi"
+  },
+  {
+    "kanji": "適切",
+    "hiragana": "てきせつ",
+    "romaji": "",
+    "meaning": "thích hợp, Thích hợp, phù hợp"
+  },
+  {
+    "kanji": "維持",
+    "hiragana": "いじ",
+    "romaji": "",
+    "meaning": "duy trì, bảo trì, giữ gìn"
+  },
+  {
+    "kanji": "心身",
+    "hiragana": "しんしん",
+    "romaji": "",
+    "meaning": "tinh thần và thể xác, tâm sinh lý, thể chất và tinh thần"
+  },
+  {
+    "kanji": "確実",
+    "hiragana": "かくじつ",
+    "romaji": "",
+    "meaning": "chắc chắn, xác thực, đảm bảo"
+  },
+  {
+    "kanji": "積み重ねる",
+    "hiragana": "つみかさねる",
+    "romaji": "",
+    "meaning": "Cây rơm, xếp chồng, chồng chất"
+  },
+  {
+    "kanji": "諦める",
+    "hiragana": "あきらめる",
+    "romaji": "",
+    "meaning": "từ bỏ, buông xuôi, chấp nhận"
+  },
+  {
+    "kanji": "複雑",
+    "hiragana": "ふくざつ",
+    "romaji": "",
+    "meaning": "phức tạp, rắc rối, Phức tạp"
+  },
+  {
+    "kanji": "業務",
+    "hiragana": "ぎょうむ",
+    "romaji": "",
+    "meaning": "công việc, kinh doanh, nghiệp vụ"
+  },
+  {
+    "kanji": "求め",
+    "hiragana": "motome",
+    "romaji": "",
+    "meaning": "yêu cầu, mong muốn, tìm kiếm"
+  },
+  {
+    "kanji": "互いに",
+    "hiragana": "たがいにお互い",
+    "romaji": "",
+    "meaning": "lẫn nhau, với nhau, hai bên"
+  },
+  {
+    "kanji": "保ち",
+    "hiragana": "たもち",
+    "romaji": "",
+    "meaning": "duy trì, giữ gìn, bảo vệ"
+  },
+  {
+    "kanji": "良好",
+    "hiragana": "りょうこう",
+    "romaji": "",
+    "meaning": "tốt, tốt đẹp, khỏe"
+  }
+]
+--------------------
+[
+  {
+    "kanji": "拡大",
+    "romaji": "",
+    "hiragana": "かくだい",
+    "meaning": "sự mở rộng, sự phóng to, sự khuếch đại"
+  },
+  {
+    "kanji": "資金",
+    "romaji": "",
+    "hiragana": "しきん",
+    "meaning": "vốn, quỹ, tiền vốn"
+  },
+  {
+    "kanji": "年寄",
+    "romaji": "",
+    "hiragana": "としより",
+    "meaning": "người già, người cao tuổi, lão nhân"
+  },
+  {
+    "kanji": "投書",
+    "romaji": "",
+    "hiragana": "とうしょ",
+    "meaning": "thư bạn đọc, bài cộng tác, thư độc giả"
+  },
+  {
+    "kanji": "都合",
+    "romaji": "",
+    "hiragana": "つごう",
+    "meaning": "hoàn cảnh, thuận tiện, tiện lợi"
+  },
+  {
+    "kanji": "経営",
+    "romaji": "",
+    "hiragana": "けいえい",
+    "meaning": "quản lý, kinh doanh, điều hành"
+  },
+  {
+    "kanji": "診察",
+    "romaji": "",
+    "hiragana": "しんさつ",
+    "meaning": "khám bệnh, chẩn đoán, kiểm tra sức khỏe"
+  },
+  {
+    "kanji": "日常",
+    "romaji": "",
+    "hiragana": "にちじょう",
+    "meaning": "thường ngày, hằng ngày, sinh hoạt"
+  },
+  {
+    "kanji": "恵まれ",
+    "romaji": "",
+    "hiragana": "めぐまれる",
+    "meaning": "được ban cho, ban phước, trời phú"
+  },
+  {
+    "kanji": "やり取り",
+    "romaji": "",
+    "hiragana": "やりとり",
+    "meaning": "trao đổi, giao dịch, tương tác"
+  },
+  {
+    "kanji": "格段",
+    "romaji": "",
+    "hiragana": "かくだん",
+    "meaning": "đáng kể, rõ rệt, hơn hẳn"
+  },
+  {
+    "kanji": "目覚まし",
+    "romaji": "",
+    "hiragana": "めざまし",
+    "meaning": "báo thức, chuông báo thức, đánh thức"
+  },
+  {
+    "kanji": "直接",
+    "romaji": "",
+    "hiragana": "ちょくせつ",
+    "meaning": "trực tiếp, thẳng, Trực tiếp"
+  },
+  {
+    "kanji": "浮かび",
+    "romaji": "",
+    "hiragana": "うかぶ",
+    "meaning": "nổi lên, hiện lên, hiện ra"
+  },
+  {
+    "kanji": "精神",
+    "romaji": "",
+    "hiragana": "せいしん",
+    "meaning": "tinh thần, tâm thần, linh hồn"
+  },
+  {
+    "kanji": "挟む",
+    "romaji": "",
+    "hiragana": "はさむ",
+    "meaning": "kẹp, giắt, xen"
+  },
+  {
+    "kanji": "適度",
+    "romaji": "",
+    "hiragana": "てきど",
+    "meaning": "vừa phải, hợp lý, thích hợp"
+  },
+  {
+    "kanji": "状態",
+    "romaji": "",
+    "hiragana": "じょうたい",
+    "meaning": "trạng thái, tình trạng, hiện trạng"
+  },
+  {
+    "kanji": "逆",
+    "romaji": "",
+    "hiragana": "ぎゃく",
+    "meaning": "ngược, nghịch, trái lại"
+  },
+  {
+    "kanji": "捉え",
+    "romaji": "",
+    "hiragana": "とらえ",
+    "meaning": "hiểu, bắt, nắm"
+  },
+  {
+    "kanji": "保存",
+    "romaji": "",
+    "hiragana": "ほぞん",
+    "meaning": "lưu trữ, giữ gìn, bảo tồn"
+  },
+  {
+    "kanji": "脳",
+    "romaji": "",
+    "hiragana": "のう",
+    "meaning": "não, bộ não, đại não"
+  },
+  {
+    "kanji": "暗記",
+    "romaji": "",
+    "hiragana": "あんき",
+    "meaning": "Ghi nhớ, ghi nhớ, học thuộc"
+  },
+  {
+    "kanji": "絶対",
+    "romaji": "",
+    "hiragana": "ぜったい",
+    "meaning": "nhất định, chắc chắn, tuyệt đối"
+  },
+  {
+    "kanji": "短期間",
+    "romaji": "",
+    "hiragana": "たんきかん",
+    "meaning": "thời gian ngắn, ngắn hạn, chốc lát"
+  },
+  {
+    "kanji": "結びつける",
+    "romaji": "",
+    "hiragana": "むすびつける",
+    "meaning": "liên kết, buộc lại, gắn liền"
+  },
+  {
+    "kanji": "文脈",
+    "romaji": "",
+    "hiragana": "ぶんみゃく",
+    "meaning": "bối cảnh, ngữ cảnh, văn cảnh"
+  },
+  {
+    "kanji": "管理",
+    "romaji": "",
+    "hiragana": "かんり",
+    "meaning": "quản lý, sự quản lý, kiểm soát"
+  },
+  {
+    "kanji": "論理",
+    "romaji": "",
+    "hiragana": "ろんり",
+    "meaning": "logic, luận lý, lý luận"
+  },
+  {
+    "kanji": "区別",
+    "romaji": "",
+    "hiragana": "くべつ",
+    "meaning": "phân biệt, khác biệt, sự phân biệt"
+  },
+  {
+    "kanji": "意識",
+    "romaji": "",
+    "hiragana": "いしき",
+    "meaning": "ý thức, nhận thức, ý nghĩ"
+  },
+  {
+    "kanji": "動詞",
+    "romaji": "",
+    "hiragana": "どうし",
+    "meaning": "động từ, từ động, hành động từ"
+  },
+  {
+    "kanji": "実際",
+    "romaji": "",
+    "hiragana": "じっさい",
+    "meaning": "thực tế, thực sự, Thực tế"
+  },
+  {
+    "kanji": "試し",
+    "romaji": "",
+    "hiragana": "ためし",
+    "meaning": "thử nghiệm, thử, sự thử"
+  },
+  {
+    "kanji": "非常",
+    "romaji": "",
+    "hiragana": "ひじょう",
+    "meaning": "rất, cực kỳ, vô cùng"
+  },
+  {
+    "kanji": "課題",
+    "romaji": "",
+    "hiragana": "かだい",
+    "meaning": "bài tập, vấn đề, thử thách"
+  },
+  {
+    "kanji": "磨く",
+    "romaji": "",
+    "hiragana": "みがく",
+    "meaning": "đánh bóng, mài, trau dồi"
+  },
+  {
+    "kanji": "独学",
+    "romaji": "",
+    "hiragana": "どくがく",
+    "meaning": "tự học, Tự học, học một mình"
+  },
+  {
+    "kanji": "家事",
+    "romaji": "",
+    "hiragana": "かじ",
+    "meaning": "việc nhà, công việc gia đình, việc nội trợ"
+  },
+  {
+    "kanji": "達成",
+    "romaji": "",
+    "hiragana": "たっせい",
+    "meaning": "hoàn thành, sự đạt được, thành tựu"
+  },
+  {
+    "kanji": "筆者",
+    "romaji": "",
+    "hiragana": "ひっしゃ",
+    "meaning": "người viết, tác giả, nhà văn"
+  },
+  {
+    "kanji": "真面目",
+    "romaji": "",
+    "hiragana": "まじめ",
+    "meaning": "nghiêm túc, chăm chỉ, chân thành"
+  },
+  {
+    "kanji": "ふざけ",
+    "romaji": "",
+    "hiragana": "ふざける",
+    "meaning": "đùa cợt, trêu chọc, nghịch ngợm"
+  },
+  {
+    "kanji": "深刻",
+    "romaji": "",
+    "hiragana": "しんこく",
+    "meaning": "sâu sắc, nghiêm trọng, thâm thúy"
+  },
+  {
+    "kanji": "黒板",
+    "romaji": "",
+    "hiragana": "こくばん",
+    "meaning": "bảng đen, tấm đen, bảng viết"
+  },
+  {
+    "kanji": "欠か",
+    "romaji": "",
+    "hiragana": "かか",
+    "meaning": "thiếu, khuyết, thiếu sót"
+  },
+  {
+    "kanji": "身",
+    "romaji": "",
+    "hiragana": "み",
+    "meaning": "bản thân, cơ thể, thân mình"
+  },
+  {
+    "kanji": "冷静",
+    "romaji": "",
+    "hiragana": "れいせい",
+    "meaning": "bình tĩnh, điềm tĩnh, tỉnh táo"
+  },
+  {
+    "kanji": "後悔",
+    "romaji": "",
+    "hiragana": "こうかい",
+    "meaning": "ân hận, tiếc nuối, hối tiếc"
+  },
+  {
+    "kanji": "常に",
+    "romaji": "",
+    "hiragana": "つねに",
+    "meaning": "luôn luôn, thường xuyên, Luôn luôn"
+  },
+  {
+    "kanji": "順調",
+    "romaji": "",
+    "hiragana": "じゅんちょう",
+    "meaning": "thuận lợi, trôi chảy, tốt đẹp"
+  },
+  {
+    "kanji": "効率",
+    "romaji": "",
+    "hiragana": "こうりつ",
+    "meaning": "hiệu quả, năng suất, hiệu suất"
+  },
+  {
+    "kanji": "仲間",
+    "romaji": "",
+    "hiragana": "なかま",
+    "meaning": "đồng đội, bạn bè, đồng bọn"
+  },
+  {
+    "kanji": "収める",
+    "romaji": "",
+    "hiragana": "おさめる",
+    "meaning": "đạt được, cất giữ, thu hoạch"
+  },
+  {
+    "kanji": "目標",
+    "romaji": "",
+    "hiragana": "もくひょう",
+    "meaning": "Mục tiêu, mục tiêu, mục đích"
+  },
+  {
+    "kanji": "避け",
+    "romaji": "",
+    "hiragana": "sake",
+    "meaning": "tránh, né, tránh khỏi"
+  },
+  {
+    "kanji": "適切",
+    "romaji": "",
+    "hiragana": "てきせつ",
+    "meaning": "thích hợp, Thích hợp, phù hợp"
+  },
+  {
+    "kanji": "維持",
+    "romaji": "",
+    "hiragana": "いじ",
+    "meaning": "duy trì, bảo trì, giữ gìn"
+  },
+  {
+    "kanji": "心身",
+    "romaji": "",
+    "hiragana": "しんしん",
+    "meaning": "tinh thần và thể xác, tâm sinh lý, thể chất và tinh thần"
+  },
+  {
+    "kanji": "確実",
+    "romaji": "",
+    "hiragana": "かくじつ",
+    "meaning": "chắc chắn, xác thực, đảm bảo"
+  },
+  {
+    "kanji": "積み重ねる",
+    "romaji": "",
+    "hiragana": "つみかさねる",
+    "meaning": "Cây rơm, xếp chồng, chồng chất"
+  },
+  {
+    "kanji": "諦める",
+    "romaji": "",
+    "hiragana": "あきらめる",
+    "meaning": "từ bỏ, buông xuôi, chấp nhận"
+  },
+  {
+    "kanji": "複雑",
+    "romaji": "",
+    "hiragana": "ふくざつ",
+    "meaning": "phức tạp, rắc rối, Phức tạp"
+  },
+  {
+    "kanji": "業務",
+    "romaji": "",
+    "hiragana": "ぎょうむ",
+    "meaning": "công việc, kinh doanh, nghiệp vụ"
+  },
+  {
+    "kanji": "求め",
+    "romaji": "",
+    "hiragana": "motome",
+    "meaning": "yêu cầu, mong muốn, tìm kiếm"
+  },
+  {
+    "kanji": "互いに",
+    "romaji": "",
+    "hiragana": "たがいにお互い",
+    "meaning": "lẫn nhau, với nhau, hai bên"
+  },
+  {
+    "kanji": "保ち",
+    "romaji": "",
+    "hiragana": "たもち",
+    "meaning": "duy trì, giữ gìn, bảo vệ"
+  },
+  {
+    "kanji": "良好",
+    "romaji": "",
+    "hiragana": "りょうこう",
+    "meaning": "tốt, tốt đẹp, khỏe"
+  }
+]
