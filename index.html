@@ -5323,41 +5323,61 @@
 
         function checkAnswer() {
             if (session.idx >= session.words.length) return;
+            
+            // If already answered/checked, pressing Enter moves to next word!
             if (session.checked) {
                 nextWord();
                 return;
             }
+
             const w = session.words[session.idx];
             const inputEl = document.getElementById('romaji-input');
             const input = inputEl ? inputEl.value.trim() : '';
 
+            // If user submits empty input:
             if (!input) {
+                // If they are in retry phase (already saw mistake and press Enter again to skip):
+                if (session.isRetryPhase) {
+                    nextWord();
+                    return;
+                }
+
+                // If first time with empty input (wants to reveal answer):
                 const alreadyWrong = session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
                 if (session.wrongRecordedIdx !== session.idx && !alreadyWrong) {
                     session.wrong++;
                     session.wrongRecordedIdx = session.idx;
-                    scheduleSpacedReview(w);
                 }
                 let existing = session.wrongWords.find(x => x.kanji === w.kanji && !x.skipped);
                 if (!existing) {
                     session.wrongWords.push({ ...w, reviewState: 'retrying' });
-                } else {
-                    existing.reviewState = 'retrying';
                 }
                 renderWrongSidebar();
-                playSound('wrong');
-                session.checked = true;
                 updateStreakUI(false);
                 setMascotSpeech(`Chưa nhập câu trả lời! Đáp án là: ${w.hiragana} (${w.romaji})`, 'sad');
 
                 document.getElementById('reading-hint').textContent = `💡 Đáp án: ${w.romaji} → ${w.hiragana}`;
                 document.getElementById('reading-hint').classList.add('show');
                 const ar = document.getElementById('answer-result');
-                ar.innerHTML = `❌ Chưa nhập! Đáp án: <strong>${w.hiragana}</strong> (${w.romaji}) — Nhấn Enter để tiếp tục`;
+                ar.innerHTML = `❌ Chưa nhập! Đáp án: <strong>${w.hiragana}</strong> (${w.romaji}) — Gõ lại để nhớ hoặc nhấn Enter / Bỏ qua để sang tiếp:`;
                 ar.className = 'answer-result show fail';
-                document.getElementById('btn-check').textContent = '→ Tiếp theo (Enter)';
-                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">${w.meaning}</strong>`;
+                
+                session.isRetryPhase = true;
+                session.checked = false;
+                document.getElementById('btn-check').textContent = '✓ Kiểm tra lại (Enter)';
+                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
                 document.getElementById('meaning-reveal').classList.add('show');
+                if (session.typingMode === 'audio') {
+                    const kanjiEl = document.getElementById('kanji-display');
+                    if (kanjiEl) {
+                        kanjiEl.innerHTML = `
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${w.kanji}</span>
+                                <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(239,68,68,0.2); color:#f87171; border-color:rgba(239,68,68,0.4);">❌ ${w.hiragana}</span>
+                            </div>
+                        `;
+                    }
+                }
                 updateSidebar();
                 return;
             }
@@ -5377,10 +5397,10 @@
 
             if (correct) {
                 session.checked = true;
+                const wasRetry = session.isRetryPhase || session.wrongRecordedIdx === session.idx || session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
                 session.isRetryPhase = false;
-                const wasRetry = session.wrongRecordedIdx === session.idx || session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
                 
-                // Keep in wrongWords for summary, but mark as reviewed
+                // Update in wrongWords sidebar to reviewed
                 const existingWrong = session.wrongWords.find(x => x.kanji === w.kanji && !x.skipped);
                 if (existingWrong) {
                     existingWrong.reviewState = 'reviewed';
@@ -5389,18 +5409,13 @@
 
                 if (!wasRetry) {
                     session.correct++;
-                }
-                playSound('correct');
-                playFinisherClangSound();
-                triggerAnimeBladeFinisher();
-                playTTS(w.hiragana || w.kanji);
-                
-                if (!session.wordHadMistake && !wasRetry) {
                     updateStreakUI(true);
                 } else {
                     typingStreak = 0;
                     updateStreakUI(false);
                 }
+                
+                playTTS(w.hiragana || w.kanji);
                 
                 triggerCardImpact();
                 triggerWordCompleteWave();
@@ -5446,9 +5461,8 @@
             } else {
                 const alreadyWrong = session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
                 if (session.wrongRecordedIdx !== session.idx && !alreadyWrong) {
-                    session.wrong++; // Only 1 count per unique wrong word (no cộng dồn)
+                    session.wrong++;
                     session.wrongRecordedIdx = session.idx;
-                    scheduleSpacedReview(w);
                 }
                 let existing = session.wrongWords.find(x => x.kanji === w.kanji && !x.skipped);
                 if (!existing) {
@@ -5457,11 +5471,9 @@
                     existing.reviewState = 'retrying';
                 }
                 renderWrongSidebar();
-                playSound('wrong');
                 updateStreakUI(false);
                 setMascotSpeech(`Chưa đúng rồi! Gõ lại bên dưới: ${w.hiragana} (${w.meaning})`, 'sad');
 
-                // Allow user to RETRY typing to reinforce memory!
                 session.isRetryPhase = true;
                 session.checked = false;
 
@@ -5494,21 +5506,18 @@
         }
 
         function skipWord() {
-            promoteRetryingWrongWordsToReview();
-            session.skip++;
-            updateStreakUI(false);
+            if (session.idx >= session.words.length) return;
             const w = session.words[session.idx];
             if (w) {
                 const existing = session.wrongWords.find(x => x.kanji === w.kanji && !x.skipped);
                 if (!existing) {
-                    session.wrongWords.push({ ...w });
+                    session.wrongWords.push({ ...w, reviewState: 'reviewed' });
                 }
-                scheduleSpacedReview(w);
             }
+            session.skip++;
+            updateStreakUI(false);
             renderWrongSidebar();
-            session.idx++;
-            document.getElementById('btn-check').textContent = '✓ Kiểm tra (Enter)';
-            loadWord();
+            nextWord();
         }
 
         function toggleHint() {
@@ -5523,6 +5532,7 @@
             promoteRetryingWrongWordsToReview();
             session.idx++;
             session.checked = false;
+            session.isRetryPhase = false;
             document.getElementById('btn-check').textContent = '✓ Kiểm tra (Enter)';
             loadWord();
         }
@@ -5623,8 +5633,11 @@
                 session.words.splice(session.idx, 0, clean);
             }
             session.checked = false;
+            session.isRetryPhase = false;
             session.hintUsed = false;
             session.wrongRecordedIdx = -1;
+            document.getElementById('session-setup-view').style.display = 'none';
+            document.getElementById('practice-view').style.display = 'block';
             document.getElementById('result-panel').style.display = 'none';
             document.getElementById('word-card').style.display = 'block';
             document.getElementById('btn-check').textContent = '✓ Kiểm tra (Enter)';
