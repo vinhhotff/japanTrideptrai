@@ -5084,57 +5084,33 @@
             const { convertedHira: hira, pendingRomaji, isValid } = parseRomajiProgress(value, target);
             const allBlanks = document.querySelectorAll('#hira-blanks .blank-char');
 
-            // Play sword slash on new keystroke
-            if (value.length > lastInputVal.length) {
-                playSwordSlashSound();
-            }
-
-            allBlanks.forEach((b, i) => {
-                b.classList.remove('active-typing');
-
+            for (let i = 0; i < allBlanks.length; i++) {
+                const b = allBlanks[i];
                 if (i < hira.length) {
                     const isCharOk = hira[i] === target[i];
-                    const existingSpan = b.querySelector('span:not(.pending-char)');
-                    
-                    if (!existingSpan || existingSpan.textContent !== hira[i]) {
-                        b.innerHTML = `<span>${hira[i]}</span>`;
-                        b.classList.remove('pop', 'shake');
-                        void b.offsetWidth; // Trigger reflow for animation restart
-                        b.classList.add(isCharOk ? 'pop' : 'shake');
-                        if (isCharOk) {
-                            spawnSlashFX(b);
-                            spawnTypingParticles(b);
-                        }
+                    if (b.textContent !== hira[i]) {
+                        b.textContent = hira[i];
                     }
-                    
-                    b.classList.toggle('filled', true);
-                    b.classList.toggle('typing-correct', isCharOk);
-                    b.classList.toggle('typing-wrong', !isCharOk);
+                    b.className = isCharOk ? 'blank-char filled typing-correct' : 'blank-char filled typing-wrong';
                 } else if (i === hira.length && pendingRomaji) {
-                    // Show in-flight pending Romaji consonant (e.g. 'k' while typing 'ka')
-                    b.innerHTML = `<span class="pending-char">${pendingRomaji}</span>`;
-                    b.classList.add('active-typing');
-                    b.classList.remove('filled', 'typing-correct', 'typing-wrong', 'correct', 'wrong');
+                    if (b.textContent !== pendingRomaji) {
+                        b.innerHTML = `<span class="pending-char">${escapeHtml(pendingRomaji)}</span>`;
+                    }
+                    b.className = 'blank-char active-typing';
                 } else {
                     if (b.textContent !== '') {
-                        b.innerHTML = '';
+                        b.textContent = '';
                     }
-                    b.classList.remove('filled', 'typing-correct', 'typing-wrong', 'correct', 'wrong', 'pop', 'shake');
+                    b.className = 'blank-char';
                 }
-            });
+            }
 
             // Instant Mistake Detection for Combo Break
-            if (value.length > 0) {
-                if (!isValid) {
-                    if (!session.wordHadMistake) {
-                        session.wordHadMistake = true;
-                        if (typingStreak > 0) {
-                            typingStreak = 0;
-                            updateStreakUI(false);
-                            spawnComboBreakFX();
-                            playComboBreakSound();
-                        }
-                    }
+            if (value.length > 0 && !isValid && !session.wordHadMistake) {
+                session.wordHadMistake = true;
+                if (typingStreak > 0) {
+                    typingStreak = 0;
+                    updateStreakUI(false);
                 }
             }
 
@@ -5143,7 +5119,7 @@
             if (inputEl) {
                 if (value.length > 0) {
                     inputEl.style.borderColor = isValid ? '#10b981' : '#ef4444';
-                    inputEl.style.boxShadow = isValid ? '0 0 12px rgba(16, 185, 129, 0.3)' : '0 0 12px rgba(239, 68, 68, 0.3)';
+                    inputEl.style.boxShadow = isValid ? '0 0 10px rgba(16, 185, 129, 0.25)' : '0 0 10px rgba(239, 68, 68, 0.25)';
                 } else {
                     inputEl.style.borderColor = '';
                     inputEl.style.boxShadow = '';
@@ -5153,14 +5129,25 @@
             // If in audio listening mode and user has typed the complete correct word, reveal Vietnamese meaning immediately!
             if (session.typingMode === 'audio' && hira === target && isValid) {
                 const meaningEl = document.getElementById('meaning-reveal');
-                if (meaningEl) {
-                    meaningEl.innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
+                if (meaningEl && !meaningEl.classList.contains('show')) {
+                    meaningEl.innerHTML = `<strong class="meaning-viet">🇻🇳 ${escapeHtml(w.meaning)}</strong>`;
                     meaningEl.classList.add('show');
                 }
             }
 
             lastRenderedHira = hira;
             lastInputVal = value;
+        }
+
+        function scheduleSpacedReview(w) {
+            if (!w || !session.words) return;
+            const upcoming = session.words.slice(session.idx + 1);
+            const alreadyScheduled = upcoming.some(x => x.kanji === w.kanji);
+            if (!alreadyScheduled) {
+                const targetPos = Math.min(session.words.length, session.idx + 4);
+                session.words.splice(targetPos, 0, { ...w, isRepeat: true });
+                updateSidebar();
+            }
         }
 
         function setOrder(o) {
@@ -5406,6 +5393,9 @@
                 updateStreakUI(false);
                 setMascotSpeech(`Chưa đúng rồi! Đáp án: ${w.hiragana} (${w.meaning})`, 'sad');
 
+                // Re-queue wrong word to appear again later in session
+                scheduleSpacedReview(w);
+
                 if (inputEl) inputEl.className = 'romaji-input wrong';
                 
                 if (ar) {
@@ -5441,6 +5431,7 @@
                     session.wrongWords.push({ ...w, reviewState: 'reviewed' });
                 }
                 playTTS(w.hiragana || w.kanji);
+                scheduleSpacedReview(w);
             }
             session.skip++;
             updateStreakUI(false);
