@@ -2606,28 +2606,35 @@
             border-radius: 12px;
             background: #ffffff;
             border: 2px solid var(--border);
-            color: var(--text);
-            font-size: 1.25rem;
-            font-weight: 600;
+            color: #000000;
+            font-size: 1.35rem;
+            font-weight: 700;
             outline: none;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
+            transition: all 0.15s ease;
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
             text-align: center;
         }
 
         .romaji-input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
         }
 
         .romaji-input.correct {
-            border-color: var(--green);
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+            border-color: #10b981 !important;
+            background: rgba(16, 185, 129, 0.08) !important;
+            color: #065f46 !important;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3), 0 0 16px rgba(16, 185, 129, 0.4) !important;
         }
 
         .romaji-input.wrong {
-            border-color: var(--red);
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+            border-color: #f43f5e !important;
+            background: rgba(244, 63, 94, 0.08) !important;
+            color: #9f1239 !important;
+            box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.35), 0 0 16px rgba(244, 63, 94, 0.4) !important;
+            animation: shake 0.35s ease-in-out !important;
+        }
+
         .action-btns {
             display: flex;
             gap: 10px;
@@ -5123,14 +5130,23 @@
                 }
             }
 
-            // Update input box border glow dynamically
+            // Update input box border glow and background dynamically
             const inputEl = document.getElementById('romaji-input');
+            const cardEl = document.getElementById('word-card');
             if (inputEl) {
                 if (value.length > 0) {
-                    inputEl.style.borderColor = isValid ? '#10b981' : '#ef4444';
-                    inputEl.style.boxShadow = isValid ? '0 0 10px rgba(16, 185, 129, 0.25)' : '0 0 10px rgba(239, 68, 68, 0.25)';
+                    if (isValid) {
+                        inputEl.style.borderColor = '#10b981';
+                        inputEl.style.backgroundColor = 'rgba(16, 185, 129, 0.08)';
+                        inputEl.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.25), 0 0 12px rgba(16, 185, 129, 0.3)';
+                    } else {
+                        inputEl.style.borderColor = '#f43f5e';
+                        inputEl.style.backgroundColor = 'rgba(244, 63, 94, 0.1)';
+                        inputEl.style.boxShadow = '0 0 0 3px rgba(244, 63, 94, 0.35), 0 0 14px rgba(244, 63, 94, 0.4)';
+                    }
                 } else {
                     inputEl.style.borderColor = '';
+                    inputEl.style.backgroundColor = '';
                     inputEl.style.boxShadow = '';
                 }
             }
@@ -5148,15 +5164,34 @@
             lastInputVal = value;
         }
 
+        const cuteMistakeReactions = [
+            { voice: "いいえ、違いますよ〜！", ja: "いいえ、違いますよ〜！", vi: "Sai rùi nha~" },
+            { voice: "ざんねん！もう一回やってみてね！", ja: "ざんねん！もう一回！", vi: "Tiếc quá! Thử lại nha~" },
+            { voice: "ダメですよ〜、間違えちゃった！", ja: "ダメですよ〜！", vi: "Hông được rùi, nhầm rùi nè~" },
+            { voice: "あれれ？違いますよ〜！", ja: "あれれ？違いますよ〜！", vi: "Ủa ủa? Hông phải rùi nha~" },
+            { voice: "おしい！次は頑張ってね！", ja: "おしい！次は頑張ってね！", vi: "Suýt đúng rùi á, cố lên nè!" },
+            { voice: "ふふっ、間違えちゃったね！", ja: "ふふっ、間違えちゃったね！", vi: "Hihi, nhầm mất rồi kìa!" },
+            { voice: "もう〜！しっかりしてよね〜！", ja: "もう〜！しっかりして！", vi: "Trùi ui~ tập trung nào senpai!" }
+        ];
+
+        const cutePraiseReactions = [
+            { voice: "すごーい！大正解だよ！", ja: "すごーい！大正解！", vi: "Quá đỉnh luôn!" },
+            { voice: "さすが！かっこいい〜！", ja: "さすが！かっこいい〜！", vi: "Đúng là đỉnh thật á~" },
+            { voice: "やったね！完璧だよ！", ja: "やったね！完璧！", vi: "Tuyệt cú mèo!" },
+            { voice: "パーフェクト！その調子！", ja: "パーフェクト！", vi: "Chuẩn không cần chỉnh!" }
+        ];
+
         function scheduleSpacedReview(w) {
             if (!w || !session || !session.words) return;
             const wordClone = { ...w, isReview: true };
             const upcoming = session.words.slice(session.idx + 1);
             const alreadyScheduled = upcoming.some(x => x.kanji === w.kanji);
             if (!alreadyScheduled) {
-                const targetPos = Math.min(session.words.length, session.idx + 3);
-                session.words.splice(targetPos, 0, wordClone);
+                // If there are words ahead, insert at session.idx + 3 (or at the end)
+                const insertPos = Math.min(session.words.length, session.idx + 3);
+                session.words.splice(insertPos, 0, wordClone);
                 updateSidebar();
+                showToast(`🔄 Đã lên lịch ôn lại "${w.kanji}" sau ít phút!`, 'info');
             }
         }
 
@@ -5324,6 +5359,7 @@
 
             const w = session.words[session.idx];
             const inputEl = document.getElementById('romaji-input');
+            const cardEl = document.getElementById('word-card');
             const input = inputEl ? inputEl.value.trim() : '';
 
             const isMatch = isAnswerMatch(input, w);
@@ -5344,9 +5380,6 @@
                 meaningReveal.classList.add('show');
             }
 
-            // Always play Japanese pronunciation (correct or wrong!)
-            playTTS(w.hiragana || w.kanji);
-
             if (correct) {
                 session.correct++;
                 updateStreakUI(true);
@@ -5356,15 +5389,36 @@
                 triggerConfettiBurst(typingStreak >= 5 && typingStreak % 5 === 0);
                 spawnFloatingScoreFX(document.getElementById('word-card'), `+${100 + (typingStreak) * 25} PTS`);
                 
-                const happyPhrases = [
-                    'Chính xác 100%! Quá đỉnh!',
-                    `Tuyệt vời! Chuỗi Combo x${typingStreak}!`,
-                    'Tốc độ chém phím tuyệt đỉnh!',
-                    'Đúng rồi! Cứ thế phát huy nhé!'
-                ];
-                setMascotSpeech(happyPhrases[Math.floor(Math.random() * happyPhrases.length)], 'happy');
+                // Play Japanese word or praise
+                if (typingStreak >= 5 && typingStreak % 5 === 0) {
+                    const praise = cutePraiseReactions[Math.floor(Math.random() * cutePraiseReactions.length)];
+                    playTTS(praise.voice);
+                    setMascotSpeech(`${praise.ja} (${praise.vi})`, 'happy');
+                } else {
+                    playTTS(w.hiragana || w.kanji);
+                    const happyPhrases = [
+                        'Chính xác 100%! Quá đỉnh!',
+                        `Tuyệt vời! Chuỗi Combo x${typingStreak}!`,
+                        'Tốc độ chém phím tuyệt đỉnh!',
+                        'Đúng rồi! Cứ thế phát huy nhé!'
+                    ];
+                    setMascotSpeech(happyPhrases[Math.floor(Math.random() * happyPhrases.length)], 'happy');
+                }
 
-                if (inputEl) inputEl.className = 'romaji-input correct';
+                if (inputEl) {
+                    inputEl.className = 'romaji-input correct';
+                    inputEl.style.borderColor = '#10b981';
+                    inputEl.style.backgroundColor = 'rgba(16, 185, 129, 0.12)';
+                    inputEl.style.boxShadow = '0 0 0 4px rgba(16, 185, 129, 0.35), 0 0 20px rgba(16, 185, 129, 0.4)';
+                }
+                if (cardEl) {
+                    cardEl.style.borderColor = '#10b981';
+                    cardEl.style.boxShadow = '0 0 24px rgba(16, 185, 129, 0.35)';
+                    setTimeout(() => {
+                        if (cardEl) { cardEl.style.borderColor = ''; cardEl.style.boxShadow = ''; }
+                    }, 1200);
+                }
+
                 if (ar) {
                     ar.innerHTML = '✅ Chuẩn xác tuyệt đối! Nhấn Enter để tiếp tục';
                     ar.className = 'answer-result show ok';
@@ -5396,15 +5450,35 @@
                 }
                 renderWrongSidebar();
                 updateStreakUI(false);
-                setMascotSpeech(`Chưa đúng rồi! Đáp án: ${w.hiragana} (${w.meaning})`, 'sad');
+
+                // Pick random cute anime mistake line
+                const react = cuteMistakeReactions[Math.floor(Math.random() * cuteMistakeReactions.length)];
+                playTTS(react.voice);
+                setMascotSpeech(`${react.ja} (${react.vi}) ➔ Đáp án đúng: ${w.hiragana}`, 'sad');
 
                 // Re-queue wrong word to appear again later in session
                 scheduleSpacedReview(w);
 
-                if (inputEl) inputEl.className = 'romaji-input wrong';
+                if (inputEl) {
+                    inputEl.className = 'romaji-input wrong';
+                    inputEl.style.borderColor = '#f43f5e';
+                    inputEl.style.backgroundColor = 'rgba(244, 63, 94, 0.12)';
+                    inputEl.style.boxShadow = '0 0 0 4px rgba(244, 63, 94, 0.4), 0 0 20px rgba(244, 63, 94, 0.45)';
+                }
+                if (cardEl) {
+                    cardEl.style.borderColor = '#f43f5e';
+                    cardEl.style.boxShadow = '0 0 24px rgba(244, 63, 94, 0.35)';
+                    setTimeout(() => {
+                        if (cardEl) { cardEl.style.borderColor = ''; cardEl.style.boxShadow = ''; }
+                    }, 1200);
+                }
                 
                 if (ar) {
-                    ar.innerHTML = `❌ Chưa đúng! Đáp án: <strong>${escapeHtml(w.hiragana)}</strong> (${escapeHtml(w.romaji)}) — Nhấn Enter để sang tiếp:`;
+                    ar.innerHTML = `
+                        <div style="font-size: 1.1rem; font-weight: 800; color: #fb7185; margin-bottom: 4px;">❌ ${escapeHtml(react.ja)} <span style="font-size: 0.85rem; font-weight: normal; color: #fda4af;">(${escapeHtml(react.vi)})</span></div>
+                        <div style="font-size: 0.95rem; color: #ffffff;">Đáp án: <strong style="color: #34d399;">${escapeHtml(w.hiragana)}</strong> (${escapeHtml(w.romaji)}) &middot; 🇻🇳 ${escapeHtml(w.meaning)}</div>
+                        <div style="font-size: 0.8rem; color: #a1a1aa; margin-top: 4px;">Nhấn Enter để sang từ tiếp theo (từ này sẽ tự động lặp lại sau!)</div>
+                    `;
                     ar.className = 'answer-result show fail';
                 }
                 allBlanks.forEach(b => {
@@ -5435,13 +5509,13 @@
                 if (!existing) {
                     session.wrongWords.push({ ...w, reviewState: 'reviewed' });
                 }
-                playTTS(w.hiragana || w.kanji);
+                const react = cuteMistakeReactions[Math.floor(Math.random() * cuteMistakeReactions.length)];
+                playTTS(react.voice);
                 scheduleSpacedReview(w);
             }
             session.skip++;
             updateStreakUI(false);
             renderWrongSidebar();
-            nextWord();
         }
 
         function toggleHint() {
