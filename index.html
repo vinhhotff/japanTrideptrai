@@ -5342,6 +5342,15 @@
                 }
             }
 
+            // If in audio listening mode and user has typed the complete correct word, reveal Vietnamese meaning immediately!
+            if (session.typingMode === 'audio' && hira === target && isValid) {
+                const meaningEl = document.getElementById('meaning-reveal');
+                if (meaningEl) {
+                    meaningEl.innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
+                    meaningEl.classList.add('show');
+                }
+            }
+
             lastRenderedHira = hira;
             lastInputVal = value;
         }
@@ -5668,8 +5677,19 @@
                 });
                 document.getElementById('btn-check').textContent = '→ Tiếp theo (Enter)';
 
-                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">${w.meaning}</strong>`;
+                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
                 document.getElementById('meaning-reveal').classList.add('show');
+                if (session.typingMode === 'audio') {
+                    const kanjiEl = document.getElementById('kanji-display');
+                    if (kanjiEl) {
+                        kanjiEl.innerHTML = `
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${w.kanji}</span>
+                                <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(16,185,129,0.2); color:#34d399; border-color:rgba(16,185,129,0.4);">✓ ${w.hiragana}</span>
+                            </div>
+                        `;
+                    }
+                }
             } else {
                 const alreadyWrong = session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
                 if (session.wrongRecordedIdx !== session.idx && !alreadyWrong) {
@@ -5703,8 +5723,19 @@
                 });
                 document.getElementById('btn-check').textContent = '✓ Kiểm tra lại (Enter)';
 
-                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">${w.meaning}</strong>`;
+                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
                 document.getElementById('meaning-reveal').classList.add('show');
+                if (session.typingMode === 'audio') {
+                    const kanjiEl = document.getElementById('kanji-display');
+                    if (kanjiEl) {
+                        kanjiEl.innerHTML = `
+                            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${w.kanji}</span>
+                                <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(239,68,68,0.2); color:#f87171; border-color:rgba(239,68,68,0.4);">❌ ${w.hiragana}</span>
+                            </div>
+                        `;
+                    }
+                }
             }
             updateSidebar();
         }
