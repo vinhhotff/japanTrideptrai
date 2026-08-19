@@ -5367,6 +5367,7 @@
                 document.getElementById('btn-check').textContent = '✓ Kiểm tra lại (Enter)';
                 document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
                 document.getElementById('meaning-reveal').classList.add('show');
+                playTTS(w.hiragana || w.kanji);
                 if (session.typingMode === 'audio') {
                     const kanjiEl = document.getElementById('kanji-display');
                     if (kanjiEl) {
@@ -5490,6 +5491,7 @@
 
                 document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
                 document.getElementById('meaning-reveal').classList.add('show');
+                playTTS(w.hiragana || w.kanji);
                 if (session.typingMode === 'audio') {
                     const kanjiEl = document.getElementById('kanji-display');
                     if (kanjiEl) {
@@ -5513,6 +5515,7 @@
                 if (!existing) {
                     session.wrongWords.push({ ...w, reviewState: 'reviewed' });
                 }
+                playTTS(w.hiragana || w.kanji);
             }
             session.skip++;
             updateStreakUI(false);
