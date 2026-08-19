@@ -5149,12 +5149,13 @@
         }
 
         function scheduleSpacedReview(w) {
-            if (!w || !session.words) return;
+            if (!w || !session || !session.words) return;
+            const wordClone = { ...w, isReview: true };
             const upcoming = session.words.slice(session.idx + 1);
             const alreadyScheduled = upcoming.some(x => x.kanji === w.kanji);
             if (!alreadyScheduled) {
-                const targetPos = Math.min(session.words.length, session.idx + 4);
-                session.words.splice(targetPos, 0, { ...w, isRepeat: true });
+                const targetPos = Math.min(session.words.length, session.idx + 3);
+                session.words.splice(targetPos, 0, wordClone);
                 updateSidebar();
             }
         }
@@ -5183,14 +5184,6 @@
             const hasHira = /[ぁ-ん]/.test(kanji);
             if (hasHira && kanjiChars > 0) parts.push({ type: 'count-b', label: 'có hira nối' });
             return parts;
-        }
-
-        function scheduleSpacedReview(w) {
-            // Micro-SRS: Re-schedule this word after exactly 3 words (at session.idx + 4)
-            const targetPos = Math.min(session.words.length, session.idx + 4);
-            const wordClone = { ...w, isSrsReview: true };
-            session.words.splice(targetPos, 0, wordClone);
-            updateSidebar();
         }
 
         let typingMode = 'visual'; // 'visual' or 'audio'
@@ -5249,6 +5242,9 @@
             lastEmptyEnterTime = 0;
             lastRenderedHira = '';
             const parts = getWordParts(w);
+            if (w.isReview) {
+                parts.unshift({ type: 'count-b', label: '🔄 Luyện lại từ sai' });
+            }
             document.getElementById('word-index').textContent = `${session.idx + 1} / ${session.words.length}`;
 
             const kanjiDisplay = document.getElementById('kanji-display');
