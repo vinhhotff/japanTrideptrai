@@ -5334,89 +5334,30 @@
             const inputEl = document.getElementById('romaji-input');
             const input = inputEl ? inputEl.value.trim() : '';
 
-            // If user submits empty input:
-            if (!input) {
-                // If they are in retry phase (already saw mistake and press Enter again to skip):
-                if (session.isRetryPhase) {
-                    nextWord();
-                    return;
-                }
-
-                // If first time with empty input (wants to reveal answer):
-                const alreadyWrong = session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
-                if (session.wrongRecordedIdx !== session.idx && !alreadyWrong) {
-                    session.wrong++;
-                    session.wrongRecordedIdx = session.idx;
-                }
-                let existing = session.wrongWords.find(x => x.kanji === w.kanji && !x.skipped);
-                if (!existing) {
-                    session.wrongWords.push({ ...w, reviewState: 'retrying' });
-                }
-                renderWrongSidebar();
-                updateStreakUI(false);
-                setMascotSpeech(`Chưa nhập câu trả lời! Đáp án là: ${w.hiragana} (${w.romaji})`, 'sad');
-
-                document.getElementById('reading-hint').textContent = `💡 Đáp án: ${w.romaji} → ${w.hiragana}`;
-                document.getElementById('reading-hint').classList.add('show');
-                const ar = document.getElementById('answer-result');
-                ar.innerHTML = `❌ Chưa nhập! Đáp án: <strong>${w.hiragana}</strong> (${w.romaji}) — Gõ lại để nhớ hoặc nhấn Enter / Bỏ qua để sang tiếp:`;
-                ar.className = 'answer-result show fail';
-                
-                session.isRetryPhase = true;
-                session.checked = false;
-                document.getElementById('btn-check').textContent = '✓ Kiểm tra lại (Enter)';
-                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
-                document.getElementById('meaning-reveal').classList.add('show');
-                playTTS(w.hiragana || w.kanji);
-                if (session.typingMode === 'audio') {
-                    const kanjiEl = document.getElementById('kanji-display');
-                    if (kanjiEl) {
-                        kanjiEl.innerHTML = `
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-                                <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${w.kanji}</span>
-                                <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(239,68,68,0.2); color:#f87171; border-color:rgba(239,68,68,0.4);">❌ ${w.hiragana}</span>
-                            </div>
-                        `;
-                    }
-                }
-                updateSidebar();
-                return;
-            }
-
             const isMatch = isAnswerMatch(input, w);
-            const correct = isMatch && !session.hintUsed;
+            const correct = Boolean(input && isMatch && !session.hintUsed);
 
-            document.getElementById('meaning-reveal').classList.add('show');
-            if (session.hintUsed && isMatch) {
-                document.getElementById('reading-hint').textContent = `💡 Đáp án: ${w.romaji} → ${w.hiragana} (sai do dùng gợi ý)`;
-            } else {
-                document.getElementById('reading-hint').textContent = `✓ Đáp án: ${w.romaji} → ${w.hiragana}`;
-            }
-            document.getElementById('reading-hint').classList.add('show');
+            // Mark session as checked so the NEXT Enter press will ALWAYS advance to the next word!
+            session.checked = true;
+            session.isRetryPhase = false;
+
             const ar = document.getElementById('answer-result');
             const allBlanks = document.querySelectorAll('#hira-blanks .blank-char');
+            const meaningReveal = document.getElementById('meaning-reveal');
+            const kanjiDisplay = document.getElementById('kanji-display');
+
+            // Always reveal Vietnamese meaning
+            if (meaningReveal) {
+                meaningReveal.innerHTML = `<strong class="meaning-viet">🇻🇳 ${escapeHtml(w.meaning)}</strong>`;
+                meaningReveal.classList.add('show');
+            }
+
+            // Always play Japanese pronunciation (correct or wrong!)
+            playTTS(w.hiragana || w.kanji);
 
             if (correct) {
-                session.checked = true;
-                const wasRetry = session.isRetryPhase || session.wrongRecordedIdx === session.idx || session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
-                session.isRetryPhase = false;
-                
-                // Update in wrongWords sidebar to reviewed
-                const existingWrong = session.wrongWords.find(x => x.kanji === w.kanji && !x.skipped);
-                if (existingWrong) {
-                    existingWrong.reviewState = 'reviewed';
-                    renderWrongSidebar();
-                }
-
-                if (!wasRetry) {
-                    session.correct++;
-                    updateStreakUI(true);
-                } else {
-                    typingStreak = 0;
-                    updateStreakUI(false);
-                }
-                
-                playTTS(w.hiragana || w.kanji);
+                session.correct++;
+                updateStreakUI(true);
                 
                 triggerCardImpact();
                 triggerWordCompleteWave();
@@ -5431,35 +5372,27 @@
                 ];
                 setMascotSpeech(happyPhrases[Math.floor(Math.random() * happyPhrases.length)], 'happy');
 
-                document.getElementById('romaji-input').className = wasRetry ? 'romaji-input warning' : 'romaji-input correct';
-                if (wasRetry) {
-                    ar.innerHTML = '⚠️ Đã sửa đúng lại! Nhấn Enter để qua từ tiếp theo';
-                } else if (session.wordHadMistake) {
-                    ar.innerHTML = '✅ Đúng (Đã mất Combo do từng gõ sai)! Nhấn Enter để tiếp tục';
-                } else {
+                if (inputEl) inputEl.className = 'romaji-input correct';
+                if (ar) {
                     ar.innerHTML = '✅ Chuẩn xác tuyệt đối! Nhấn Enter để tiếp tục';
+                    ar.className = 'answer-result show ok';
                 }
-                ar.className = wasRetry ? 'answer-result show warning' : 'answer-result show ok';
                 allBlanks.forEach(b => {
                     b.classList.remove('typing-correct', 'typing-wrong', 'wrong');
                     b.classList.add('correct', 'filled');
                 });
                 document.getElementById('btn-check').textContent = '→ Tiếp theo (Enter)';
 
-                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
-                document.getElementById('meaning-reveal').classList.add('show');
-                if (session.typingMode === 'audio') {
-                    const kanjiEl = document.getElementById('kanji-display');
-                    if (kanjiEl) {
-                        kanjiEl.innerHTML = `
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-                                <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${w.kanji}</span>
-                                <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(16,185,129,0.2); color:#34d399; border-color:rgba(16,185,129,0.4);">✓ ${w.hiragana}</span>
-                            </div>
-                        `;
-                    }
+                if (session.typingMode === 'audio' && kanjiDisplay) {
+                    kanjiDisplay.innerHTML = `
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                            <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${escapeHtml(w.kanji)}</span>
+                            <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(16,185,129,0.2); color:#34d399; border-color:rgba(16,185,129,0.4);">✓ ${escapeHtml(w.hiragana)}</span>
+                        </div>
+                    `;
                 }
             } else {
+                // Wrong or Empty answer
                 const alreadyWrong = session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
                 if (session.wrongRecordedIdx !== session.idx && !alreadyWrong) {
                     session.wrong++;
@@ -5467,41 +5400,33 @@
                 }
                 let existing = session.wrongWords.find(x => x.kanji === w.kanji && !x.skipped);
                 if (!existing) {
-                    session.wrongWords.push({ ...w, reviewState: 'retrying' });
-                } else {
-                    existing.reviewState = 'retrying';
+                    session.wrongWords.push({ ...w, reviewState: 'reviewed' });
                 }
                 renderWrongSidebar();
                 updateStreakUI(false);
-                setMascotSpeech(`Chưa đúng rồi! Gõ lại bên dưới: ${w.hiragana} (${w.meaning})`, 'sad');
+                setMascotSpeech(`Chưa đúng rồi! Đáp án: ${w.hiragana} (${w.meaning})`, 'sad');
 
-                session.isRetryPhase = true;
-                session.checked = false;
-
-                document.getElementById('romaji-input').value = '';
-                document.getElementById('romaji-input').className = 'romaji-input wrong';
-                document.getElementById('romaji-input').focus();
+                if (inputEl) inputEl.className = 'romaji-input wrong';
                 
-                ar.innerHTML = `❌ Chưa đúng! Đáp án: <strong>${w.hiragana}</strong> (${w.romaji}) — Gõ lại để nhớ (hoặc Enter lần nữa để qua):`;
-                ar.className = 'answer-result show fail';
+                if (ar) {
+                    ar.innerHTML = `❌ Chưa đúng! Đáp án: <strong>${escapeHtml(w.hiragana)}</strong> (${escapeHtml(w.romaji)}) — Nhấn Enter để sang tiếp:`;
+                    ar.className = 'answer-result show fail';
+                }
                 allBlanks.forEach(b => {
                     b.classList.add('wrong');
                 });
-                document.getElementById('btn-check').textContent = '✓ Kiểm tra lại (Enter)';
+                document.getElementById('btn-check').textContent = '→ Tiếp theo (Enter)';
 
-                document.getElementById('meaning-reveal').innerHTML = `<strong class="meaning-viet">🇻🇳 ${w.meaning}</strong>`;
-                document.getElementById('meaning-reveal').classList.add('show');
-                playTTS(w.hiragana || w.kanji);
-                if (session.typingMode === 'audio') {
-                    const kanjiEl = document.getElementById('kanji-display');
-                    if (kanjiEl) {
-                        kanjiEl.innerHTML = `
-                            <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-                                <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${w.kanji}</span>
-                                <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(239,68,68,0.2); color:#f87171; border-color:rgba(239,68,68,0.4);">❌ ${w.hiragana}</span>
-                            </div>
-                        `;
-                    }
+                document.getElementById('reading-hint').textContent = `💡 Đáp án: ${w.romaji} → ${w.hiragana}`;
+                document.getElementById('reading-hint').classList.add('show');
+
+                if (session.typingMode === 'audio' && kanjiDisplay) {
+                    kanjiDisplay.innerHTML = `
+                        <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                            <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${escapeHtml(w.kanji)}</span>
+                            <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(239,68,68,0.2); color:#f87171; border-color:rgba(239,68,68,0.4);">❌ ${escapeHtml(w.hiragana)}</span>
+                        </div>
+                    `;
                 }
             }
             updateSidebar();
@@ -5843,23 +5768,31 @@
 
             try {
                 const base = endpoint.replace(/\/+$/, '');
-                // 1. Audio query
+                // 1. Audio query with timeout
+                const ctrl1 = new AbortController();
+                const t1 = setTimeout(() => ctrl1.abort(), 1200);
                 const queryRes = await fetch(`${base}/audio_query?text=${encodeURIComponent(cleanText)}&speaker=${speakerId}`, {
                     method: 'POST',
-                    headers: { 'Accept': 'application/json' }
+                    headers: { 'Accept': 'application/json' },
+                    signal: ctrl1.signal
                 });
+                clearTimeout(t1);
                 if (!queryRes.ok) throw new Error(`Query failed with status ${queryRes.status}`);
                 const queryData = await queryRes.json();
 
-                // 2. Synthesis
+                // 2. Synthesis with timeout
+                const ctrl2 = new AbortController();
+                const t2 = setTimeout(() => ctrl2.abort(), 2500);
                 const synthRes = await fetch(`${base}/synthesis?speaker=${speakerId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'audio/wav'
                     },
-                    body: JSON.stringify(queryData)
+                    body: JSON.stringify(queryData),
+                    signal: ctrl2.signal
                 });
+                clearTimeout(t2);
                 if (!synthRes.ok) throw new Error(`Synthesis failed with status ${synthRes.status}`);
                 const blob = await synthRes.blob();
                 const blobUrl = URL.createObjectURL(blob);
@@ -5867,7 +5800,7 @@
                 playAudioUrl(blobUrl);
                 return true;
             } catch (err) {
-                console.warn('VOICEVOX connection error:', err);
+                console.warn('VOICEVOX connection error / timeout, falling back:', err);
                 return false;
             }
         }
@@ -5946,11 +5879,23 @@
         function playWebSpeech(text) {
             if (!('speechSynthesis' in window) || !text) return;
             try {
+                if (window.speechSynthesis.paused) {
+                    window.speechSynthesis.resume();
+                }
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text.trim());
-                utterance.lang = 'ja-JP';
-                utterance.rate = 0.9;
-                window.speechSynthesis.speak(utterance);
+                setTimeout(() => {
+                    try {
+                        const utterance = new SpeechSynthesisUtterance(text.trim());
+                        utterance.lang = 'ja-JP';
+                        utterance.rate = 0.95;
+                        const voices = window.speechSynthesis.getVoices();
+                        const jaVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja') || v.lang.includes('JP'));
+                        if (jaVoice) utterance.voice = jaVoice;
+                        window.speechSynthesis.speak(utterance);
+                    } catch(err) {
+                        console.warn('Speech synthesis inner error', err);
+                    }
+                }, 20);
             } catch (e) {
                 console.warn('Speech synthesis error', e);
             }
