@@ -4818,14 +4818,17 @@
 
             // 0. Direct Kanji match
             if (targetKanji && cleanInp === targetKanji) return true;
-            // 1. Direct Hiragana match (raw input matches target Hiragana)
+            // 1. Direct Hiragana match (user typed hiragana directly)
             if (normalize(cleanInp) === normalize(targetHira)) return true;
-            // 2. Direct Romaji match (raw input matches target Romaji)
+            // 2. Direct Romaji match
             if (normalize(lowerInp) === normalize(targetRom)) return true;
-            // 3. Independent Romaji to Hiragana conversion without cheating
+            // 3. Guided Romaji→Hiragana conversion (uses target to resolve ambiguities like trailing 'n')
+            const guidedHira = romajiToHiragana(cleanInp, targetHira);
+            if (guidedHira && normalize(guidedHira) === normalize(targetHira)) return true;
+            // 4. Independent Romaji→Hiragana conversion (no target bias)
             const pureHira = romajiToHiragana(cleanInp, "");
             if (pureHira && normalize(pureHira) === normalize(targetHira)) return true;
-            // 4. Direct Katakana match (converted to Hiragana)
+            // 5. Katakana→Hiragana match
             const kataToHira = cleanInp.replace(/[\u30a1-\u30f6]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60));
             if (normalize(kataToHira) === normalize(targetHira)) return true;
 
