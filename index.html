@@ -5371,6 +5371,9 @@
             const isMatch = isAnswerMatch(input, w);
             const correct = Boolean(input && isMatch && !session.hintUsed);
 
+            // DEBUG: trace exactly what's happening
+            console.log('[checkAnswer] input:', JSON.stringify(input), 'target_hira:', w.hiragana, 'target_rom:', w.romaji, 'isMatch:', isMatch, 'hintUsed:', session.hintUsed, 'correct:', correct);
+
             // Mark session as checked so the NEXT Enter press will ALWAYS advance to the next word!
             session.checked = true;
             session.isRetryPhase = false;
@@ -5386,6 +5389,11 @@
                 meaningReveal.classList.add('show');
             }
 
+            // ★★★ ALWAYS pronounce the Japanese word regardless of correct/wrong ★★★
+            const wordText = w.hiragana || w.kanji;
+            console.log('[checkAnswer] About to call playTTS with:', wordText);
+            playTTS(wordText);
+
             if (correct) {
                 session.correct++;
                 updateStreakUI(true);
@@ -5394,9 +5402,6 @@
                 triggerWordCompleteWave();
                 triggerConfettiBurst(typingStreak >= 5 && typingStreak % 5 === 0);
                 spawnFloatingScoreFX(document.getElementById('word-card'), `+${100 + (typingStreak) * 25} PTS`);
-                
-                // Always pronounce Japanese word immediately upon correct answer!
-                playTTS(w.hiragana || w.kanji);
 
                 const happyPhrases = [
                     'Chính xác 100%! Quá đỉnh!',
@@ -5454,7 +5459,8 @@
 
                 // Pick random cute anime mistake line with sweet/nũng nịu speaker
                 const react = cuteMistakeReactions[Math.floor(Math.random() * cuteMistakeReactions.length)];
-                playTTS(react.voice, react.speaker);
+                // Speak cute reaction AFTER the word pronunciation (delay 800ms)
+                setTimeout(() => playTTS(react.voice, react.speaker), 800);
                 setMascotSpeech(`${react.ja} (${react.vi}) ➔ Đáp án đúng: ${w.hiragana}`, 'sad');
 
                 // Re-queue wrong word to appear again later in session
