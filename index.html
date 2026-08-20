@@ -5061,6 +5061,34 @@
             }
         }
 
+        function triggerCardImpact() {
+            const card = document.getElementById('word-card');
+            if (!card) return;
+            if (window.gsap) {
+                gsap.fromTo(card, { scale: 0.98 }, { scale: 1, duration: 0.2, ease: "back.out(2)" });
+            }
+        }
+
+        function triggerWordCompleteWave() {
+            const el = document.getElementById('hira-blanks');
+            if (!el) return;
+            if (window.gsap) {
+                gsap.fromTo(el, { y: -3 }, { y: 0, duration: 0.2, ease: "power2.out" });
+            }
+        }
+
+        function triggerConfettiBurst(isBig = false) {
+            // Confetti visual burst placeholder
+        }
+
+        function setMascotSpeech(text, mood = 'happy') {
+            const mascotBubble = document.getElementById('mascot-speech-bubble');
+            if (mascotBubble) {
+                mascotBubble.textContent = text;
+                mascotBubble.style.display = 'block';
+            }
+        }
+
         let typingStreak = 0;
         function updateStreakUI(inc = true) {
             if (inc) {
