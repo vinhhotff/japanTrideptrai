@@ -5391,21 +5391,16 @@
                 triggerConfettiBurst(typingStreak >= 5 && typingStreak % 5 === 0);
                 spawnFloatingScoreFX(document.getElementById('word-card'), `+${100 + (typingStreak) * 25} PTS`);
                 
-                // Play Japanese word or praise
-                if (typingStreak >= 5 && typingStreak % 5 === 0) {
-                    const praise = cutePraiseReactions[Math.floor(Math.random() * cutePraiseReactions.length)];
-                    playTTS(praise.voice, praise.speaker);
-                    setMascotSpeech(`${praise.ja} (${praise.vi})`, 'happy');
-                } else {
-                    playTTS(w.hiragana || w.kanji);
-                    const happyPhrases = [
-                        'Chính xác 100%! Quá đỉnh!',
-                        `Tuyệt vời! Chuỗi Combo x${typingStreak}!`,
-                        'Tốc độ chém phím tuyệt đỉnh!',
-                        'Đúng rồi! Cứ thế phát huy nhé!'
-                    ];
-                    setMascotSpeech(happyPhrases[Math.floor(Math.random() * happyPhrases.length)], 'happy');
-                }
+                // Always pronounce Japanese word immediately upon correct answer!
+                playTTS(w.hiragana || w.kanji);
+
+                const happyPhrases = [
+                    'Chính xác 100%! Quá đỉnh!',
+                    `Tuyệt vời! Chuỗi Combo x${typingStreak}!`,
+                    'Tốc độ chém phím tuyệt đỉnh!',
+                    'Đúng rồi! Cứ thế phát huy nhé!'
+                ];
+                setMascotSpeech(happyPhrases[Math.floor(Math.random() * happyPhrases.length)], 'happy');
 
                 if (inputEl) {
                     inputEl.className = 'romaji-input correct';
@@ -5880,9 +5875,9 @@
 
             try {
                 const base = endpoint.replace(/\/+$/, '');
-                // 1. Audio query with timeout
+                // 1. Audio query with fast timeout
                 const ctrl1 = new AbortController();
-                const t1 = setTimeout(() => ctrl1.abort(), 1200);
+                const t1 = setTimeout(() => ctrl1.abort(), 600);
                 const queryRes = await fetch(`${base}/audio_query?text=${encodeURIComponent(cleanText)}&speaker=${speakerId}`, {
                     method: 'POST',
                     headers: { 'Accept': 'application/json' },
@@ -5894,7 +5889,7 @@
 
                 // 2. Synthesis with timeout
                 const ctrl2 = new AbortController();
-                const t2 = setTimeout(() => ctrl2.abort(), 2500);
+                const t2 = setTimeout(() => ctrl2.abort(), 2000);
                 const synthRes = await fetch(`${base}/synthesis?speaker=${speakerId}`, {
                     method: 'POST',
                     headers: {
@@ -5912,7 +5907,7 @@
                 playAudioUrl(blobUrl);
                 return true;
             } catch (err) {
-                console.warn('VOICEVOX connection error / timeout, falling back:', err);
+                console.warn('VOICEVOX error, fallback to WebSpeech:', err);
                 return false;
             }
         }
@@ -5990,6 +5985,18 @@
         }
 
         let _activeUtterance = null;
+        let _jaVoiceCache = null;
+        function getJapaneseVoice() {
+            if (_jaVoiceCache) return _jaVoiceCache;
+            if (!('speechSynthesis' in window)) return null;
+            const voices = window.speechSynthesis.getVoices();
+            _jaVoiceCache = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja') || v.lang.includes('JP')) || null;
+            return _jaVoiceCache;
+        }
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => { _jaVoiceCache = null; getJapaneseVoice(); };
+        }
+
         function playWebSpeech(text) {
             if (!('speechSynthesis' in window) || !text) return;
             try {
@@ -5997,22 +6004,15 @@
                     window.speechSynthesis.resume();
                 }
                 window.speechSynthesis.cancel();
-                setTimeout(() => {
-                    try {
-                        const utterance = new SpeechSynthesisUtterance(text.trim());
-                        utterance.lang = 'ja-JP';
-                        utterance.rate = 0.95;
-                        const voices = window.speechSynthesis.getVoices();
-                        const jaVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja') || v.lang.includes('JP'));
-                        if (jaVoice) utterance.voice = jaVoice;
-                        _activeUtterance = utterance;
-                        utterance.onend = () => { _activeUtterance = null; };
-                        utterance.onerror = () => { _activeUtterance = null; };
-                        window.speechSynthesis.speak(utterance);
-                    } catch(err) {
-                        console.warn('Speech synthesis inner error', err);
-                    }
-                }, 15);
+                const utterance = new SpeechSynthesisUtterance(text.trim());
+                utterance.lang = 'ja-JP';
+                utterance.rate = 0.95;
+                const jaVoice = getJapaneseVoice();
+                if (jaVoice) utterance.voice = jaVoice;
+                _activeUtterance = utterance;
+                utterance.onend = () => { _activeUtterance = null; };
+                utterance.onerror = () => { _activeUtterance = null; };
+                window.speechSynthesis.speak(utterance);
             } catch (e) {
                 console.warn('Speech synthesis error', e);
             }
