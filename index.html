@@ -3043,6 +3043,7 @@
                     <button class="nav-tab" onclick="switchTab('en-vocab')" id="tab-en-vocab">Từ vựng Anh</button>
                     <button class="nav-tab" onclick="switchTab('ai-lessons')" id="tab-ai-lessons">Bài Học AI</button>
                     <button class="nav-tab" onclick="switchTab('alphabet')" id="tab-alphabet">Bảng Chữ Cái</button>
+                    <button class="nav-tab" onclick="switchTab('settings')" id="tab-settings">⚙️ Cài đặt</button>
                 </div>
             </div>
         </div>
@@ -3087,134 +3088,11 @@
                         onclick="startAiKaiwaMode()">💬 Hội Thoại Kaiwa Cùng AI (Luyện Gõ & Phản Xạ)</button>
                 </div>
 
-                <!-- AI OpenRouter Setup -->
-                <div style="margin-top: 24px; border: 1px solid var(--border); padding: 18px; background: var(--card2); border-radius: 14px; text-align: left;">
-                    <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                        <span>Cấu hình AI (OpenRouter)</span>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <div>
-                            <label style="font-size: 0.8rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 4px;">OpenRouter API Key:</label>
-                            <input type="password" id="openrouter-key" class="form-input" placeholder="sk-or-v1-..." style="width: 100%; font-size: 0.85rem; padding: 8px 12px;" oninput="saveAiSettings()" value="">
-                        </div>
-                        <div>
-                            <label style="font-size: 0.8rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 4px;">Chọn Model AI:</label>
-                            <select id="openrouter-model" class="form-input" style="width: 100%; font-size: 0.85rem; padding: 8px 12px;" onchange="onModelSelectChange()">
-                                <optgroup label="⚡ Siêu Tốc & Tốt Nhất (Phản xạ < 1s)">
-                                    <option value="openai/gpt-4o-mini">OpenAI GPT-4o Mini ⚡ (~0.8s - Khuyên dùng số 1, đàm thoại tiếng Nhật siêu mượt)</option>
-                                    <option value="nvidia/nemotron-3-nano-30b-a3b:free">Nvidia Nemotron Nano 30B ⚡ (~1.0s - Free siêu tốc)</option>
-                                    <option value="nvidia/nemotron-3-super-120b-a12b:free">Nvidia Nemotron Super 120B ⚡ (~1.8s - Free cân bằng)</option>
-                                </optgroup>
-                                <optgroup label="🧠 Thông minh & Đa dạng (Miễn phí)">
-                                    <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nvidia Nemotron Ultra 550B (Free - Mô hình khổng lồ, xử lý sâu)</option>
-                                    <option value="google/gemma-4-26b-a4b-it:free">Google Gemma 4 26B (Free - Google AI)</option>
-                                    <option value="openai/gpt-oss-20b:free">OpenAI GPT-OSS 20B (Free)</option>
-                                    <option value="cohere/command-r-08-2024">Cohere Command R (Chuẩn phong cách Nhật)</option>
-                                </optgroup>
-                                <optgroup label="👑 Model Cao cấp khác">
-                                    <option value="openai/gpt-4o">OpenAI GPT-4o (Đỉnh cao toàn diện)</option>
-                                </optgroup>
-                                <optgroup label="✏️ Tùy chỉnh">
-                                    <option value="custom">✏️ Nhập mã Model OpenRouter khác...</option>
-                                </optgroup>
-                            </select>
-                            <input type="text" id="openrouter-custom-model" class="form-input" placeholder="Nhập model ID ví dụ: openai/gpt-4o-mini..." style="display: none; width: 100%; font-size: 0.85rem; padding: 8px 12px; margin-top: 6px;" oninput="saveAiSettings()">
-                        </div>
-                    </div>
+                <div style="margin-top: 22px; text-align: center;">
+                    <button type="button" class="btn btn-hint" style="font-size: 0.85rem; padding: 10px 18px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border);" onclick="switchTab('settings')">
+                        ⚙️ Tùy chỉnh Cài đặt AI & Giọng đọc VOICEVOX
+                    </button>
                 </div>
-
-                <!-- VOICEVOX & Audio Setup -->
-                <div style="margin-top: 16px; border: 1px solid var(--border); padding: 18px; background: var(--card2); border-radius: 14px; text-align: left;">
-                    <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
-                        <span style="display: flex; align-items: center; gap: 8px;">
-                            <span>🎙️ Cấu hình Giọng đọc (VOICEVOX / TTS)</span>
-                        </span>
-                        <span id="voicevox-status-badge" style="font-size: 0.75rem; padding: 2px 8px; border-radius: 99px; background: rgba(52, 211, 153, 0.1); color: #34d399; font-weight: 600; border: 1px solid rgba(52, 211, 153, 0.3);">
-                            Sẵn sàng
-                        </span>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <div>
-                            <label style="font-size: 0.8rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 4px;">Công cụ phát âm:</label>
-                            <select id="tts-engine-select" class="form-input" style="width: 100%; font-size: 0.85rem; padding: 8px 12px;" onchange="saveTtsSettings()">
-                                <option value="webspeech">🔊 Web Speech API (Trình duyệt mặc định - Không cần cài đặt)</option>
-                                <option value="voicevox">🎙️ VOICEVOX Engine (Giọng Anime Studio - Cần bật app VOICEVOX)</option>
-                            </select>
-                        </div>
-
-                        <div id="voicevox-options" style="display: none; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.25); padding: 12px; border-radius: 10px; border: 1px dashed rgba(255,255,255,0.1);">
-                            <div>
-                                <label style="font-size: 0.8rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 4px;">Địa chỉ VOICEVOX Engine:</label>
-                                <div style="display: flex; gap: 8px;">
-                                    <input type="text" id="voicevox-endpoint" class="form-input" placeholder="http://127.0.0.1:50021" value="http://127.0.0.1:50021" style="flex: 1; font-size: 0.85rem; padding: 8px 12px;" onchange="saveTtsSettings()">
-                                    <button class="btn btn-hint" style="padding: 8px 12px; font-size: 0.8rem;" onclick="checkVoicevoxConnection()">Kiểm tra kết nối</button>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label style="font-size: 0.8rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 4px;">Nhân vật & Phong cách giọng tiếng Nhật (30+ Anime Characters):</label>
-                                <select id="voicevox-speaker-select" class="form-input" style="width: 100%; font-size: 0.85rem; padding: 8px 12px;" onchange="saveTtsSettings()">
-                                    <optgroup label="🟢 ずんだもん (Zundamon)">
-                                        <option value="3">🟢 ずんだもん (Zundamon - Normal)</option>
-                                        <option value="1">🟢 ずんだもん (Zundamon - Sweet / Ngọt ngào)</option>
-                                        <option value="7">🟢 ずんだもん (Zundamon - Tsuntsun / Đanh đá)</option>
-                                        <option value="5">🟢 ずんだもん (Zundamon - Sexy)</option>
-                                        <option value="22">🟢 ずんだもん (Zundamon - Whisper / Thì thầm)</option>
-                                        <option value="38">🟢 ずんだもん (Zundamon - Moemoe / Dễ thương)</option>
-                                        <option value="75">🟢 ずんだもん (Zundamon - Human Form)</option>
-                                    </optgroup>
-                                    <optgroup label="🟣 四国めたん (Shikoku Metan)">
-                                        <option value="2">🟣 四国めたん (Shikoku Metan - Normal)</option>
-                                        <option value="0">🟣 四国めたん (Shikoku Metan - Sweet)</option>
-                                        <option value="6">🟣 四国めたん (Shikoku Metan - Tsuntsun)</option>
-                                        <option value="4">🟣 四国めたん (Shikoku Metan - Whisper)</option>
-                                        <option value="36">🟣 四国めたん (Shikoku Metan - Sexy)</option>
-                                    </optgroup>
-                                    <optgroup label="🌸 Nhân vật Nữ nổi tiếng">
-                                        <option value="8">🌸 春日部つむぎ (Kasukabe Tsumugi - Tươi sáng)</option>
-                                        <option value="14">🌙 冥鳴ひまり (Meimei Himari - Dịu dàng)</option>
-                                        <option value="23">❄️ WhiteCUL (Normal)</option>
-                                        <option value="24">❄️ WhiteCUL (Joyful / Vui vẻ)</option>
-                                        <option value="9">🦊 波音リツ (Namino Ritsu - Normal)</option>
-                                        <option value="65">🦊 波音リツ (Namino Ritsu - Queen / Nữ hoàng)</option>
-                                        <option value="10">⚡ 雨晴はう (Amehare Hau - Tràn đầy năng lượng)</option>
-                                        <option value="20">🍡 もち子さん (Mochiko-san - Ấm áp)</option>
-                                        <option value="47">🤖 ナースロボ＿タイプＴ (Nurse Robot Type T)</option>
-                                        <option value="16">🔵 九州そら (Kyushu Sora - Normal)</option>
-                                        <option value="15">🔵 九州そら (Kyushu Sora - Sweet)</option>
-                                        <option value="43">🎤 櫻歌ミコ (Sakurauta Miko)</option>
-                                        <option value="46">🌌 小夜/SAYO</option>
-                                        <option value="61">🐰 中国うさぎ (Chugoku Usagi)</option>
-                                        <option value="67">🌻 満別花丸 (Mambetsu Hanamaru)</option>
-                                        <option value="55">🐱 猫使アル (Nekotsuka Aru)</option>
-                                        <option value="58">🐱 猫使ビィ (Nekotsuka Bii)</option>
-                                        <option value="29">⚜️ No.7 (Thanh lịch)</option>
-                                    </optgroup>
-                                    <optgroup label="👔 Nhân vật Nam & Điển trai">
-                                        <option value="11">🎀 玄野武宏 (Kurono Takehiro - Soái ca)</option>
-                                        <option value="39">🎀 玄野武宏 (Kurono Takehiro - Joy)</option>
-                                        <option value="12">🐯 白上虎太郎 (Shirakami Kotaro)</option>
-                                        <option value="13">🎙️ 青山龍星 (Aoyama Ryusei - Trầm ấm)</option>
-                                        <option value="21">🗡️ 剣崎雌雄 (Kenzaki Mesuo)</option>
-                                        <option value="51">🛡️ †聖騎士 紅桜† (Holy Knight Benizakura)</option>
-                                        <option value="42">👴 ちび式じい (Chibi Shikiji)</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-
-                            <div style="display: flex; gap: 8px; align-items: center; margin-top: 4px;">
-                                <button class="btn btn-start" style="padding: 8px 16px; font-size: 0.85rem; flex: 1;" onclick="testVoicevoxVoice()">🔊 Nghe thử giọng VOICEVOX</button>
-                                <button class="btn btn-hint" style="padding: 8px 12px; font-size: 0.85rem;" onclick="loadLiveVoicevoxSpeakers()">🔄 Tải lại DS nhân vật</button>
-                            </div>
-
-                            <div style="font-size: 0.76rem; color: #a1a1aa; line-height: 1.5; background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; padding: 10px 12px; border-radius: 6px; display: flex; flex-direction: column; gap: 6px;">
-                                <div>💡 <strong>Mẹo trình duyệt:</strong> Nếu bấm nghe thử báo lỗi đỏ, hãy nhấn <strong>biểu tượng ổ khoá/Cài đặt trang web</strong> trên thanh URL ➔ <strong>Insecure content</strong> ➔ chọn <strong>Allow (Cho phép)</strong>.</div>
-                                <div>🚀 <strong>Chạy ngầm vĩnh viễn (Không cần mở file):</strong> Nhấp đúp 1 lần vào file <code>cai_dat_voicevox_chay_ngam_tu_dong.command</code> trong thư mục dự án để máy Mac tự chạy VOICEVOX 24/7 mỗi khi bật máy!</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <div id="practice-view" style="display:none;">
@@ -3224,6 +3102,7 @@
                         <div class="word-card" id="word-card">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
                                 <div style="display: flex; align-items: center; gap: 10px;">
+                                    <button type="button" class="btn btn-hint" style="padding: 3px 10px; font-size: 0.8rem; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; gap: 4px;" onclick="backToSetup()" title="Quay lại cài đặt / Thoát luyện gõ (Esc)">🔙 Thoát / Cài đặt</button>
                                     <div class="word-index" id="word-index">1 / 10</div>
                                     <div id="combo-badge" class="combo-pill" style="display:none;">🔥 COMBO x0</div>
                                 </div>
@@ -3765,6 +3644,147 @@
                 </div>
                 <div class="sheet-container" id="sheet-container">
                     <!-- Sheet table rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div class="tab-content" id="content-settings">
+            <div class="panel" style="margin-top: 0; padding: 24px; max-width: 820px; margin-left: auto; margin-right: auto;">
+                <div class="panel-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div class="icon">⚙️</div>
+                        <span style="font-size: 1.25rem; font-weight: 800;">Cài Đặt Hệ Thống</span>
+                    </div>
+                    <button class="btn btn-start" style="padding: 6px 16px; font-size: 0.85rem;" onclick="switchTab('practice')">⌨️ Vào Luyện Gõ</button>
+                </div>
+
+                <!-- AI OpenRouter Setup -->
+                <div style="margin-bottom: 20px; border: 1px solid var(--border); padding: 20px; background: var(--card2); border-radius: 14px; text-align: left;">
+                    <div style="font-weight: 700; font-size: 1rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; color: var(--accent);">
+                        <span>🤖 Cấu hình AI (OpenRouter)</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 14px;">
+                        <div>
+                            <label style="font-size: 0.85rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 6px;">OpenRouter API Key:</label>
+                            <input type="password" id="openrouter-key" class="form-input" placeholder="sk-or-v1-..." style="width: 100%; font-size: 0.85rem; padding: 10px 14px;" oninput="saveAiSettings()" value="">
+                        </div>
+                        <div>
+                            <label style="font-size: 0.85rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 6px;">Chọn Model AI:</label>
+                            <select id="openrouter-model" class="form-input" style="width: 100%; font-size: 0.85rem; padding: 10px 14px;" onchange="onModelSelectChange()">
+                                <optgroup label="⚡ Siêu Tốc & Tốt Nhất (Phản xạ < 1s)">
+                                    <option value="openai/gpt-4o-mini">OpenAI GPT-4o Mini ⚡ (~0.8s - Khuyên dùng số 1, đàm thoại tiếng Nhật siêu mượt)</option>
+                                    <option value="nvidia/nemotron-3-nano-30b-a3b:free">Nvidia Nemotron Nano 30B ⚡ (~1.0s - Free siêu tốc)</option>
+                                    <option value="nvidia/nemotron-3-super-120b-a12b:free">Nvidia Nemotron Super 120B ⚡ (~1.8s - Free cân bằng)</option>
+                                </optgroup>
+                                <optgroup label="🧠 Thông minh & Đa dạng (Miễn phí)">
+                                    <option value="nvidia/nemotron-3-ultra-550b-a55b:free">Nvidia Nemotron Ultra 550B (Free - Mô hình khổng lồ, xử lý sâu)</option>
+                                    <option value="google/gemma-4-26b-a4b-it:free">Google Gemma 4 26B (Free - Google AI)</option>
+                                    <option value="openai/gpt-oss-20b:free">OpenAI GPT-OSS 20B (Free)</option>
+                                    <option value="cohere/command-r-08-2024">Cohere Command R (Chuẩn phong cách Nhật)</option>
+                                </optgroup>
+                                <optgroup label="👑 Model Cao cấp khác">
+                                    <option value="openai/gpt-4o">OpenAI GPT-4o (Đỉnh cao toàn diện)</option>
+                                </optgroup>
+                                <optgroup label="✏️ Tùy chỉnh">
+                                    <option value="custom">✏️ Nhập mã Model OpenRouter khác...</option>
+                                </optgroup>
+                            </select>
+                            <input type="text" id="openrouter-custom-model" class="form-input" placeholder="Nhập model ID ví dụ: openai/gpt-4o-mini..." style="display: none; width: 100%; font-size: 0.85rem; padding: 10px 14px; margin-top: 8px;" oninput="saveAiSettings()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VOICEVOX & Audio Setup -->
+                <div style="border: 1px solid var(--border); padding: 20px; background: var(--card2); border-radius: 14px; text-align: left;">
+                    <div style="font-weight: 700; font-size: 1rem; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+                        <span style="display: flex; align-items: center; gap: 8px; color: #34d399;">
+                            <span>🎙️ Cấu hình Giọng đọc (VOICEVOX / TTS)</span>
+                        </span>
+                        <span id="voicevox-status-badge" style="font-size: 0.75rem; padding: 3px 10px; border-radius: 99px; background: rgba(52, 211, 153, 0.1); color: #34d399; font-weight: 600; border: 1px solid rgba(52, 211, 153, 0.3);">
+                            Sẵn sàng
+                        </span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 14px;">
+                        <div>
+                            <label style="font-size: 0.85rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 6px;">Công cụ phát âm:</label>
+                            <select id="tts-engine-select" class="form-input" style="width: 100%; font-size: 0.85rem; padding: 10px 14px;" onchange="saveTtsSettings()">
+                                <option value="webspeech">🔊 Web Speech API (Trình duyệt mặc định - Không cần cài đặt)</option>
+                                <option value="voicevox">🎙️ VOICEVOX Engine (Giọng Anime Studio - Cần bật app VOICEVOX)</option>
+                            </select>
+                        </div>
+
+                        <div id="voicevox-options" style="display: none; flex-direction: column; gap: 14px; background: rgba(0,0,0,0.25); padding: 16px; border-radius: 12px; border: 1px dashed rgba(255,255,255,0.15);">
+                            <div>
+                                <label style="font-size: 0.85rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 6px;">Địa chỉ VOICEVOX Engine:</label>
+                                <div style="display: flex; gap: 8px;">
+                                    <input type="text" id="voicevox-endpoint" class="form-input" placeholder="http://127.0.0.1:50021" value="http://127.0.0.1:50021" style="flex: 1; font-size: 0.85rem; padding: 10px 14px;" onchange="saveTtsSettings()">
+                                    <button class="btn btn-hint" style="padding: 10px 16px; font-size: 0.85rem;" onclick="checkVoicevoxConnection()">Kiểm tra kết nối</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label style="font-size: 0.85rem; color: var(--text3); font-weight: 600; display: block; margin-bottom: 6px;">Nhân vật & Phong cách giọng tiếng Nhật (30+ Anime Characters):</label>
+                                <select id="voicevox-speaker-select" class="form-input" style="width: 100%; font-size: 0.85rem; padding: 10px 14px;" onchange="saveTtsSettings()">
+                                    <optgroup label="🟢 ずんだもん (Zundamon)">
+                                        <option value="3">🟢 ずんだもん (Zundamon - Normal)</option>
+                                        <option value="1">🟢 ずんだもん (Zundamon - Sweet / Ngọt ngào)</option>
+                                        <option value="7">🟢 ずんだもん (Zundamon - Tsuntsun / Đanh đá)</option>
+                                        <option value="5">🟢 ずんだもん (Zundamon - Sexy)</option>
+                                        <option value="22">🟢 ずんだもん (Zundamon - Whisper / Thì thầm)</option>
+                                        <option value="38">🟢 ずんだもん (Zundamon - Moemoe / Dễ thương)</option>
+                                        <option value="75">🟢 ずんだもん (Zundamon - Human Form)</option>
+                                    </optgroup>
+                                    <optgroup label="🟣 四国めたん (Shikoku Metan)">
+                                        <option value="2">🟣 四国めたん (Shikoku Metan - Normal)</option>
+                                        <option value="0">🟣 四国めたん (Shikoku Metan - Sweet)</option>
+                                        <option value="6">🟣 四国めたん (Shikoku Metan - Tsuntsun)</option>
+                                        <option value="4">🟣 四国めたん (Shikoku Metan - Whisper)</option>
+                                        <option value="36">🟣 四国めたん (Shikoku Metan - Sexy)</option>
+                                    </optgroup>
+                                    <optgroup label="🌸 Nhân vật Nữ nổi tiếng">
+                                        <option value="8">🌸 春日部つむぎ (Kasukabe Tsumugi - Tươi sáng)</option>
+                                        <option value="14">🌙 冥鳴ひまり (Meimei Himari - Dịu dàng)</option>
+                                        <option value="23">❄️ WhiteCUL (Normal)</option>
+                                        <option value="24">❄️ WhiteCUL (Joyful / Vui vẻ)</option>
+                                        <option value="9">🦊 波音リツ (Namino Ritsu - Normal)</option>
+                                        <option value="65">🦊 波音リツ (Namino Ritsu - Queen / Nữ hoàng)</option>
+                                        <option value="10">⚡ 雨晴はう (Amehare Hau - Tràn đầy năng lượng)</option>
+                                        <option value="20">🍡 もち子さん (Mochiko-san - Ấm áp)</option>
+                                        <option value="47">🤖 ナースロボ＿タイプＴ (Nurse Robot Type T)</option>
+                                        <option value="16">🔵 九州そら (Kyushu Sora - Normal)</option>
+                                        <option value="15">🔵 九州そら (Kyushu Sora - Sweet)</option>
+                                        <option value="43">🎤 櫻歌ミコ (Sakurauta Miko)</option>
+                                        <option value="46">🌌 小夜/SAYO</option>
+                                        <option value="61">🐰 中国うさぎ (Chugoku Usagi)</option>
+                                        <option value="67">🌻 満別花丸 (Mambetsu Hanamaru)</option>
+                                        <option value="55">🐱 猫使アル (Nekotsuka Aru)</option>
+                                        <option value="58">🐱 猫使ビィ (Nekotsuka Bii)</option>
+                                        <option value="29">⚜️ No.7 (Thanh lịch)</option>
+                                    </optgroup>
+                                    <optgroup label="👔 Nhân vật Nam & Điển trai">
+                                        <option value="11">🎀 玄野武宏 (Kurono Takehiro - Soái ca)</option>
+                                        <option value="39">🎀 玄野武宏 (Kurono Takehiro - Joy)</option>
+                                        <option value="12">🐯 白上虎太郎 (Shirakami Kotaro)</option>
+                                        <option value="13">🎙️ 青山龍星 (Aoyama Ryusei - Trầm ấm)</option>
+                                        <option value="21">🗡️ 剣崎雌雄 (Kenzaki Mesuo)</option>
+                                        <option value="51">🛡️ †聖騎士 紅桜† (Holy Knight Benizakura)</option>
+                                        <option value="42">👴 ちび式じい (Chibi Shikiji)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; align-items: center; margin-top: 6px;">
+                                <button class="btn btn-start" style="padding: 10px 18px; font-size: 0.85rem; flex: 1;" onclick="testVoicevoxVoice()">🔊 Nghe thử giọng VOICEVOX</button>
+                                <button class="btn btn-hint" style="padding: 10px 14px; font-size: 0.85rem;" onclick="loadLiveVoicevoxSpeakers()">🔄 Tải lại DS nhân vật</button>
+                            </div>
+
+                            <div style="font-size: 0.78rem; color: #a1a1aa; line-height: 1.5; background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; padding: 12px 14px; border-radius: 8px; display: flex; flex-direction: column; gap: 8px;">
+                                <div>💡 <strong>Mẹo trình duyệt:</strong> Nếu bấm nghe thử báo lỗi đỏ, hãy nhấn <strong>biểu tượng ổ khoá/Cài đặt trang web</strong> trên thanh URL ➔ <strong>Insecure content</strong> ➔ chọn <strong>Allow (Cho phép)</strong>.</div>
+                                <div>🚀 <strong>Chạy ngầm vĩnh viễn (Không cần mở file):</strong> Nhấp đúp 1 lần vào file <code>cai_dat_voicevox_chay_ngam_tu_dong.command</code> trong thư mục dự án để máy Mac tự chạy VOICEVOX 24/7 mỗi khi bật máy!</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -4339,12 +4359,18 @@
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-            document.getElementById('content-' + tab).classList.add('active');
-            document.getElementById('tab-' + tab).classList.add('active');
+            const targetContent = document.getElementById('content-' + tab);
+            const targetTab = document.getElementById('tab-' + tab);
+            if (targetContent) targetContent.classList.add('active');
+            if (targetTab) targetTab.classList.add('active');
             if (tab === 'vocab') renderVocabList();
             if (tab === 'sheet') renderSheetView();
             if (tab === 'en-vocab') renderEnTopics();
             if (tab === 'alphabet') switchAlphabetSubTab('hira');
+            if (tab === 'settings') {
+                if (typeof loadAiSettings === 'function') loadAiSettings();
+                if (typeof loadTtsSettings === 'function') loadTtsSettings();
+            }
             if (tab === 'ai-lessons') {
                 if (currentLesson.vocab === null) {
                     document.getElementById('lesson-jlpt-level').value = 'N5';
@@ -8320,6 +8346,15 @@ CONVERSATION RULES:
                     return;
                 }
             }
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                const prView = document.getElementById('practice-view');
+                if (prView && prView.style.display !== 'none') {
+                    e.preventDefault();
+                    backToSetup();
+                    return;
+                }
+            }
+
             if (e.key === 'Tab') {
                 e.preventDefault();
                 toggleHint();
