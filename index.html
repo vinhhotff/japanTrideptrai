@@ -5336,6 +5336,7 @@
             document.getElementById('romaji-input').style.borderColor = '';
             document.getElementById('romaji-input').focus();
             updateSidebar();
+            preloadUpcomingVoicevox();
         }
 
         let audioCtx;
@@ -5864,6 +5865,66 @@
             syncQuickVoicevoxDropdown();
         }
 
+        async function synthesizeVoicevoxBlob(cleanText, speakerId = '3', endpoint = 'http://127.0.0.1:50021') {
+            if (!cleanText) return null;
+            const cacheKey = `${speakerId}_${cleanText}`;
+            if (voicevoxAudioCache.has(cacheKey)) {
+                return voicevoxAudioCache.get(cacheKey);
+            }
+            try {
+                const base = endpoint.replace(/\/+$/, '');
+                const ctrl = new AbortController();
+                const timeout = setTimeout(() => ctrl.abort(), 8000);
+                
+                const queryRes = await fetch(`${base}/audio_query?text=${encodeURIComponent(cleanText)}&speaker=${speakerId}`, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    signal: ctrl.signal
+                });
+                if (!queryRes.ok) { clearTimeout(timeout); return null; }
+                const queryData = await queryRes.json();
+
+                const synthRes = await fetch(`${base}/synthesis?speaker=${speakerId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'audio/wav'
+                    },
+                    body: JSON.stringify(queryData),
+                    signal: ctrl.signal
+                });
+                clearTimeout(timeout);
+                if (!synthRes.ok) return null;
+                const blob = await synthRes.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                voicevoxAudioCache.set(cacheKey, blobUrl);
+                return blobUrl;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function preloadUpcomingVoicevox() {
+            const engine = localStorage.getItem('tts_engine') || 'webspeech';
+            if (engine !== 'voicevox' || !session || !session.words) return;
+            const endpoint = localStorage.getItem('voicevox_endpoint') || 'http://127.0.0.1:50021';
+            const speaker = localStorage.getItem('voicevox_speaker') || '3';
+            
+            // Pre-synthesize current word and upcoming words in background!
+            for (let i = session.idx; i < Math.min(session.words.length, session.idx + 4); i++) {
+                const w = session.words[i];
+                if (w) {
+                    const text = (w.hiragana || w.kanji || '').trim();
+                    if (text) synthesizeVoicevoxBlob(text, speaker, endpoint);
+                }
+            }
+
+            // Pre-synthesize mistake reactions in background!
+            for (let r of cuteMistakeReactions) {
+                synthesizeVoicevoxBlob(r.voice, r.speaker, endpoint);
+            }
+        }
+
         async function playVoicevoxTTS(text, speakerId = '3', endpoint = 'http://127.0.0.1:50021') {
             if (!text) return false;
             const cleanText = text.trim();
@@ -5872,44 +5933,12 @@
                 playAudioUrl(voicevoxAudioCache.get(cacheKey));
                 return true;
             }
-
-            try {
-                const base = endpoint.replace(/\/+$/, '');
-                // 1. Audio query with fast timeout
-                const ctrl1 = new AbortController();
-                const t1 = setTimeout(() => ctrl1.abort(), 600);
-                const queryRes = await fetch(`${base}/audio_query?text=${encodeURIComponent(cleanText)}&speaker=${speakerId}`, {
-                    method: 'POST',
-                    headers: { 'Accept': 'application/json' },
-                    signal: ctrl1.signal
-                });
-                clearTimeout(t1);
-                if (!queryRes.ok) throw new Error(`Query failed with status ${queryRes.status}`);
-                const queryData = await queryRes.json();
-
-                // 2. Synthesis with timeout
-                const ctrl2 = new AbortController();
-                const t2 = setTimeout(() => ctrl2.abort(), 2000);
-                const synthRes = await fetch(`${base}/synthesis?speaker=${speakerId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'audio/wav'
-                    },
-                    body: JSON.stringify(queryData),
-                    signal: ctrl2.signal
-                });
-                clearTimeout(t2);
-                if (!synthRes.ok) throw new Error(`Synthesis failed with status ${synthRes.status}`);
-                const blob = await synthRes.blob();
-                const blobUrl = URL.createObjectURL(blob);
-                voicevoxAudioCache.set(cacheKey, blobUrl);
+            const blobUrl = await synthesizeVoicevoxBlob(cleanText, speakerId, endpoint);
+            if (blobUrl) {
                 playAudioUrl(blobUrl);
                 return true;
-            } catch (err) {
-                console.warn('VOICEVOX error, fallback to WebSpeech:', err);
-                return false;
             }
+            return false;
         }
 
         function playAudioUrl(url) {
