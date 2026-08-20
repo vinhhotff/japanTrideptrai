@@ -4809,26 +4809,25 @@
         function isAnswerMatch(input, w) {
             if (!input || !w) return false;
             const cleanInp = input.trim();
-            const lowerInp = cleanInp.toLowerCase();
-            const hiraInput = romajiToHiragana(cleanInp, w.hiragana);
+            if (!cleanInp) return false;
+
             const targetHira = (w.hiragana || '').trim();
             const targetRom = (w.romaji || '').trim().toLowerCase();
             const targetKanji = (w.kanji || '').trim();
-            
+            const lowerInp = cleanInp.toLowerCase();
+
             // 0. Direct Kanji match
             if (targetKanji && cleanInp === targetKanji) return true;
-            // 1. Direct Hiragana match
-            if (normalize(hiraInput) === normalize(targetHira)) return true;
+            // 1. Direct Hiragana match (raw input matches target Hiragana)
             if (normalize(cleanInp) === normalize(targetHira)) return true;
-            // 2. Direct Romaji match
+            // 2. Direct Romaji match (raw input matches target Romaji)
             if (normalize(lowerInp) === normalize(targetRom)) return true;
-            // 3. Direct Katakana match (convert to Hiragana)
+            // 3. Independent Romaji to Hiragana conversion without cheating
+            const pureHira = romajiToHiragana(cleanInp, "");
+            if (pureHira && normalize(pureHira) === normalize(targetHira)) return true;
+            // 4. Direct Katakana match (converted to Hiragana)
             const kataToHira = cleanInp.replace(/[\u30a1-\u30f6]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60));
             if (normalize(kataToHira) === normalize(targetHira)) return true;
-            // 4. Normalized long vowel comparison
-            const normHira1 = normalize(hiraInput).replace(/[おおう]/g, 'o');
-            const normHira2 = normalize(targetHira).replace(/[おおう]/g, 'o');
-            if (normHira1 === normHira2) return true;
 
             return false;
         }
@@ -5092,6 +5091,24 @@
             }
         }
 
+        const cuteMistakeReactions = [
+            { voice: "いいえ、違いますよ〜！", ja: "いいえ、違いますよ〜！", vi: "Sai rùi nha~", speaker: "1" }, // Zundamon (Sweet - nũng nịu)
+            { voice: "ざんねん！もう一回やってみてね！", ja: "ざんねん！もう一回！", vi: "Tiếc quá! Thử lại nha~", speaker: "38" }, // Zundamon (Moe moe)
+            { voice: "ダメですよ〜、間違えちゃった！", ja: "ダメですよ〜！", vi: "Hông được rùi, nhầm rùi nè~", speaker: "0" }, // Shikoku Metan (Sweet)
+            { voice: "あれれ？違いますよ〜！", ja: "あれれ？違いますよ〜！", vi: "Ủa ủa? Hông phải rùi nha~", speaker: "7" }, // Zundamon (Tsuntsun)
+            { voice: "おしい！次は頑張ってね！", ja: "おしい！次は頑張ってね！", vi: "Suýt đúng rùi á, cố lên nè!", speaker: "8" }, // Kasukabe Tsumugi
+            { voice: "ふふっ、間違えちゃったね！", ja: "ふふっ、間違えちゃったね！", vi: "Hihi, nhầm mất rồi kìa!", speaker: "22" }, // Zundamon (Whisper)
+            { voice: "もう〜！しっかりしてよね〜！", ja: "もう〜！しっかりして！", vi: "Trùi ui~ tập trung nào senpai!", speaker: "6" }, // Shikoku Metan (Tsuntsun)
+            { voice: "えー？違うよ〜！もう一回！", ja: "えー？違うよ〜！", vi: "Ơ kìa~ sai rồi đó, thử lại nha!", speaker: "61" } // Chugoku Usagi (Cực cute)
+        ];
+
+        const cutePraiseReactions = [
+            { voice: "すごーい！大正解だよ！", ja: "すごーい！大正解！", vi: "Quá đỉnh luôn!", speaker: "1" },
+            { voice: "さすが！かっこいい〜！", ja: "さすが！かっこいい〜！", vi: "Đúng là đỉnh thật á~", speaker: "8" },
+            { voice: "やったね！完璧だよ！", ja: "やったね！完璧！", vi: "Tuyệt cú mèo!", speaker: "38" },
+            { voice: "パーフェクト！その調子！", ja: "パーフェクト！", vi: "Chuẩn không cần chỉnh!", speaker: "0" }
+        ];
+
         let lastRenderedHira = '';
         let lastInputVal = '';
 
@@ -5164,22 +5181,7 @@
             lastInputVal = value;
         }
 
-        const cuteMistakeReactions = [
-            { voice: "いいえ、違いますよ〜！", ja: "いいえ、違いますよ〜！", vi: "Sai rùi nha~" },
-            { voice: "ざんねん！もう一回やってみてね！", ja: "ざんねん！もう一回！", vi: "Tiếc quá! Thử lại nha~" },
-            { voice: "ダメですよ〜、間違えちゃった！", ja: "ダメですよ〜！", vi: "Hông được rùi, nhầm rùi nè~" },
-            { voice: "あれれ？違いますよ〜！", ja: "あれれ？違いますよ〜！", vi: "Ủa ủa? Hông phải rùi nha~" },
-            { voice: "おしい！次は頑張ってね！", ja: "おしい！次は頑張ってね！", vi: "Suýt đúng rùi á, cố lên nè!" },
-            { voice: "ふふっ、間違えちゃったね！", ja: "ふふっ、間違えちゃったね！", vi: "Hihi, nhầm mất rồi kìa!" },
-            { voice: "もう〜！しっかりしてよね〜！", ja: "もう〜！しっかりして！", vi: "Trùi ui~ tập trung nào senpai!" }
-        ];
 
-        const cutePraiseReactions = [
-            { voice: "すごーい！大正解だよ！", ja: "すごーい！大正解！", vi: "Quá đỉnh luôn!" },
-            { voice: "さすが！かっこいい〜！", ja: "さすが！かっこいい〜！", vi: "Đúng là đỉnh thật á~" },
-            { voice: "やったね！完璧だよ！", ja: "やったね！完璧！", vi: "Tuyệt cú mèo!" },
-            { voice: "パーフェクト！その調子！", ja: "パーフェクト！", vi: "Chuẩn không cần chỉnh!" }
-        ];
 
         function scheduleSpacedReview(w) {
             if (!w || !session || !session.words) return;
@@ -5392,7 +5394,7 @@
                 // Play Japanese word or praise
                 if (typingStreak >= 5 && typingStreak % 5 === 0) {
                     const praise = cutePraiseReactions[Math.floor(Math.random() * cutePraiseReactions.length)];
-                    playTTS(praise.voice);
+                    playTTS(praise.voice, praise.speaker);
                     setMascotSpeech(`${praise.ja} (${praise.vi})`, 'happy');
                 } else {
                     playTTS(w.hiragana || w.kanji);
@@ -5451,9 +5453,9 @@
                 renderWrongSidebar();
                 updateStreakUI(false);
 
-                // Pick random cute anime mistake line
+                // Pick random cute anime mistake line with sweet/nũng nịu speaker
                 const react = cuteMistakeReactions[Math.floor(Math.random() * cuteMistakeReactions.length)];
-                playTTS(react.voice);
+                playTTS(react.voice, react.speaker);
                 setMascotSpeech(`${react.ja} (${react.vi}) ➔ Đáp án đúng: ${w.hiragana}`, 'sad');
 
                 // Re-queue wrong word to appear again later in session
@@ -5987,6 +5989,7 @@
             }
         }
 
+        let _activeUtterance = null;
         function playWebSpeech(text) {
             if (!('speechSynthesis' in window) || !text) return;
             try {
@@ -6002,22 +6005,25 @@
                         const voices = window.speechSynthesis.getVoices();
                         const jaVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.startsWith('ja') || v.lang.includes('JP'));
                         if (jaVoice) utterance.voice = jaVoice;
+                        _activeUtterance = utterance;
+                        utterance.onend = () => { _activeUtterance = null; };
+                        utterance.onerror = () => { _activeUtterance = null; };
                         window.speechSynthesis.speak(utterance);
                     } catch(err) {
                         console.warn('Speech synthesis inner error', err);
                     }
-                }, 20);
+                }, 15);
             } catch (e) {
                 console.warn('Speech synthesis error', e);
             }
         }
 
-        async function playTTS(text) {
+        async function playTTS(text, customSpeaker = null) {
             if (!text) return;
             const engine = localStorage.getItem('tts_engine') || 'webspeech';
             if (engine === 'voicevox') {
                 const endpoint = localStorage.getItem('voicevox_endpoint') || 'http://127.0.0.1:50021';
-                const speaker = localStorage.getItem('voicevox_speaker') || '3';
+                const speaker = customSpeaker || localStorage.getItem('voicevox_speaker') || '3';
                 const success = await playVoicevoxTTS(text, speaker, endpoint);
                 if (success) return;
             }
