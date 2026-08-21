@@ -5511,12 +5511,6 @@
                 renderWrongSidebar();
                 updateStreakUI(false);
 
-                // Pick random cute anime mistake line with sweet/nũng nịu speaker
-                const react = cuteMistakeReactions[Math.floor(Math.random() * cuteMistakeReactions.length)];
-                // Speak cute reaction AFTER the word pronunciation (delay 800ms)
-                setTimeout(() => playTTS(react.voice, react.speaker), 800);
-                setMascotSpeech(`${react.ja} (${react.vi}) ➔ Đáp án đúng: ${w.hiragana}`, 'sad');
-
                 // Re-queue wrong word to appear again later in session
                 scheduleSpacedReview(w);
 
@@ -5536,7 +5530,7 @@
                 
                 if (ar) {
                     ar.innerHTML = `
-                        <div style="font-size: 1.1rem; font-weight: 800; color: #fb7185; margin-bottom: 4px;">❌ ${escapeHtml(react.ja)} <span style="font-size: 0.85rem; font-weight: normal; color: #fda4af;">(${escapeHtml(react.vi)})</span></div>
+                        <div style="font-size: 1.05rem; font-weight: 800; color: #fb7185; margin-bottom: 4px;">❌ Chưa chính xác!</div>
                         <div style="font-size: 0.95rem; color: #ffffff;">Đáp án: <strong style="color: #34d399;">${escapeHtml(w.hiragana)}</strong> (${escapeHtml(w.romaji)}) &middot; 🇻🇳 ${escapeHtml(w.meaning)}</div>
                         <div style="font-size: 0.8rem; color: #a1a1aa; margin-top: 4px;">Nhấn Enter để sang từ tiếp theo (từ này sẽ tự động lặp lại sau!)</div>
                     `;
@@ -5570,8 +5564,6 @@
                 if (!existing) {
                     session.wrongWords.push({ ...w, reviewState: 'reviewed' });
                 }
-                const react = cuteMistakeReactions[Math.floor(Math.random() * cuteMistakeReactions.length)];
-                playTTS(react.voice);
                 scheduleSpacedReview(w);
             }
             session.skip++;
@@ -5980,11 +5972,6 @@
                     const text = (w.hiragana || w.kanji || '').trim();
                     if (text) synthesizeVoicevoxBlob(text, speaker, endpoint);
                 }
-            }
-
-            // Pre-synthesize mistake reactions in background!
-            for (let r of cuteMistakeReactions) {
-                synthesizeVoicevoxBlob(r.voice, r.speaker, endpoint);
             }
         }
 
