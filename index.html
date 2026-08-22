@@ -9,10 +9,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
         rel="stylesheet">
-    <!-- Live2D Cubism Core & PixiJS for VTuber Engine -->
+    <!-- Live2D Cubism Core (2.1 & 4) & PixiJS for VTuber Engine -->
+    <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
     <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
     <script src="https://fastly.jsdelivr.net/npm/pixi.js@7.4.2/dist/pixi.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/cubism4.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
     <!-- Animation & 3D Libraries (Three.js + GSAP + Canvas Confetti) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -3322,9 +3323,10 @@
                         <div class="mascot-portrait-card" id="mascot-portrait-card" onclick="onMascotClick(event)" title="Nhấn vào VTuber để nghe nói chuyện!">
                             <div class="mascot-portrait-header">
                                 <div style="display: flex; align-items: center; gap: 6px;">
-                                    <span class="mascot-dot" id="mascot-dot-indicator" style="background: #fbbf24; box-shadow: 0 0 8px #fbbf24;"></span>
-                                    <select id="mascot-model-select" class="form-input" style="padding: 2px 6px; font-size: 0.8rem; font-weight: 700; height: 26px; border-radius: 6px; background: rgba(13,20,30,0.9); color: #fbbf24; border-color: rgba(251,191,36,0.4);" onchange="onMascotModelChange(this.value)" onclick="event.stopPropagation()">
-                                        <option value="mao">🎀 Mao (Live2D Cubism 4)</option>
+                                    <span class="mascot-dot" id="mascot-dot-indicator" style="background: #60a5fa; box-shadow: 0 0 8px #60a5fa;"></span>
+                                    <select id="mascot-model-select" class="form-input" style="padding: 2px 6px; font-size: 0.8rem; font-weight: 700; height: 26px; border-radius: 6px; background: rgba(13,20,30,0.9); color: #60a5fa; border-color: rgba(96,165,250,0.4);" onchange="onMascotModelChange(this.value)" onclick="event.stopPropagation()">
+                                        <option value="bronya">❄️ Bronya (Cubism 2.1)</option>
+                                        <option value="mao">🎀 Mao (Cubism 4)</option>
                                         <option value="wanko">🐶 Wanko (Live2D Chibi)</option>
                                     </select>
                                 </div>
@@ -5267,9 +5269,9 @@
         }
 
         // ========== OFFICIAL MULTI-MODEL LIVE2D CUBISM 4 VTUBER ENGINE ==========
-        let currentLive2DModelKey = localStorage.getItem('selected_mascot_model') || 'mao';
-        if (currentLive2DModelKey !== 'mao' && currentLive2DModelKey !== 'wanko') {
-            currentLive2DModelKey = 'mao';
+        let currentLive2DModelKey = localStorage.getItem('selected_mascot_model') || 'bronya';
+        if (currentLive2DModelKey !== 'bronya' && currentLive2DModelKey !== 'mao' && currentLive2DModelKey !== 'wanko') {
+            currentLive2DModelKey = 'bronya';
         }
         let live2dApp = null;
         let live2dModel = null;
@@ -5279,6 +5281,21 @@
         let _mascotEmotionTimer = 0;
 
         const LIVE2D_VTUBER_MODELS = {
+            bronya: {
+                name: 'Bronya (ブローニャ)',
+                speaker: '8',
+                color: '#60a5fa',
+                url: 'https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model@master/%E5%B4%A9%E5%9D%8F%E5%AD%A6%E5%9B%AD2/bronya/model.json',
+                scale: 0.22,
+                yOffset: -10,
+                quotes: [
+                    "ブローニャ、目標を確認しました。タイピングを開始します。",
+                    "ナイスタイピングです。被弾ゼロで進めましょう。",
+                    "ブローニャのサポートが必要ですか？いつでもどうぞ。",
+                    "タイピング精度99.9パーセントを維持してください。",
+                    "パーフェクトを目指して、次の単語へ移行します。"
+                ]
+            },
             mao: {
                 name: 'Mao (真央)',
                 speaker: '8',
@@ -5449,22 +5466,22 @@
                 });
 
                 // Load initial model
-                let saved = localStorage.getItem('selected_mascot_model') || 'mao';
-                if (saved !== 'mao' && saved !== 'wanko') saved = 'mao';
+                let saved = localStorage.getItem('selected_mascot_model') || 'bronya';
+                if (saved !== 'bronya' && saved !== 'mao' && saved !== 'wanko') saved = 'bronya';
                 await loadLive2DModel(saved);
 
             } catch (err) {
                 console.warn('Live2D init error', err);
                 const spinner = document.getElementById('live2d-loading-spinner');
                 if (spinner) {
-                    spinner.innerHTML = `<span style="font-size: 1.8rem;">🎀</span><span style="color:#fbbf24;font-weight:600;">Mao VTuber Sẵn sàng!</span>`;
+                    spinner.innerHTML = `<span style="font-size: 1.8rem;">❄️</span><span style="color:#60a5fa;font-weight:600;">Bronya Sẵn sàng!</span>`;
                 }
             }
         }
 
         async function loadLive2DModel(modelKey) {
-            if (modelKey !== 'mao' && modelKey !== 'wanko') modelKey = 'mao';
-            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.mao;
+            if (modelKey !== 'bronya' && modelKey !== 'mao' && modelKey !== 'wanko') modelKey = 'bronya';
+            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.bronya;
             currentLive2DModelKey = modelKey;
             localStorage.setItem('selected_mascot_model', modelKey);
 
@@ -5605,8 +5622,8 @@
                 gsap.fromTo(card, { y: -10, scale: 1.02 }, { y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" });
             }
 
-            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.mao;
-            const quotes = modelCfg.quotes || LIVE2D_VTUBER_MODELS.mao.quotes;
+            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bronya;
+            const quotes = modelCfg.quotes || LIVE2D_VTUBER_MODELS.bronya.quotes;
             const quote = quotes[Math.floor(Math.random() * quotes.length)];
             const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
             playTTS(quote, speaker);
