@@ -9,7 +9,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
         rel="stylesheet">
-    <!-- Animation & Particle Libraries (GSAP + Canvas Confetti) -->
+    <!-- Animation & 3D Libraries (Three.js + GSAP + Canvas Confetti) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <!-- Japanese Kanji & Word Dictionary Dataset for Hover Translation -->
@@ -3027,6 +3028,134 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+
+        /* 3D ZUNDAMON MASCOT COMPANION */
+        .mascot-widget {
+            position: fixed;
+            bottom: 18px;
+            right: 22px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            user-select: none;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+        }
+
+        .mascot-widget.minimized {
+            transform: translateY(180px);
+            opacity: 0.8;
+        }
+
+        .mascot-widget.hidden {
+            display: none !important;
+        }
+
+        .mascot-bubble {
+            background: rgba(13, 20, 30, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(52, 211, 153, 0.45);
+            border-radius: 14px;
+            padding: 8px 14px;
+            font-size: 0.8rem;
+            color: #ffffff;
+            max-width: 220px;
+            text-align: center;
+            line-height: 1.4;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(52, 211, 153, 0.2);
+            margin-bottom: 6px;
+            pointer-events: auto;
+            position: relative;
+            animation: mascotBubbleFloat 3s ease-in-out infinite alternate;
+            transition: all 0.25s ease;
+        }
+
+        .mascot-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 7px 7px 0;
+            border-style: solid;
+            border-color: rgba(52, 211, 153, 0.45) transparent transparent;
+        }
+
+        @keyframes mascotBubbleFloat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-4px); }
+        }
+
+        .mascot-canvas-wrap {
+            position: relative;
+            width: 200px;
+            height: 220px;
+            pointer-events: auto;
+            cursor: pointer;
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mascot-canvas-wrap:hover {
+            transform: scale(1.04);
+        }
+
+        #mascot-3d-canvas {
+            width: 200px;
+            height: 220px;
+            outline: none;
+            display: block;
+        }
+
+        .mascot-name-badge {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(13, 20, 30, 0.88);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            backdrop-filter: blur(8px);
+            padding: 3px 10px;
+            border-radius: 99px;
+            font-size: 0.72rem;
+            color: #34d399;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .mascot-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 6px #10b981;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .mascot-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text3);
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 0 2px;
+            margin-left: 2px;
+            transition: color 0.2s;
+        }
+
+        .mascot-toggle-btn:hover {
+            color: #f43f5e;
+        }
     </style>
 </head>
 
@@ -3810,8 +3939,24 @@
                 </div>
             </div>
         </div>
-    </div>
     <div class="toast" id="toast"></div>
+
+    <!-- 3D ANIME COMPANION MASCOT (ZUNDAMON 3D) -->
+    <div id="mascot-companion-widget" class="mascot-widget">
+        <!-- Mascot Speech Bubble -->
+        <div id="mascot-speech-bubble" class="mascot-bubble">
+            <span id="mascot-speech-text">ずんだもんだよ！いっしょにがんばろうね〜！ (Mình là Zundamon nè! Cùng gõ phím nha~!)</span>
+        </div>
+        <!-- 3D Mascot Canvas Container -->
+        <div class="mascot-canvas-wrap" onclick="onMascotClick()" title="Nhấn vào Zundamon để tương tác!">
+            <canvas id="mascot-3d-canvas" width="200" height="220"></canvas>
+            <div class="mascot-name-badge">
+                <span class="mascot-dot"></span>
+                <span>🟢 ずんだもん 3D</span>
+                <button type="button" class="mascot-toggle-btn" onclick="event.stopPropagation(); toggleMascotCompanion()" title="Ẩn/Hiện Mascot">✕</button>
+            </div>
+        </div>
+    </div>
 
     <!-- DISCORD-STYLE LARGE AI KAIWA CONVERSATION VIEW (ROOT LEVEL MODAL) -->
     <div id="ai-kaiwa-view">
@@ -5129,11 +5274,404 @@
             // Confetti visual burst placeholder
         }
 
+        // ========== 3D ZUNDAMON MASCOT COMPANION ENGINE ==========
+        let mascotScene, mascotCamera, mascotRenderer;
+        let mascotRoot, mascotHead, mascotBody, mascotLeftEar, mascotRightEar, mascotLeftArm, mascotRightArm;
+        let mascotLeftEye, mascotRightEye, mascotMouth, mascotMiniKeyboard;
+        let mascotMouseX = 0, mascotMouseY = 0;
+        let mascotBlinkTimer = 0, isMascotBlinking = false;
+        let mascotJumpOffset = 0, mascotJumpSpeed = 0;
+        let mascotCheerTimer = 0;
+        let mascotBubbleTimeout = null;
+        let mascotInitialized = false;
+
+        function init3DMascotCompanion() {
+            if (mascotInitialized) return;
+            const canvas = document.getElementById('mascot-3d-canvas');
+            if (!canvas || !window.THREE) return;
+            mascotInitialized = true;
+
+            const width = 200;
+            const height = 220;
+
+            mascotScene = new THREE.Scene();
+            mascotCamera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+            mascotCamera.position.set(0, 0.2, 3.2);
+
+            mascotRenderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+            mascotRenderer.setSize(width, height);
+            mascotRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+            // Lighting setup for soft anime toon look
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+            mascotScene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xfff5ea, 0.8);
+            dirLight.position.set(2, 4, 3);
+            mascotScene.add(dirLight);
+
+            const greenRim = new THREE.PointLight(0x84cc16, 0.6, 6);
+            greenRim.position.set(-2, 1, -1);
+            mascotScene.add(greenRim);
+
+            // Materials
+            const skinMat = new THREE.MeshToonMaterial({ color: 0xffebd9 });
+            const blushMat = new THREE.MeshBasicMaterial({ color: 0xf472b6, transparent: true, opacity: 0.65 });
+            const hairGreenMat = new THREE.MeshToonMaterial({ color: 0x84cc16 });
+            const hairLightMat = new THREE.MeshToonMaterial({ color: 0xa3e635 });
+            const podGreenMat = new THREE.MeshToonMaterial({ color: 0x4d7c0f });
+            const whiteKimonoMat = new THREE.MeshToonMaterial({ color: 0xf8fafc });
+            const ribbonGreenMat = new THREE.MeshToonMaterial({ color: 0x10b981 });
+            const bellGoldMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.3, metalness: 0.8 });
+            const eyeScleraMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const eyeIrisMat = new THREE.MeshBasicMaterial({ color: 0x059669 });
+            const eyePupilMat = new THREE.MeshBasicMaterial({ color: 0x064e3b });
+            const eyeGlintMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const mouthMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e });
+            const kbMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 });
+            const keyGlowMat = new THREE.MeshBasicMaterial({ color: 0x34d399 });
+
+            mascotRoot = new THREE.Group();
+            mascotScene.add(mascotRoot);
+            mascotRoot.position.y = -0.35;
+
+            // 1. HEAD GROUP
+            mascotHead = new THREE.Group();
+            mascotHead.position.set(0, 0.72, 0);
+            mascotRoot.add(mascotHead);
+
+            // Head Sphere
+            const headGeo = new THREE.SphereGeometry(0.52, 32, 24);
+            headGeo.scale(1, 0.94, 0.96);
+            const headMesh = new THREE.Mesh(headGeo, skinMat);
+            mascotHead.add(headMesh);
+
+            // Cheeks (Blush)
+            const blushGeo = new THREE.CircleGeometry(0.08, 16);
+            const blushL = new THREE.Mesh(blushGeo, blushMat);
+            blushL.position.set(-0.27, -0.08, 0.46);
+            blushL.rotation.y = -0.35;
+            mascotHead.add(blushL);
+
+            const blushR = new THREE.Mesh(blushGeo, blushMat);
+            blushR.position.set(0.27, -0.08, 0.46);
+            blushR.rotation.y = 0.35;
+            mascotHead.add(blushR);
+
+            // 2. EYES (Expressive Chibi Anime Eyes)
+            function createAnimeEye(isRight) {
+                const eyeGrp = new THREE.Group();
+                const scleraGeo = new THREE.SphereGeometry(0.12, 16, 16);
+                scleraGeo.scale(1, 1.25, 0.4);
+                const sclera = new THREE.Mesh(scleraGeo, eyeScleraMat);
+                eyeGrp.add(sclera);
+
+                const irisGeo = new THREE.SphereGeometry(0.09, 16, 16);
+                irisGeo.scale(1, 1.15, 0.3);
+                const iris = new THREE.Mesh(irisGeo, eyeIrisMat);
+                iris.position.z = 0.03;
+                eyeGrp.add(iris);
+
+                const pupilGeo = new THREE.SphereGeometry(0.05, 12, 12);
+                pupilGeo.scale(1, 1, 0.3);
+                const pupil = new THREE.Mesh(pupilGeo, eyePupilMat);
+                pupil.position.z = 0.05;
+                eyeGrp.add(pupil);
+
+                const glint1 = new THREE.Mesh(new THREE.SphereGeometry(0.025, 8, 8), eyeGlintMat);
+                glint1.position.set(isRight ? 0.03 : -0.03, 0.04, 0.07);
+                eyeGrp.add(glint1);
+
+                const glint2 = new THREE.Mesh(new THREE.SphereGeometry(0.015, 8, 8), eyeGlintMat);
+                glint2.position.set(isRight ? -0.02 : 0.02, -0.03, 0.07);
+                eyeGrp.add(glint2);
+
+                return eyeGrp;
+            }
+
+            mascotLeftEye = createAnimeEye(false);
+            mascotLeftEye.position.set(-0.18, 0.04, 0.44);
+            mascotHead.add(mascotLeftEye);
+
+            mascotRightEye = createAnimeEye(true);
+            mascotRightEye.position.set(0.18, 0.04, 0.44);
+            mascotHead.add(mascotRightEye);
+
+            // 3. MOUTH (Morphable for Lip-sync)
+            const mouthGeo = new THREE.SphereGeometry(0.05, 16, 8, 0, Math.PI);
+            mouthGeo.scale(1.2, 0.8, 0.4);
+            mascotMouth = new THREE.Mesh(mouthGeo, mouthMat);
+            mascotMouth.position.set(0, -0.16, 0.48);
+            mascotMouth.rotation.x = Math.PI * 0.55;
+            mascotHead.add(mascotMouth);
+
+            // 4. ZUNDAMON HAIR (Green Chibi Anime Hair)
+            const hairBackGeo = new THREE.SphereGeometry(0.55, 24, 20);
+            hairBackGeo.scale(1.05, 1.02, 1.05);
+            const hairBack = new THREE.Mesh(hairBackGeo, hairGreenMat);
+            hairBack.position.set(0, 0.04, -0.06);
+            mascotHead.add(hairBack);
+
+            // Front Bangs
+            for (let i = -3; i <= 3; i++) {
+                const bangGeo = new THREE.ConeGeometry(0.09, 0.32, 8);
+                const bang = new THREE.Mesh(bangGeo, i % 2 === 0 ? hairGreenMat : hairLightMat);
+                bang.position.set(i * 0.09, 0.36 - Math.abs(i) * 0.04, 0.42);
+                bang.rotation.x = 0.4;
+                bang.rotation.z = -i * 0.14;
+                mascotHead.add(bang);
+            }
+
+            // 5. EDAMAME BEAN EARS (ずんだ耳 - Signature Bounce Animation)
+            function createEdamameEar(isRight) {
+                const earGrp = new THREE.Group();
+                const podGeo = new THREE.CylinderGeometry(0.08, 0.12, 0.5, 12);
+                podGeo.scale(0.8, 1, 1.4);
+                const pod = new THREE.Mesh(podGeo, podGreenMat);
+                pod.position.y = 0.25;
+                pod.rotation.z = isRight ? -0.2 : 0.2;
+                earGrp.add(pod);
+
+                for (let b = 0; b < 3; b++) {
+                    const beanGeo = new THREE.SphereGeometry(0.065, 12, 12);
+                    beanGeo.scale(1, 1.1, 1.2);
+                    const bean = new THREE.Mesh(beanGeo, hairLightMat);
+                    bean.position.set(isRight ? 0.02 : -0.02, 0.12 + b * 0.13, 0.06);
+                    earGrp.add(bean);
+                }
+
+                const tipGeo = new THREE.ConeGeometry(0.06, 0.14, 8);
+                const tip = new THREE.Mesh(tipGeo, podGreenMat);
+                tip.position.set(isRight ? -0.05 : 0.05, 0.54, 0);
+                tip.rotation.z = isRight ? 0.4 : -0.4;
+                earGrp.add(tip);
+
+                return earGrp;
+            }
+
+            mascotLeftEar = createEdamameEar(false);
+            mascotLeftEar.position.set(-0.35, 0.38, 0.05);
+            mascotLeftEar.rotation.z = 0.25;
+            mascotHead.add(mascotLeftEar);
+
+            mascotRightEar = createEdamameEar(true);
+            mascotRightEar.position.set(0.35, 0.38, 0.05);
+            mascotRightEar.rotation.z = -0.25;
+            mascotHead.add(mascotRightEar);
+
+            // 6. BODY & KIMONO
+            mascotBody = new THREE.Group();
+            mascotRoot.add(mascotBody);
+
+            const torsoGeo = new THREE.CylinderGeometry(0.24, 0.38, 0.55, 16);
+            const torso = new THREE.Mesh(torsoGeo, whiteKimonoMat);
+            torso.position.set(0, 0.25, 0);
+            mascotBody.add(torso);
+
+            const collarGeo = new THREE.TorusGeometry(0.22, 0.04, 8, 20);
+            const collar = new THREE.Mesh(collarGeo, ribbonGreenMat);
+            collar.position.set(0, 0.48, 0.05);
+            collar.rotation.x = Math.PI * 0.5;
+            mascotBody.add(collar);
+
+            const bell = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), bellGoldMat);
+            bell.position.set(0, 0.42, 0.24);
+            mascotBody.add(bell);
+
+            function createArm(isRight) {
+                const armGrp = new THREE.Group();
+                const sleeveGeo = new THREE.CylinderGeometry(0.08, 0.12, 0.32, 12);
+                const sleeve = new THREE.Mesh(sleeveGeo, whiteKimonoMat);
+                sleeve.position.y = -0.14;
+                armGrp.add(sleeve);
+
+                const handGeo = new THREE.SphereGeometry(0.055, 10, 10);
+                const hand = new THREE.Mesh(handGeo, skinMat);
+                hand.position.set(0, -0.3, 0.04);
+                armGrp.add(hand);
+
+                return armGrp;
+            }
+
+            mascotLeftArm = createArm(false);
+            mascotLeftArm.position.set(-0.3, 0.4, 0.05);
+            mascotLeftArm.rotation.set(0.5, 0.2, 0.4);
+            mascotBody.add(mascotLeftArm);
+
+            mascotRightArm = createArm(true);
+            mascotRightArm.position.set(0.3, 0.4, 0.05);
+            mascotRightArm.rotation.set(0.5, -0.2, -0.4);
+            mascotBody.add(mascotRightArm);
+
+            // 7. MINI CYBER KEYBOARD (Glows when user types!)
+            mascotMiniKeyboard = new THREE.Group();
+            const kbBase = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.06, 0.22), kbMat);
+            mascotMiniKeyboard.add(kbBase);
+
+            for (let r = 0; r < 3; r++) {
+                for (let c = 0; c < 6; c++) {
+                    const key = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.03, 0.05), keyGlowMat);
+                    key.position.set(-0.18 + c * 0.072, 0.035, -0.06 + r * 0.06);
+                    mascotMiniKeyboard.add(key);
+                }
+            }
+            mascotMiniKeyboard.position.set(0, 0.12, 0.32);
+            mascotMiniKeyboard.rotation.x = -0.3;
+            mascotBody.add(mascotMiniKeyboard);
+
+            // Mouse tracking listener
+            window.addEventListener('mousemove', (e) => {
+                const normX = (e.clientX / window.innerWidth) * 2 - 1;
+                const normY = -(e.clientY / window.innerHeight) * 2 + 1;
+                mascotMouseX = normX * 0.35;
+                mascotMouseY = normY * 0.25;
+            });
+
+            // Start animation loop
+            animate3DMascot();
+        }
+
+        let mascotClock = 0;
+        function animate3DMascot() {
+            requestAnimationFrame(animate3DMascot);
+            if (!mascotRenderer || !mascotScene || !mascotCamera) return;
+
+            mascotClock += 0.025;
+
+            // 1. Idle Breathing & Body Sway
+            if (mascotHead && mascotBody) {
+                const breath = Math.sin(mascotClock * 2.2) * 0.02;
+                mascotHead.position.y = 0.72 + breath;
+                mascotBody.position.y = breath * 0.5;
+
+                // Mouse look-at easing
+                mascotHead.rotation.y += (mascotMouseX - mascotHead.rotation.y) * 0.08;
+                mascotHead.rotation.x += (-mascotMouseY - mascotHead.rotation.x) * 0.08;
+            }
+
+            // 2. Ear Spring Physics (Bounce & Sway)
+            if (mascotLeftEar && mascotRightEar) {
+                const earSway = Math.sin(mascotClock * 2.8) * 0.05;
+                mascotLeftEar.rotation.z = 0.22 + earSway;
+                mascotRightEar.rotation.z = -0.22 - earSway;
+            }
+
+            // 3. Blinking Timer
+            mascotBlinkTimer += 0.025;
+            if (mascotBlinkTimer > 3.8) {
+                isMascotBlinking = true;
+                if (mascotBlinkTimer > 4.0) {
+                    isMascotBlinking = false;
+                    mascotBlinkTimer = Math.random() * 0.8;
+                }
+            }
+            if (mascotLeftEye && mascotRightEye) {
+                const targetScaleY = isMascotBlinking ? 0.08 : (mascotCheerTimer > 0 ? 0.15 : 1.0);
+                mascotLeftEye.scale.y += (targetScaleY - mascotLeftEye.scale.y) * 0.4;
+                mascotRightEye.scale.y += (targetScaleY - mascotRightEye.scale.y) * 0.4;
+            }
+
+            // 4. Lip-sync Auto Speech Detection (VOICEVOX / WebSpeech)
+            const isSpeaking = (currentVoicevoxAudio && !currentVoicevoxAudio.paused) || 
+                               (window.speechSynthesis && window.speechSynthesis.speaking);
+            if (mascotMouth) {
+                if (isSpeaking) {
+                    const mouthOpen = Math.abs(Math.sin(mascotClock * 16)) * 1.8 + 0.4;
+                    mascotMouth.scale.set(1.1, mouthOpen, 1);
+                    mascotHead.rotation.x += Math.sin(mascotClock * 12) * 0.015;
+                } else {
+                    mascotMouth.scale.set(1, 1, 1);
+                }
+            }
+
+            // 5. Jump & Cheer Animation
+            if (mascotJumpOffset > 0 || mascotJumpSpeed !== 0) {
+                mascotJumpOffset += mascotJumpSpeed;
+                mascotJumpSpeed -= 0.018; // gravity
+                if (mascotJumpOffset <= 0) {
+                    mascotJumpOffset = 0;
+                    mascotJumpSpeed = 0;
+                }
+                mascotRoot.position.y = -0.35 + mascotJumpOffset;
+            }
+
+            if (mascotCheerTimer > 0) {
+                mascotCheerTimer -= 0.025;
+                if (mascotLeftArm && mascotRightArm) {
+                    mascotLeftArm.rotation.set(1.4 + Math.sin(mascotClock * 14) * 0.3, 0.4, 0.8);
+                    mascotRightArm.rotation.set(1.4 + Math.sin(mascotClock * 14 + 1) * 0.3, -0.4, -0.8);
+                }
+            } else {
+                // Default typing idle arms
+                if (mascotLeftArm && mascotRightArm) {
+                    mascotLeftArm.rotation.set(0.5, 0.2, 0.4 + Math.sin(mascotClock * 3) * 0.04);
+                    mascotRightArm.rotation.set(0.5, -0.2, -0.4 - Math.sin(mascotClock * 3) * 0.04);
+                }
+            }
+
+            mascotRenderer.render(mascotScene, mascotCamera);
+        }
+
+        // Mascot Reactions
+        function onMascotTypingHit(isValid = true) {
+            if (mascotHead) mascotHead.position.y -= 0.03;
+            if (mascotLeftEar && mascotRightEar) {
+                mascotLeftEar.rotation.z += 0.06;
+                mascotRightEar.rotation.z -= 0.06;
+            }
+            if (mascotMiniKeyboard) {
+                mascotMiniKeyboard.position.y = 0.10 + Math.random() * 0.03;
+            }
+        }
+
+        function onMascotWordCorrect() {
+            mascotJumpSpeed = 0.14;
+            mascotCheerTimer = 1.2;
+            const cheers = [
+                'すごーい！大正解なのだ！ (Đỉnh quá đi~!)',
+                'やったね！その調子なのだ！ (Tuyệt vời, cứ thế phát huy nhé~!)',
+                'パーフェクト！かっこいいのだ！ (Hoàn hảo luôn nè!)',
+                'ナイスタイピングなのだ〜！ (Gõ siêu chuẩn luôn!)'
+            ];
+            setMascotSpeech(cheers[Math.floor(Math.random() * cheers.length)], 'happy');
+        }
+
+        function onMascotWordWrong() {
+            if (mascotHead) mascotHead.rotation.z = -0.15;
+            setMascotSpeech('どんまいなのだ！もう一回がんばろう！ (Không sao đâu, thử lại nhé~!)', 'sad');
+        }
+
+        function onMascotClick() {
+            mascotJumpSpeed = 0.12;
+            mascotCheerTimer = 0.8;
+            const greetings = [
+                'ずんだもんだよ！応援してるのだ！ (Zundamon đang cổ vũ bạn nè!)',
+                'キーボードをいっぱい叩いてね！ (Cố lên nào, chém phím thật nhanh nhé!)',
+                'えへへ〜くすぐったいのだ！ (Hihi, nhột quá đi à~!)',
+                '日本語マスターを目指すのだ！ (Cùng nhau trở thành Cao thủ tiếng Nhật nhé!)'
+            ];
+            setMascotSpeech(greetings[Math.floor(Math.random() * greetings.length)], 'happy');
+        }
+
+        function toggleMascotCompanion() {
+            const widget = document.getElementById('mascot-companion-widget');
+            if (!widget) return;
+            const isMin = widget.classList.toggle('minimized');
+            localStorage.setItem('mascot_minimized', isMin ? 'true' : 'false');
+            showToast(isMin ? '🟢 Đã thu nhỏ Mascot 3D Zundamon' : '🟢 Đã mở rộng Mascot 3D Zundamon', 'info');
+        }
+
         function setMascotSpeech(text, mood = 'happy') {
-            const mascotBubble = document.getElementById('mascot-speech-bubble');
-            if (mascotBubble) {
-                mascotBubble.textContent = text;
-                mascotBubble.style.display = 'block';
+            const bubble = document.getElementById('mascot-speech-bubble');
+            const txtEl = document.getElementById('mascot-speech-text');
+            if (txtEl) txtEl.textContent = text;
+            if (bubble) {
+                bubble.style.display = 'block';
+                bubble.style.opacity = '1';
+                clearTimeout(mascotBubbleTimeout);
+                mascotBubbleTimeout = setTimeout(() => {
+                    if (bubble) bubble.style.opacity = '0.9';
+                }, 5000);
             }
         }
 
@@ -5215,6 +5753,11 @@
                     }
                     b.className = 'blank-char';
                 }
+            }
+
+            // Mascot 3D reaction on typing
+            if (value.length > 0) {
+                onMascotTypingHit(isValid);
             }
 
             // Instant Mistake Detection for Combo Break
@@ -5478,14 +6021,7 @@
                 triggerWordCompleteWave();
                 triggerConfettiBurst(typingStreak >= 5 && typingStreak % 5 === 0);
                 spawnFloatingScoreFX(document.getElementById('word-card'), `+${100 + (typingStreak) * 25} PTS`);
-
-                const happyPhrases = [
-                    'Chính xác 100%! Quá đỉnh!',
-                    `Tuyệt vời! Chuỗi Combo x${typingStreak}!`,
-                    'Tốc độ chém phím tuyệt đỉnh!',
-                    'Đúng rồi! Cứ thế phát huy nhé!'
-                ];
-                setMascotSpeech(happyPhrases[Math.floor(Math.random() * happyPhrases.length)], 'happy');
+                onMascotWordCorrect();
 
                 if (inputEl) {
                     inputEl.className = 'romaji-input correct';
@@ -5521,6 +6057,7 @@
                 }
             } else {
                 // Wrong or Empty answer
+                onMascotWordWrong();
                 const alreadyWrong = session.wrongWords.some(x => x.kanji === w.kanji && !x.skipped);
                 if (session.wrongRecordedIdx !== session.idx && !alreadyWrong) {
                     session.wrong++;
@@ -8520,6 +9057,7 @@ CONVERSATION RULES:
         renderVocabList();
         loadAiSettings();
         loadTtsSettings();
+        setTimeout(init3DMascotCompanion, 200);
     </script>
 </body>
 
