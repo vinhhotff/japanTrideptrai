@@ -5284,8 +5284,8 @@
                 speaker: '8',
                 color: '#f472b6',
                 url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Haru/Haru.model3.json',
-                scale: 0.175,
-                yOffset: -10,
+                scale: 0.22,
+                yOffset: -65,
                 quotes: [
                     "こんにちは！今日も一緒にタイピング練習、がんばりましょう！",
                     "ナイスタイピング！すごく上達していますよ！",
@@ -5300,10 +5300,10 @@
                 speaker: '8',
                 color: '#38bdf8',
                 url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Hiyori/Hiyori.model3.json',
-                scale: 0.17,
-                yOffset: -10,
+                scale: 0.22,
+                yOffset: -75,
                 quotes: [
-                    "やっほー！ひよりだよ！今日も元気にいっくよー！",
+                    "やッほー！ひよりだよ！今日も元気にいっくよー！",
                     "ファイトファイト！いいリズムで打ててるね！",
                     "すごーい！そのスピード、憧れちゃうな！",
                     "一文字ずつ丁寧にね！応援してるよ！",
@@ -5315,8 +5315,8 @@
                 speaker: '8',
                 color: '#fbbf24',
                 url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Mao/Mao.model3.json',
-                scale: 0.175,
-                yOffset: -10,
+                scale: 0.27,
+                yOffset: -190,
                 quotes: [
                     "こんにちは！真央と一緒にタイピングマスターを目指そう！",
                     "ナイス！バッチリ合ってるよ！",
@@ -5330,8 +5330,8 @@
                 speaker: '8',
                 color: '#a78bfa',
                 url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Rice/Rice.model3.json',
-                scale: 0.175,
-                yOffset: -10,
+                scale: 0.23,
+                yOffset: -65,
                 quotes: [
                     "ごきげんよう！今日も一生懸命練習いたしましょう！",
                     "お見事です！とても素晴らしいタイピングですね！",
@@ -5345,8 +5345,8 @@
                 speaker: '3',
                 color: '#10b981',
                 url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Wanko/Wanko.model3.json',
-                scale: 0.28,
-                yOffset: 20,
+                scale: 0.38,
+                yOffset: 45,
                 quotes: [
                     "わんわん！今日もタイピングがんばるワン！",
                     "ワン！すごいワン！ナイスタイピング！",
@@ -5515,10 +5515,10 @@
                 live2dApp.stage.addChild(newModel);
 
                 // Auto scale and center
-                const scale = modelCfg.scale || 0.175;
+                const scale = modelCfg.scale || 0.22;
                 newModel.scale.set(scale);
                 newModel.x = 170 - (newModel.width * 0.5);
-                newModel.y = modelCfg.yOffset || -10;
+                newModel.y = modelCfg.yOffset !== undefined ? modelCfg.yOffset : -60;
 
                 // Attach robust lip-sync & emotion hook
                 hookLive2DCoreModel(newModel);
