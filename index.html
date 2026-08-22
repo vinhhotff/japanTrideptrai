@@ -3322,12 +3322,9 @@
                         <div class="mascot-portrait-card" id="mascot-portrait-card" onclick="onMascotClick(event)" title="Nhấn vào VTuber để nghe nói chuyện!">
                             <div class="mascot-portrait-header">
                                 <div style="display: flex; align-items: center; gap: 6px;">
-                                    <span class="mascot-dot" id="mascot-dot-indicator" style="background: #f472b6; box-shadow: 0 0 8px #f472b6;"></span>
-                                    <select id="mascot-model-select" class="form-input" style="padding: 2px 6px; font-size: 0.8rem; font-weight: 700; height: 26px; border-radius: 6px; background: rgba(13,20,30,0.9); color: #f472b6; border-color: rgba(244,114,182,0.4);" onchange="onMascotModelChange(this.value)" onclick="event.stopPropagation()">
-                                        <option value="haru">🌸 Haru (Live2D Cubism 4)</option>
-                                        <option value="hiyori">✨ Hiyori (Live2D Cubism 4)</option>
+                                    <span class="mascot-dot" id="mascot-dot-indicator" style="background: #fbbf24; box-shadow: 0 0 8px #fbbf24;"></span>
+                                    <select id="mascot-model-select" class="form-input" style="padding: 2px 6px; font-size: 0.8rem; font-weight: 700; height: 26px; border-radius: 6px; background: rgba(13,20,30,0.9); color: #fbbf24; border-color: rgba(251,191,36,0.4);" onchange="onMascotModelChange(this.value)" onclick="event.stopPropagation()">
                                         <option value="mao">🎀 Mao (Live2D Cubism 4)</option>
-                                        <option value="rice">🌾 Rice (Live2D Cubism 4)</option>
                                         <option value="wanko">🐶 Wanko (Live2D Chibi)</option>
                                     </select>
                                 </div>
@@ -5270,7 +5267,10 @@
         }
 
         // ========== OFFICIAL MULTI-MODEL LIVE2D CUBISM 4 VTUBER ENGINE ==========
-        let currentLive2DModelKey = localStorage.getItem('selected_mascot_model') || 'haru';
+        let currentLive2DModelKey = localStorage.getItem('selected_mascot_model') || 'mao';
+        if (currentLive2DModelKey !== 'mao' && currentLive2DModelKey !== 'wanko') {
+            currentLive2DModelKey = 'mao';
+        }
         let live2dApp = null;
         let live2dModel = null;
         let live2dInitialized = false;
@@ -5279,37 +5279,6 @@
         let _mascotEmotionTimer = 0;
 
         const LIVE2D_VTUBER_MODELS = {
-            haru: {
-                name: 'Haru (春)',
-                speaker: '8',
-                color: '#f472b6',
-                url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Haru/Haru.model3.json',
-                scale: 0.165,
-                yOffset: -40,
-                quotes: [
-                    "こんにちは！今日も一緒にタイピング練習、がんばりましょう！",
-                    "ナイスタイピング！すごく上達していますよ！",
-                    "えへへ、応援していますからね！ファイトです！",
-                    "その調子です！一文字ずつ正確にいきましょう！",
-                    "すごいすごい！パーフェクトを目指しましょう！",
-                    "タイピングがんばってくださいね！いつも見てますよ！"
-                ]
-            },
-            hiyori: {
-                name: 'Hiyori (日和)',
-                speaker: '8',
-                color: '#38bdf8',
-                url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Hiyori/Hiyori.model3.json',
-                scale: 0.165,
-                yOffset: -45,
-                quotes: [
-                    "やッほー！ひよりだよ！今日も元気にいっくよー！",
-                    "ファイトファイト！いいリズムで打ててるね！",
-                    "すごーい！そのスピード、憧れちゃうな！",
-                    "一文字ずつ丁寧にね！応援してるよ！",
-                    "やったね！この調子でどんどん進もう！"
-                ]
-            },
             mao: {
                 name: 'Mao (真央)',
                 speaker: '8',
@@ -5323,21 +5292,6 @@
                     "焦らずマイペースでいこうね！",
                     "すごく集中できてるね！素晴らしい！",
                     "全問正解を目指してファイトー！"
-                ]
-            },
-            rice: {
-                name: 'Rice (ライス)',
-                speaker: '8',
-                color: '#a78bfa',
-                url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Rice/Rice.model3.json',
-                scale: 0.165,
-                yOffset: -40,
-                quotes: [
-                    "ごきげんよう！今日も一生懸命練習いたしましょう！",
-                    "お見事です！とても素晴らしいタイピングですね！",
-                    "ふふっ、貴方の頑張り、ずっと見ておりますよ。",
-                    "落ち着いて一文字ずつ進めてまいりましょう！",
-                    "素晴らしい集中力です！この調子ですわ！"
                 ]
             },
             wanko: {
@@ -5461,20 +5415,22 @@
                 });
 
                 // Load initial model
-                const saved = localStorage.getItem('selected_mascot_model') || 'haru';
+                let saved = localStorage.getItem('selected_mascot_model') || 'mao';
+                if (saved !== 'mao' && saved !== 'wanko') saved = 'mao';
                 await loadLive2DModel(saved);
 
             } catch (err) {
                 console.warn('Live2D init error', err);
                 const spinner = document.getElementById('live2d-loading-spinner');
                 if (spinner) {
-                    spinner.innerHTML = `<span style="font-size: 1.8rem;">🌸</span><span style="color:#f472b6;font-weight:600;">Haru VTuber Sẵn sàng!</span>`;
+                    spinner.innerHTML = `<span style="font-size: 1.8rem;">🎀</span><span style="color:#fbbf24;font-weight:600;">Mao VTuber Sẵn sàng!</span>`;
                 }
             }
         }
 
         async function loadLive2DModel(modelKey) {
-            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.haru;
+            if (modelKey !== 'mao' && modelKey !== 'wanko') modelKey = 'mao';
+            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.mao;
             currentLive2DModelKey = modelKey;
             localStorage.setItem('selected_mascot_model', modelKey);
 
@@ -5515,10 +5471,10 @@
                 live2dApp.stage.addChild(newModel);
 
                 // Auto scale and center
-                const scale = modelCfg.scale || 0.22;
+                const scale = modelCfg.scale || 0.145;
                 newModel.scale.set(scale);
                 newModel.x = 170 - (newModel.width * 0.5);
-                newModel.y = modelCfg.yOffset !== undefined ? modelCfg.yOffset : -60;
+                newModel.y = modelCfg.yOffset !== undefined ? modelCfg.yOffset : -35;
 
                 // Attach robust lip-sync & emotion hook
                 hookLive2DCoreModel(newModel);
@@ -5535,14 +5491,14 @@
             } catch (err) {
                 console.warn('Live2D model load error for ' + modelKey, err);
                 if (spinner) {
-                    spinner.innerHTML = `<span style="font-size: 1.5rem;">🌸</span><span style="color:#f472b6;font-weight:600;">${modelCfg.name} Sẵn sàng!</span>`;
+                    spinner.innerHTML = `<span style="font-size: 1.5rem;">🎀</span><span style="color:#fbbf24;font-weight:600;">${modelCfg.name} Sẵn sàng!</span>`;
                 }
             }
         }
 
         function onMascotModelChange(modelKey) {
             loadLive2DModel(modelKey);
-            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.haru;
+            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.mao;
             showToast(`✨ Đã chuyển sang VTuber: ${modelCfg.name}`, 'success');
         }
 
@@ -5567,7 +5523,7 @@
                     if (live2dModel.motion) live2dModel.motion('TapBody');
                 } catch(e) {}
                 try {
-                    if (live2dModel.expression) live2dModel.expression('F01');
+                    if (live2dModel.expression) live2dModel.expression('exp_01');
                 } catch(e) {}
             }
 
@@ -5584,7 +5540,7 @@
             if (live2dModel) {
                 try {
                     if (live2dModel.expression) {
-                        live2dModel.expression('F03');
+                        live2dModel.expression('exp_03');
                     }
                 } catch(e) {}
             }
@@ -5615,8 +5571,8 @@
                 gsap.fromTo(card, { y: -10, scale: 1.02 }, { y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" });
             }
 
-            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.haru;
-            const quotes = modelCfg.quotes || LIVE2D_VTUBER_MODELS.haru.quotes;
+            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.mao;
+            const quotes = modelCfg.quotes || LIVE2D_VTUBER_MODELS.mao.quotes;
             const quote = quotes[Math.floor(Math.random() * quotes.length)];
             const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
             playTTS(quote, speaker);
