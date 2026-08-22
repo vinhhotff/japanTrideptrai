@@ -3941,18 +3941,18 @@
         </div>
     <div class="toast" id="toast"></div>
 
-    <!-- 3D ANIME COMPANION MASCOT (ZUNDAMON 3D) -->
+    <!-- 3D ANIME COMPANION MASCOT (KASUKABE TSUMUGI 3D) -->
     <div id="mascot-companion-widget" class="mascot-widget">
         <!-- Mascot Speech Bubble -->
         <div id="mascot-speech-bubble" class="mascot-bubble">
-            <span id="mascot-speech-text">ずんだもんだよ！いっしょにがんばろうね〜！ (Mình là Zundamon nè! Cùng gõ phím nha~!)</span>
+            <span id="mascot-speech-text">やっほー！つむぎだよ！埼玉ギャル魂でタイピングいっくよー！ (Hế lô! Tsumugi đây! Cùng bung lụa gõ phím nào~!)</span>
         </div>
         <!-- 3D Mascot Canvas Container -->
-        <div class="mascot-canvas-wrap" onclick="onMascotClick()" title="Nhấn vào Zundamon để tương tác!">
+        <div class="mascot-canvas-wrap" onclick="onMascotClick()" title="Nhấn vào Tsumugi để tương tác!">
             <canvas id="mascot-3d-canvas" width="200" height="220"></canvas>
-            <div class="mascot-name-badge">
-                <span class="mascot-dot"></span>
-                <span>🟢 ずんだもん 3D</span>
+            <div class="mascot-name-badge" style="border-color: rgba(244, 114, 182, 0.4); color: #f472b6;">
+                <span class="mascot-dot" style="background: #f472b6; box-shadow: 0 0 6px #f472b6;"></span>
+                <span>🌸 春日部つむぎ 3D</span>
                 <button type="button" class="mascot-toggle-btn" onclick="event.stopPropagation(); toggleMascotCompanion()" title="Ẩn/Hiện Mascot">✕</button>
             </div>
         </div>
@@ -5274,9 +5274,9 @@
             // Confetti visual burst placeholder
         }
 
-        // ========== 3D ZUNDAMON MASCOT COMPANION ENGINE ==========
+        // ========== 3D KASUKABE TSUMUGI MASCOT COMPANION ENGINE ==========
         let mascotScene, mascotCamera, mascotRenderer;
-        let mascotRoot, mascotHead, mascotBody, mascotLeftEar, mascotRightEar, mascotLeftArm, mascotRightArm;
+        let mascotRoot, mascotHead, mascotBody, mascotLeftTwintail, mascotRightTwintail, mascotLeftArm, mascotRightArm;
         let mascotLeftEye, mascotRightEye, mascotMouth, mascotMiniKeyboard;
         let mascotMouseX = 0, mascotMouseY = 0;
         let mascotBlinkTimer = 0, isMascotBlinking = false;
@@ -5302,34 +5302,39 @@
             mascotRenderer.setSize(width, height);
             mascotRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-            // Lighting setup for soft anime toon look
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+            // Lighting setup for bright anime look
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.92);
             mascotScene.add(ambientLight);
 
-            const dirLight = new THREE.DirectionalLight(0xfff5ea, 0.8);
+            const dirLight = new THREE.DirectionalLight(0xfff7ed, 0.85);
             dirLight.position.set(2, 4, 3);
             mascotScene.add(dirLight);
 
-            const greenRim = new THREE.PointLight(0x84cc16, 0.6, 6);
-            greenRim.position.set(-2, 1, -1);
-            mascotScene.add(greenRim);
+            const pinkRim = new THREE.PointLight(0xf472b6, 0.65, 6);
+            pinkRim.position.set(-2, 1, -1);
+            mascotScene.add(pinkRim);
 
-            // Materials
-            const skinMat = new THREE.MeshToonMaterial({ color: 0xffebd9 });
-            const blushMat = new THREE.MeshBasicMaterial({ color: 0xf472b6, transparent: true, opacity: 0.65 });
-            const hairGreenMat = new THREE.MeshToonMaterial({ color: 0x84cc16 });
-            const hairLightMat = new THREE.MeshToonMaterial({ color: 0xa3e635 });
-            const podGreenMat = new THREE.MeshToonMaterial({ color: 0x4d7c0f });
-            const whiteKimonoMat = new THREE.MeshToonMaterial({ color: 0xf8fafc });
-            const ribbonGreenMat = new THREE.MeshToonMaterial({ color: 0x10b981 });
-            const bellGoldMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.3, metalness: 0.8 });
+            const goldRim = new THREE.PointLight(0xfbbf24, 0.5, 6);
+            goldRim.position.set(2, -1, 1);
+            mascotScene.add(goldRim);
+
+            // Materials for Kasukabe Tsumugi
+            const skinMat = new THREE.MeshToonMaterial({ color: 0xfff0e6 });
+            const blushMat = new THREE.MeshBasicMaterial({ color: 0xff8da1, transparent: true, opacity: 0.65 });
+            const hairGoldMat = new THREE.MeshToonMaterial({ color: 0xf59e0b });
+            const hairLightMat = new THREE.MeshToonMaterial({ color: 0xfde047 });
+            const hairRibbonMat = new THREE.MeshToonMaterial({ color: 0xf472b6 });
+            const hairClipMat = new THREE.MeshToonMaterial({ color: 0x38bdf8 });
+            const jkShirtMat = new THREE.MeshToonMaterial({ color: 0xffffff });
+            const jkCollarMat = new THREE.MeshToonMaterial({ color: 0x1e3a8a });
+            const jkTieMat = new THREE.MeshToonMaterial({ color: 0xf43f5e });
             const eyeScleraMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-            const eyeIrisMat = new THREE.MeshBasicMaterial({ color: 0x059669 });
-            const eyePupilMat = new THREE.MeshBasicMaterial({ color: 0x064e3b });
+            const eyeIrisMat = new THREE.MeshBasicMaterial({ color: 0x0284c7 });
+            const eyePupilMat = new THREE.MeshBasicMaterial({ color: 0x0369a1 });
             const eyeGlintMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-            const mouthMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e });
+            const mouthMat = new THREE.MeshBasicMaterial({ color: 0xfb7185 });
             const kbMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 });
-            const keyGlowMat = new THREE.MeshBasicMaterial({ color: 0x34d399 });
+            const keyGlowMat = new THREE.MeshBasicMaterial({ color: 0xf472b6 });
 
             mascotRoot = new THREE.Group();
             mascotScene.add(mascotRoot);
@@ -5347,7 +5352,7 @@
             mascotHead.add(headMesh);
 
             // Cheeks (Blush)
-            const blushGeo = new THREE.CircleGeometry(0.08, 16);
+            const blushGeo = new THREE.CircleGeometry(0.085, 16);
             const blushL = new THREE.Mesh(blushGeo, blushMat);
             blushL.position.set(-0.27, -0.08, 0.46);
             blushL.rotation.y = -0.35;
@@ -5358,7 +5363,7 @@
             blushR.rotation.y = 0.35;
             mascotHead.add(blushR);
 
-            // 2. EYES (Expressive Chibi Anime Eyes)
+            // 2. EYES (Vibrant Azure Blue Anime Eyes)
             function createAnimeEye(isRight) {
                 const eyeGrp = new THREE.Group();
                 const scleraGeo = new THREE.SphereGeometry(0.12, 16, 16);
@@ -5366,7 +5371,7 @@
                 const sclera = new THREE.Mesh(scleraGeo, eyeScleraMat);
                 eyeGrp.add(sclera);
 
-                const irisGeo = new THREE.SphereGeometry(0.09, 16, 16);
+                const irisGeo = new THREE.SphereGeometry(0.095, 16, 16);
                 irisGeo.scale(1, 1.15, 0.3);
                 const iris = new THREE.Mesh(irisGeo, eyeIrisMat);
                 iris.position.z = 0.03;
@@ -5382,7 +5387,7 @@
                 glint1.position.set(isRight ? 0.03 : -0.03, 0.04, 0.07);
                 eyeGrp.add(glint1);
 
-                const glint2 = new THREE.Mesh(new THREE.SphereGeometry(0.015, 8, 8), eyeGlintMat);
+                const glint2 = new THREE.Mesh(new THREE.SphereGeometry(0.016, 8, 8), eyeGlintMat);
                 glint2.position.set(isRight ? -0.02 : 0.02, -0.03, 0.07);
                 eyeGrp.add(glint2);
 
@@ -5398,90 +5403,109 @@
             mascotHead.add(mascotRightEye);
 
             // 3. MOUTH (Morphable for Lip-sync)
-            const mouthGeo = new THREE.SphereGeometry(0.05, 16, 8, 0, Math.PI);
+            const mouthGeo = new THREE.SphereGeometry(0.052, 16, 8, 0, Math.PI);
             mouthGeo.scale(1.2, 0.8, 0.4);
             mascotMouth = new THREE.Mesh(mouthGeo, mouthMat);
             mascotMouth.position.set(0, -0.16, 0.48);
             mascotMouth.rotation.x = Math.PI * 0.55;
             mascotHead.add(mascotMouth);
 
-            // 4. ZUNDAMON HAIR (Green Chibi Anime Hair)
-            const hairBackGeo = new THREE.SphereGeometry(0.55, 24, 20);
-            hairBackGeo.scale(1.05, 1.02, 1.05);
-            const hairBack = new THREE.Mesh(hairBackGeo, hairGreenMat);
+            // 4. TSUMUGI BLONDE HAIR
+            const hairBackGeo = new THREE.SphereGeometry(0.56, 24, 20);
+            hairBackGeo.scale(1.06, 1.03, 1.06);
+            const hairBack = new THREE.Mesh(hairBackGeo, hairGoldMat);
             hairBack.position.set(0, 0.04, -0.06);
             mascotHead.add(hairBack);
 
-            // Front Bangs
+            // Stylish Front Bangs
             for (let i = -3; i <= 3; i++) {
-                const bangGeo = new THREE.ConeGeometry(0.09, 0.32, 8);
-                const bang = new THREE.Mesh(bangGeo, i % 2 === 0 ? hairGreenMat : hairLightMat);
-                bang.position.set(i * 0.09, 0.36 - Math.abs(i) * 0.04, 0.42);
-                bang.rotation.x = 0.4;
+                const bangGeo = new THREE.ConeGeometry(0.09, 0.34, 8);
+                const bang = new THREE.Mesh(bangGeo, i % 2 === 0 ? hairGoldMat : hairLightMat);
+                bang.position.set(i * 0.088, 0.36 - Math.abs(i) * 0.04, 0.43);
+                bang.rotation.x = 0.42;
                 bang.rotation.z = -i * 0.14;
                 mascotHead.add(bang);
             }
 
-            // 5. EDAMAME BEAN EARS (ずんだ耳 - Signature Bounce Animation)
-            function createEdamameEar(isRight) {
-                const earGrp = new THREE.Group();
-                const podGeo = new THREE.CylinderGeometry(0.08, 0.12, 0.5, 12);
-                podGeo.scale(0.8, 1, 1.4);
-                const pod = new THREE.Mesh(podGeo, podGreenMat);
-                pod.position.y = 0.25;
-                pod.rotation.z = isRight ? -0.2 : 0.2;
-                earGrp.add(pod);
+            // Side Hair Locks framing cheeks
+            const sideLockL = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.45, 8), hairGoldMat);
+            sideLockL.position.set(-0.42, 0.05, 0.28);
+            sideLockL.rotation.set(0.1, 0, 0.2);
+            mascotHead.add(sideLockL);
 
-                for (let b = 0; b < 3; b++) {
-                    const beanGeo = new THREE.SphereGeometry(0.065, 12, 12);
-                    beanGeo.scale(1, 1.1, 1.2);
-                    const bean = new THREE.Mesh(beanGeo, hairLightMat);
-                    bean.position.set(isRight ? 0.02 : -0.02, 0.12 + b * 0.13, 0.06);
-                    earGrp.add(bean);
-                }
+            const sideLockR = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.45, 8), hairGoldMat);
+            sideLockR.position.set(0.42, 0.05, 0.28);
+            sideLockR.rotation.set(0.1, 0, -0.2);
+            mascotHead.add(sideLockR);
 
-                const tipGeo = new THREE.ConeGeometry(0.06, 0.14, 8);
-                const tip = new THREE.Mesh(tipGeo, podGreenMat);
-                tip.position.set(isRight ? -0.05 : 0.05, 0.54, 0);
-                tip.rotation.z = isRight ? 0.4 : -0.4;
-                earGrp.add(tip);
+            // Blue Star Hair Clip on left side
+            const clipGeo = new THREE.BoxGeometry(0.09, 0.09, 0.03);
+            const clip = new THREE.Mesh(clipGeo, hairClipMat);
+            clip.position.set(-0.35, 0.35, 0.42);
+            clip.rotation.z = 0.4;
+            mascotHead.add(clip);
 
-                return earGrp;
+            // 5. TSUMUGI BOUNCY TWIN-TAILS (Twintails with Pink Ribbons & Physics)
+            function createTwintail(isRight) {
+                const tailGrp = new THREE.Group();
+                // Pink Hair Tie Ribbon
+                const ribbonGeo = new THREE.TorusGeometry(0.07, 0.03, 8, 16);
+                const ribbon = new THREE.Mesh(ribbonGeo, hairRibbonMat);
+                tailGrp.add(ribbon);
+
+                // Flowing Twin Ponytail Hair Strands
+                const tail1 = new THREE.Mesh(new THREE.ConeGeometry(0.13, 0.65, 10), hairGoldMat);
+                tail1.position.set(isRight ? 0.12 : -0.12, -0.3, 0);
+                tail1.rotation.z = isRight ? -0.3 : 0.3;
+                tailGrp.add(tail1);
+
+                const tail2 = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.55, 8), hairLightMat);
+                tail2.position.set(isRight ? 0.18 : -0.18, -0.32, 0.04);
+                tail2.rotation.z = isRight ? -0.45 : 0.45;
+                tailGrp.add(tail2);
+
+                return tailGrp;
             }
 
-            mascotLeftEar = createEdamameEar(false);
-            mascotLeftEar.position.set(-0.35, 0.38, 0.05);
-            mascotLeftEar.rotation.z = 0.25;
-            mascotHead.add(mascotLeftEar);
+            mascotLeftTwintail = createTwintail(false);
+            mascotLeftTwintail.position.set(-0.48, 0.26, 0.02);
+            mascotLeftTwintail.rotation.z = 0.35;
+            mascotHead.add(mascotLeftTwintail);
 
-            mascotRightEar = createEdamameEar(true);
-            mascotRightEar.position.set(0.35, 0.38, 0.05);
-            mascotRightEar.rotation.z = -0.25;
-            mascotHead.add(mascotRightEar);
+            mascotRightTwintail = createTwintail(true);
+            mascotRightTwintail.position.set(0.48, 0.26, 0.02);
+            mascotRightTwintail.rotation.z = -0.35;
+            mascotHead.add(mascotRightTwintail);
 
-            // 6. BODY & KIMONO
+            // 6. BODY & JK SAILOR UNIFORM
             mascotBody = new THREE.Group();
             mascotRoot.add(mascotBody);
 
-            const torsoGeo = new THREE.CylinderGeometry(0.24, 0.38, 0.55, 16);
-            const torso = new THREE.Mesh(torsoGeo, whiteKimonoMat);
+            // Torso (White JK Shirt)
+            const torsoGeo = new THREE.CylinderGeometry(0.24, 0.36, 0.55, 16);
+            const torso = new THREE.Mesh(torsoGeo, jkShirtMat);
             torso.position.set(0, 0.25, 0);
             mascotBody.add(torso);
 
-            const collarGeo = new THREE.TorusGeometry(0.22, 0.04, 8, 20);
-            const collar = new THREE.Mesh(collarGeo, ribbonGreenMat);
+            // Navy Sailor Collar
+            const collarGeo = new THREE.TorusGeometry(0.24, 0.05, 8, 20);
+            const collar = new THREE.Mesh(collarGeo, jkCollarMat);
             collar.position.set(0, 0.48, 0.05);
             collar.rotation.x = Math.PI * 0.5;
             mascotBody.add(collar);
 
-            const bell = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), bellGoldMat);
-            bell.position.set(0, 0.42, 0.24);
-            mascotBody.add(bell);
+            // Red/Pink JK Tie Ribbon
+            const tieGeo = new THREE.ConeGeometry(0.09, 0.2, 8);
+            const tie = new THREE.Mesh(tieGeo, jkTieMat);
+            tie.position.set(0, 0.38, 0.22);
+            tie.rotation.x = Math.PI;
+            mascotBody.add(tie);
 
+            // Arms (JK Uniform Sleeves)
             function createArm(isRight) {
                 const armGrp = new THREE.Group();
                 const sleeveGeo = new THREE.CylinderGeometry(0.08, 0.12, 0.32, 12);
-                const sleeve = new THREE.Mesh(sleeveGeo, whiteKimonoMat);
+                const sleeve = new THREE.Mesh(sleeveGeo, jkShirtMat);
                 sleeve.position.y = -0.14;
                 armGrp.add(sleeve);
 
@@ -5503,7 +5527,7 @@
             mascotRightArm.rotation.set(0.5, -0.2, -0.4);
             mascotBody.add(mascotRightArm);
 
-            // 7. MINI CYBER KEYBOARD (Glows when user types!)
+            // 7. MINI CYBER KEYBOARD (Pink Glow)
             mascotMiniKeyboard = new THREE.Group();
             const kbBase = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.06, 0.22), kbMat);
             mascotMiniKeyboard.add(kbBase);
@@ -5540,7 +5564,7 @@
 
             // 1. Idle Breathing & Body Sway
             if (mascotHead && mascotBody) {
-                const breath = Math.sin(mascotClock * 2.2) * 0.02;
+                const breath = Math.sin(mascotClock * 2.4) * 0.022;
                 mascotHead.position.y = 0.72 + breath;
                 mascotBody.position.y = breath * 0.5;
 
@@ -5549,18 +5573,18 @@
                 mascotHead.rotation.x += (-mascotMouseY - mascotHead.rotation.x) * 0.08;
             }
 
-            // 2. Ear Spring Physics (Bounce & Sway)
-            if (mascotLeftEar && mascotRightEar) {
-                const earSway = Math.sin(mascotClock * 2.8) * 0.05;
-                mascotLeftEar.rotation.z = 0.22 + earSway;
-                mascotRightEar.rotation.z = -0.22 - earSway;
+            // 2. Twintail Spring Physics (Bounce & Sway)
+            if (mascotLeftTwintail && mascotRightTwintail) {
+                const tailSway = Math.sin(mascotClock * 3.0) * 0.08;
+                mascotLeftTwintail.rotation.z = 0.32 + tailSway;
+                mascotRightTwintail.rotation.z = -0.32 - tailSway;
             }
 
             // 3. Blinking Timer
             mascotBlinkTimer += 0.025;
-            if (mascotBlinkTimer > 3.8) {
+            if (mascotBlinkTimer > 3.6) {
                 isMascotBlinking = true;
-                if (mascotBlinkTimer > 4.0) {
+                if (mascotBlinkTimer > 3.8) {
                     isMascotBlinking = false;
                     mascotBlinkTimer = Math.random() * 0.8;
                 }
@@ -5578,7 +5602,7 @@
                 if (isSpeaking) {
                     const mouthOpen = Math.abs(Math.sin(mascotClock * 16)) * 1.8 + 0.4;
                     mascotMouth.scale.set(1.1, mouthOpen, 1);
-                    mascotHead.rotation.x += Math.sin(mascotClock * 12) * 0.015;
+                    mascotHead.rotation.x += Math.sin(mascotClock * 12) * 0.018;
                 } else {
                     mascotMouth.scale.set(1, 1, 1);
                 }
@@ -5598,8 +5622,8 @@
             if (mascotCheerTimer > 0) {
                 mascotCheerTimer -= 0.025;
                 if (mascotLeftArm && mascotRightArm) {
-                    mascotLeftArm.rotation.set(1.4 + Math.sin(mascotClock * 14) * 0.3, 0.4, 0.8);
-                    mascotRightArm.rotation.set(1.4 + Math.sin(mascotClock * 14 + 1) * 0.3, -0.4, -0.8);
+                    mascotLeftArm.rotation.set(1.4 + Math.sin(mascotClock * 14) * 0.35, 0.4, 0.8);
+                    mascotRightArm.rotation.set(1.4 + Math.sin(mascotClock * 14 + 1) * 0.35, -0.4, -0.8);
                 }
             } else {
                 // Default typing idle arms
@@ -5612,12 +5636,12 @@
             mascotRenderer.render(mascotScene, mascotCamera);
         }
 
-        // Mascot Reactions
+        // Mascot Reactions for Kasukabe Tsumugi
         function onMascotTypingHit(isValid = true) {
             if (mascotHead) mascotHead.position.y -= 0.03;
-            if (mascotLeftEar && mascotRightEar) {
-                mascotLeftEar.rotation.z += 0.06;
-                mascotRightEar.rotation.z -= 0.06;
+            if (mascotLeftTwintail && mascotRightTwintail) {
+                mascotLeftTwintail.rotation.z += 0.07;
+                mascotRightTwintail.rotation.z -= 0.07;
             }
             if (mascotMiniKeyboard) {
                 mascotMiniKeyboard.position.y = 0.10 + Math.random() * 0.03;
@@ -5628,27 +5652,27 @@
             mascotJumpSpeed = 0.14;
             mascotCheerTimer = 1.2;
             const cheers = [
-                'すごーい！大正解なのだ！ (Đỉnh quá đi~!)',
-                'やったね！その調子なのだ！ (Tuyệt vời, cứ thế phát huy nhé~!)',
-                'パーフェクト！かっこいいのだ！ (Hoàn hảo luôn nè!)',
-                'ナイスタイピングなのだ〜！ (Gõ siêu chuẩn luôn!)'
+                'ナイスタイピング！めっちゃ上手じゃん！ (Gõ siêu mượt luôn, đỉnh quá bạn ơi!)',
+                'すごーい！パーフェクトだよ！ (Tuyệt vời! Chuẩn 100% luôn nè!)',
+                'やったね！その調子でガンガンいこう！ (Đúng rồi, cứ thế chém phím tiếp nhé!)',
+                'さすが！つむぎもテンション上がっちゃう！ (Đỉnh thật sự, làm Tsumugi hào hứng theo luôn!)'
             ];
             setMascotSpeech(cheers[Math.floor(Math.random() * cheers.length)], 'happy');
         }
 
         function onMascotWordWrong() {
             if (mascotHead) mascotHead.rotation.z = -0.15;
-            setMascotSpeech('どんまいなのだ！もう一回がんばろう！ (Không sao đâu, thử lại nhé~!)', 'sad');
+            setMascotSpeech('おしい！次は絶対いけるって！ (Suýt đúng rồi á, từ sau làm lại được ngay!)', 'sad');
         }
 
         function onMascotClick() {
             mascotJumpSpeed = 0.12;
             mascotCheerTimer = 0.8;
             const greetings = [
-                'ずんだもんだよ！応援してるのだ！ (Zundamon đang cổ vũ bạn nè!)',
-                'キーボードをいっぱい叩いてね！ (Cố lên nào, chém phím thật nhanh nhé!)',
-                'えへへ〜くすぐったいのだ！ (Hihi, nhột quá đi à~!)',
-                '日本語マスターを目指すのだ！ (Cùng nhau trở thành Cao thủ tiếng Nhật nhé!)'
+                'つむぎだよ！一緒にタイピング極めよっ！ (Tsumugi nè! Cùng nhau luyện thành master nhé!)',
+                'えへへ、応援してるからね〜！ (Hihi, Tsumugi luôn cổ vũ bạn đó nha~!)',
+                '埼玉パワー全開でいこう！ (Bật 100% năng lượng lên nào!)',
+                'ふぁいとー！一文字ずつ確実にね！ (Cố lên cố lên! Từng ký tự một thật chắc tay nhé!)'
             ];
             setMascotSpeech(greetings[Math.floor(Math.random() * greetings.length)], 'happy');
         }
@@ -5658,7 +5682,7 @@
             if (!widget) return;
             const isMin = widget.classList.toggle('minimized');
             localStorage.setItem('mascot_minimized', isMin ? 'true' : 'false');
-            showToast(isMin ? '🟢 Đã thu nhỏ Mascot 3D Zundamon' : '🟢 Đã mở rộng Mascot 3D Zundamon', 'info');
+            showToast(isMin ? '🌸 Đã thu nhỏ Mascot 3D Tsumugi' : '🌸 Đã mở rộng Mascot 3D Tsumugi', 'info');
         }
 
         function setMascotSpeech(text, mood = 'happy') {
@@ -6457,7 +6481,7 @@
             if (speakerSelect && quickSelect) {
                 quickSelect.innerHTML = `<option value="webspeech">🌐 Web Speech Browser</option>` + speakerSelect.innerHTML;
                 const engine = localStorage.getItem('tts_engine') || 'webspeech';
-                const speaker = localStorage.getItem('voicevox_speaker') || '3';
+                const speaker = localStorage.getItem('voicevox_speaker') || '8';
                 quickSelect.value = engine === 'voicevox' ? speaker : 'webspeech';
             }
             
@@ -6504,7 +6528,7 @@
         function loadTtsSettings() {
             const engine = localStorage.getItem('tts_engine') || 'webspeech';
             const endpoint = localStorage.getItem('voicevox_endpoint') || 'http://127.0.0.1:50021';
-            const speaker = localStorage.getItem('voicevox_speaker') || '3';
+            const speaker = localStorage.getItem('voicevox_speaker') || '8';
 
             const engineSelect = document.getElementById('tts-engine-select');
             const endpointInput = document.getElementById('voicevox-endpoint');
@@ -6518,7 +6542,7 @@
             syncQuickVoicevoxDropdown();
         }
 
-        async function synthesizeVoicevoxBlob(cleanText, speakerId = '3', endpoint = 'http://127.0.0.1:50021') {
+        async function synthesizeVoicevoxBlob(cleanText, speakerId = '8', endpoint = 'http://127.0.0.1:50021') {
             if (!cleanText) return null;
             const cacheKey = `${speakerId}_${cleanText}`;
             if (voicevoxAudioCache.has(cacheKey)) {
@@ -6561,7 +6585,7 @@
             const engine = localStorage.getItem('tts_engine') || 'webspeech';
             if (engine !== 'voicevox' || !session || !session.words) return;
             const endpoint = localStorage.getItem('voicevox_endpoint') || 'http://127.0.0.1:50021';
-            const speaker = localStorage.getItem('voicevox_speaker') || '3';
+            const speaker = localStorage.getItem('voicevox_speaker') || '8';
             
             // Pre-synthesize current word and upcoming words in background!
             for (let i = session.idx; i < Math.min(session.words.length, session.idx + 4); i++) {
@@ -6573,7 +6597,7 @@
             }
         }
 
-        async function playVoicevoxTTS(text, speakerId = '3', endpoint = 'http://127.0.0.1:50021') {
+        async function playVoicevoxTTS(text, speakerId = '8', endpoint = 'http://127.0.0.1:50021') {
             if (!text) return false;
             const cleanText = text.trim();
             const cacheKey = `${speakerId}_${cleanText}`;
@@ -6626,7 +6650,7 @@
 
         async function testVoicevoxVoice() {
             const endpoint = document.getElementById('voicevox-endpoint').value.trim() || 'http://127.0.0.1:50021';
-            const speaker = document.getElementById('voicevox-speaker-select').value || '3';
+            const speaker = document.getElementById('voicevox-speaker-select').value || '8';
             showToast('🔊 Đang tạo giọng VOICEVOX...', 'info');
             const success = await playVoicevoxTTS('こんにちは！日本語のタイピングを始めましょう！', speaker, endpoint);
             if (success) {
@@ -6653,7 +6677,7 @@
                         select.appendChild(opt);
                     });
                 });
-                const savedSpeaker = localStorage.getItem('voicevox_speaker') || '3';
+                const savedSpeaker = localStorage.getItem('voicevox_speaker') || '8';
                 select.value = savedSpeaker;
                 syncQuickVoicevoxDropdown();
                 showToast(`✅ Đã tải ${select.options.length} kiểu giọng VOICEVOX!`, 'success');
@@ -6702,7 +6726,7 @@
             const engine = localStorage.getItem('tts_engine') || 'webspeech';
             if (engine === 'voicevox') {
                 const endpoint = localStorage.getItem('voicevox_endpoint') || 'http://127.0.0.1:50021';
-                const speaker = customSpeaker || localStorage.getItem('voicevox_speaker') || '3';
+                const speaker = customSpeaker || localStorage.getItem('voicevox_speaker') || '8';
                 const success = await playVoicevoxTTS(text, speaker, endpoint);
                 if (success) return;
             }
