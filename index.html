@@ -302,6 +302,44 @@
             outline: none;
         }
 
+        .anime-eye-group {
+            transform-origin: 110px 132px;
+            animation: eyeBlink 3.8s ease-in-out infinite;
+        }
+
+        @keyframes eyeBlink {
+            0%, 94%, 100% {
+                transform: scaleY(1);
+            }
+            96%, 98% {
+                transform: scaleY(0.08);
+            }
+        }
+
+        @keyframes auraPulse {
+            0%, 100% {
+                transform: scale(0.92);
+                opacity: 0.35;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        .anime-companion-art-wrap {
+            animation: floatBreathing 3s ease-in-out infinite;
+        }
+
+        @keyframes floatBreathing {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
         .mascot-portrait-footer {
             width: 100%;
             padding-top: 10px;
@@ -3317,27 +3355,34 @@
 
                     <!-- Right Column: 3D Mascot Character Studio Card & Progress -->
                     <div class="practice-right-sidebar">
-                        <!-- Live2D VTuber Studio Card -->
-                        <div class="mascot-portrait-card" onclick="onMascotClick()" title="Nhấn vào VTuber để nghe nói chuyện!">
+                        <!-- Live2D / Anime VTuber Studio Card -->
+                        <div class="mascot-portrait-card" id="mascot-portrait-card" onclick="onMascotClick(event)" title="Nhấn vào nhân vật để nghe nói chuyện!">
                             <div class="mascot-portrait-header">
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span class="mascot-dot" style="background: #f472b6; box-shadow: 0 0 8px #f472b6;"></span>
-                                    <span style="font-weight: 700; font-size: 0.9rem; color: #f472b6;" id="mascot-name-label">🌸 Haru VTuber Live2D</span>
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span class="mascot-dot" id="mascot-dot-indicator" style="background: #f472b6; box-shadow: 0 0 8px #f472b6;"></span>
+                                    <select id="mascot-model-select" class="form-input" style="padding: 2px 6px; font-size: 0.8rem; font-weight: 700; height: 26px; border-radius: 6px; background: rgba(13,20,30,0.9); color: #f472b6; border-color: rgba(244,114,182,0.4);" onchange="onMascotModelChange(this.value)" onclick="event.stopPropagation()">
+                                        <option value="haru">🌸 Haru VTuber (Live2D)</option>
+                                        <option value="tsumugi">🎀 Kasukabe Tsumugi (Anime)</option>
+                                        <option value="zundamon">🟢 Zundamon (Anime)</option>
+                                    </select>
                                 </div>
-                                <span class="mascot-voice-indicator" title="Live2D Cubism Motion Sync">🎙️ LIVE2D</span>
+                                <span class="mascot-voice-indicator" id="mascot-type-badge" title="Live Companion Sync">🎙️ LIVE2D</span>
                             </div>
                             
                             <div class="mascot-portrait-canvas-wrap" id="mascot-canvas-container">
                                 <canvas id="mascot-live2d-canvas" width="340" height="400"></canvas>
+                                <div id="mascot-2d-view" style="display:none; width:100%; height:100%; position:relative; align-items:center; justify-content:center;">
+                                    <!-- 2.5D Reactive Anime Avatar -->
+                                </div>
                                 <div id="live2d-loading-spinner" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #f472b6; font-size: 0.82rem;">
                                     <div style="width: 30px; height: 30px; border: 3px solid rgba(244,114,182,0.2); border-top-color: #f472b6; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                                    <span>Đang tải Live2D VTuber...</span>
+                                    <span>Đang tải bạn đồng hành...</span>
                                 </div>
                             </div>
 
                             <div class="mascot-portrait-footer">
                                 <div style="font-size: 0.8rem; color: var(--text3); display: flex; align-items: center; justify-content: center; gap: 6px;">
-                                    <span>🔊 Bấm vào VTuber để nghe nói chuyện</span>
+                                    <span>🔊 Bấm vào để nghe nói chuyện</span>
                                 </div>
                             </div>
                         </div>
@@ -5262,29 +5307,214 @@
             // Confetti visual burst placeholder
         }
 
-        // ========== OFFICIAL LIVE2D CUBISM VTUBER COMPANION ENGINE ==========
+        // ========== OFFICIAL MULTI-MODEL VTUBER & COMPANION ENGINE ==========
+        let currentMascotModelType = localStorage.getItem('selected_mascot_model') || 'haru';
         let live2dApp = null;
         let live2dModel = null;
         let live2dInitialized = false;
+        let _lastMascotClickTime = 0;
 
-        const LIVE2D_MODEL_URL = 'https://fastly.jsdelivr.net/gh/guansss/pixi-live2d-display@master/test/assets/haru/haru_greeter_t03.model3.json';
+        const LIVE2D_MODELS = {
+            haru: {
+                name: 'Haru VTuber',
+                badge: '🎙️ LIVE2D',
+                color: '#f472b6',
+                speaker: '8',
+                type: 'live2d',
+                url: 'https://fastly.jsdelivr.net/gh/guansss/pixi-live2d-display@master/test/assets/haru/haru_greeter_t03.model3.json',
+                quotes: [
+                    "こんにちは！今日も一緒にタイピング練習、がんばりましょう！",
+                    "ナイスタイピング！すごく上達していますよ！",
+                    "えへへ、応援していますからね！ファイトです！",
+                    "その調子です！一文字ずつ正確にいきましょう！",
+                    "すごいすごい！パーフェクトを目指しましょう！",
+                    "タイピングがんばってくださいね！いつも見てますよ！"
+                ]
+            },
+            tsumugi: {
+                name: 'Kasukabe Tsumugi',
+                badge: '🌸 ANIME',
+                color: '#f59e0b',
+                speaker: '8',
+                type: '2d_avatar',
+                quotes: [
+                    "やっほー！つむぎだよ！埼玉ギャル魂でタイピングいっくよー！",
+                    "つむぎが応援してるからね！ガンガンいこう！",
+                    "えへへ、一緒にタイピング練習できて嬉しいな！",
+                    "ナイスタイピング！めっちゃ上手じゃん！",
+                    "埼玉パワー全開でいこう！ファイトー！",
+                    "一文字ずつ確実にね！その調子だよ！"
+                ]
+            },
+            zundamon: {
+                name: 'Zundamon',
+                badge: '🟢 ANIME',
+                color: '#10b981',
+                speaker: '3',
+                type: '2d_avatar',
+                quotes: [
+                    "ずんだもんだよ！応援してるのだ！",
+                    "キーボードをいっぱい叩いてね！",
+                    "えへへ〜くすぐったいのだ！",
+                    "日本語マスターを目指すのだ！",
+                    "パーフェクトなのだ！かっこいいのだ！",
+                    "ファイトなのだ！ずんだパワー注入なのだ！"
+                ]
+            }
+        };
 
-        const vtuberVoiceQuotes = [
-            "こんにちは！今日も一緒にタイピング練習、がんばりましょう！",
-            "ナイスタイピング！すごく上達していますよ！",
-            "えへへ、応援していますからね！ファイトです！",
-            "その調子です！一文字ずつ正確にいきましょう！",
-            "すごいすごい！パーフェクトを目指しましょう！",
-            "タイピングがんばってくださいね！いつも見てますよ！"
-        ];
+        function getTsumugiAnimeSvg() {
+            return `
+                <svg width="220" height="260" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 12px 24px rgba(245,158,11,0.25));">
+                    <!-- Twin-tails Left -->
+                    <path d="M 50 110 C 15 140 0 200 25 240 C 40 210 55 180 65 140 Z" fill="url(#tsuHairGrad)" />
+                    <!-- Twin-tails Right -->
+                    <path d="M 170 110 C 205 140 220 200 195 240 C 180 210 165 180 155 140 Z" fill="url(#tsuHairGrad)" />
+                    <!-- Hair Ribbons -->
+                    <rect x="42" y="105" width="16" height="8" rx="4" fill="#f472b6" transform="rotate(-20 42 105)" />
+                    <rect x="162" y="100" width="16" height="8" rx="4" fill="#f472b6" transform="rotate(20 162 100)" />
+                    <!-- Body / Sailor Outfit -->
+                    <path d="M 65 210 L 155 210 L 175 260 L 45 260 Z" fill="#ffffff" />
+                    <path d="M 75 210 L 110 245 L 145 210 L 165 230 L 110 260 L 55 230 Z" fill="#1e3a8a" />
+                    <path d="M 104 225 L 116 225 L 122 255 L 110 260 L 98 255 Z" fill="#f43f5e" />
+                    <!-- Neck -->
+                    <rect x="98" y="180" width="24" height="35" fill="#ffe4d6" rx="4" />
+                    <!-- Head Base -->
+                    <ellipse cx="110" cy="135" rx="55" ry="58" fill="#fff0e6" />
+                    <!-- Cheeks (Blush) -->
+                    <ellipse cx="75" cy="148" rx="12" ry="7" fill="#f472b6" opacity="0.55" />
+                    <ellipse cx="145" cy="148" rx="12" ry="7" fill="#f472b6" opacity="0.55" />
+                    <!-- Anime Eyes (With CSS Blinking) -->
+                    <g id="anime-eyes" class="anime-eye-group">
+                        <!-- Left Eye -->
+                        <ellipse cx="82" cy="132" rx="11" ry="15" fill="#0284c7" />
+                        <ellipse cx="82" cy="132" rx="8" ry="11" fill="#0369a1" />
+                        <circle cx="80" cy="126" r="4.5" fill="#ffffff" />
+                        <circle cx="85" cy="138" r="2.5" fill="#ffffff" />
+                        <path d="M 68 118 Q 82 112 96 119" stroke="#b45309" stroke-width="3" stroke-linecap="round" fill="none" />
+                        <!-- Right Eye -->
+                        <ellipse cx="138" cy="132" rx="11" ry="15" fill="#0284c7" />
+                        <ellipse cx="138" cy="132" rx="8" ry="11" fill="#0369a1" />
+                        <circle cx="136" cy="126" r="4.5" fill="#ffffff" />
+                        <circle cx="141" cy="138" r="2.5" fill="#ffffff" />
+                        <path d="M 124 119 Q 138 112 152 118" stroke="#b45309" stroke-width="3" stroke-linecap="round" fill="none" />
+                    </g>
+                    <!-- Nose -->
+                    <circle cx="110" cy="146" r="1.5" fill="#e09f80" />
+                    <!-- Lip-Sync Reactive Mouth -->
+                    <g id="anime-mouth" style="transform-origin: 110px 162px; transition: transform 0.08s ease;">
+                        <path d="M 100 160 Q 110 168 120 160 Q 110 162 100 160 Z" fill="#fb7185" />
+                    </g>
+                    <!-- Front Hair & Bangs -->
+                    <path d="M 50 110 Q 110 60 170 110 C 160 135 150 140 145 115 C 135 145 125 140 120 115 C 110 145 100 145 95 115 C 85 140 75 140 65 115 C 60 135 55 130 50 110 Z" fill="url(#tsuHairGrad)" />
+                    <!-- Star Clip -->
+                    <path d="M 68 85 L 72 95 L 82 95 L 74 101 L 77 111 L 68 105 L 59 111 L 62 101 L 54 95 L 64 95 Z" fill="#38bdf8" />
+                    <!-- Gradients -->
+                    <defs>
+                        <linearGradient id="tsuHairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#fde047" />
+                            <stop offset="100%" stop-color="#f59e0b" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            `;
+        }
 
-        async function init3DMascotCompanion() {
-            if (live2dInitialized) return;
+        function getZundamonAnimeSvg() {
+            return `
+                <svg width="220" height="260" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 12px 24px rgba(16,185,129,0.25));">
+                    <!-- Edamame Ears Left -->
+                    <ellipse cx="48" cy="95" rx="18" ry="38" fill="url(#zundaHairGrad)" transform="rotate(-30 48 95)" />
+                    <circle cx="44" cy="85" r="5" fill="#86efac" />
+                    <!-- Edamame Ears Right -->
+                    <ellipse cx="172" cy="95" rx="18" ry="38" fill="url(#zundaHairGrad)" transform="rotate(30 172 95)" />
+                    <circle cx="176" cy="85" r="5" fill="#86efac" />
+                    <!-- Body / Kimono -->
+                    <path d="M 65 210 L 155 210 L 175 260 L 45 260 Z" fill="#ffffff" />
+                    <path d="M 75 210 L 110 245 L 145 210 L 155 225 L 110 260 L 65 225 Z" fill="#10b981" />
+                    <!-- Bell / Ribbon -->
+                    <circle cx="110" cy="225" r="9" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
+                    <!-- Neck -->
+                    <rect x="98" y="180" width="24" height="35" fill="#ffe4d6" rx="4" />
+                    <!-- Head Base -->
+                    <ellipse cx="110" cy="135" rx="55" ry="58" fill="#fff0e6" />
+                    <!-- Cheeks (Blush) -->
+                    <ellipse cx="75" cy="148" rx="12" ry="7" fill="#f472b6" opacity="0.55" />
+                    <ellipse cx="145" cy="148" rx="12" ry="7" fill="#f472b6" opacity="0.55" />
+                    <!-- Anime Eyes (With CSS Blinking) -->
+                    <g id="anime-eyes" class="anime-eye-group">
+                        <!-- Left Eye -->
+                        <ellipse cx="82" cy="132" rx="11" ry="15" fill="#059669" />
+                        <ellipse cx="82" cy="132" rx="8" ry="11" fill="#047857" />
+                        <circle cx="80" cy="126" r="4.5" fill="#ffffff" />
+                        <circle cx="85" cy="138" r="2.5" fill="#ffffff" />
+                        <path d="M 68 118 Q 82 112 96 119" stroke="#065f46" stroke-width="3" stroke-linecap="round" fill="none" />
+                        <!-- Right Eye -->
+                        <ellipse cx="138" cy="132" rx="11" ry="15" fill="#059669" />
+                        <ellipse cx="138" cy="132" rx="8" ry="11" fill="#047857" />
+                        <circle cx="136" cy="126" r="4.5" fill="#ffffff" />
+                        <circle cx="141" cy="138" r="2.5" fill="#ffffff" />
+                        <path d="M 124 119 Q 138 112 152 118" stroke="#065f46" stroke-width="3" stroke-linecap="round" fill="none" />
+                    </g>
+                    <!-- Nose -->
+                    <circle cx="110" cy="146" r="1.5" fill="#e09f80" />
+                    <!-- Lip-Sync Reactive Mouth -->
+                    <g id="anime-mouth" style="transform-origin: 110px 162px; transition: transform 0.08s ease;">
+                        <path d="M 102 160 Q 110 168 118 160 Q 110 162 102 160 Z" fill="#fb7185" />
+                    </g>
+                    <!-- Green Front Hair & Bangs -->
+                    <path d="M 50 110 Q 110 60 170 110 C 160 135 150 140 145 115 C 135 145 125 140 120 115 C 110 145 100 145 95 115 C 85 140 75 140 65 115 C 60 135 55 130 50 110 Z" fill="url(#zundaHairGrad)" />
+                    <!-- Gradients -->
+                    <defs>
+                        <linearGradient id="zundaHairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#86efac" />
+                            <stop offset="100%" stop-color="#10b981" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            `;
+        }
+
+        function render2DAnimeCompanion(modelKey) {
+            const container = document.getElementById('mascot-2d-view');
+            if (!container) return;
+
+            const isTsumugi = modelKey === 'tsumugi';
+            const themeColor = isTsumugi ? '#f59e0b' : '#10b981';
+            const charName = isTsumugi ? '春日部つむぎ' : 'ずんだもん';
+            const subTitle = isTsumugi ? '🌸 埼玉ギャル • VOICEVOX #8' : '🟢 ずんだの精霊 • VOICEVOX #3';
+
+            container.innerHTML = `
+                <div class="anime-companion-art-wrap" style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; cursor: pointer;">
+                    <!-- Glowing Aura -->
+                    <div id="mascot-aura" style="position: absolute; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, ${themeColor}33 0%, transparent 70%); animation: auraPulse 3s ease-in-out infinite;"></div>
+                    
+                    <!-- Stylized Anime Character Portrait with Live Lip-sync & Eye Animation -->
+                    <div id="anime-avatar-art" style="position: relative; z-index: 2; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                        ${isTsumugi ? getTsumugiAnimeSvg() : getZundamonAnimeSvg()}
+                    </div>
+
+                    <!-- Character Name Banner -->
+                    <div style="margin-top: 8px; text-align: center; z-index: 2;">
+                        <div style="font-weight: 700; font-size: 0.92rem; color: ${themeColor};">${charName}</div>
+                        <div style="font-size: 0.72rem; color: var(--text3); margin-top: 2px;">${subTitle}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function initLive2DModel() {
             const canvas = document.getElementById('mascot-live2d-canvas');
             if (!canvas) return;
 
+            if (live2dInitialized && live2dApp && live2dModel) {
+                const spinner = document.getElementById('live2d-loading-spinner');
+                if (spinner) spinner.style.display = 'none';
+                return;
+            }
+
             if (!window.PIXI || !window.PIXI.live2d) {
-                setTimeout(init3DMascotCompanion, 250);
+                setTimeout(initLive2DModel, 250);
                 return;
             }
             live2dInitialized = true;
@@ -5307,16 +5537,15 @@
                     antialias: true
                 });
 
-                const model = await Live2DModel.from(LIVE2D_MODEL_URL, {
+                const model = await Live2DModel.from(LIVE2D_MODELS.haru.url, {
                     autoInteract: false
                 });
 
                 live2dModel = model;
                 live2dApp.stage.addChild(model);
 
-                // Auto scale and position model to perfectly fit the portrait card
-                const scale = 0.175;
-                model.scale.set(scale);
+                // Auto scale and position model
+                model.scale.set(0.175);
                 model.x = 170 - (model.width * 0.5);
                 model.y = -10;
 
@@ -5326,25 +5555,12 @@
 
                 // Mouse pointer tracking
                 window.addEventListener('mousemove', (e) => {
-                    if (!live2dModel) return;
+                    if (!live2dModel || currentMascotModelType !== 'haru') return;
                     const rect = canvas.getBoundingClientRect();
                     const posX = e.clientX - rect.left;
                     const posY = e.clientY - rect.top;
                     if (live2dModel.focus) {
                         live2dModel.focus(posX, posY);
-                    }
-                });
-
-                // Auto Lip-Sync loop when audio / VOICEVOX is speaking
-                live2dApp.ticker.add(() => {
-                    if (!live2dModel) return;
-                    const isSpeaking = (currentVoicevoxAudio && !currentVoicevoxAudio.paused) || 
-                                       (window.speechSynthesis && window.speechSynthesis.speaking);
-                    if (isSpeaking && live2dModel.internalModel && live2dModel.internalModel.coreModel) {
-                        const mouthVal = Math.abs(Math.sin(Date.now() * 0.018)) * 0.95 + 0.05;
-                        try {
-                            live2dModel.internalModel.coreModel.setParameterValueById('ParamMouthOpenY', mouthVal);
-                        } catch(e) {}
                     }
                 });
 
@@ -5357,46 +5573,140 @@
             }
         }
 
-        // Mascot Reactions for Live2D VTuber
-        function onMascotTypingHit(isValid = true) {
+        function onMascotModelChange(modelKey) {
+            currentMascotModelType = modelKey;
+            localStorage.setItem('selected_mascot_model', modelKey);
+            const modelCfg = LIVE2D_MODELS[modelKey] || LIVE2D_MODELS.haru;
+
+            const badge = document.getElementById('mascot-type-badge');
+            const dot = document.getElementById('mascot-dot-indicator');
+            const select = document.getElementById('mascot-model-select');
+            if (select) select.value = modelKey;
+            if (badge) badge.textContent = modelCfg.badge;
+            if (dot) {
+                dot.style.background = modelCfg.color;
+                dot.style.boxShadow = `0 0 8px ${modelCfg.color}`;
+            }
+
+            const canvas = document.getElementById('mascot-live2d-canvas');
+            const avatar2d = document.getElementById('mascot-2d-view');
+
+            if (modelCfg.type === 'live2d') {
+                if (canvas) canvas.style.display = 'block';
+                if (avatar2d) avatar2d.style.display = 'none';
+                initLive2DModel();
+            } else {
+                if (canvas) canvas.style.display = 'none';
+                if (avatar2d) {
+                    avatar2d.style.display = 'flex';
+                    render2DAnimeCompanion(modelKey);
+                }
+                const spinner = document.getElementById('live2d-loading-spinner');
+                if (spinner) spinner.style.display = 'none';
+            }
+
+            // Sync speaker in quick dropdown
+            const quickSelect = document.getElementById('quick-voicevox-speaker');
+            if (quickSelect && modelCfg.speaker) {
+                localStorage.setItem('voicevox_speaker', modelCfg.speaker);
+                quickSelect.value = modelCfg.speaker;
+            }
+
+            showToast(`✨ Đã chuyển sang bạn đồng hành: ${modelCfg.name}`, 'success');
+        }
+
+        function init3DMascotCompanion() {
+            const saved = localStorage.getItem('selected_mascot_model') || 'haru';
+            onMascotModelChange(saved);
+        }
+
+        // Live Continuous Lip-sync Interval (Works for both Live2D & 2D Anime Avatar)
+        setInterval(() => {
+            const isSpeaking = (currentVoicevoxAudio && !currentVoicevoxAudio.paused) || 
+                               (window.speechSynthesis && window.speechSynthesis.speaking);
+            
+            // 1. Live2D Lip-sync
             if (live2dModel && live2dModel.internalModel && live2dModel.internalModel.coreModel) {
-                try {
-                    // Slight breathing / reaction on keypress
-                } catch(e) {}
+                if (isSpeaking) {
+                    const mouthVal = Math.abs(Math.sin(Date.now() * 0.018)) * 0.95 + 0.05;
+                    try {
+                        live2dModel.internalModel.coreModel.setParameterValueById('ParamMouthOpenY', mouthVal);
+                    } catch(e) {}
+                }
+            }
+
+            // 2. 2D Anime Avatar Lip-sync
+            const mouth2d = document.getElementById('anime-mouth');
+            if (mouth2d) {
+                if (isSpeaking) {
+                    const openScale = 1 + Math.abs(Math.sin(Date.now() * 0.022)) * 2.2;
+                    mouth2d.style.transform = `scaleY(${openScale})`;
+                } else {
+                    mouth2d.style.transform = 'scaleY(1)';
+                }
+            }
+        }, 30);
+
+        // Mascot Reactions
+        function onMascotTypingHit(isValid = true) {
+            const art = document.getElementById('anime-avatar-art');
+            if (art && currentMascotModelType !== 'haru') {
+                art.style.transform = 'translateY(2px)';
+                setTimeout(() => { if (art) art.style.transform = 'translateY(0)'; }, 70);
             }
         }
 
         function onMascotWordCorrect() {
-            if (live2dModel) {
+            const modelCfg = LIVE2D_MODELS[currentMascotModelType] || LIVE2D_MODELS.haru;
+            if (modelCfg.type === 'live2d' && live2dModel) {
                 try {
-                    if (live2dModel.motion) {
-                        live2dModel.motion('TapBody');
-                    }
+                    if (live2dModel.motion) live2dModel.motion('TapBody');
                 } catch(e) {}
+            } else {
+                const art = document.getElementById('anime-avatar-art');
+                if (art && window.gsap) {
+                    gsap.fromTo(art, { y: 0, scale: 1 }, { y: -16, scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" });
+                }
             }
         }
 
         function onMascotWordWrong() {
-            if (live2dModel) {
+            const modelCfg = LIVE2D_MODELS[currentMascotModelType] || LIVE2D_MODELS.haru;
+            if (modelCfg.type === 'live2d' && live2dModel) {
                 try {
-                    if (live2dModel.expression) {
-                        live2dModel.expression('f01');
-                    }
+                    if (live2dModel.expression) live2dModel.expression('f01');
                 } catch(e) {}
+            } else {
+                const art = document.getElementById('anime-avatar-art');
+                if (art && window.gsap) {
+                    gsap.fromTo(art, { x: -6 }, { x: 6, duration: 0.08, repeat: 3, yoyo: true, ease: "power1.inOut", onComplete: () => { gsap.set(art, { x: 0 }); } });
+                }
             }
         }
 
-        function onMascotClick() {
-            if (live2dModel) {
+        function onMascotClick(event) {
+            if (event && event.stopPropagation) event.stopPropagation();
+            const now = Date.now();
+            if (now - _lastMascotClickTime < 600) return; // Prevent double trigger
+            _lastMascotClickTime = now;
+
+            const modelCfg = LIVE2D_MODELS[currentMascotModelType] || LIVE2D_MODELS.haru;
+
+            if (modelCfg.type === 'live2d' && live2dModel) {
                 try {
-                    if (live2dModel.motion) {
-                        live2dModel.motion('Tap');
-                    }
+                    if (live2dModel.motion) live2dModel.motion('Tap');
                 } catch(e) {}
+            } else {
+                const art = document.getElementById('anime-avatar-art');
+                if (art && window.gsap) {
+                    gsap.fromTo(art, { y: 0, scale: 1 }, { y: -20, scale: 1.1, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out" });
+                }
             }
-            const quote = vtuberVoiceQuotes[Math.floor(Math.random() * vtuberVoiceQuotes.length)];
-            const savedSpeaker = localStorage.getItem('voicevox_speaker') || '8';
-            playTTS(quote, savedSpeaker);
+
+            const quotes = modelCfg.quotes || vtuberVoiceQuotes;
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
+            playTTS(quote, speaker);
         }
 
         function setMascotSpeech(text, mood = 'happy') {
@@ -6302,6 +6612,32 @@
             }
         }
 
+        let _currentAudioInstance = null;
+        let _ttsSequenceCounter = 0;
+
+        function stopAllTTSAudio() {
+            _ttsSequenceCounter++;
+            if (window.speechSynthesis) {
+                try {
+                    window.speechSynthesis.cancel();
+                } catch(e) {}
+            }
+            if (_currentAudioInstance) {
+                try {
+                    _currentAudioInstance.pause();
+                    _currentAudioInstance.currentTime = 0;
+                } catch(e) {}
+                _currentAudioInstance = null;
+            }
+            if (currentVoicevoxAudio) {
+                try {
+                    currentVoicevoxAudio.pause();
+                    currentVoicevoxAudio.currentTime = 0;
+                } catch(e) {}
+                currentVoicevoxAudio = null;
+            }
+        }
+
         async function playVoicevoxTTS(text, speakerId = '8', endpoint = 'http://127.0.0.1:50021') {
             if (!text) return false;
             const cleanText = text.trim();
@@ -6319,12 +6655,16 @@
         }
 
         function playAudioUrl(url) {
-            if (currentVoicevoxAudio) {
-                try { currentVoicevoxAudio.pause(); currentVoicevoxAudio.currentTime = 0; } catch (e) {}
+            stopAllTTSAudio();
+            try {
+                const audio = new Audio(url);
+                audio.volume = getTtsVolume();
+                currentVoicevoxAudio = audio;
+                _currentAudioInstance = audio;
+                audio.play().catch(e => console.warn('VOICEVOX audio play warning', e));
+            } catch(e) {
+                console.warn('Audio play exception', e);
             }
-            currentVoicevoxAudio = new Audio(url);
-            currentVoicevoxAudio.volume = getTtsVolume();
-            currentVoicevoxAudio.play().catch(e => console.warn('VOICEVOX audio play error', e));
         }
 
         async function checkVoicevoxConnection() {
@@ -6407,10 +6747,10 @@
         function playWebSpeech(text) {
             if (!('speechSynthesis' in window) || !text) return;
             try {
+                stopAllTTSAudio();
                 if (window.speechSynthesis.paused) {
                     window.speechSynthesis.resume();
                 }
-                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text.trim());
                 utterance.lang = 'ja-JP';
                 utterance.rate = 0.95;
@@ -6428,14 +6768,23 @@
 
         async function playTTS(text, customSpeaker = null) {
             if (!text) return;
+            const cleanText = text.trim();
+            if (!cleanText) return;
+
+            stopAllTTSAudio();
+            const currentSeq = _ttsSequenceCounter;
+
             const engine = localStorage.getItem('tts_engine') || 'webspeech';
             if (engine === 'voicevox') {
                 const endpoint = localStorage.getItem('voicevox_endpoint') || 'http://127.0.0.1:50021';
                 const speaker = customSpeaker || localStorage.getItem('voicevox_speaker') || '8';
-                const success = await playVoicevoxTTS(text, speaker, endpoint);
+                const success = await playVoicevoxTTS(cleanText, speaker, endpoint);
+                if (currentSeq !== _ttsSequenceCounter) return;
                 if (success) return;
             }
-            playWebSpeech(text);
+            if (currentSeq === _ttsSequenceCounter) {
+                playWebSpeech(cleanText);
+            }
         }
 
         function flipFlashcard() {
