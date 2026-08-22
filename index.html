@@ -5284,8 +5284,8 @@
                 speaker: '8',
                 color: '#fbbf24',
                 url: 'https://fastly.jsdelivr.net/gh/Live2D/CubismWebSamples/Samples/Resources/Mao/Mao.model3.json',
-                scale: 0.145,
-                yOffset: -35,
+                scale: 0.105,
+                yOffset: 0,
                 quotes: [
                     "こんにちは！真央と一緒にタイピングマスターを目指そう！",
                     "ナイス！バッチリ合ってるよ！",
@@ -5471,10 +5471,10 @@
                 live2dApp.stage.addChild(newModel);
 
                 // Auto scale and center
-                const scale = modelCfg.scale || 0.145;
+                const scale = modelCfg.scale || 0.105;
                 newModel.scale.set(scale);
                 newModel.x = 170 - (newModel.width * 0.5);
-                newModel.y = modelCfg.yOffset !== undefined ? modelCfg.yOffset : -35;
+                newModel.y = modelCfg.yOffset !== undefined ? modelCfg.yOffset : 0;
 
                 // Attach robust lip-sync & emotion hook
                 hookLive2DCoreModel(newModel);
