@@ -1719,8 +1719,9 @@
 
         .form-input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-            background: #fff;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+            background: var(--bg2);
+            color: var(--text);
         }
 
         .form-input[readonly] {
@@ -1749,19 +1750,22 @@
         }
 
         .btn-add:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
         }
 
         .json-import-area {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
         }
 
         .json-textarea {
             width: 100%;
-            min-height: 130px;
+            height: 100px;
             padding: 12px;
             border-radius: 10px;
             resize: vertical;
@@ -1776,7 +1780,8 @@
 
         .json-textarea:focus {
             border-color: var(--accent);
-            background: #fff;
+            background: var(--bg2);
+            color: var(--text);
         }
 
         .btn-import {
