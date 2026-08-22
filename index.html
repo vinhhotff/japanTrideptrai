@@ -3106,12 +3106,17 @@
                                     <div class="word-index" id="word-index">1 / 10</div>
                                     <div id="combo-badge" class="combo-pill" style="display:none;">🔥 COMBO x0</div>
                                 </div>
-                                <!-- Quick VOICEVOX Speaker Switcher -->
+                                <!-- Quick VOICEVOX Speaker Switcher & Volume Control -->
                                 <div class="quick-voice-bar" style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); padding: 3px 8px; border-radius: 10px;">
                                     <span style="font-size: 0.78rem; color: var(--text3); display: flex; align-items: center; gap: 4px;">🎙️ Đổi giọng:</span>
                                     <select id="quick-voicevox-speaker" class="form-input" style="padding: 2px 8px; font-size: 0.8rem; height: 28px; width: auto; max-width: 170px; border-radius: 6px; background: var(--bg); color: var(--text);" onchange="onQuickVoicevoxChange(this.value)">
                                     </select>
                                     <button type="button" class="btn btn-hint" style="padding: 2px 7px; font-size: 0.75rem; height: 28px; border-radius: 6px;" onclick="replayCurrentWordAudio()" title="Nghe lại với giọng này">🔊 Nghe</button>
+                                    <div style="display: flex; align-items: center; gap: 4px; border-left: 1px solid rgba(255,255,255,0.12); padding-left: 6px; margin-left: 2px;" title="Chỉnh âm lượng phát âm">
+                                        <span style="font-size: 0.75rem;">🔈</span>
+                                        <input type="range" id="quick-volume-slider" min="0" max="100" value="80" style="width: 55px; height: 4px; accent-color: var(--accent); cursor: pointer;" oninput="onTtsVolumeChange(this.value)" title="Âm lượng: 80%">
+                                        <span id="quick-volume-label" style="font-size: 0.72rem; color: var(--text3); min-width: 26px;">80%</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="word-parts-info" id="word-parts-info"></div>
@@ -3712,6 +3717,18 @@
                                 <option value="webspeech">🔊 Web Speech API (Trình duyệt mặc định - Không cần cài đặt)</option>
                                 <option value="voicevox">🎙️ VOICEVOX Engine (Giọng Anime Studio - Cần bật app VOICEVOX)</option>
                             </select>
+                        </div>
+
+                        <div>
+                            <label style="font-size: 0.85rem; color: var(--text3); font-weight: 600; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <span>🔊 Âm lượng phát âm (VOICEVOX / TTS):</span>
+                                <span id="settings-volume-label" style="color: var(--accent); font-weight: 700;">80%</span>
+                            </label>
+                            <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.2); padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border);">
+                                <span style="font-size: 0.9rem;">🔈</span>
+                                <input type="range" id="settings-volume-slider" min="0" max="100" value="80" style="flex: 1; height: 6px; accent-color: var(--accent); cursor: pointer;" oninput="onTtsVolumeChange(this.value)">
+                                <span style="font-size: 0.9rem;">🔊</span>
+                            </div>
                         </div>
 
                         <div id="voicevox-options" style="display: none; flex-direction: column; gap: 14px; background: rgba(0,0,0,0.25); padding: 16px; border-radius: 12px; border: 1px dashed rgba(255,255,255,0.15);">
@@ -5849,6 +5866,33 @@
         let currentVoicevoxAudio = null;
         const voicevoxAudioCache = new Map();
 
+        function getTtsVolume() {
+            const raw = localStorage.getItem('tts_volume');
+            if (raw === null || raw === undefined || raw === '') return 0.8;
+            const val = parseFloat(raw);
+            if (isNaN(val)) return 0.8;
+            return Math.max(0, Math.min(1, val / 100));
+        }
+
+        function onTtsVolumeChange(val) {
+            const num = parseInt(val, 10) || 0;
+            localStorage.setItem('tts_volume', String(num));
+            
+            const quickSlider = document.getElementById('quick-volume-slider');
+            const quickLabel = document.getElementById('quick-volume-label');
+            const settingsSlider = document.getElementById('settings-volume-slider');
+            const settingsLabel = document.getElementById('settings-volume-label');
+
+            if (quickSlider) quickSlider.value = num;
+            if (quickLabel) quickLabel.textContent = `${num}%`;
+            if (settingsSlider) settingsSlider.value = num;
+            if (settingsLabel) settingsLabel.textContent = `${num}%`;
+
+            if (currentVoicevoxAudio) {
+                try { currentVoicevoxAudio.volume = num / 100; } catch (e) {}
+            }
+        }
+
         function saveTtsSettings() {
             const engine = document.getElementById('tts-engine-select').value;
             const endpoint = document.getElementById('voicevox-endpoint').value.trim() || 'http://127.0.0.1:50021';
@@ -5868,12 +5912,24 @@
         function syncQuickVoicevoxDropdown() {
             const speakerSelect = document.getElementById('voicevox-speaker-select');
             const quickSelect = document.getElementById('quick-voicevox-speaker');
-            if (!speakerSelect || !quickSelect) return;
+            if (speakerSelect && quickSelect) {
+                quickSelect.innerHTML = `<option value="webspeech">🌐 Web Speech Browser</option>` + speakerSelect.innerHTML;
+                const engine = localStorage.getItem('tts_engine') || 'webspeech';
+                const speaker = localStorage.getItem('voicevox_speaker') || '3';
+                quickSelect.value = engine === 'voicevox' ? speaker : 'webspeech';
+            }
             
-            quickSelect.innerHTML = `<option value="webspeech">🌐 Web Speech Browser</option>` + speakerSelect.innerHTML;
-            const engine = localStorage.getItem('tts_engine') || 'webspeech';
-            const speaker = localStorage.getItem('voicevox_speaker') || '3';
-            quickSelect.value = engine === 'voicevox' ? speaker : 'webspeech';
+            // Sync volume sliders and labels
+            const savedVol = localStorage.getItem('tts_volume') !== null ? localStorage.getItem('tts_volume') : '80';
+            const quickSlider = document.getElementById('quick-volume-slider');
+            const quickLabel = document.getElementById('quick-volume-label');
+            const settingsSlider = document.getElementById('settings-volume-slider');
+            const settingsLabel = document.getElementById('settings-volume-label');
+
+            if (quickSlider) quickSlider.value = savedVol;
+            if (quickLabel) quickLabel.textContent = `${savedVol}%`;
+            if (settingsSlider) settingsSlider.value = savedVol;
+            if (settingsLabel) settingsLabel.textContent = `${savedVol}%`;
         }
 
         function onQuickVoicevoxChange(speakerVal) {
@@ -5996,6 +6052,7 @@
                 try { currentVoicevoxAudio.pause(); currentVoicevoxAudio.currentTime = 0; } catch (e) {}
             }
             currentVoicevoxAudio = new Audio(url);
+            currentVoicevoxAudio.volume = getTtsVolume();
             currentVoicevoxAudio.play().catch(e => console.warn('VOICEVOX audio play error', e));
         }
 
@@ -6086,6 +6143,7 @@
                 const utterance = new SpeechSynthesisUtterance(text.trim());
                 utterance.lang = 'ja-JP';
                 utterance.rate = 0.95;
+                utterance.volume = getTtsVolume();
                 const jaVoice = getJapaneseVoice();
                 if (jaVoice) utterance.voice = jaVoice;
                 _activeUtterance = utterance;
