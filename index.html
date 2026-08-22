@@ -161,44 +161,60 @@
             display: block;
         }
 
-        /* PRACTICE TAB */
+        /* PRACTICE TAB - FULL WIDTH ARENA */
+        #practice-view {
+            width: 100%;
+            margin: 0 auto;
+        }
+
         .practice-layout {
             display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 20px;
-            align-items: start;
+            grid-template-columns: 1fr 340px;
+            gap: 24px;
+            align-items: stretch;
+            width: 100%;
+            margin: 0 auto;
         }
 
         @media (max-width: 1024px) {
-            #practice-view .sidebar {
-                display: none !important;
-            }
             .practice-layout {
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                width: 100% !important;
-                max-width: 600px !important;
-                margin: 0 auto !important;
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
-            .practice-layout > div:first-child {
+            .practice-right-sidebar {
                 width: 100% !important;
+                max-width: 480px;
+                margin: 0 auto;
             }
-            #word-card {
-                width: 100% !important;
-                margin: 0 auto !important;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7) !important;
-            }
+        }
+
+        .practice-main-column {
+            width: 100%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .practice-right-sidebar {
+            width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .word-card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 20px;
-            padding: 32px;
+            padding: 36px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
         }
 
         .word-card::before {
@@ -209,6 +225,85 @@
             right: 0;
             height: 3px;
             background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+        }
+
+        /* 3D MASCOT PORTRAIT STUDIO CARD */
+        .mascot-portrait-card {
+            background: linear-gradient(180deg, rgba(22, 28, 38, 0.98) 0%, rgba(13, 20, 30, 0.98) 100%);
+            border: 1.5px solid rgba(244, 114, 182, 0.35);
+            border-radius: 20px;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), inset 0 0 24px rgba(244, 114, 182, 0.05);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
+            flex: 1;
+            min-height: 480px;
+        }
+
+        .mascot-portrait-card:hover {
+            border-color: rgba(244, 114, 182, 0.7);
+            box-shadow: 0 16px 44px rgba(0, 0, 0, 0.7), 0 0 30px rgba(244, 114, 182, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .mascot-portrait-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f472b6, #fbbf24, #38bdf8);
+        }
+
+        .mascot-portrait-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 8px;
+        }
+
+        .mascot-voice-indicator {
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            background: rgba(244, 114, 182, 0.15);
+            color: #f472b6;
+            border-radius: 99px;
+            border: 1px solid rgba(244, 114, 182, 0.3);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .mascot-portrait-canvas-wrap {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #mascot-3d-canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+            outline: none;
+        }
+
+        .mascot-portrait-footer {
+            width: 100%;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
         }
 
         .word-index {
@@ -3029,132 +3124,9 @@
             to { transform: rotate(360deg); }
         }
 
-        /* 3D ZUNDAMON MASCOT COMPANION */
-        .mascot-widget {
-            position: fixed;
-            bottom: 18px;
-            right: 22px;
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-            user-select: none;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
-        }
-
-        .mascot-widget.minimized {
-            transform: translateY(180px);
-            opacity: 0.8;
-        }
-
-        .mascot-widget.hidden {
-            display: none !important;
-        }
-
-        .mascot-bubble {
-            background: rgba(13, 20, 30, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1.5px solid rgba(52, 211, 153, 0.45);
-            border-radius: 14px;
-            padding: 8px 14px;
-            font-size: 0.8rem;
-            color: #ffffff;
-            max-width: 220px;
-            text-align: center;
-            line-height: 1.4;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(52, 211, 153, 0.2);
-            margin-bottom: 6px;
-            pointer-events: auto;
-            position: relative;
-            animation: mascotBubbleFloat 3s ease-in-out infinite alternate;
-            transition: all 0.25s ease;
-        }
-
-        .mascot-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -7px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 7px 7px 0;
-            border-style: solid;
-            border-color: rgba(52, 211, 153, 0.45) transparent transparent;
-        }
-
-        @keyframes mascotBubbleFloat {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-4px); }
-        }
-
-        .mascot-canvas-wrap {
-            position: relative;
-            width: 200px;
-            height: 220px;
-            pointer-events: auto;
-            cursor: pointer;
-            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .mascot-canvas-wrap:hover {
-            transform: scale(1.04);
-        }
-
-        #mascot-3d-canvas {
-            width: 200px;
-            height: 220px;
-            outline: none;
-            display: block;
-        }
-
-        .mascot-name-badge {
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(13, 20, 30, 0.88);
-            border: 1px solid rgba(52, 211, 153, 0.35);
-            backdrop-filter: blur(8px);
-            padding: 3px 10px;
-            border-radius: 99px;
-            font-size: 0.72rem;
-            color: #34d399;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .mascot-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 6px #10b981;
-            animation: pulseDot 2s infinite;
-        }
-
         @keyframes pulseDot {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.4; transform: scale(0.8); }
-        }
-
-        .mascot-toggle-btn {
-            background: none;
-            border: none;
-            color: var(--text3);
-            font-size: 0.8rem;
-            cursor: pointer;
-            padding: 0 2px;
-            margin-left: 2px;
-            transition: color 0.2s;
-        }
-
-        .mascot-toggle-btn:hover {
-            color: #f43f5e;
         }
     </style>
 </head>
@@ -3231,7 +3203,8 @@
 
             <div id="practice-view" style="display:none;">
                 <div class="practice-layout">
-                    <div>
+                    <!-- Left Column: Main Typing Arena -->
+                    <div class="practice-main-column">
                         <!-- Word card -->
                         <div class="word-card" id="word-card">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
@@ -3339,8 +3312,30 @@
                         </div>
                     </div>
 
-                    <!-- Sidebar -->
-                    <div class="sidebar">
+                    <!-- Right Column: 3D Mascot Character Studio Card & Progress -->
+                    <div class="practice-right-sidebar">
+                        <!-- 3D Mascot Character Studio Card -->
+                        <div class="mascot-portrait-card" onclick="onMascotClick()" title="Nhấn vào Tsumugi để nghe nói chuyện!">
+                            <div class="mascot-portrait-header">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="mascot-dot" style="background: #f472b6; box-shadow: 0 0 8px #f472b6;"></span>
+                                    <span style="font-weight: 700; font-size: 0.9rem; color: #f472b6;">🌸 春日部つむぎ 3D</span>
+                                </div>
+                                <span class="mascot-voice-indicator" title="VOICEVOX Live Sync">🎙️ LIVE</span>
+                            </div>
+                            
+                            <div class="mascot-portrait-canvas-wrap">
+                                <canvas id="mascot-3d-canvas" width="340" height="400"></canvas>
+                            </div>
+
+                            <div class="mascot-portrait-footer">
+                                <div style="font-size: 0.8rem; color: var(--text3); display: flex; align-items: center; justify-content: center; gap: 6px;">
+                                    <span>🔊 Bấm vào Tsumugi để nghe nói</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Stats Card -->
                         <div class="stat-card">
                             <div class="stat-title">📊 Tiến trình</div>
                             <div class="stat-row"><span class="stat-label">Đúng</span><span class="stat-val green"
@@ -3355,6 +3350,8 @@
                                 <div class="progress-bar" id="progress-bar" style="width:0%"></div>
                             </div>
                         </div>
+
+                        <!-- Wrong Words Card -->
                         <div class="stat-card">
                             <div class="stat-title">❌ Từ sai gần đây</div>
                             <div id="wrong-sidebar-tools" class="wrong-sidebar-tools" style="display:none;">
@@ -3941,22 +3938,6 @@
         </div>
     <div class="toast" id="toast"></div>
 
-    <!-- 3D ANIME COMPANION MASCOT (KASUKABE TSUMUGI 3D) -->
-    <div id="mascot-companion-widget" class="mascot-widget">
-        <!-- Mascot Speech Bubble -->
-        <div id="mascot-speech-bubble" class="mascot-bubble">
-            <span id="mascot-speech-text">やっほー！つむぎだよ！埼玉ギャル魂でタイピングいっくよー！ (Hế lô! Tsumugi đây! Cùng bung lụa gõ phím nào~!)</span>
-        </div>
-        <!-- 3D Mascot Canvas Container -->
-        <div class="mascot-canvas-wrap" onclick="onMascotClick()" title="Nhấn vào Tsumugi để tương tác!">
-            <canvas id="mascot-3d-canvas" width="200" height="220"></canvas>
-            <div class="mascot-name-badge" style="border-color: rgba(244, 114, 182, 0.4); color: #f472b6;">
-                <span class="mascot-dot" style="background: #f472b6; box-shadow: 0 0 6px #f472b6;"></span>
-                <span>🌸 春日部つむぎ 3D</span>
-                <button type="button" class="mascot-toggle-btn" onclick="event.stopPropagation(); toggleMascotCompanion()" title="Ẩn/Hiện Mascot">✕</button>
-            </div>
-        </div>
-    </div>
 
     <!-- DISCORD-STYLE LARGE AI KAIWA CONVERSATION VIEW (ROOT LEVEL MODAL) -->
     <div id="ai-kaiwa-view">
@@ -5291,30 +5272,30 @@
             if (!canvas || !window.THREE) return;
             mascotInitialized = true;
 
-            const width = 200;
-            const height = 220;
+            const width = 340;
+            const height = 400;
 
             mascotScene = new THREE.Scene();
-            mascotCamera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-            mascotCamera.position.set(0, 0.2, 3.2);
+            mascotCamera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+            mascotCamera.position.set(0, 0.36, 3.3);
 
             mascotRenderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
             mascotRenderer.setSize(width, height);
             mascotRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
             // Lighting setup for bright anime look
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.92);
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
             mascotScene.add(ambientLight);
 
-            const dirLight = new THREE.DirectionalLight(0xfff7ed, 0.85);
+            const dirLight = new THREE.DirectionalLight(0xfff7ed, 0.88);
             dirLight.position.set(2, 4, 3);
             mascotScene.add(dirLight);
 
-            const pinkRim = new THREE.PointLight(0xf472b6, 0.65, 6);
+            const pinkRim = new THREE.PointLight(0xf472b6, 0.7, 6);
             pinkRim.position.set(-2, 1, -1);
             mascotScene.add(pinkRim);
 
-            const goldRim = new THREE.PointLight(0xfbbf24, 0.5, 6);
+            const goldRim = new THREE.PointLight(0xfbbf24, 0.55, 6);
             goldRim.position.set(2, -1, 1);
             mascotScene.add(goldRim);
 
@@ -5338,7 +5319,7 @@
 
             mascotRoot = new THREE.Group();
             mascotScene.add(mascotRoot);
-            mascotRoot.position.y = -0.35;
+            mascotRoot.position.y = -0.32;
 
             // 1. HEAD GROUP
             mascotHead = new THREE.Group();
@@ -5651,52 +5632,30 @@
         function onMascotWordCorrect() {
             mascotJumpSpeed = 0.14;
             mascotCheerTimer = 1.2;
-            const cheers = [
-                'ナイスタイピング！めっちゃ上手じゃん！ (Gõ siêu mượt luôn, đỉnh quá bạn ơi!)',
-                'すごーい！パーフェクトだよ！ (Tuyệt vời! Chuẩn 100% luôn nè!)',
-                'やったね！その調子でガンガンいこう！ (Đúng rồi, cứ thế chém phím tiếp nhé!)',
-                'さすが！つむぎもテンション上がっちゃう！ (Đỉnh thật sự, làm Tsumugi hào hứng theo luôn!)'
-            ];
-            setMascotSpeech(cheers[Math.floor(Math.random() * cheers.length)], 'happy');
         }
 
         function onMascotWordWrong() {
             if (mascotHead) mascotHead.rotation.z = -0.15;
-            setMascotSpeech('おしい！次は絶対いけるって！ (Suýt đúng rồi á, từ sau làm lại được ngay!)', 'sad');
         }
+
+        const tsumugiVoiceQuotes = [
+            "やっほー！つむぎだよ！埼玉ギャル魂でタイピングいっくよー！",
+            "つむぎが応援してるからね！ガンガンいこう！",
+            "えへへ、一緒にタイピング練習できて嬉しいな！",
+            "ナイスタイピング！めっちゃ上手じゃん！",
+            "埼玉パワー全開でいこう！ファイトー！",
+            "一文字ずつ確実にね！その調子だよ！"
+        ];
 
         function onMascotClick() {
-            mascotJumpSpeed = 0.12;
-            mascotCheerTimer = 0.8;
-            const greetings = [
-                'つむぎだよ！一緒にタイピング極めよっ！ (Tsumugi nè! Cùng nhau luyện thành master nhé!)',
-                'えへへ、応援してるからね〜！ (Hihi, Tsumugi luôn cổ vũ bạn đó nha~!)',
-                '埼玉パワー全開でいこう！ (Bật 100% năng lượng lên nào!)',
-                'ふぁいとー！一文字ずつ確実にね！ (Cố lên cố lên! Từng ký tự một thật chắc tay nhé!)'
-            ];
-            setMascotSpeech(greetings[Math.floor(Math.random() * greetings.length)], 'happy');
-        }
-
-        function toggleMascotCompanion() {
-            const widget = document.getElementById('mascot-companion-widget');
-            if (!widget) return;
-            const isMin = widget.classList.toggle('minimized');
-            localStorage.setItem('mascot_minimized', isMin ? 'true' : 'false');
-            showToast(isMin ? '🌸 Đã thu nhỏ Mascot 3D Tsumugi' : '🌸 Đã mở rộng Mascot 3D Tsumugi', 'info');
+            mascotJumpSpeed = 0.14;
+            mascotCheerTimer = 1.0;
+            const quote = tsumugiVoiceQuotes[Math.floor(Math.random() * tsumugiVoiceQuotes.length)];
+            playTTS(quote, '8');
         }
 
         function setMascotSpeech(text, mood = 'happy') {
-            const bubble = document.getElementById('mascot-speech-bubble');
-            const txtEl = document.getElementById('mascot-speech-text');
-            if (txtEl) txtEl.textContent = text;
-            if (bubble) {
-                bubble.style.display = 'block';
-                bubble.style.opacity = '1';
-                clearTimeout(mascotBubbleTimeout);
-                mascotBubbleTimeout = setTimeout(() => {
-                    if (bubble) bubble.style.opacity = '0.9';
-                }, 5000);
-            }
+            // Text bubbles removed for sleek distraction-free UI
         }
 
         let typingStreak = 0;
@@ -5910,6 +5869,7 @@
             document.getElementById('practice-view').style.display = 'block';
             document.getElementById('result-panel').style.display = 'none';
             document.getElementById('word-card').style.display = 'block';
+            setTimeout(init3DMascotCompanion, 50);
             updateSidebar();
             loadWord();
         }
