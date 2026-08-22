@@ -9,10 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
         rel="stylesheet">
-    <!-- Animation & Libraries (PixiJS + Live2D Cubism Core + GSAP + Confetti) -->
-    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/npm/pixi.js@7.4.2/dist/pixi.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/cubism4.min.js"></script>
+    <!-- Animation & 3D Libraries (Three.js + GSAP + Canvas Confetti) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -295,49 +292,11 @@
             align-items: center;
         }
 
-        #mascot-live2d-canvas {
+        #mascot-3d-canvas {
             width: 100% !important;
             height: 100% !important;
             display: block;
             outline: none;
-        }
-
-        .anime-eye-group {
-            transform-origin: 110px 132px;
-            animation: eyeBlink 3.8s ease-in-out infinite;
-        }
-
-        @keyframes eyeBlink {
-            0%, 94%, 100% {
-                transform: scaleY(1);
-            }
-            96%, 98% {
-                transform: scaleY(0.08);
-            }
-        }
-
-        @keyframes auraPulse {
-            0%, 100% {
-                transform: scale(0.92);
-                opacity: 0.35;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.7;
-            }
-        }
-
-        .anime-companion-art-wrap {
-            animation: floatBreathing 3s ease-in-out infinite;
-        }
-
-        @keyframes floatBreathing {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
         }
 
         .mascot-portrait-footer {
@@ -3355,34 +3314,23 @@
 
                     <!-- Right Column: 3D Mascot Character Studio Card & Progress -->
                     <div class="practice-right-sidebar">
-                        <!-- Live2D / Anime VTuber Studio Card -->
-                        <div class="mascot-portrait-card" id="mascot-portrait-card" onclick="onMascotClick(event)" title="Nhấn vào nhân vật để nghe nói chuyện!">
+                        <!-- 3D Mascot Character Studio Card -->
+                        <div class="mascot-portrait-card" onclick="onMascotClick(event)" title="Nhấn vào Tsumugi để nghe nói chuyện!">
                             <div class="mascot-portrait-header">
-                                <div style="display: flex; align-items: center; gap: 6px;">
-                                    <span class="mascot-dot" id="mascot-dot-indicator" style="background: #f472b6; box-shadow: 0 0 8px #f472b6;"></span>
-                                    <select id="mascot-model-select" class="form-input" style="padding: 2px 6px; font-size: 0.8rem; font-weight: 700; height: 26px; border-radius: 6px; background: rgba(13,20,30,0.9); color: #f472b6; border-color: rgba(244,114,182,0.4);" onchange="onMascotModelChange(this.value)" onclick="event.stopPropagation()">
-                                        <option value="haru">🌸 Haru VTuber (Live2D)</option>
-                                        <option value="tsumugi">🎀 Kasukabe Tsumugi (Anime)</option>
-                                        <option value="zundamon">🟢 Zundamon (Anime)</option>
-                                    </select>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="mascot-dot" style="background: #f472b6; box-shadow: 0 0 8px #f472b6;"></span>
+                                    <span style="font-weight: 700; font-size: 0.9rem; color: #f472b6;">🌸 春日部つむぎ 3D</span>
                                 </div>
-                                <span class="mascot-voice-indicator" id="mascot-type-badge" title="Live Companion Sync">🎙️ LIVE2D</span>
+                                <span class="mascot-voice-indicator" title="VOICEVOX Live Sync">🎙️ LIVE</span>
                             </div>
                             
-                            <div class="mascot-portrait-canvas-wrap" id="mascot-canvas-container">
-                                <canvas id="mascot-live2d-canvas" width="340" height="400"></canvas>
-                                <div id="mascot-2d-view" style="display:none; width:100%; height:100%; position:relative; align-items:center; justify-content:center;">
-                                    <!-- 2.5D Reactive Anime Avatar -->
-                                </div>
-                                <div id="live2d-loading-spinner" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #f472b6; font-size: 0.82rem;">
-                                    <div style="width: 30px; height: 30px; border: 3px solid rgba(244,114,182,0.2); border-top-color: #f472b6; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                                    <span>Đang tải bạn đồng hành...</span>
-                                </div>
+                            <div class="mascot-portrait-canvas-wrap">
+                                <canvas id="mascot-3d-canvas" width="340" height="400"></canvas>
                             </div>
 
                             <div class="mascot-portrait-footer">
                                 <div style="font-size: 0.8rem; color: var(--text3); display: flex; align-items: center; justify-content: center; gap: 6px;">
-                                    <span>🔊 Bấm vào để nghe nói chuyện</span>
+                                    <span>🔊 Bấm vào Tsumugi để nghe nói</span>
                                 </div>
                             </div>
                         </div>
@@ -5307,406 +5255,438 @@
             // Confetti visual burst placeholder
         }
 
-        // ========== OFFICIAL MULTI-MODEL VTUBER & COMPANION ENGINE ==========
-        let currentMascotModelType = localStorage.getItem('selected_mascot_model') || 'haru';
-        let live2dApp = null;
-        let live2dModel = null;
-        let live2dInitialized = false;
+        // ========== 3D KASUKABE TSUMUGI MASCOT COMPANION ENGINE ==========
+        let mascotScene, mascotCamera, mascotRenderer;
+        let mascotRoot, mascotHead, mascotBody, mascotLeftTwintail, mascotRightTwintail, mascotLeftArm, mascotRightArm;
+        let mascotLeftEye, mascotRightEye, mascotMouthGroup, mascotMouthLine, mascotInnerMouth, mascotMiniKeyboard;
+        let mascotMouseX = 0, mascotMouseY = 0;
+        let mascotBlinkTimer = 0, isMascotBlinking = false;
+        let mascotJumpOffset = 0, mascotJumpSpeed = 0;
+        let mascotCheerTimer = 0;
+        let mascotInitialized = false;
         let _lastMascotClickTime = 0;
 
-        const LIVE2D_MODELS = {
-            haru: {
-                name: 'Haru VTuber',
-                badge: '🎙️ LIVE2D',
-                color: '#f472b6',
-                speaker: '8',
-                type: 'live2d',
-                url: 'https://fastly.jsdelivr.net/gh/guansss/pixi-live2d-display@master/test/assets/haru/haru_greeter_t03.model3.json',
-                quotes: [
-                    "こんにちは！今日も一緒にタイピング練習、がんばりましょう！",
-                    "ナイスタイピング！すごく上達していますよ！",
-                    "えへへ、応援していますからね！ファイトです！",
-                    "その調子です！一文字ずつ正確にいきましょう！",
-                    "すごいすごい！パーフェクトを目指しましょう！",
-                    "タイピングがんばってくださいね！いつも見てますよ！"
-                ]
-            },
-            tsumugi: {
-                name: 'Kasukabe Tsumugi',
-                badge: '🌸 ANIME',
-                color: '#f59e0b',
-                speaker: '8',
-                type: '2d_avatar',
-                quotes: [
-                    "やっほー！つむぎだよ！埼玉ギャル魂でタイピングいっくよー！",
-                    "つむぎが応援してるからね！ガンガンいこう！",
-                    "えへへ、一緒にタイピング練習できて嬉しいな！",
-                    "ナイスタイピング！めっちゃ上手じゃん！",
-                    "埼玉パワー全開でいこう！ファイトー！",
-                    "一文字ずつ確実にね！その調子だよ！"
-                ]
-            },
-            zundamon: {
-                name: 'Zundamon',
-                badge: '🟢 ANIME',
-                color: '#10b981',
-                speaker: '3',
-                type: '2d_avatar',
-                quotes: [
-                    "ずんだもんだよ！応援してるのだ！",
-                    "キーボードをいっぱい叩いてね！",
-                    "えへへ〜くすぐったいのだ！",
-                    "日本語マスターを目指すのだ！",
-                    "パーフェクトなのだ！かっこいいのだ！",
-                    "ファイトなのだ！ずんだパワー注入なのだ！"
-                ]
-            }
-        };
-
-        function getTsumugiAnimeSvg() {
-            return `
-                <svg width="220" height="260" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 12px 24px rgba(245,158,11,0.25));">
-                    <!-- Twin-tails Left -->
-                    <path d="M 50 110 C 15 140 0 200 25 240 C 40 210 55 180 65 140 Z" fill="url(#tsuHairGrad)" />
-                    <!-- Twin-tails Right -->
-                    <path d="M 170 110 C 205 140 220 200 195 240 C 180 210 165 180 155 140 Z" fill="url(#tsuHairGrad)" />
-                    <!-- Hair Ribbons -->
-                    <rect x="42" y="105" width="16" height="8" rx="4" fill="#f472b6" transform="rotate(-20 42 105)" />
-                    <rect x="162" y="100" width="16" height="8" rx="4" fill="#f472b6" transform="rotate(20 162 100)" />
-                    <!-- Body / Sailor Outfit -->
-                    <path d="M 65 210 L 155 210 L 175 260 L 45 260 Z" fill="#ffffff" />
-                    <path d="M 75 210 L 110 245 L 145 210 L 165 230 L 110 260 L 55 230 Z" fill="#1e3a8a" />
-                    <path d="M 104 225 L 116 225 L 122 255 L 110 260 L 98 255 Z" fill="#f43f5e" />
-                    <!-- Neck -->
-                    <rect x="98" y="180" width="24" height="35" fill="#ffe4d6" rx="4" />
-                    <!-- Head Base -->
-                    <ellipse cx="110" cy="135" rx="55" ry="58" fill="#fff0e6" />
-                    <!-- Cheeks (Blush) -->
-                    <ellipse cx="75" cy="148" rx="12" ry="7" fill="#f472b6" opacity="0.55" />
-                    <ellipse cx="145" cy="148" rx="12" ry="7" fill="#f472b6" opacity="0.55" />
-                    <!-- Anime Eyes (With CSS Blinking) -->
-                    <g id="anime-eyes" class="anime-eye-group">
-                        <!-- Left Eye -->
-                        <ellipse cx="82" cy="132" rx="11" ry="15" fill="#0284c7" />
-                        <ellipse cx="82" cy="132" rx="8" ry="11" fill="#0369a1" />
-                        <circle cx="80" cy="126" r="4.5" fill="#ffffff" />
-                        <circle cx="85" cy="138" r="2.5" fill="#ffffff" />
-                        <path d="M 68 118 Q 82 112 96 119" stroke="#b45309" stroke-width="3" stroke-linecap="round" fill="none" />
-                        <!-- Right Eye -->
-                        <ellipse cx="138" cy="132" rx="11" ry="15" fill="#0284c7" />
-                        <ellipse cx="138" cy="132" rx="8" ry="11" fill="#0369a1" />
-                        <circle cx="136" cy="126" r="4.5" fill="#ffffff" />
-                        <circle cx="141" cy="138" r="2.5" fill="#ffffff" />
-                        <path d="M 124 119 Q 138 112 152 118" stroke="#b45309" stroke-width="3" stroke-linecap="round" fill="none" />
-                    </g>
-                    <!-- Nose -->
-                    <circle cx="110" cy="146" r="1.5" fill="#e09f80" />
-                    <!-- Lip-Sync Reactive Mouth -->
-                    <g id="anime-mouth" style="transform-origin: 110px 162px; transition: transform 0.08s ease;">
-                        <path d="M 100 160 Q 110 168 120 160 Q 110 162 100 160 Z" fill="#fb7185" />
-                    </g>
-                    <!-- Front Hair & Bangs -->
-                    <path d="M 50 110 Q 110 60 170 110 C 160 135 150 140 145 115 C 135 145 125 140 120 115 C 110 145 100 145 95 115 C 85 140 75 140 65 115 C 60 135 55 130 50 110 Z" fill="url(#tsuHairGrad)" />
-                    <!-- Star Clip -->
-                    <path d="M 68 85 L 72 95 L 82 95 L 74 101 L 77 111 L 68 105 L 59 111 L 62 101 L 54 95 L 64 95 Z" fill="#38bdf8" />
-                    <!-- Gradients -->
-                    <defs>
-                        <linearGradient id="tsuHairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="#fde047" />
-                            <stop offset="100%" stop-color="#f59e0b" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            `;
-        }
-
-        function getZundamonAnimeSvg() {
-            return `
-                <svg width="220" height="260" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 12px 24px rgba(16,185,129,0.25));">
-                    <!-- Edamame Ears Left -->
-                    <ellipse cx="48" cy="95" rx="18" ry="38" fill="url(#zundaHairGrad)" transform="rotate(-30 48 95)" />
-                    <circle cx="44" cy="85" r="5" fill="#86efac" />
-                    <!-- Edamame Ears Right -->
-                    <ellipse cx="172" cy="95" rx="18" ry="38" fill="url(#zundaHairGrad)" transform="rotate(30 172 95)" />
-                    <circle cx="176" cy="85" r="5" fill="#86efac" />
-                    <!-- Body / Kimono -->
-                    <path d="M 65 210 L 155 210 L 175 260 L 45 260 Z" fill="#ffffff" />
-                    <path d="M 75 210 L 110 245 L 145 210 L 155 225 L 110 260 L 65 225 Z" fill="#10b981" />
-                    <!-- Bell / Ribbon -->
-                    <circle cx="110" cy="225" r="9" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
-                    <!-- Neck -->
-                    <rect x="98" y="180" width="24" height="35" fill="#ffe4d6" rx="4" />
-                    <!-- Head Base -->
-                    <ellipse cx="110" cy="135" rx="55" ry="58" fill="#fff0e6" />
-                    <!-- Cheeks (Blush) -->
-                    <ellipse cx="75" cy="148" rx="12" ry="7" fill="#f472b6" opacity="0.55" />
-                    <ellipse cx="145" cy="148" rx="12" ry="7" fill="#f472b6" opacity="0.55" />
-                    <!-- Anime Eyes (With CSS Blinking) -->
-                    <g id="anime-eyes" class="anime-eye-group">
-                        <!-- Left Eye -->
-                        <ellipse cx="82" cy="132" rx="11" ry="15" fill="#059669" />
-                        <ellipse cx="82" cy="132" rx="8" ry="11" fill="#047857" />
-                        <circle cx="80" cy="126" r="4.5" fill="#ffffff" />
-                        <circle cx="85" cy="138" r="2.5" fill="#ffffff" />
-                        <path d="M 68 118 Q 82 112 96 119" stroke="#065f46" stroke-width="3" stroke-linecap="round" fill="none" />
-                        <!-- Right Eye -->
-                        <ellipse cx="138" cy="132" rx="11" ry="15" fill="#059669" />
-                        <ellipse cx="138" cy="132" rx="8" ry="11" fill="#047857" />
-                        <circle cx="136" cy="126" r="4.5" fill="#ffffff" />
-                        <circle cx="141" cy="138" r="2.5" fill="#ffffff" />
-                        <path d="M 124 119 Q 138 112 152 118" stroke="#065f46" stroke-width="3" stroke-linecap="round" fill="none" />
-                    </g>
-                    <!-- Nose -->
-                    <circle cx="110" cy="146" r="1.5" fill="#e09f80" />
-                    <!-- Lip-Sync Reactive Mouth -->
-                    <g id="anime-mouth" style="transform-origin: 110px 162px; transition: transform 0.08s ease;">
-                        <path d="M 102 160 Q 110 168 118 160 Q 110 162 102 160 Z" fill="#fb7185" />
-                    </g>
-                    <!-- Green Front Hair & Bangs -->
-                    <path d="M 50 110 Q 110 60 170 110 C 160 135 150 140 145 115 C 135 145 125 140 120 115 C 110 145 100 145 95 115 C 85 140 75 140 65 115 C 60 135 55 130 50 110 Z" fill="url(#zundaHairGrad)" />
-                    <!-- Gradients -->
-                    <defs>
-                        <linearGradient id="zundaHairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="#86efac" />
-                            <stop offset="100%" stop-color="#10b981" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            `;
-        }
-
-        function render2DAnimeCompanion(modelKey) {
-            const container = document.getElementById('mascot-2d-view');
-            if (!container) return;
-
-            const isTsumugi = modelKey === 'tsumugi';
-            const themeColor = isTsumugi ? '#f59e0b' : '#10b981';
-            const charName = isTsumugi ? '春日部つむぎ' : 'ずんだもん';
-            const subTitle = isTsumugi ? '🌸 埼玉ギャル • VOICEVOX #8' : '🟢 ずんだの精霊 • VOICEVOX #3';
-
-            container.innerHTML = `
-                <div class="anime-companion-art-wrap" style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; cursor: pointer;">
-                    <!-- Glowing Aura -->
-                    <div id="mascot-aura" style="position: absolute; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, ${themeColor}33 0%, transparent 70%); animation: auraPulse 3s ease-in-out infinite;"></div>
-                    
-                    <!-- Stylized Anime Character Portrait with Live Lip-sync & Eye Animation -->
-                    <div id="anime-avatar-art" style="position: relative; z-index: 2; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                        ${isTsumugi ? getTsumugiAnimeSvg() : getZundamonAnimeSvg()}
-                    </div>
-
-                    <!-- Character Name Banner -->
-                    <div style="margin-top: 8px; text-align: center; z-index: 2;">
-                        <div style="font-weight: 700; font-size: 0.92rem; color: ${themeColor};">${charName}</div>
-                        <div style="font-size: 0.72rem; color: var(--text3); margin-top: 2px;">${subTitle}</div>
-                    </div>
-                </div>
-            `;
-        }
-
-        async function initLive2DModel() {
-            const canvas = document.getElementById('mascot-live2d-canvas');
-            if (!canvas) return;
-
-            if (live2dInitialized && live2dApp && live2dModel) {
-                const spinner = document.getElementById('live2d-loading-spinner');
-                if (spinner) spinner.style.display = 'none';
-                return;
-            }
-
-            if (!window.PIXI || !window.PIXI.live2d) {
-                setTimeout(initLive2DModel, 250);
-                return;
-            }
-            live2dInitialized = true;
-
-            try {
-                window.PIXI = PIXI;
-                const { Live2DModel } = PIXI.live2d;
-                Live2DModel.registerTicker(PIXI.Ticker);
-
-                const width = 340;
-                const height = 400;
-
-                live2dApp = new PIXI.Application({
-                    view: canvas,
-                    width: width,
-                    height: height,
-                    backgroundAlpha: 0,
-                    autoDensity: true,
-                    resolution: Math.min(window.devicePixelRatio || 1, 2),
-                    antialias: true
-                });
-
-                const model = await Live2DModel.from(LIVE2D_MODELS.haru.url, {
-                    autoInteract: false
-                });
-
-                live2dModel = model;
-                live2dApp.stage.addChild(model);
-
-                // Auto scale and position model
-                model.scale.set(0.175);
-                model.x = 170 - (model.width * 0.5);
-                model.y = -10;
-
-                // Hide loading spinner
-                const spinner = document.getElementById('live2d-loading-spinner');
-                if (spinner) spinner.style.display = 'none';
-
-                // Mouse pointer tracking
-                window.addEventListener('mousemove', (e) => {
-                    if (!live2dModel || currentMascotModelType !== 'haru') return;
-                    const rect = canvas.getBoundingClientRect();
-                    const posX = e.clientX - rect.left;
-                    const posY = e.clientY - rect.top;
-                    if (live2dModel.focus) {
-                        live2dModel.focus(posX, posY);
-                    }
-                });
-
-            } catch (err) {
-                console.warn('Live2D loading error', err);
-                const spinner = document.getElementById('live2d-loading-spinner');
-                if (spinner) {
-                    spinner.innerHTML = `<span style="font-size: 1.8rem;">🌸</span><span style="color:#f472b6;font-weight:600;">Haru VTuber Sẵn sàng!</span>`;
-                }
-            }
-        }
-
-        function onMascotModelChange(modelKey) {
-            currentMascotModelType = modelKey;
-            localStorage.setItem('selected_mascot_model', modelKey);
-            const modelCfg = LIVE2D_MODELS[modelKey] || LIVE2D_MODELS.haru;
-
-            const badge = document.getElementById('mascot-type-badge');
-            const dot = document.getElementById('mascot-dot-indicator');
-            const select = document.getElementById('mascot-model-select');
-            if (select) select.value = modelKey;
-            if (badge) badge.textContent = modelCfg.badge;
-            if (dot) {
-                dot.style.background = modelCfg.color;
-                dot.style.boxShadow = `0 0 8px ${modelCfg.color}`;
-            }
-
-            const canvas = document.getElementById('mascot-live2d-canvas');
-            const avatar2d = document.getElementById('mascot-2d-view');
-
-            if (modelCfg.type === 'live2d') {
-                if (canvas) canvas.style.display = 'block';
-                if (avatar2d) avatar2d.style.display = 'none';
-                initLive2DModel();
-            } else {
-                if (canvas) canvas.style.display = 'none';
-                if (avatar2d) {
-                    avatar2d.style.display = 'flex';
-                    render2DAnimeCompanion(modelKey);
-                }
-                const spinner = document.getElementById('live2d-loading-spinner');
-                if (spinner) spinner.style.display = 'none';
-            }
-
-            // Sync speaker in quick dropdown
-            const quickSelect = document.getElementById('quick-voicevox-speaker');
-            if (quickSelect && modelCfg.speaker) {
-                localStorage.setItem('voicevox_speaker', modelCfg.speaker);
-                quickSelect.value = modelCfg.speaker;
-            }
-
-            showToast(`✨ Đã chuyển sang bạn đồng hành: ${modelCfg.name}`, 'success');
-        }
-
         function init3DMascotCompanion() {
-            const saved = localStorage.getItem('selected_mascot_model') || 'haru';
-            onMascotModelChange(saved);
+            if (mascotInitialized) return;
+            const canvas = document.getElementById('mascot-3d-canvas');
+            if (!canvas || !window.THREE) return;
+            mascotInitialized = true;
+
+            const width = 340;
+            const height = 400;
+
+            mascotScene = new THREE.Scene();
+            mascotCamera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+            mascotCamera.position.set(0, 0.36, 3.3);
+
+            mascotRenderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+            mascotRenderer.setSize(width, height);
+            mascotRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+            // Lighting setup for bright anime look
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.95);
+            mascotScene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xfff7ed, 0.88);
+            dirLight.position.set(2, 4, 3);
+            mascotScene.add(dirLight);
+
+            const pinkRim = new THREE.PointLight(0xf472b6, 0.7, 6);
+            pinkRim.position.set(-2, 1, -1);
+            mascotScene.add(pinkRim);
+
+            const goldRim = new THREE.PointLight(0xfbbf24, 0.55, 6);
+            goldRim.position.set(2, -1, 1);
+            mascotScene.add(goldRim);
+
+            // Materials for Kasukabe Tsumugi
+            const skinMat = new THREE.MeshToonMaterial({ color: 0xfff0e6 });
+            const blushMat = new THREE.MeshBasicMaterial({ color: 0xff8da1, transparent: true, opacity: 0.65 });
+            const hairGoldMat = new THREE.MeshToonMaterial({ color: 0xf59e0b });
+            const hairLightMat = new THREE.MeshToonMaterial({ color: 0xfde047 });
+            const hairRibbonMat = new THREE.MeshToonMaterial({ color: 0xf472b6 });
+            const hairClipMat = new THREE.MeshToonMaterial({ color: 0x38bdf8 });
+            const jkShirtMat = new THREE.MeshToonMaterial({ color: 0xffffff });
+            const jkCollarMat = new THREE.MeshToonMaterial({ color: 0x1e3a8a });
+            const jkTieMat = new THREE.MeshToonMaterial({ color: 0xf43f5e });
+            const eyeScleraMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const eyeIrisMat = new THREE.MeshBasicMaterial({ color: 0x0284c7 });
+            const eyePupilMat = new THREE.MeshBasicMaterial({ color: 0x0369a1 });
+            const eyeGlintMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const kbMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 });
+            const keyGlowMat = new THREE.MeshBasicMaterial({ color: 0xf472b6 });
+
+            mascotRoot = new THREE.Group();
+            mascotScene.add(mascotRoot);
+            mascotRoot.position.y = -0.32;
+
+            // 1. HEAD GROUP
+            mascotHead = new THREE.Group();
+            mascotHead.position.set(0, 0.72, 0);
+            mascotRoot.add(mascotHead);
+
+            // Head Sphere
+            const headGeo = new THREE.SphereGeometry(0.52, 32, 24);
+            headGeo.scale(1, 0.94, 0.96);
+            const headMesh = new THREE.Mesh(headGeo, skinMat);
+            mascotHead.add(headMesh);
+
+            // Cheeks (Blush)
+            const blushGeo = new THREE.CircleGeometry(0.085, 16);
+            const blushL = new THREE.Mesh(blushGeo, blushMat);
+            blushL.position.set(-0.27, -0.08, 0.46);
+            blushL.rotation.y = -0.35;
+            mascotHead.add(blushL);
+
+            const blushR = new THREE.Mesh(blushGeo, blushMat);
+            blushR.position.set(0.27, -0.08, 0.46);
+            blushR.rotation.y = 0.35;
+            mascotHead.add(blushR);
+
+            // 2. EYES (Vibrant Azure Blue Anime Eyes)
+            function createAnimeEye(isRight) {
+                const eyeGrp = new THREE.Group();
+                const scleraGeo = new THREE.SphereGeometry(0.12, 16, 16);
+                scleraGeo.scale(1, 1.25, 0.4);
+                const sclera = new THREE.Mesh(scleraGeo, eyeScleraMat);
+                eyeGrp.add(sclera);
+
+                const irisGeo = new THREE.SphereGeometry(0.095, 16, 16);
+                irisGeo.scale(1, 1.15, 0.3);
+                const iris = new THREE.Mesh(irisGeo, eyeIrisMat);
+                iris.position.z = 0.03;
+                eyeGrp.add(iris);
+
+                const pupilGeo = new THREE.SphereGeometry(0.05, 12, 12);
+                pupilGeo.scale(1, 1, 0.3);
+                const pupil = new THREE.Mesh(pupilGeo, eyePupilMat);
+                pupil.position.z = 0.05;
+                eyeGrp.add(pupil);
+
+                const glint1 = new THREE.Mesh(new THREE.SphereGeometry(0.025, 8, 8), eyeGlintMat);
+                glint1.position.set(isRight ? 0.03 : -0.03, 0.04, 0.07);
+                eyeGrp.add(glint1);
+
+                const glint2 = new THREE.Mesh(new THREE.SphereGeometry(0.016, 8, 8), eyeGlintMat);
+                glint2.position.set(isRight ? -0.02 : 0.02, -0.03, 0.07);
+                eyeGrp.add(glint2);
+
+                return eyeGrp;
+            }
+
+            mascotLeftEye = createAnimeEye(false);
+            mascotLeftEye.position.set(-0.18, 0.04, 0.44);
+            mascotHead.add(mascotLeftEye);
+
+            mascotRightEye = createAnimeEye(true);
+            mascotRightEye.position.set(0.18, 0.04, 0.44);
+            mascotHead.add(mascotRightEye);
+
+            // 3. MOUTH (Morphable Lip-sync Anime Mouth)
+            mascotMouthGroup = new THREE.Group();
+            mascotMouthGroup.position.set(0, -0.16, 0.49);
+            mascotHead.add(mascotMouthGroup);
+
+            // Subtle closed smile line
+            const mouthLineGeo = new THREE.CylinderGeometry(0.007, 0.007, 0.09, 8);
+            mouthLineGeo.rotateZ(Math.PI / 2);
+            const mouthLineMat = new THREE.MeshBasicMaterial({ color: 0xbe123c });
+            mascotMouthLine = new THREE.Mesh(mouthLineGeo, mouthLineMat);
+            mascotMouthGroup.add(mascotMouthLine);
+
+            // Open mouth cavity (lips + tongue, opens dynamically during speech)
+            const innerMouthGeo = new THREE.SphereGeometry(0.048, 16, 16, 0, Math.PI * 2, 0, Math.PI * 0.5);
+            innerMouthGeo.scale(1.1, 1.0, 0.4);
+            const innerMouthMat = new THREE.MeshBasicMaterial({ color: 0x9f1239, side: THREE.DoubleSide });
+            mascotInnerMouth = new THREE.Mesh(innerMouthGeo, innerMouthMat);
+            mascotInnerMouth.rotation.x = -Math.PI * 0.5;
+            mascotInnerMouth.position.set(0, -0.01, 0.01);
+            mascotInnerMouth.scale.set(1, 0.05, 1);
+            mascotInnerMouth.visible = false;
+            mascotMouthGroup.add(mascotInnerMouth);
+
+            // Tongue highlight inside mouth
+            const tongueGeo = new THREE.SphereGeometry(0.024, 12, 12);
+            tongueGeo.scale(1.2, 0.6, 0.3);
+            const tongueMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e });
+            const tongue = new THREE.Mesh(tongueGeo, tongueMat);
+            tongue.position.set(0, -0.016, 0.02);
+            mascotInnerMouth.add(tongue);
+
+            // 4. TSUMUGI BLONDE HAIR
+            const hairBackGeo = new THREE.SphereGeometry(0.56, 24, 20);
+            hairBackGeo.scale(1.06, 1.03, 1.06);
+            const hairBack = new THREE.Mesh(hairBackGeo, hairGoldMat);
+            hairBack.position.set(0, 0.04, -0.06);
+            mascotHead.add(hairBack);
+
+            // Stylish Front Bangs
+            for (let i = -3; i <= 3; i++) {
+                const bangGeo = new THREE.ConeGeometry(0.09, 0.34, 8);
+                const bang = new THREE.Mesh(bangGeo, i % 2 === 0 ? hairGoldMat : hairLightMat);
+                bang.position.set(i * 0.088, 0.36 - Math.abs(i) * 0.04, 0.43);
+                bang.rotation.x = 0.42;
+                bang.rotation.z = -i * 0.14;
+                mascotHead.add(bang);
+            }
+
+            // Side Hair Locks framing cheeks
+            const sideLockL = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.45, 8), hairGoldMat);
+            sideLockL.position.set(-0.42, 0.05, 0.28);
+            sideLockL.rotation.set(0.1, 0, 0.2);
+            mascotHead.add(sideLockL);
+
+            const sideLockR = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.45, 8), hairGoldMat);
+            sideLockR.position.set(0.42, 0.05, 0.28);
+            sideLockR.rotation.set(0.1, 0, -0.2);
+            mascotHead.add(sideLockR);
+
+            // Blue Star Hair Clip on left side
+            const clipGeo = new THREE.BoxGeometry(0.09, 0.09, 0.03);
+            const clip = new THREE.Mesh(clipGeo, hairClipMat);
+            clip.position.set(-0.35, 0.35, 0.42);
+            clip.rotation.z = 0.4;
+            mascotHead.add(clip);
+
+            // 5. TSUMUGI BOUNCY TWIN-TAILS (Twintails with Pink Ribbons & Physics)
+            function createTwintail(isRight) {
+                const tailGrp = new THREE.Group();
+                // Pink Hair Tie Ribbon
+                const ribbonGeo = new THREE.TorusGeometry(0.07, 0.03, 8, 16);
+                const ribbon = new THREE.Mesh(ribbonGeo, hairRibbonMat);
+                tailGrp.add(ribbon);
+
+                // Flowing Twin Ponytail Hair Strands
+                const tail1 = new THREE.Mesh(new THREE.ConeGeometry(0.13, 0.65, 10), hairGoldMat);
+                tail1.position.set(isRight ? 0.12 : -0.12, -0.3, 0);
+                tail1.rotation.z = isRight ? -0.3 : 0.3;
+                tailGrp.add(tail1);
+
+                const tail2 = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.55, 8), hairLightMat);
+                tail2.position.set(isRight ? 0.18 : -0.18, -0.32, 0.04);
+                tail2.rotation.z = isRight ? -0.45 : 0.45;
+                tailGrp.add(tail2);
+
+                return tailGrp;
+            }
+
+            mascotLeftTwintail = createTwintail(false);
+            mascotLeftTwintail.position.set(-0.48, 0.26, 0.02);
+            mascotLeftTwintail.rotation.z = 0.35;
+            mascotHead.add(mascotLeftTwintail);
+
+            mascotRightTwintail = createTwintail(true);
+            mascotRightTwintail.position.set(0.48, 0.26, 0.02);
+            mascotRightTwintail.rotation.z = -0.35;
+            mascotHead.add(mascotRightTwintail);
+
+            // 6. BODY & JK SAILOR UNIFORM
+            mascotBody = new THREE.Group();
+            mascotRoot.add(mascotBody);
+
+            // Torso (White JK Shirt)
+            const torsoGeo = new THREE.CylinderGeometry(0.24, 0.36, 0.55, 16);
+            const torso = new THREE.Mesh(torsoGeo, jkShirtMat);
+            torso.position.set(0, 0.25, 0);
+            mascotBody.add(torso);
+
+            // Navy Sailor Collar
+            const collarGeo = new THREE.TorusGeometry(0.24, 0.05, 8, 20);
+            const collar = new THREE.Mesh(collarGeo, jkCollarMat);
+            collar.position.set(0, 0.48, 0.05);
+            collar.rotation.x = Math.PI * 0.5;
+            mascotBody.add(collar);
+
+            // Red/Pink JK Tie Ribbon
+            const tieGeo = new THREE.ConeGeometry(0.09, 0.2, 8);
+            const tie = new THREE.Mesh(tieGeo, jkTieMat);
+            tie.position.set(0, 0.38, 0.22);
+            tie.rotation.x = Math.PI;
+            mascotBody.add(tie);
+
+            // Arms (JK Uniform Sleeves)
+            function createArm(isRight) {
+                const armGrp = new THREE.Group();
+                const sleeveGeo = new THREE.CylinderGeometry(0.08, 0.12, 0.32, 12);
+                const sleeve = new THREE.Mesh(sleeveGeo, jkShirtMat);
+                sleeve.position.y = -0.14;
+                armGrp.add(sleeve);
+
+                const handGeo = new THREE.SphereGeometry(0.055, 10, 10);
+                const hand = new THREE.Mesh(handGeo, skinMat);
+                hand.position.set(0, -0.3, 0.04);
+                armGrp.add(hand);
+
+                return armGrp;
+            }
+
+            mascotLeftArm = createArm(false);
+            mascotLeftArm.position.set(-0.3, 0.4, 0.05);
+            mascotLeftArm.rotation.set(0.5, 0.2, 0.4);
+            mascotBody.add(mascotLeftArm);
+
+            mascotRightArm = createArm(true);
+            mascotRightArm.position.set(0.3, 0.4, 0.05);
+            mascotRightArm.rotation.set(0.5, -0.2, -0.4);
+            mascotBody.add(mascotRightArm);
+
+            // 7. MINI CYBER KEYBOARD (Pink Glow)
+            mascotMiniKeyboard = new THREE.Group();
+            const kbBase = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.06, 0.22), kbMat);
+            mascotMiniKeyboard.add(kbBase);
+
+            for (let r = 0; r < 3; r++) {
+                for (let c = 0; c < 6; c++) {
+                    const key = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.03, 0.05), keyGlowMat);
+                    key.position.set(-0.18 + c * 0.072, 0.035, -0.06 + r * 0.06);
+                    mascotMiniKeyboard.add(key);
+                }
+            }
+            mascotMiniKeyboard.position.set(0, 0.12, 0.32);
+            mascotMiniKeyboard.rotation.x = -0.3;
+            mascotBody.add(mascotMiniKeyboard);
+
+            // Mouse tracking listener
+            window.addEventListener('mousemove', (e) => {
+                const normX = (e.clientX / window.innerWidth) * 2 - 1;
+                const normY = -(e.clientY / window.innerHeight) * 2 + 1;
+                mascotMouseX = normX * 0.35;
+                mascotMouseY = normY * 0.25;
+            });
+
+            // Start animation loop
+            animate3DMascot();
         }
 
-        // Live Continuous Lip-sync Interval (Works for both Live2D & 2D Anime Avatar)
-        setInterval(() => {
-            const isSpeaking = (currentVoicevoxAudio && !currentVoicevoxAudio.paused) || 
+        let mascotClock = 0;
+        function animate3DMascot() {
+            requestAnimationFrame(animate3DMascot);
+            if (!mascotRenderer || !mascotScene || !mascotCamera) return;
+
+            mascotClock += 0.025;
+
+            // 1. Idle Breathing & Body Sway
+            if (mascotHead && mascotBody) {
+                const breath = Math.sin(mascotClock * 2.4) * 0.022;
+                mascotHead.position.y = 0.72 + breath;
+                mascotBody.position.y = breath * 0.5;
+
+                // Mouse look-at easing
+                mascotHead.rotation.y += (mascotMouseX - mascotHead.rotation.y) * 0.08;
+                mascotHead.rotation.x += (-mascotMouseY - mascotHead.rotation.x) * 0.08;
+            }
+
+            // 2. Twintail Spring Physics (Bounce & Sway)
+            if (mascotLeftTwintail && mascotRightTwintail) {
+                const tailSway = Math.sin(mascotClock * 3.0) * 0.08;
+                mascotLeftTwintail.rotation.z = 0.32 + tailSway;
+                mascotRightTwintail.rotation.z = -0.32 - tailSway;
+            }
+
+            // 3. Blinking Timer
+            mascotBlinkTimer += 0.025;
+            if (mascotBlinkTimer > 3.6) {
+                isMascotBlinking = true;
+                if (mascotBlinkTimer > 3.8) {
+                    isMascotBlinking = false;
+                    mascotBlinkTimer = Math.random() * 0.8;
+                }
+            }
+            if (mascotLeftEye && mascotRightEye) {
+                const targetScaleY = isMascotBlinking ? 0.08 : (mascotCheerTimer > 0 ? 0.15 : 1.0);
+                mascotLeftEye.scale.y += (targetScaleY - mascotLeftEye.scale.y) * 0.4;
+                mascotRightEye.scale.y += (targetScaleY - mascotRightEye.scale.y) * 0.4;
+            }
+
+            // 4. Lip-sync Auto Speech Detection (VOICEVOX / WebSpeech)
+            const isSpeaking = isTtsSpeaking || 
+                               (currentVoicevoxAudio && !currentVoicevoxAudio.paused && !currentVoicevoxAudio.ended) || 
                                (window.speechSynthesis && window.speechSynthesis.speaking);
             
-            // 1. Live2D Lip-sync
-            if (live2dModel && live2dModel.internalModel && live2dModel.internalModel.coreModel) {
+            if (mascotInnerMouth && mascotMouthLine) {
                 if (isSpeaking) {
-                    const mouthVal = Math.abs(Math.sin(Date.now() * 0.018)) * 0.95 + 0.05;
-                    try {
-                        live2dModel.internalModel.coreModel.setParameterValueById('ParamMouthOpenY', mouthVal);
-                    } catch(e) {}
-                }
-            }
-
-            // 2. 2D Anime Avatar Lip-sync
-            const mouth2d = document.getElementById('anime-mouth');
-            if (mouth2d) {
-                if (isSpeaking) {
-                    const openScale = 1 + Math.abs(Math.sin(Date.now() * 0.022)) * 2.2;
-                    mouth2d.style.transform = `scaleY(${openScale})`;
+                    const mouthCycle = Math.abs(Math.sin(mascotClock * 18));
+                    const mouthOpen = 0.35 + mouthCycle * 1.6;
+                    mascotInnerMouth.visible = true;
+                    mascotInnerMouth.scale.set(1.05 + mouthCycle * 0.15, mouthOpen, 1);
+                    mascotMouthLine.visible = (mouthOpen < 0.4);
+                    // Cute talking head bob
+                    mascotHead.rotation.x += Math.sin(mascotClock * 14) * 0.012;
                 } else {
-                    mouth2d.style.transform = 'scaleY(1)';
+                    mascotInnerMouth.visible = false;
+                    mascotInnerMouth.scale.set(1, 0.05, 1);
+                    mascotMouthLine.visible = true;
                 }
             }
-        }, 30);
 
-        // Mascot Reactions
+            // 5. Jump & Cheer Animation
+            if (mascotJumpOffset > 0 || mascotJumpSpeed !== 0) {
+                mascotJumpOffset += mascotJumpSpeed;
+                mascotJumpSpeed -= 0.018; // gravity
+                if (mascotJumpOffset <= 0) {
+                    mascotJumpOffset = 0;
+                    mascotJumpSpeed = 0;
+                }
+                mascotRoot.position.y = -0.35 + mascotJumpOffset;
+            }
+
+            if (mascotCheerTimer > 0) {
+                mascotCheerTimer -= 0.025;
+                if (mascotLeftArm && mascotRightArm) {
+                    mascotLeftArm.rotation.set(1.4 + Math.sin(mascotClock * 14) * 0.35, 0.4, 0.8);
+                    mascotRightArm.rotation.set(1.4 + Math.sin(mascotClock * 14 + 1) * 0.35, -0.4, -0.8);
+                }
+            } else {
+                // Default typing idle arms
+                if (mascotLeftArm && mascotRightArm) {
+                    mascotLeftArm.rotation.set(0.5, 0.2, 0.4 + Math.sin(mascotClock * 3) * 0.04);
+                    mascotRightArm.rotation.set(0.5, -0.2, -0.4 - Math.sin(mascotClock * 3) * 0.04);
+                }
+            }
+
+            mascotRenderer.render(mascotScene, mascotCamera);
+        }
+
+        // Mascot Reactions for Kasukabe Tsumugi
         function onMascotTypingHit(isValid = true) {
-            const art = document.getElementById('anime-avatar-art');
-            if (art && currentMascotModelType !== 'haru') {
-                art.style.transform = 'translateY(2px)';
-                setTimeout(() => { if (art) art.style.transform = 'translateY(0)'; }, 70);
+            if (mascotHead) mascotHead.position.y -= 0.03;
+            if (mascotLeftTwintail && mascotRightTwintail) {
+                mascotLeftTwintail.rotation.z += 0.07;
+                mascotRightTwintail.rotation.z -= 0.07;
+            }
+            if (mascotMiniKeyboard) {
+                mascotMiniKeyboard.position.y = 0.10 + Math.random() * 0.03;
             }
         }
 
         function onMascotWordCorrect() {
-            const modelCfg = LIVE2D_MODELS[currentMascotModelType] || LIVE2D_MODELS.haru;
-            if (modelCfg.type === 'live2d' && live2dModel) {
-                try {
-                    if (live2dModel.motion) live2dModel.motion('TapBody');
-                } catch(e) {}
-            } else {
-                const art = document.getElementById('anime-avatar-art');
-                if (art && window.gsap) {
-                    gsap.fromTo(art, { y: 0, scale: 1 }, { y: -16, scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" });
-                }
-            }
+            mascotJumpSpeed = 0.14;
+            mascotCheerTimer = 1.2;
         }
 
         function onMascotWordWrong() {
-            const modelCfg = LIVE2D_MODELS[currentMascotModelType] || LIVE2D_MODELS.haru;
-            if (modelCfg.type === 'live2d' && live2dModel) {
-                try {
-                    if (live2dModel.expression) live2dModel.expression('f01');
-                } catch(e) {}
-            } else {
-                const art = document.getElementById('anime-avatar-art');
-                if (art && window.gsap) {
-                    gsap.fromTo(art, { x: -6 }, { x: 6, duration: 0.08, repeat: 3, yoyo: true, ease: "power1.inOut", onComplete: () => { gsap.set(art, { x: 0 }); } });
-                }
-            }
+            if (mascotHead) mascotHead.rotation.z = -0.15;
         }
+
+        const tsumugiVoiceQuotes = [
+            "やっほー！つむぎだよ！埼玉ギャル魂でタイピングいっくよー！",
+            "つむぎが応援してるからね！ガンガンいこう！",
+            "えへへ、一緒にタイピング練習できて嬉しいな！",
+            "ナイスタイピング！めっちゃ上手じゃん！",
+            "埼玉パワー全開でいこう！ファイトー！",
+            "一文字ずつ確実にね！その調子だよ！"
+        ];
 
         function onMascotClick(event) {
             if (event && event.stopPropagation) event.stopPropagation();
             const now = Date.now();
-            if (now - _lastMascotClickTime < 600) return; // Prevent double trigger
+            if (now - _lastMascotClickTime < 600) return; // Prevent double voice on rapid clicks
             _lastMascotClickTime = now;
 
-            const modelCfg = LIVE2D_MODELS[currentMascotModelType] || LIVE2D_MODELS.haru;
-
-            if (modelCfg.type === 'live2d' && live2dModel) {
-                try {
-                    if (live2dModel.motion) live2dModel.motion('Tap');
-                } catch(e) {}
-            } else {
-                const art = document.getElementById('anime-avatar-art');
-                if (art && window.gsap) {
-                    gsap.fromTo(art, { y: 0, scale: 1 }, { y: -20, scale: 1.1, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out" });
-                }
-            }
-
-            const quotes = modelCfg.quotes || vtuberVoiceQuotes;
-            const quote = quotes[Math.floor(Math.random() * quotes.length)];
-            const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
-            playTTS(quote, speaker);
+            mascotJumpSpeed = 0.14;
+            mascotCheerTimer = 1.0;
+            const quote = tsumugiVoiceQuotes[Math.floor(Math.random() * tsumugiVoiceQuotes.length)];
+            playTTS(quote, '8');
         }
 
         function setMascotSpeech(text, mood = 'happy') {
@@ -6614,9 +6594,11 @@
 
         let _currentAudioInstance = null;
         let _ttsSequenceCounter = 0;
+        let isTtsSpeaking = false;
 
         function stopAllTTSAudio() {
             _ttsSequenceCounter++;
+            isTtsSpeaking = false;
             if (window.speechSynthesis) {
                 try {
                     window.speechSynthesis.cancel();
@@ -6626,6 +6608,7 @@
                 try {
                     _currentAudioInstance.pause();
                     _currentAudioInstance.currentTime = 0;
+                    _currentAudioInstance.src = '';
                 } catch(e) {}
                 _currentAudioInstance = null;
             }
@@ -6633,6 +6616,7 @@
                 try {
                     currentVoicevoxAudio.pause();
                     currentVoicevoxAudio.currentTime = 0;
+                    currentVoicevoxAudio.src = '';
                 } catch(e) {}
                 currentVoicevoxAudio = null;
             }
@@ -6661,9 +6645,20 @@
                 audio.volume = getTtsVolume();
                 currentVoicevoxAudio = audio;
                 _currentAudioInstance = audio;
-                audio.play().catch(e => console.warn('VOICEVOX audio play warning', e));
+                
+                audio.onplay = () => { isTtsSpeaking = true; };
+                audio.onplaying = () => { isTtsSpeaking = true; };
+                audio.onpause = () => { isTtsSpeaking = false; };
+                audio.onended = () => { isTtsSpeaking = false; };
+                audio.onerror = () => { isTtsSpeaking = false; };
+
+                audio.play().catch(e => {
+                    console.warn('VOICEVOX audio play error', e);
+                    isTtsSpeaking = false;
+                });
             } catch(e) {
                 console.warn('Audio play exception', e);
+                isTtsSpeaking = false;
             }
         }
 
@@ -6758,11 +6753,15 @@
                 const jaVoice = getJapaneseVoice();
                 if (jaVoice) utterance.voice = jaVoice;
                 _activeUtterance = utterance;
-                utterance.onend = () => { _activeUtterance = null; };
-                utterance.onerror = () => { _activeUtterance = null; };
+                
+                utterance.onstart = () => { isTtsSpeaking = true; };
+                utterance.onend = () => { isTtsSpeaking = false; _activeUtterance = null; };
+                utterance.onerror = () => { isTtsSpeaking = false; _activeUtterance = null; };
+
                 window.speechSynthesis.speak(utterance);
             } catch (e) {
                 console.warn('Speech synthesis error', e);
+                isTtsSpeaking = false;
             }
         }
 
