@@ -5279,6 +5279,8 @@
         let _lastMascotClickTime = 0;
         let _mascotEmotionState = 'idle';
         let _mascotEmotionTimer = 0;
+        let _lastUserTypingTimestamp = Date.now();
+        let _lastAfkReminderTime = 0;
 
         const LIVE2D_VTUBER_MODELS = {
             bronya: {
@@ -5294,6 +5296,30 @@
                     "ブローニャのサポートが必要ですか？いつでもどうぞ。",
                     "タイピング精度99.9パーセントを維持してください。",
                     "パーフェクトを目指して、次の単語へ移行します。"
+                ],
+                headQuotes: [
+                    "頭部への接触を検知。…悪くない感覚です。",
+                    "な、撫でてもタイピング速度は向上しませんよ…？でも、嬉しいです。",
+                    "ブローニャ、少し照れます。…続けてもいいですよ。"
+                ],
+                faceQuotes: [
+                    "頬へのタッチを確認。集中してください、艦長。",
+                    "くすぐったいです。次のタイピング目標にロックオンしましょう。",
+                    "ブローニャの顔に何かついていますか？"
+                ],
+                bodyQuotes: [
+                    "警告：機体への接触を検知。戦闘態勢へ移行します…冗談です。",
+                    "装備の点検完了。準備はいつでもできています。",
+                    "サポートはお任せください。正確にキーを叩きましょう。"
+                ],
+                comboQuotes: [
+                    "素晴らしい連続ヒットです！この調子を維持してください！",
+                    "コンボ継続中！ブローニャ、感銘を受けました！",
+                    "パーフェクトなタイピングスピードです！敵機殲滅完了！"
+                ],
+                afkQuotes: [
+                    "艦長、休憩ですか？ブローニャも待機モードに入ります。",
+                    "一息ついたら、また一緒にタイピング練習を再開しましょう。"
                 ]
             },
             mao: {
@@ -5309,6 +5335,30 @@
                     "焦らずマイペースでいこうね！",
                     "すごく集中できてるね！素晴らしい！",
                     "全問正解を目指してファイトー！"
+                ],
+                headQuotes: [
+                    "えへへっ、頭撫でてくれるの？帽子が落ちちゃうよ〜！",
+                    "ふふっ、あったかい手だね！今日も頑張れそう！",
+                    "なでなでありがとう！真央の魔法で応援しちゃうよ！"
+                ],
+                faceQuotes: [
+                    "わっ、ほっぺ突っつかれた！ぷにぷにしてる？",
+                    "えへへ、見て見て！今日も笑顔満点だよ！",
+                    "集中集中〜！でも触ってくれて嬉しいな！"
+                ],
+                bodyQuotes: [
+                    "きゃっ！くすぐったいよ〜！",
+                    "真央の魔法のローブ、かっこいいでしょ？",
+                    "準備バッチリ！どんどんタイピング進めちゃおう！"
+                ],
+                comboQuotes: [
+                    "すごーい！ナイスコンボ！指がダンスしてるみたい！",
+                    "大連撃だー！このままパーフェクト目指してGO！",
+                    "魔法みたいに速い！真央もテンション上がっちゃう！"
+                ],
+                afkQuotes: [
+                    "あれれ？お茶タイムかな？ゆっくり休んでね！",
+                    "準備ができたら、また真央と一緒にタイピングしようね！"
                 ]
             },
             wanko: {
@@ -5324,6 +5374,26 @@
                     "えらいワン！その調子だワン！",
                     "わんわん！応援してるワン！",
                     "パーフェクト目指してファイトだワン！"
+                ],
+                headQuotes: [
+                    "わんっ！あたまナデナデ大好きだワン！しっぽフリフリ！",
+                    "くぅ〜ん！もっと撫でてほしいワン！",
+                    "わんわん！元気がいっぱい湧いてきたワン！"
+                ],
+                faceQuotes: [
+                    "わふっ！お鼻ツンツンだワン！",
+                    "ワンワン！ご主人様、大好きだワン！"
+                ],
+                bodyQuotes: [
+                    "わんっ！お腹こちょこちょはダメだワン〜！",
+                    "ワン！いつでもお散歩…じゃなくてタイピングできるワン！"
+                ],
+                comboQuotes: [
+                    "ワンワンワン！すごい連続正解だワン！おやつあげるワン！",
+                    "大フィーバーだワン！神業タイピングだワン！"
+                ],
+                afkQuotes: [
+                    "くぅ〜ん…ひと休みだワン？待ってるワン！"
                 ]
             }
         };
@@ -5400,7 +5470,26 @@
                 // 2. Emotional Expressions & Real-time Parameter Reactions
                 if (_mascotEmotionTimer > 0) {
                     _mascotEmotionTimer -= 0.016;
-                    if (_mascotEmotionState === 'correct') {
+                    if (_mascotEmotionState === 'pat') {
+                        setParam('ParamEyeLSmile', 1.0);
+                        setParam('ParamEyeRSmile', 1.0);
+                        setParam('PARAM_EYE_L_SMILE', 1.0);
+                        setParam('PARAM_EYE_R_SMILE', 1.0);
+                        setParam('ParamCheek', 1.0);
+                        setParam('PARAM_CHEEK', 1.0);
+                        setParam('ParamBrowLY', 0.5);
+                        setParam('ParamBrowRY', 0.5);
+                        setParam('ParamAngleY', -6);
+                        setParam('ParamMouthForm', 1.0);
+                    } else if (_mascotEmotionState === 'poke') {
+                        setParam('ParamEyeLOpen', 0.0);
+                        setParam('ParamEyeROpen', 1.0);
+                        setParam('PARAM_EYE_L_OPEN', 0.0);
+                        setParam('PARAM_EYE_R_OPEN', 1.0);
+                        setParam('ParamCheek', 0.85);
+                        setParam('PARAM_CHEEK', 0.85);
+                        setParam('ParamMouthForm', 1.0);
+                    } else if (_mascotEmotionState === 'correct') {
                         setParam('ParamEyeLSmile', 1.0);
                         setParam('ParamEyeRSmile', 1.0);
                         setParam('PARAM_EYE_L_SMILE', 1.0);
@@ -5454,7 +5543,7 @@
                     antialias: true
                 });
 
-                // Mouse pointer tracking
+                // Smooth Mouse pointer tracking
                 window.addEventListener('mousemove', (e) => {
                     if (!live2dModel) return;
                     const rect = canvas.getBoundingClientRect();
@@ -5469,6 +5558,9 @@
                 let saved = localStorage.getItem('selected_mascot_model') || 'bronya';
                 if (saved !== 'bronya' && saved !== 'mao' && saved !== 'wanko') saved = 'bronya';
                 await loadLive2DModel(saved);
+
+                // Start idle afk care timer
+                setInterval(checkMascotAfkReminder, 12000);
 
             } catch (err) {
                 console.warn('Live2D init error', err);
@@ -5522,7 +5614,7 @@
                 live2dApp.stage.addChild(newModel);
 
                 // Auto scale and center
-                const scale = modelCfg.scale || 0.105;
+                const scale = modelCfg.scale || 0.52;
                 newModel.scale.set(scale);
                 newModel.x = 170 - (newModel.width * 0.5);
                 newModel.y = modelCfg.yOffset !== undefined ? modelCfg.yOffset : 0;
@@ -5549,7 +5641,7 @@
 
         function onMascotModelChange(modelKey) {
             loadLive2DModel(modelKey);
-            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.mao;
+            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.bronya;
             showToast(`✨ Đã chuyển sang VTuber: ${modelCfg.name}`, 'success');
         }
 
@@ -5557,8 +5649,50 @@
             initLive2DCompanion();
         }
 
+        // Mascot Floating Feedback FX on Touch
+        function showMascotFeedbackFX(event, text) {
+            const container = document.getElementById('mascot-canvas-container');
+            if (!container) return;
+            const el = document.createElement('div');
+            el.className = 'mascot-touch-fx';
+            el.textContent = text;
+            el.style.position = 'absolute';
+            if (event && event.clientY !== undefined) {
+                const rect = container.getBoundingClientRect();
+                el.style.left = `${Math.max(25, Math.min(rect.width - 90, event.clientX - rect.left - 35))}px`;
+                el.style.top = `${Math.max(20, Math.min(rect.height - 40, event.clientY - rect.top - 20))}px`;
+            } else {
+                el.style.left = '50%';
+                el.style.top = '35%';
+                el.style.transform = 'translate(-50%, -50%)';
+            }
+            el.style.pointerEvents = 'none';
+            el.style.zIndex = '99';
+            el.style.fontWeight = '800';
+            el.style.fontSize = '0.82rem';
+            el.style.padding = '3px 10px';
+            el.style.borderRadius = '99px';
+            el.style.background = 'rgba(13,20,30,0.92)';
+            el.style.border = '1px solid rgba(96,165,250,0.5)';
+            el.style.color = '#93c5fd';
+            el.style.boxShadow = '0 6px 20px rgba(0,0,0,0.6)';
+            container.appendChild(el);
+
+            if (window.gsap) {
+                gsap.fromTo(el, 
+                    { scale: 0.5, y: 0, opacity: 0 },
+                    { scale: 1.1, y: -25, opacity: 1, duration: 0.35, ease: "back.out(2)", onComplete: () => {
+                        gsap.to(el, { y: -45, opacity: 0, duration: 0.25, delay: 0.3, onComplete: () => el.remove() });
+                    }}
+                );
+            } else {
+                setTimeout(() => el.remove(), 900);
+            }
+        }
+
         // Mascot Reactions
         function onMascotTypingHit(isValid = true) {
+            _lastUserTypingTimestamp = Date.now();
             const canvas = document.getElementById('mascot-live2d-canvas');
             if (canvas && window.gsap) {
                 gsap.fromTo(canvas, { y: -2 }, { y: 0, duration: 0.12, ease: "power1.out" });
@@ -5566,16 +5700,13 @@
         }
 
         function onMascotWordCorrect() {
+            _lastUserTypingTimestamp = Date.now();
             _mascotEmotionState = 'correct';
-            _mascotEmotionTimer = 2.0;
+            _mascotEmotionTimer = 2.2;
 
             if (live2dModel) {
-                try {
-                    if (live2dModel.motion) live2dModel.motion('TapBody');
-                } catch(e) {}
-                try {
-                    if (live2dModel.expression) live2dModel.expression('exp_01');
-                } catch(e) {}
+                try { if (live2dModel.motion) live2dModel.motion('TapBody') || live2dModel.motion('tap_face'); } catch(e) {}
+                try { if (live2dModel.expression) live2dModel.expression('exp_01') || live2dModel.expression('F01'); } catch(e) {}
             }
 
             const card = document.getElementById('mascot-portrait-card');
@@ -5585,15 +5716,12 @@
         }
 
         function onMascotWordWrong() {
+            _lastUserTypingTimestamp = Date.now();
             _mascotEmotionState = 'wrong';
-            _mascotEmotionTimer = 1.6;
+            _mascotEmotionTimer = 1.8;
 
             if (live2dModel) {
-                try {
-                    if (live2dModel.expression) {
-                        live2dModel.expression('exp_03');
-                    }
-                } catch(e) {}
+                try { if (live2dModel.expression) live2dModel.expression('exp_03') || live2dModel.expression('F03'); } catch(e) {}
             }
 
             const card = document.getElementById('mascot-portrait-card');
@@ -5602,31 +5730,118 @@
             }
         }
 
-        function onMascotClick(event) {
-            if (event && event.stopPropagation) event.stopPropagation();
-            const now = Date.now();
-            if (now - _lastMascotClickTime < 600) return; // Debounce to prevent double voice
-            _lastMascotClickTime = now;
-
+        function onMascotComboCheer(streak) {
             _mascotEmotionState = 'correct';
-            _mascotEmotionTimer = 2.5;
+            _mascotEmotionTimer = 2.8;
 
             if (live2dModel) {
-                try {
-                    if (live2dModel.motion) live2dModel.motion('TapBody');
-                } catch(e) {}
+                try { if (live2dModel.motion) live2dModel.motion('TapBody') || live2dModel.motion('tap_face') || live2dModel.motion('born'); } catch(e) {}
             }
 
             const card = document.getElementById('mascot-portrait-card');
             if (card && window.gsap) {
-                gsap.fromTo(card, { y: -10, scale: 1.02 }, { y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" });
+                gsap.fromTo(card, { y: -15, scale: 1.035 }, { y: 0, scale: 1, duration: 0.55, ease: "bounce.out" });
             }
 
             const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bronya;
-            const quotes = modelCfg.quotes || LIVE2D_VTUBER_MODELS.bronya.quotes;
-            const quote = quotes[Math.floor(Math.random() * quotes.length)];
             const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
+            const pool = modelCfg.comboQuotes || modelCfg.quotes;
+            const quote = pool[Math.floor(Math.random() * pool.length)];
             playTTS(quote, speaker);
+            showMascotFeedbackFX(null, `🔥 COMBO x${streak}!`);
+        }
+
+        function checkMascotAfkReminder() {
+            const now = Date.now();
+            // If user has been idle for > 35s in active practice session
+            if (now - _lastUserTypingTimestamp > 35000 && now - _lastAfkReminderTime > 60000) {
+                _lastAfkReminderTime = now;
+                const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bronya;
+                const pool = modelCfg.afkQuotes || modelCfg.quotes;
+                const quote = pool[Math.floor(Math.random() * pool.length)];
+                const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
+                playTTS(quote, speaker);
+                showMascotFeedbackFX(null, '☕ Nghỉ tay chút nhé!');
+            }
+        }
+
+        // Multi-zone Interactive Touch (Head pat, Face poke, Body tap)
+        function onMascotClick(event) {
+            if (event && event.stopPropagation) event.stopPropagation();
+            const now = Date.now();
+            if (now - _lastMascotClickTime < 650) return; // Debounce
+            _lastMascotClickTime = now;
+            _lastUserTypingTimestamp = now;
+
+            const canvas = document.getElementById('mascot-live2d-canvas');
+            let clickY = 0.5;
+            let clickX = 0.5;
+            if (canvas && event && event.clientY !== undefined) {
+                const rect = canvas.getBoundingClientRect();
+                clickY = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+                clickX = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+            }
+
+            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bronya;
+            const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
+            const card = document.getElementById('mascot-portrait-card');
+
+            // Zone 1: HEAD (Top 36%) -> Head Pat / Xoa đầu
+            if (clickY < 0.36) {
+                _mascotEmotionState = 'pat';
+                _mascotEmotionTimer = 2.8;
+
+                if (live2dModel) {
+                    try { if (live2dModel.motion) live2dModel.motion('flick_head') || live2dModel.motion('TapHead') || live2dModel.motion('TapBody'); } catch(e) {}
+                    try { if (live2dModel.expression) live2dModel.expression('exp_01') || live2dModel.expression('F01'); } catch(e) {}
+                }
+
+                if (card && window.gsap) {
+                    gsap.fromTo(card, { y: 6, scale: 0.985 }, { y: 0, scale: 1, duration: 0.5, ease: "elastic.out(1.2, 0.4)" });
+                }
+
+                const pool = modelCfg.headQuotes || modelCfg.quotes;
+                const quote = pool[Math.floor(Math.random() * pool.length)];
+                playTTS(quote, speaker);
+                showMascotFeedbackFX(event, '💖 Xoa đầu');
+
+            // Zone 2: FACE (Middle 36% - 65%) -> Face Poke / Chọc má
+            } else if (clickY <= 0.65) {
+                _mascotEmotionState = 'poke';
+                _mascotEmotionTimer = 2.5;
+
+                if (live2dModel) {
+                    try { if (live2dModel.motion) live2dModel.motion('tap_face') || live2dModel.motion('TapFace') || live2dModel.motion('TapBody'); } catch(e) {}
+                    try { if (live2dModel.expression) live2dModel.expression('exp_02') || live2dModel.expression('F02'); } catch(e) {}
+                }
+
+                if (card && window.gsap) {
+                    gsap.fromTo(card, { rotation: clickX < 0.5 ? -2 : 2 }, { rotation: 0, duration: 0.4, ease: "back.out(2)" });
+                }
+
+                const pool = modelCfg.faceQuotes || modelCfg.quotes;
+                const quote = pool[Math.floor(Math.random() * pool.length)];
+                playTTS(quote, speaker);
+                showMascotFeedbackFX(event, '✨ Chọc má');
+
+            // Zone 3: BODY / CHEST (Bottom 65%+) -> Body Tap / Chạm thân
+            } else {
+                _mascotEmotionState = 'correct';
+                _mascotEmotionTimer = 2.2;
+
+                if (live2dModel) {
+                    try { if (live2dModel.motion) live2dModel.motion('tap_breast') || live2dModel.motion('tap_belly') || live2dModel.motion('TapBody'); } catch(e) {}
+                }
+
+                if (card && window.gsap) {
+                    gsap.fromTo(card, { y: -10, scale: 1.025 }, { y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" });
+                }
+
+                const pool = modelCfg.bodyQuotes || modelCfg.quotes;
+                const quote = pool[Math.floor(Math.random() * pool.length)];
+                playTTS(quote, speaker);
+                showMascotFeedbackFX(event, '⭐ Cổ vũ');
+            }
         }
 
         function setMascotSpeech(text, mood = 'happy') {
@@ -5639,6 +5854,9 @@
                 typingStreak++;
                 if (typingStreak >= 2) {
                     spawnFloatingComboFX(typingStreak);
+                }
+                if (typingStreak === 5 || typingStreak === 10 || typingStreak === 20 || (typingStreak > 20 && typingStreak % 10 === 0)) {
+                    onMascotComboCheer(typingStreak);
                 }
             } else {
                 typingStreak = 0;
