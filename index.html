@@ -5319,6 +5319,9 @@
             return false;
         }
 
+        let _smoothedMouthVal = 0;
+        let _lipSyncClock = 0;
+
         function hookLive2DCoreModel(model) {
             if (!model || !model.internalModel || !model.internalModel.coreModel) return;
             const coreModel = model.internalModel.coreModel;
@@ -5341,44 +5344,41 @@
             }
 
             coreModel.update = function() {
-                // 1. Audio-driven Lip-sync (VOICEVOX / Web Speech)
+                // 1. Audio-driven Smooth Gentle Cadence Lip-sync
                 const speaking = isCurrentlySpeaking();
 
+                let targetMouth = 0;
                 if (speaking) {
-                    const now = Date.now() * 0.024;
-                    // Natural varied speech vowel oscillation
-                    const mouthCycle = Math.abs(Math.sin(now) * 0.7 + Math.sin(now * 2.3) * 0.3);
-                    const mouthVal = Math.min(1.0, Math.max(0.15, mouthCycle * 1.15));
-                    
-                    // Standard Mouth Parameters (Wanko, Haru, Hiyori, etc.)
-                    setParam('ParamMouthOpenY', mouthVal);
-                    setParam('PARAM_MOUTH_OPEN_Y', mouthVal);
-                    setParam('ParamMouthForm', 1.0);
-                    setParam('PARAM_MOUTH_FORM', 1.0);
-
-                    // Japanese Phoneme Vowel Parameters (Mao: あ, い, う, え, お, 下がり口, 上がり口)
-                    const valA = Math.min(1.0, Math.abs(Math.sin(now * 1.4)) * 1.0);
-                    const valO = Math.min(0.85, Math.abs(Math.sin(now * 2.0)) * 0.85);
-                    const valI = Math.min(0.65, Math.abs(Math.cos(now * 1.1)) * 0.65);
-                    setParam('ParamA', valA);
-                    setParam('ParamO', valO);
-                    setParam('ParamI', valI);
-                    setParam('ParamU', valO * 0.5);
-                    setParam('ParamE', valA * 0.6);
-                    setParam('ParamMouthDown', mouthVal);
-                    setParam('ParamMouthUp', 0.8);
-
+                    _lipSyncClock += 0.085; // Slow, relaxed natural syllable rhythm
+                    // Gentle syllable rise and fall (half-wave)
+                    const wave = Math.sin(_lipSyncClock);
+                    const syllable = Math.max(0, wave);
+                    // Soft natural cadence variance
+                    const accent = 0.75 + Math.sin(_lipSyncClock * 0.35) * 0.25;
+                    targetMouth = syllable * accent * 0.85;
                 } else {
-                    setParam('ParamMouthOpenY', 0);
-                    setParam('PARAM_MOUTH_OPEN_Y', 0);
-                    setParam('ParamA', 0);
-                    setParam('ParamI', 0);
-                    setParam('ParamU', 0);
-                    setParam('ParamE', 0);
-                    setParam('ParamO', 0);
-                    setParam('ParamMouthDown', 0);
-                    setParam('ParamMouthUp', 0);
+                    _lipSyncClock = 0;
+                    targetMouth = 0;
                 }
+
+                // Smooth damping lerp (no harsh snapping or jittering)
+                _smoothedMouthVal += (targetMouth - _smoothedMouthVal) * 0.26;
+                if (_smoothedMouthVal < 0.008) _smoothedMouthVal = 0;
+
+                // Standard Live2D Models (Wanko, Haru, etc.)
+                setParam('ParamMouthOpenY', _smoothedMouthVal);
+                setParam('PARAM_MOUTH_OPEN_Y', _smoothedMouthVal);
+                setParam('PARAM_MOUTH_FORM', 1.0);
+                setParam('ParamMouthForm', 1.0);
+
+                // Mao Live2D Clean Japanese Vowel Form
+                setParam('ParamA', _smoothedMouthVal * 0.9);
+                setParam('ParamMouthDown', _smoothedMouthVal * 0.65);
+                setParam('ParamMouthUp', _smoothedMouthVal > 0.04 ? 0.35 : 0);
+                setParam('ParamI', 0);
+                setParam('ParamU', 0);
+                setParam('ParamE', 0);
+                setParam('ParamO', 0);
 
                 // 2. Emotional Expressions & Real-time Parameter Reactions
                 if (_mascotEmotionTimer > 0) {
