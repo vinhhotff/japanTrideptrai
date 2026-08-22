@@ -5275,6 +5275,8 @@
         let live2dModel = null;
         let live2dInitialized = false;
         let _lastMascotClickTime = 0;
+        let _mascotEmotionState = 'idle';
+        let _mascotEmotionTimer = 0;
 
         const LIVE2D_VTUBER_MODELS = {
             haru: {
@@ -5355,6 +5357,69 @@
             }
         };
 
+        function isCurrentlySpeaking() {
+            if (isTtsSpeaking) return true;
+            if (_currentAudioInstance && !_currentAudioInstance.paused && !_currentAudioInstance.ended) return true;
+            if (currentVoicevoxAudio && !currentVoicevoxAudio.paused && !currentVoicevoxAudio.ended) return true;
+            if (window.speechSynthesis && window.speechSynthesis.speaking && !window.speechSynthesis.paused) return true;
+            return false;
+        }
+
+        function hookLive2DCoreModel(model) {
+            if (!model || !model.internalModel || !model.internalModel.coreModel) return;
+            const coreModel = model.internalModel.coreModel;
+            if (coreModel._isHookedForLipSync) return;
+            coreModel._isHookedForLipSync = true;
+
+            const origCoreUpdate = coreModel.update.bind(coreModel);
+
+            coreModel.update = function() {
+                // 1. Audio-driven Lip-sync
+                const speaking = isCurrentlySpeaking();
+
+                if (speaking) {
+                    const now = Date.now() * 0.02;
+                    // Natural speech oscillation
+                    const mouthCycle = Math.abs(Math.sin(now) * 0.7 + Math.sin(now * 2.3) * 0.3);
+                    const mouthVal = Math.min(1.0, Math.max(0.15, mouthCycle * 1.15));
+                    
+                    try {
+                        this.setParameterValueById('ParamMouthOpenY', mouthVal);
+                        this.setParameterValueById('ParamMouthForm', 1.0); // Sweet smile shape
+                    } catch(e) {}
+                } else {
+                    try {
+                        this.setParameterValueById('ParamMouthOpenY', 0);
+                    } catch(e) {}
+                }
+
+                // 2. Emotional Expressions & Real-time Parameter Reactions
+                if (_mascotEmotionTimer > 0) {
+                    _mascotEmotionTimer -= 0.016;
+                    try {
+                        if (_mascotEmotionState === 'correct') {
+                            this.setParameterValueById('ParamEyeLSmile', 1.0);
+                            this.setParameterValueById('ParamEyeRSmile', 1.0);
+                            this.setParameterValueById('ParamCheek', 1.0);
+                            this.setParameterValueById('ParamBrowLY', 0.6);
+                            this.setParameterValueById('ParamBrowRY', 0.6);
+                            this.setParameterValueById('ParamMouthForm', 1.0);
+                        } else if (_mascotEmotionState === 'wrong') {
+                            this.setParameterValueById('ParamEyeLOpen', 0.5);
+                            this.setParameterValueById('ParamEyeROpen', 0.5);
+                            this.setParameterValueById('ParamBrowLY', -0.7);
+                            this.setParameterValueById('ParamBrowRY', -0.7);
+                            this.setParameterValueById('ParamBrowLForm', -0.6);
+                            this.setParameterValueById('ParamBrowRForm', -0.6);
+                            this.setParameterValueById('ParamMouthForm', -0.6);
+                        }
+                    } catch(e) {}
+                }
+
+                return origCoreUpdate();
+            };
+        }
+
         async function initLive2DCompanion() {
             if (live2dInitialized) return;
             const canvas = document.getElementById('mascot-live2d-canvas');
@@ -5392,25 +5457,6 @@
                     const posY = e.clientY - rect.top;
                     if (live2dModel.focus) {
                         live2dModel.focus(posX, posY);
-                    }
-                });
-
-                // Real-time lip-sync ticker
-                live2dApp.ticker.add(() => {
-                    if (!live2dModel) return;
-                    const isSpeaking = isTtsSpeaking || 
-                                       (currentVoicevoxAudio && !currentVoicevoxAudio.paused && !currentVoicevoxAudio.ended) || 
-                                       (window.speechSynthesis && window.speechSynthesis.speaking);
-
-                    if (live2dModel.internalModel && live2dModel.internalModel.coreModel) {
-                        try {
-                            if (isSpeaking) {
-                                const mouthVal = Math.abs(Math.sin(Date.now() * 0.018)) * 0.92 + 0.08;
-                                live2dModel.internalModel.coreModel.setParameterValueById('ParamMouthOpenY', mouthVal);
-                            } else {
-                                live2dModel.internalModel.coreModel.setParameterValueById('ParamMouthOpenY', 0);
-                            }
-                        } catch(e) {}
                     }
                 });
 
@@ -5456,7 +5502,7 @@
             try {
                 const { Live2DModel } = PIXI.live2d;
                 const newModel = await Live2DModel.from(modelCfg.url, {
-                    autoInteract: false
+                    autoInteract: true
                 });
 
                 // Remove previous model
@@ -5473,6 +5519,9 @@
                 newModel.scale.set(scale);
                 newModel.x = 170 - (newModel.width * 0.5);
                 newModel.y = modelCfg.yOffset || -10;
+
+                // Attach robust lip-sync & emotion hook
+                hookLive2DCoreModel(newModel);
 
                 if (spinner) spinner.style.display = 'none';
 
@@ -5503,22 +5552,46 @@
 
         // Mascot Reactions
         function onMascotTypingHit(isValid = true) {
-            // Typing keypress reaction
+            const canvas = document.getElementById('mascot-live2d-canvas');
+            if (canvas && window.gsap) {
+                gsap.fromTo(canvas, { y: -2 }, { y: 0, duration: 0.12, ease: "power1.out" });
+            }
         }
 
         function onMascotWordCorrect() {
+            _mascotEmotionState = 'correct';
+            _mascotEmotionTimer = 2.0;
+
             if (live2dModel) {
                 try {
                     if (live2dModel.motion) live2dModel.motion('TapBody');
                 } catch(e) {}
+                try {
+                    if (live2dModel.expression) live2dModel.expression('F01');
+                } catch(e) {}
+            }
+
+            const card = document.getElementById('mascot-portrait-card');
+            if (card && window.gsap) {
+                gsap.fromTo(card, { y: -12, scale: 1.025 }, { y: 0, scale: 1, duration: 0.5, ease: "bounce.out" });
             }
         }
 
         function onMascotWordWrong() {
+            _mascotEmotionState = 'wrong';
+            _mascotEmotionTimer = 1.6;
+
             if (live2dModel) {
                 try {
-                    if (live2dModel.expression) live2dModel.expression('f01');
+                    if (live2dModel.expression) {
+                        live2dModel.expression('F03');
+                    }
                 } catch(e) {}
+            }
+
+            const card = document.getElementById('mascot-portrait-card');
+            if (card && window.gsap) {
+                gsap.fromTo(card, { x: -8 }, { x: 0, duration: 0.35, ease: "elastic.out(1.2, 0.2)" });
             }
         }
 
@@ -5528,10 +5601,18 @@
             if (now - _lastMascotClickTime < 600) return; // Debounce to prevent double voice
             _lastMascotClickTime = now;
 
+            _mascotEmotionState = 'correct';
+            _mascotEmotionTimer = 2.5;
+
             if (live2dModel) {
                 try {
-                    if (live2dModel.motion) live2dModel.motion('Tap');
+                    if (live2dModel.motion) live2dModel.motion('TapBody');
                 } catch(e) {}
+            }
+
+            const card = document.getElementById('mascot-portrait-card');
+            if (card && window.gsap) {
+                gsap.fromTo(card, { y: -10, scale: 1.02 }, { y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" });
             }
 
             const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.haru;
