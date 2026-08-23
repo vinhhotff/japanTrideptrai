@@ -393,6 +393,78 @@
             opacity: 1;
         }
 
+        /* PURE HIRAGANA PRACTICE PROMPT */
+        .pure-hira-prompt-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 20px;
+            background: rgba(56, 189, 248, 0.07);
+            border: 1.5px dashed rgba(56, 189, 248, 0.35);
+            border-radius: 18px;
+            margin-bottom: 12px;
+            width: 100%;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .pure-hira-prompt-box.answered {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1.5px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .pure-hira-prompt-badge {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 3px 12px;
+            border-radius: 99px;
+            background: rgba(56, 189, 248, 0.18);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            text-transform: uppercase;
+        }
+
+        .pure-hira-prompt-badge.success {
+            background: rgba(16, 185, 129, 0.18);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.35);
+        }
+
+        .pure-hira-prompt-meaning {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #ffffff 60%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pure-hira-revealed-word {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #38bdf8;
+            text-shadow: 0 0 18px rgba(56, 189, 248, 0.5);
+            margin: 4px 0;
+            font-family: 'Noto Sans JP', sans-serif;
+            -webkit-text-fill-color: #38bdf8 !important;
+        }
+
+        .pure-hira-prompt-meaning-sub {
+            font-size: 1rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
         .reading-hint {
             color: #94a3b8 !important;
             font-size: 0.95rem;
@@ -5320,6 +5392,12 @@
                 afkQuotes: [
                     "艦長、休憩ですか？ブローニャも待機モードに入ります。",
                     "一息ついたら、また一緒にタイピング練習を再開しましょう。"
+                ],
+                screamQuotes: [
+                    "きゃっ！警告：過剰な接触を検知しました！やめてください！",
+                    "いたっ！もう、何をするのですか艦長！",
+                    "くすぐったいです！触りすぎです！",
+                    "わっ！機体に異常振動が発生しています！"
                 ]
             },
             mao: {
@@ -5359,6 +5437,12 @@
                 afkQuotes: [
                     "あれれ？お茶タイムかな？ゆっくり休んでね！",
                     "準備ができたら、また真央と一緒にタイピングしようね！"
+                ],
+                screamQuotes: [
+                    "きゃーっ！くすぐったいよ〜、やめて〜！",
+                    "もう〜！つつきすぎだよ〜！怒っちゃうぞ〜！",
+                    "わっ！痛い痛い！真央をつつかないで〜！",
+                    "きゃっ！びっくりした！もう〜！"
                 ]
             },
             wanko: {
@@ -5394,6 +5478,11 @@
                 ],
                 afkQuotes: [
                     "くぅ〜ん…ひと休みだワン？待ってるワン！"
+                ],
+                screamQuotes: [
+                    "きゃんっ！くすぐったいワン〜！やめてワン！",
+                    "わんわん！つつきすぎだワン！怒るワン！",
+                    "くぅ〜ん！くすぐったいワン！"
                 ]
             }
         };
@@ -5730,9 +5819,11 @@
             }
         }
 
+        let _mascotPokeStreak = 0;
+
         function onMascotComboCheer(streak) {
             _mascotEmotionState = 'correct';
-            _mascotEmotionTimer = 2.8;
+            _mascotEmotionTimer = 2.0;
 
             if (live2dModel) {
                 try { if (live2dModel.motion) live2dModel.motion('TapBody') || live2dModel.motion('tap_face') || live2dModel.motion('born'); } catch(e) {}
@@ -5743,33 +5834,23 @@
                 gsap.fromTo(card, { y: -15, scale: 1.035 }, { y: 0, scale: 1, duration: 0.55, ease: "bounce.out" });
             }
 
-            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bronya;
-            const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
-            const pool = modelCfg.comboQuotes || modelCfg.quotes;
-            const quote = pool[Math.floor(Math.random() * pool.length)];
-            playTTS(quote, speaker);
+            // Visual combo feedback only (no speech interruption during typing)
             showMascotFeedbackFX(null, `🔥 COMBO x${streak}!`);
         }
 
         function checkMascotAfkReminder() {
-            const now = Date.now();
-            // If user has been idle for > 35s in active practice session
-            if (now - _lastUserTypingTimestamp > 35000 && now - _lastAfkReminderTime > 60000) {
-                _lastAfkReminderTime = now;
-                const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bronya;
-                const pool = modelCfg.afkQuotes || modelCfg.quotes;
-                const quote = pool[Math.floor(Math.random() * pool.length)];
-                const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
-                playTTS(quote, speaker);
-                showMascotFeedbackFX(null, '☕ Nghỉ tay chút nhé!');
-            }
+            // Quiet idle care - no unwanted speaking
         }
 
-        // Multi-zone Interactive Touch (Head pat, Face poke, Body tap)
+        // Multi-zone Interactive Touch (Quiet by default, screams when poked repeatedly!)
         function onMascotClick(event) {
             if (event && event.stopPropagation) event.stopPropagation();
             const now = Date.now();
-            if (now - _lastMascotClickTime < 650) return; // Debounce
+            if (now - _lastMascotClickTime < 1400) {
+                _mascotPokeStreak = (_mascotPokeStreak || 0) + 1;
+            } else {
+                _mascotPokeStreak = 1;
+            }
             _lastMascotClickTime = now;
             _lastUserTypingTimestamp = now;
 
@@ -5786,61 +5867,65 @@
             const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
             const card = document.getElementById('mascot-portrait-card');
 
-            // Zone 1: HEAD (Top 36%) -> Head Pat / Xoa đầu
+            // ★★★ KHI CHỌC QUÁ NHIỀU (Streak >= 3) -> LA LÊN VÀ PHÀN NÀN! ★★★
+            if (_mascotPokeStreak >= 3) {
+                _mascotPokeStreak = 0; // Reset
+                _mascotEmotionState = 'wrong';
+                _mascotEmotionTimer = 2.4;
+
+                if (live2dModel) {
+                    try { if (live2dModel.motion) live2dModel.motion('tap_breast') || live2dModel.motion('TapBody') || live2dModel.motion('flick_head'); } catch(e) {}
+                    try { if (live2dModel.expression) live2dModel.expression('exp_03') || live2dModel.expression('F03'); } catch(e) {}
+                }
+
+                if (card && window.gsap) {
+                    gsap.fromTo(card, { x: -14, rotation: -3 }, { x: 0, rotation: 0, duration: 0.45, ease: "elastic.out(1.8, 0.25)" });
+                }
+
+                const pool = modelCfg.screamQuotes || [
+                    "きゃーっ！やめてください！",
+                    "もう〜！つつきすぎです！",
+                    "いたっ！何するのですか！"
+                ];
+                const scream = pool[Math.floor(Math.random() * pool.length)];
+                playTTS(scream, speaker);
+                showMascotFeedbackFX(event, '💢 Á! Đừng chọc nữa!');
+                return;
+            }
+
+            // Click 1-2 lần nhẹ: Phản ứng biểu cảm & chuyển động mượt mà (KHÔNG nói gì thêm)
             if (clickY < 0.36) {
                 _mascotEmotionState = 'pat';
-                _mascotEmotionTimer = 2.8;
-
+                _mascotEmotionTimer = 2.0;
                 if (live2dModel) {
                     try { if (live2dModel.motion) live2dModel.motion('flick_head') || live2dModel.motion('TapHead') || live2dModel.motion('TapBody'); } catch(e) {}
                     try { if (live2dModel.expression) live2dModel.expression('exp_01') || live2dModel.expression('F01'); } catch(e) {}
                 }
-
                 if (card && window.gsap) {
                     gsap.fromTo(card, { y: 6, scale: 0.985 }, { y: 0, scale: 1, duration: 0.5, ease: "elastic.out(1.2, 0.4)" });
                 }
-
-                const pool = modelCfg.headQuotes || modelCfg.quotes;
-                const quote = pool[Math.floor(Math.random() * pool.length)];
-                playTTS(quote, speaker);
-                showMascotFeedbackFX(event, '💖 Xoa đầu');
-
-            // Zone 2: FACE (Middle 36% - 65%) -> Face Poke / Chọc má
+                showMascotFeedbackFX(event, _mascotPokeStreak === 2 ? '⚡ Chọc lần 2...' : '💖 Xoa đầu');
             } else if (clickY <= 0.65) {
                 _mascotEmotionState = 'poke';
-                _mascotEmotionTimer = 2.5;
-
+                _mascotEmotionTimer = 2.0;
                 if (live2dModel) {
                     try { if (live2dModel.motion) live2dModel.motion('tap_face') || live2dModel.motion('TapFace') || live2dModel.motion('TapBody'); } catch(e) {}
                     try { if (live2dModel.expression) live2dModel.expression('exp_02') || live2dModel.expression('F02'); } catch(e) {}
                 }
-
                 if (card && window.gsap) {
                     gsap.fromTo(card, { rotation: clickX < 0.5 ? -2 : 2 }, { rotation: 0, duration: 0.4, ease: "back.out(2)" });
                 }
-
-                const pool = modelCfg.faceQuotes || modelCfg.quotes;
-                const quote = pool[Math.floor(Math.random() * pool.length)];
-                playTTS(quote, speaker);
-                showMascotFeedbackFX(event, '✨ Chọc má');
-
-            // Zone 3: BODY / CHEST (Bottom 65%+) -> Body Tap / Chạm thân
+                showMascotFeedbackFX(event, _mascotPokeStreak === 2 ? '⚡ Chọc lần 2...' : '✨ Chọc má');
             } else {
                 _mascotEmotionState = 'correct';
-                _mascotEmotionTimer = 2.2;
-
+                _mascotEmotionTimer = 1.8;
                 if (live2dModel) {
                     try { if (live2dModel.motion) live2dModel.motion('tap_breast') || live2dModel.motion('tap_belly') || live2dModel.motion('TapBody'); } catch(e) {}
                 }
-
                 if (card && window.gsap) {
                     gsap.fromTo(card, { y: -10, scale: 1.025 }, { y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" });
                 }
-
-                const pool = modelCfg.bodyQuotes || modelCfg.quotes;
-                const quote = pool[Math.floor(Math.random() * pool.length)];
-                playTTS(quote, speaker);
-                showMascotFeedbackFX(event, '⭐ Cổ vũ');
+                showMascotFeedbackFX(event, _mascotPokeStreak === 2 ? '⚡ Chọc lần 2...' : '⭐ Cổ vũ');
             }
         }
 
@@ -6085,7 +6170,8 @@
 
             const kanjiDisplay = document.getElementById('kanji-display');
             const meaningReveal = document.getElementById('meaning-reveal');
-            
+            const hasKanji = /[\u4e00-\u9faf\u3400-\u4dbf]/.test(w.kanji);
+
             if (session.typingMode === 'audio') {
                 kanjiDisplay.innerHTML = `
                     <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
@@ -6097,9 +6183,20 @@
                 meaningReveal.classList.remove('show');
                 // Auto play voice
                 setTimeout(() => playTTS(w.hiragana || w.kanji), 200);
+            } else if (!hasKanji) {
+                // ★★★ TỪ THUẦN HIRAGANA (Không có Hán tự) -> Chỉ hiển thị nghĩa Tiếng Việt để người học tự nhớ & gõ Hiragana! ★★★
+                kanjiDisplay.innerHTML = `
+                    <div class="pure-hira-prompt-box">
+                        <div class="pure-hira-prompt-badge">🇻🇳 HÃY GÕ TỪ HIRAGANA</div>
+                        <div class="pure-hira-prompt-meaning">${escapeHtml(w.meaning)}</div>
+                    </div>
+                `;
+                meaningReveal.innerHTML = '';
+                meaningReveal.classList.remove('show');
             } else {
+                // ★★★ TỪ CÓ HÁN TỰ KANJI -> Hiển thị chữ Hán để người học gõ cách đọc Hiragana/Furigana ★★★
                 kanjiDisplay.textContent = w.kanji;
-                meaningReveal.innerHTML = `<strong class="meaning-viet">${w.meaning}</strong>`;
+                meaningReveal.innerHTML = `<strong class="meaning-viet">${escapeHtml(w.meaning)}</strong>`;
                 meaningReveal.classList.remove('show');
             }
 
@@ -6167,9 +6264,6 @@
             const isMatch = isAnswerMatch(input, w);
             const correct = Boolean(input && isMatch && !session.hintUsed);
 
-            // DEBUG: trace exactly what's happening
-            console.log('[checkAnswer] input:', JSON.stringify(input), 'target_hira:', w.hiragana, 'target_rom:', w.romaji, 'isMatch:', isMatch, 'hintUsed:', session.hintUsed, 'correct:', correct);
-
             // Mark session as checked so the NEXT Enter press will ALWAYS advance to the next word!
             session.checked = true;
             session.isRetryPhase = false;
@@ -6178,16 +6272,21 @@
             const allBlanks = document.querySelectorAll('#hira-blanks .blank-char');
             const meaningReveal = document.getElementById('meaning-reveal');
             const kanjiDisplay = document.getElementById('kanji-display');
+            const hasKanji = /[\u4e00-\u9faf\u3400-\u4dbf]/.test(w.kanji);
 
-            // Always reveal Vietnamese meaning
+            // Always reveal Vietnamese meaning for words with Kanji
             if (meaningReveal) {
-                meaningReveal.innerHTML = `<strong class="meaning-viet">🇻🇳 ${escapeHtml(w.meaning)}</strong>`;
-                meaningReveal.classList.add('show');
+                if (hasKanji || session.typingMode === 'audio') {
+                    meaningReveal.innerHTML = `<strong class="meaning-viet">🇻🇳 ${escapeHtml(w.meaning)}</strong>`;
+                    meaningReveal.classList.add('show');
+                } else {
+                    meaningReveal.innerHTML = '';
+                    meaningReveal.classList.remove('show');
+                }
             }
 
             // ★★★ ALWAYS pronounce the Japanese word regardless of correct/wrong ★★★
             const wordText = w.hiragana || w.kanji;
-            console.log('[checkAnswer] About to call playTTS with:', wordText);
             playTTS(wordText);
 
             if (correct) {
@@ -6229,6 +6328,14 @@
                         <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
                             <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${escapeHtml(w.kanji)}</span>
                             <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(16,185,129,0.2); color:#34d399; border-color:rgba(16,185,129,0.4);">✓ ${escapeHtml(w.hiragana)}</span>
+                        </div>
+                    `;
+                } else if (!hasKanji && kanjiDisplay) {
+                    kanjiDisplay.innerHTML = `
+                        <div class="pure-hira-prompt-box answered">
+                            <div class="pure-hira-prompt-badge success">✓ CHUẨN XÁC</div>
+                            <div class="pure-hira-revealed-word">${escapeHtml(w.hiragana || w.kanji)}</div>
+                            <div class="pure-hira-prompt-meaning-sub">🇻🇳 ${escapeHtml(w.meaning)}</div>
                         </div>
                     `;
                 }
@@ -6273,7 +6380,12 @@
                     ar.className = 'answer-result show fail';
                 }
                 allBlanks.forEach(b => {
-                    b.classList.add('wrong');
+                    const hint = b.dataset.hint;
+                    if (hint) {
+                        b.textContent = hint;
+                        b.classList.remove('typing-correct', 'typing-wrong');
+                        b.classList.add('wrong', 'filled');
+                    }
                 });
                 document.getElementById('btn-check').textContent = '→ Tiếp theo (Enter)';
 
@@ -6285,6 +6397,14 @@
                         <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
                             <span style="font-size:2.8rem; font-weight:800; color:var(--text);">${escapeHtml(w.kanji)}</span>
                             <span class="audio-listening-badge" style="font-size:0.85rem; padding:3px 12px; background:rgba(239,68,68,0.2); color:#f87171; border-color:rgba(239,68,68,0.4);">❌ ${escapeHtml(w.hiragana)}</span>
+                        </div>
+                    `;
+                } else if (!hasKanji && kanjiDisplay) {
+                    kanjiDisplay.innerHTML = `
+                        <div class="pure-hira-prompt-box answered">
+                            <div class="pure-hira-prompt-badge" style="background:rgba(244,63,94,0.18); color:#fb7185; border-color:rgba(244,63,94,0.35);">✕ ĐÁP ÁN ĐÚNG</div>
+                            <div class="pure-hira-revealed-word" style="color:#fb7185; -webkit-text-fill-color:#fb7185 !important; text-shadow:0 0 16px rgba(244,63,94,0.5);">${escapeHtml(w.hiragana || w.kanji)}</div>
+                            <div class="pure-hira-prompt-meaning-sub">🇻🇳 ${escapeHtml(w.meaning)}</div>
                         </div>
                     `;
                 }
