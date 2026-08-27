@@ -174,11 +174,18 @@
 
         .practice-layout {
             display: grid;
-            grid-template-columns: 1fr 340px;
+            grid-template-columns: 1fr 480px;
             gap: 24px;
             align-items: stretch;
             width: 100%;
             margin: 0 auto;
+        }
+
+        @media (max-width: 1200px) {
+            .practice-layout {
+                grid-template-columns: 1fr 420px;
+                gap: 20px;
+            }
         }
 
         @media (max-width: 1024px) {
@@ -188,7 +195,7 @@
             }
             .practice-right-sidebar {
                 width: 100% !important;
-                max-width: 480px;
+                max-width: 600px;
                 margin: 0 auto;
             }
         }
@@ -201,7 +208,7 @@
         }
 
         .practice-right-sidebar {
-            width: 340px;
+            width: 480px;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -290,7 +297,7 @@
 
         .mascot-portrait-canvas-wrap {
             width: 100%;
-            height: 500px;
+            height: 420px;
             position: relative;
             display: flex;
             justify-content: center;
@@ -2080,6 +2087,48 @@
             margin-bottom: 10px;
         }
 
+        .filter-pill {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            user-select: none;
+        }
+
+        .filter-pill:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            background: var(--card);
+        }
+
+        .filter-pill.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+        }
+
+        .filter-pill .pill-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .filter-pill:not(.active) .pill-badge {
+            background: var(--bg3);
+            color: var(--text3);
+        }
+
         /* Toast */
         .toast {
             position: fixed;
@@ -3397,6 +3446,9 @@
                                 <div style="display: flex; align-items: center; gap: 6px;">
                                     <span class="mascot-dot" id="mascot-dot-indicator" style="background: #60a5fa; box-shadow: 0 0 8px #60a5fa;"></span>
                                     <select id="mascot-model-select" class="form-input" style="padding: 2px 6px; font-size: 0.8rem; font-weight: 700; height: 26px; border-radius: 6px; background: rgba(13,20,30,0.9); color: #60a5fa; border-color: rgba(96,165,250,0.4);" onchange="onMascotModelChange(this.value)" onclick="event.stopPropagation()">
+                                        <option value="bunny_carolina">🐰 North Carolina (Bunny Girl Sexy)</option>
+                                        <option value="dafeng">💋 Taihou Summer (Bikini Sexy)</option>
+                                        <option value="kiana">🌟 Kiana (Honkai Impact)</option>
                                         <option value="bronya">❄️ Bronya (Cubism 2.1)</option>
                                         <option value="mao">🎀 Mao (Cubism 4)</option>
                                         <option value="wanko">🐶 Wanko (Live2D Chibi)</option>
@@ -3406,10 +3458,21 @@
                             </div>
                             
                             <div class="mascot-portrait-canvas-wrap" id="mascot-canvas-container">
-                                <canvas id="mascot-live2d-canvas" width="340" height="500"></canvas>
+                                <canvas id="mascot-live2d-canvas" width="480" height="420"></canvas>
                                 <div id="live2d-loading-spinner" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #f472b6; font-size: 0.82rem;">
                                     <div style="width: 30px; height: 30px; border: 3px solid rgba(244,114,182,0.2); border-top-color: #f472b6; border-radius: 50%; animation: spin 1s linear infinite;"></div>
                                     <span id="live2d-loading-text">Đang tải Live2D VTuber...</span>
+                                </div>
+                                <!-- Floating Interactive Mascot Controls -->
+                                <div id="mascot-adjust-bar" style="position: absolute; bottom: 8px; right: 8px; display: flex; align-items: center; gap: 4px; background: rgba(13,20,30,0.88); border: 1px solid rgba(255,255,255,0.12); padding: 3px 8px; border-radius: 99px; z-index: 10; backdrop-filter: blur(8px); box-shadow: 0 4px 14px rgba(0,0,0,0.5);">
+                                    <button type="button" onclick="cycleMascotNextPose(event)" style="background:rgba(99,102,241,0.25); border:1px solid rgba(99,102,241,0.4); color:#c7d2fe; cursor:pointer; font-size:0.75rem; padding:2px 8px; border-radius:99px; font-weight:700; display:flex; align-items:center; gap:3px;" title="Chuyển sang tư thế & chuyển động tiếp theo">💃 Đổi dáng</button>
+                                    <span style="width:1px; height:12px; background:rgba(255,255,255,0.15); margin:0 2px;"></span>
+                                    <button type="button" onclick="adjustMascotZoom(-0.01, event)" style="background:none; border:none; color:#93c5fd; cursor:pointer; font-weight:800; font-size:0.95rem; width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:50%;" title="Thu nhỏ (Zoom Out)">−</button>
+                                    <span id="mascot-zoom-val" style="font-size:0.72rem; color:var(--text2); font-weight:700; min-width:32px; text-align:center;">100%</span>
+                                    <button type="button" onclick="adjustMascotZoom(0.01, event)" style="background:none; border:none; color:#93c5fd; cursor:pointer; font-weight:800; font-size:0.95rem; width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:50%;" title="Phóng to (Zoom In)">+</button>
+                                    <span style="width:1px; height:12px; background:rgba(255,255,255,0.15); margin:0 2px;"></span>
+                                    <button type="button" id="mascot-lock-btn" onclick="toggleMascotLock(event)" style="background:none; border:none; color:#a78bfa; cursor:pointer; font-size:0.82rem; padding:0 2px;" title="Khoá / Mở kéo thả & Cuộn zoom">🔓 Mở</button>
+                                    <button type="button" onclick="resetMascotTransform(event)" style="background:none; border:none; color:#94a3b8; cursor:pointer; font-size:0.75rem; padding:0 2px;" title="Reset về vị trí chuẩn">↺</button>
                                 </div>
                             </div>
 
@@ -3827,6 +3890,12 @@
                             Xoá tất cả</button>
                     </div>
                     <div class="vocab-count" id="vocab-count">0 từ</div>
+                    <!-- Filter buttons for vocab list -->
+                    <div class="vocab-filter-group" style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
+                        <button type="button" class="filter-pill active" id="vf-all" onclick="setVocabFilter('all')">🌐 Tất cả <span class="pill-badge" id="vf-count-all">0</span></button>
+                        <button type="button" class="filter-pill" id="vf-kanji" onclick="setVocabFilter('kanji')">🈸 Có Kanji <span class="pill-badge" id="vf-count-kanji">0</span></button>
+                        <button type="button" class="filter-pill" id="vf-no-kanji" onclick="setVocabFilter('no-kanji')">🎌 Không có Kanji (Hiragana) <span class="pill-badge" id="vf-count-no-kanji">0</span></button>
+                    </div>
                     <input type="text" class="form-input" id="search-input" placeholder="🔍 Tìm kiếm..."
                         oninput="renderVocabList()" style="margin-bottom:12px;">
                     <div class="vocab-list" id="vocab-list">
@@ -3862,6 +3931,13 @@
                                 oninput="sheetCurrentPage = 0; renderSheetView()" style="width: 200px; display: inline-block;">
                         </div>
                     </div>
+                </div>
+                <!-- Filter buttons for sheet view -->
+                <div style="display:flex; gap:8px; margin-top:14px; margin-bottom:14px; align-items:center; flex-wrap:wrap; background:var(--bg); padding:8px 12px; border-radius:10px; border:1px solid var(--border);">
+                    <span style="font-size:0.8rem; color:var(--text3); font-weight:700; text-transform:uppercase;">Lọc hiển thị:</span>
+                    <button type="button" class="filter-pill active" id="sf-all" onclick="setSheetFilter('all')">🌐 Tất cả <span class="pill-badge" id="sf-count-all">0</span></button>
+                    <button type="button" class="filter-pill" id="sf-kanji" onclick="setSheetFilter('kanji')">🈸 Có Kanji <span class="pill-badge" id="sf-count-kanji">0</span></button>
+                    <button type="button" class="filter-pill" id="sf-no-kanji" onclick="setSheetFilter('no-kanji')">🎌 Không có Kanji (Thuần Hiragana) <span class="pill-badge" id="sf-count-no-kanji">0</span></button>
                 </div>
                 <div class="sheet-container" id="sheet-container">
                     <!-- Sheet table rendered here -->
@@ -4743,23 +4819,60 @@
             document.getElementById('json-input').value = txt;
         }
 
+        // Kanji Detection Helper: Checks if a string contains any Kanji characters
+        function hasKanji(str) {
+            return /[\u4e00-\u9faf\u3400-\u4dbf]/.test(str || '');
+        }
+
+        let currentVocabFilter = 'all'; // 'all', 'kanji', 'no-kanji'
+
+        function setVocabFilter(filter) {
+            currentVocabFilter = filter;
+            document.querySelectorAll('.vocab-filter-group .filter-pill').forEach(btn => btn.classList.remove('active'));
+            const btn = document.getElementById(`vf-${filter}`);
+            if (btn) btn.classList.add('active');
+            renderVocabList();
+        }
+
         function renderVocabList() {
             const vocab = loadVocab();
-            const q = normalize(document.getElementById('search-input').value);
-            const filtered = vocab.filter(v =>
-                !q || normalize(v.kanji).includes(q) || normalize(v.meaning).includes(q) || normalize(v.romaji).includes(q)
-            );
-            document.getElementById('vocab-count').textContent = `${vocab.length} từ`;
+            const q = normalize(document.getElementById('search-input').value || '');
+
+            // Update filter pill counts
+            const countAll = vocab.length;
+            const countKanji = vocab.filter(v => hasKanji(v.kanji)).length;
+            const countNoKanji = vocab.filter(v => !hasKanji(v.kanji)).length;
+
+            const elAll = document.getElementById('vf-count-all');
+            if (elAll) elAll.textContent = countAll;
+            const elKanji = document.getElementById('vf-count-kanji');
+            if (elKanji) elKanji.textContent = countKanji;
+            const elNoKanji = document.getElementById('vf-count-no-kanji');
+            if (elNoKanji) elNoKanji.textContent = countNoKanji;
+
+            const filtered = vocab.filter(v => {
+                const matchesQuery = !q || normalize(v.kanji).includes(q) || normalize(v.meaning).includes(q) || normalize(v.romaji).includes(q) || normalize(v.hiragana || '').includes(q);
+                if (!matchesQuery) return false;
+                if (currentVocabFilter === 'kanji') return hasKanji(v.kanji);
+                if (currentVocabFilter === 'no-kanji') return !hasKanji(v.kanji);
+                return true;
+            });
+
+            document.getElementById('vocab-count').textContent = `Hiển thị ${filtered.length} / ${vocab.length} từ`;
             const list = document.getElementById('vocab-list');
             if (!filtered.length) {
-                list.innerHTML = `<div class="empty-state"><div class="e-icon">📭</div><p>${q ? 'Không tìm thấy từ nào.' : 'Chưa có từ vựng nào.<br>Hãy thêm hoặc import JSON!'}</p></div>`;
+                list.innerHTML = `<div class="empty-state"><div class="e-icon">📭</div><p>${q ? 'Không tìm thấy từ nào.' : 'Chưa có từ vựng nào phù hợp bộ lọc.'}</p></div>`;
                 return;
             }
             list.innerHTML = filtered.map((v, i) => {
                 const realIdx = vocab.indexOf(v);
+                const isPureKana = !hasKanji(v.kanji);
                 return `<div class="vocab-item">
-      <div class="vi-kanji">${v.kanji}</div>
-      <div class="vi-hira">${v.hiragana}</div>
+      <div class="vi-kanji" style="${isPureKana ? 'color: var(--accent3);' : ''}">
+        ${v.kanji}
+        ${isPureKana ? '<span style="font-size:0.65rem; background:rgba(168,85,247,0.15); color:var(--accent3); padding:2px 6px; border-radius:4px; font-weight:600; vertical-align:middle; margin-left:4px;">Hiragana</span>' : ''}
+      </div>
+      <div class="vi-hira">${v.hiragana || ''}</div>
       <div class="vi-mean">${v.meaning}</div>
       <button class="vi-delete" onclick="deleteWord(${realIdx})" title="Xóa">✕</button>
     </div>`;
@@ -4770,13 +4883,27 @@
         let sheetSort = { key: 'none', order: 'asc' };
         let isSheetDragging = false;
         let sheetDragMode = 'select'; // 'select' or 'deselect'
+        let currentSheetFilter = 'all'; // 'all', 'kanji', 'no-kanji'
+
+        function setSheetFilter(filter) {
+            currentSheetFilter = filter;
+            sheetCurrentPage = 0;
+            document.querySelectorAll('#content-sheet .filter-pill').forEach(btn => btn.classList.remove('active'));
+            const btn = document.getElementById(`sf-${filter}`);
+            if (btn) btn.classList.add('active');
+            renderSheetView();
+        }
 
         function selectAllSheet() {
             const vocab = loadVocab();
             const q = normalize(document.getElementById('search-sheet').value || '');
-            const filtered = vocab.filter(v =>
-                !q || normalize(v.kanji).includes(q) || normalize(v.meaning).includes(q) || normalize(v.romaji).includes(q) || normalize(v.hiragana || '').includes(q)
-            );
+            const filtered = vocab.filter(v => {
+                const matchesQuery = !q || normalize(v.kanji).includes(q) || normalize(v.meaning).includes(q) || normalize(v.romaji).includes(q) || normalize(v.hiragana || '').includes(q);
+                if (!matchesQuery) return false;
+                if (currentSheetFilter === 'kanji') return hasKanji(v.kanji);
+                if (currentSheetFilter === 'no-kanji') return !hasKanji(v.kanji);
+                return true;
+            });
             filtered.forEach(v => selectedSheetWords.add(v.kanji));
             updatePracticeBtn();
             renderSheetView();
@@ -4853,9 +4980,13 @@
 
             const vocab = loadVocab();
             const q = normalize(document.getElementById('search-sheet').value || '');
-            let filtered = vocab.filter(v =>
-                !q || normalize(v.kanji).includes(q) || normalize(v.meaning).includes(q) || normalize(v.romaji).includes(q) || normalize(v.hiragana || '').includes(q)
-            );
+            let filtered = vocab.filter(v => {
+                const matchesQuery = !q || normalize(v.kanji).includes(q) || normalize(v.meaning).includes(q) || normalize(v.romaji).includes(q) || normalize(v.hiragana || '').includes(q);
+                if (!matchesQuery) return false;
+                if (currentSheetFilter === 'kanji') return hasKanji(v.kanji);
+                if (currentSheetFilter === 'no-kanji') return !hasKanji(v.kanji);
+                return true;
+            });
             
             // Apply current sorting
             if (sheetSort.key !== 'none') {
@@ -4916,9 +5047,26 @@
         function renderSheetView() {
             const vocab = loadVocab();
             const q = normalize(document.getElementById('search-sheet').value || '');
-            let filtered = vocab.filter(v =>
-                !q || normalize(v.kanji).includes(q) || normalize(v.meaning).includes(q) || normalize(v.romaji).includes(q) || normalize(v.hiragana || '').includes(q)
-            );
+
+            // Update badge counts for sheet view
+            const countAll = vocab.length;
+            const countKanji = vocab.filter(v => hasKanji(v.kanji)).length;
+            const countNoKanji = vocab.filter(v => !hasKanji(v.kanji)).length;
+
+            const elAll = document.getElementById('sf-count-all');
+            if (elAll) elAll.textContent = countAll;
+            const elKanji = document.getElementById('sf-count-kanji');
+            if (elKanji) elKanji.textContent = countKanji;
+            const elNoKanji = document.getElementById('sf-count-no-kanji');
+            if (elNoKanji) elNoKanji.textContent = countNoKanji;
+
+            let filtered = vocab.filter(v => {
+                const matchesQuery = !q || normalize(v.kanji).includes(q) || normalize(v.meaning).includes(q) || normalize(v.romaji).includes(q) || normalize(v.hiragana || '').includes(q);
+                if (!matchesQuery) return false;
+                if (currentSheetFilter === 'kanji') return hasKanji(v.kanji);
+                if (currentSheetFilter === 'no-kanji') return !hasKanji(v.kanji);
+                return true;
+            });
             
             // Apply sorting
             if (sheetSort.key !== 'none') {
@@ -4937,7 +5085,7 @@
 
             const container = document.getElementById('sheet-container');
             if (!filtered.length) {
-                container.innerHTML = `<div class="empty-state" style="padding: 40px; text-align: center;"><div class="e-icon" style="font-size: 3rem; margin-bottom: 12px;">📭</div><p style="color: var(--text3);">${q ? 'Không tìm thấy từ nào trong bảng.' : 'Chưa có từ vựng nào để hiển thị bảng.'}</p></div>`;
+                container.innerHTML = `<div class="empty-state" style="padding: 40px; text-align: center;"><div class="e-icon" style="font-size: 3rem; margin-bottom: 12px;">📭</div><p style="color: var(--text3);">${q ? 'Không tìm thấy từ nào trong bảng.' : 'Chưa có từ vựng nào phù hợp bộ lọc.'}</p></div>`;
                 return;
             }
 
@@ -4961,13 +5109,17 @@
                 items.forEach((v, index) => {
                     const realIndex = startIdx + index;
                     const isSelected = selectedSheetWords.has(v.kanji);
+                    const isPureKana = !hasKanji(v.kanji);
                     html += `<tr class="${isSelected ? 'selected' : ''}" 
                         onmousedown="handleSheetMouseDown(this, '${v.kanji}')"
                         onmouseenter="handleSheetMouseEnter(this, '${v.kanji}')"
                         oncontextmenu="return false;"
                         style="user-select: none;">
                         <td style="text-align: center; color: var(--text3); font-weight: 600; font-size: 0.95rem;">${realIndex + 1}</td>
-                        <td style="font-weight: 700; font-family: 'Noto Sans JP', sans-serif;">${v.kanji}</td>
+                        <td style="font-weight: 700; font-family: 'Noto Sans JP', sans-serif;">
+                            ${v.kanji}
+                            ${isPureKana ? '<span style="font-size:0.7rem; font-weight:600; background:rgba(168,85,247,0.15); color:var(--accent3); padding:2px 6px; border-radius:4px; margin-left:4px; vertical-align:middle;">Hiragana</span>' : ''}
+                        </td>
                         <td style="color: var(--accent3); font-family: 'Noto Sans JP', sans-serif;">${v.hiragana || ''}</td>
                         <td style="color: var(--text2);">${v.meaning}</td>
                     </tr>`;
@@ -5341,9 +5493,9 @@
         }
 
         // ========== OFFICIAL MULTI-MODEL LIVE2D CUBISM 4 VTUBER ENGINE ==========
-        let currentLive2DModelKey = localStorage.getItem('selected_mascot_model') || 'bronya';
-        if (currentLive2DModelKey !== 'bronya' && currentLive2DModelKey !== 'mao' && currentLive2DModelKey !== 'wanko') {
-            currentLive2DModelKey = 'bronya';
+        let currentLive2DModelKey = localStorage.getItem('selected_mascot_model') || 'bunny_carolina';
+        if (currentLive2DModelKey !== 'bunny_carolina' && currentLive2DModelKey !== 'dafeng' && currentLive2DModelKey !== 'bronya' && currentLive2DModelKey !== 'kiana' && currentLive2DModelKey !== 'mao' && currentLive2DModelKey !== 'wanko') {
+            currentLive2DModelKey = 'bunny_carolina';
         }
         let live2dApp = null;
         let live2dModel = null;
@@ -5355,6 +5507,94 @@
         let _lastAfkReminderTime = 0;
 
         const LIVE2D_VTUBER_MODELS = {
+            bunny_carolina: {
+                name: 'North Carolina (バニーガール - ノースカロライナ)',
+                speaker: '2',
+                color: '#38bdf8',
+                url: 'https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model@master/%E7%A2%A7%E8%93%9D%E8%88%AA%E7%BA%BF%20Azue%20Lane/Azue%20Lane(JP)/beikaluolaina_2/beikaluolaina_2.model3.json',
+                scale: 0.125,
+                yOffset: -30,
+                quotes: [
+                    "指揮官、このバニーガールの衣装…少し恥ずかしいですが、気に入っていただけましたか？",
+                    "ふふっ、集中してキーを叩く指揮官の姿、とっても素敵です。",
+                    "うさ耳がぴょこぴょこ動いて気になっちゃいますか？タイピングに集中してくださいね？",
+                    "素晴らしいスピードです！バニーノースカロライナ、全力で応援しますね！",
+                    "最後までパーフェクトにいけたら…特別なご褒美、あげちゃいますね。"
+                ],
+                headQuotes: [
+                    "うさ耳をなでてくださるのですか？ふふっ、くすぐったいですが嬉しいです。",
+                    "指揮官の手、とっても優しくて安心します…もっと撫でてください。",
+                    "えへへ、指揮官に甘やかされるの、大好きです。"
+                ],
+                faceQuotes: [
+                    "頬にタッチ…？指揮官に見つめられると、顔が熱くなってしまいます…",
+                    "ふふっ、バニーの私に見惚れてくださって嬉しいです。",
+                    "指揮官、そんなに近くで見つめ合ったら…ドキドキが止まりません。"
+                ],
+                bodyQuotes: [
+                    "きゃっ…指揮官、どこを触っているのですか…？大胆ですね。",
+                    "このハイレグスーツ、少し際どすぎないでしょうか…？指揮官だけにお見せしますね。",
+                    "指揮官の温もりを感じると…もっと頑張ろうって思えます。"
+                ],
+                comboQuotes: [
+                    "すごいです指揮官！神速のコンボ連撃ですね！",
+                    "大連撃です！このまま一気にステージクリア目指しましょう！",
+                    "パーフェクトです！さすが私の誇らしい指揮官！"
+                ],
+                afkQuotes: [
+                    "少し休憩ですね？冷たいお茶を淹れてきますので、ゆっくり休んでくださいね。",
+                    "疲れたら私の膝枕で休んでくださいね、指揮官。"
+                ],
+                screamQuotes: [
+                    "ひゃあっ…！指揮官、そんなに急に触られたら…しっぽが抜けちゃいます！",
+                    "もう…っ、くすぐったいです！いたずらっ子な指揮官ですね。",
+                    "ふふっ、そんなに焦らなくても、私はずっと指揮官のお側にいますよ。"
+                ]
+            },
+            dafeng: {
+                name: 'Taihou Summer (大鳳)',
+                speaker: '2',
+                color: '#f43f5e',
+                url: 'https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model@master/%E7%A2%A7%E8%93%9D%E8%88%AA%E7%BA%BF%20Azue%20Lane/Azue%20Lane(JP)/dafeng_2/dafeng_2.model3.json',
+                scale: 0.11,
+                yOffset: -25,
+                quotes: [
+                    "指揮官様！大鳳はずーっと指揮官様だけを見つめておりますわ！",
+                    "素晴らしいタイピングですわ！大鳳の愛の力ですわね！",
+                    "他の娘に目移りしてはダメですわよ…？大鳳だけを見てくださいまし。",
+                    "ふふっ、指揮官様と二人きりのタイピング特訓…最高に幸せですわ！",
+                    "大鳳の全ては指揮官様のもの…さあ、次の単語へ参りましょう！"
+                ],
+                headQuotes: [
+                    "ああっ、指揮官様の手…！大鳳、嬉しすぎて天にも昇る心地ですわ！",
+                    "指揮官様になでなでしていただけるなんて…幸せすぎますわ！",
+                    "もっと…もっと大鳳を愛でてくださいまし！"
+                ],
+                faceQuotes: [
+                    "指揮官様が触れてくださった…！大鳳の心臓、高鳴りが止まりません！",
+                    "ふふっ、大鳳の美貌は指揮官様だけのためにありますのよ。",
+                    "指揮官様、見つめ合っているだけで体が熱くなってしまいますわ。"
+                ],
+                bodyQuotes: [
+                    "あぁん…っ！指揮官様、そんなところまで…大鳳はいつでも準備できておりますわ！",
+                    "この水着、指揮官様のために選んだのですわ…気に入っていただけました？",
+                    "大鳳の愛を受け止めてくださいまし、指揮官様！"
+                ],
+                comboQuotes: [
+                    "圧巻のコンボですわ指揮官様！大鳳の愛が最高潮に達しております！",
+                    "神速の指先…！ああ、素敵すぎますわ指揮官様！",
+                    "パーフェクトですわ！大鳳、もう我慢できません…！"
+                ],
+                afkQuotes: [
+                    "お休みですのね？大鳳が側でずっと看病…いえ、お世話いたしますわ！",
+                    "指揮官様の寝顔も素敵…ずっと見つめていても飽きませんわ。"
+                ],
+                screamQuotes: [
+                    "ひゃんっ…！指揮官様、そんなに激しく求められては…大鳳が壊れてしまいますわ！",
+                    "ああっ…！もっと、もっと大鳳を乱してくださいまし！",
+                    "指揮官様…っ、大鳳はどこへも行きませんわ…！"
+                ]
+            },
             bronya: {
                 name: 'Bronya (ブローニャ)',
                 speaker: '8',
@@ -5398,6 +5638,51 @@
                     "いたっ！もう、何をするのですか艦長！",
                     "くすぐったいです！触りすぎです！",
                     "わっ！機体に異常振動が発生しています！"
+                ]
+            },
+            kiana: {
+                name: 'Kiana (キアナ)',
+                speaker: '2',
+                color: '#f43f5e',
+                url: 'https://fastly.jsdelivr.net/gh/Eikanya/Live2d-model@master/%E5%B4%A9%E5%9D%8F%E5%AD%A6%E5%9B%AD2/Kiana/model.json',
+                scale: 0.235,
+                yOffset: -85,
+                quotes: [
+                    "キアナ、出撃準備完了！艦長、今日もビシバシ特訓しよう！",
+                    "ナイスタイピング！この調子でガンガン行こうよ！",
+                    "へへっ、私が見張ってるから、サボっちゃダメだよ？",
+                    "全問正解したら、芽衣先輩の手料理食べに行こうね！",
+                    "ネコチャーム炸裂〜！次の単語もバッチリ決めちゃえ！"
+                ],
+                headQuotes: [
+                    "えへへっ、頭なでなで？元気百倍になっちゃう！",
+                    "わ〜い、もっと撫でて！キアナちゃん、大満足！",
+                    "ふふっ、艦長の手、あったかいね！"
+                ],
+                faceQuotes: [
+                    "ほっぺぷにぷにしないでよ〜！子どもじゃないんだから！",
+                    "ん〜？キアナの可愛い顔に見とれてたの？えへへ！",
+                    "集中集中〜！でも触ってくれるのは大歓迎だけどね！"
+                ],
+                bodyQuotes: [
+                    "きゃっ！どこ触ってんのよ〜！バカ艦長！",
+                    "ふふん、私のワルキューレバトルスーツ、かっこいいでしょ？",
+                    "準備万端だよ！いつでも全力でサポートするからね！"
+                ],
+                comboQuotes: [
+                    "すごーい！連続コンボ炸裂！さすが私の艦長！",
+                    "止まらないね！この勢いでステージクリアしちゃおう！",
+                    "神速タイピングだ〜！キアナもテンションMAX！"
+                ],
+                afkQuotes: [
+                    "艦長〜、お腹すいたよ〜！カップ麺でも食べる？",
+                    "休憩中？ひと休みしたら、また一緒に頑張ろうね！"
+                ],
+                screamQuotes: [
+                    "きゃーっ！バカ艦長！変なとこ触らないでよ〜！",
+                    "もうっ！つつきすぎ！怒っちゃうからね〜！",
+                    "わわっ！くすぐったいってば！",
+                    "いたっ！キアナちゃんキックをお見舞いしちゃうぞ〜！"
                 ]
             },
             mao: {
@@ -5504,103 +5789,286 @@
             if (coreModel._isHookedForLipSync) return;
             coreModel._isHookedForLipSync = true;
 
-            const origCoreUpdate = coreModel.update.bind(coreModel);
-
-            function setParam(id, val) {
-                try {
-                    if (coreModel.setParameterValueById) {
-                        coreModel.setParameterValueById(id, val);
-                    }
-                } catch(e) {}
-                try {
-                    if (coreModel.setParamFloat) {
-                        coreModel.setParamFloat(id, val);
-                    }
-                } catch(e) {}
+            // Fast Index Map for Cubism 4 Parameters
+            const paramIndexMap = new Map();
+            if (coreModel.parameters && coreModel.parameters.ids) {
+                for (let i = 0; i < coreModel.parameters.ids.length; i++) {
+                    paramIndexMap.set(coreModel.parameters.ids[i], i);
+                }
             }
 
+            function setParam(id, val) {
+                // 1. Direct Cubism 4 Float32Array write (ultra-fast & 100% reliable)
+                if (coreModel.parameters && coreModel.parameters.values) {
+                    const idx = paramIndexMap.get(id);
+                    if (idx !== undefined && idx >= 0) {
+                        coreModel.parameters.values[idx] = val;
+                        return;
+                    }
+                }
+                // 2. internalModel setParameterValueById
+                if (model.internalModel && model.internalModel.setParameterValueById) {
+                    try {
+                        model.internalModel.setParameterValueById(id, val);
+                    } catch(e) {}
+                }
+                // 3. Cubism 2.1 setParamFloat
+                if (coreModel.setParamFloat) {
+                    try {
+                        coreModel.setParamFloat(id, val);
+                    } catch(e) {}
+                }
+                // 4. coreModel setParameterValueById
+                if (coreModel.setParameterValueById) {
+                    try {
+                        coreModel.setParameterValueById(id, val);
+                    } catch(e) {}
+                }
+            }
+
+            function addParam(id, delta) {
+                if (coreModel.parameters && coreModel.parameters.values) {
+                    const idx = paramIndexMap.get(id);
+                    if (idx !== undefined && idx >= 0) {
+                        coreModel.parameters.values[idx] += delta;
+                        return;
+                    }
+                }
+                if (model.internalModel && model.internalModel.addParameterValueById) {
+                    try {
+                        model.internalModel.addParameterValueById(id, delta);
+                    } catch(e) {}
+                }
+            }
+
+            let _idleBreathClock = 0;
+            const origCoreUpdate = coreModel.update.bind(coreModel);
+
             coreModel.update = function() {
+                _idleBreathClock += 0.035;
+
                 // 1. Audio-driven Smooth Gentle Cadence Lip-sync
                 const speaking = isCurrentlySpeaking();
 
                 let targetMouth = 0;
                 if (speaking) {
-                    _lipSyncClock += 0.085; // Slow, relaxed natural syllable rhythm
-                    // Gentle syllable rise and fall (half-wave)
+                    _lipSyncClock += 0.085; // Natural syllable rhythm
                     const wave = Math.sin(_lipSyncClock);
                     const syllable = Math.max(0, wave);
-                    // Soft natural cadence variance
                     const accent = 0.75 + Math.sin(_lipSyncClock * 0.35) * 0.25;
-                    targetMouth = syllable * accent * 0.85;
+                    targetMouth = syllable * accent * 0.88;
                 } else {
                     _lipSyncClock = 0;
                     targetMouth = 0;
                 }
 
-                // Smooth damping lerp (no harsh snapping or jittering)
-                _smoothedMouthVal += (targetMouth - _smoothedMouthVal) * 0.26;
+                _smoothedMouthVal += (targetMouth - _smoothedMouthVal) * 0.28;
                 if (_smoothedMouthVal < 0.008) _smoothedMouthVal = 0;
 
-                // Standard Live2D Models (Wanko, Haru, etc.)
+                // Lip parameters
                 setParam('ParamMouthOpenY', _smoothedMouthVal);
                 setParam('PARAM_MOUTH_OPEN_Y', _smoothedMouthVal);
                 setParam('PARAM_MOUTH_FORM', 1.0);
                 setParam('ParamMouthForm', 1.0);
 
-                // Mao Live2D Clean Japanese Vowel Form
+                // Mao / Special Japanese Vowel Form
                 setParam('ParamA', _smoothedMouthVal * 0.9);
                 setParam('ParamMouthDown', _smoothedMouthVal * 0.65);
                 setParam('ParamMouthUp', _smoothedMouthVal > 0.04 ? 0.35 : 0);
-                setParam('ParamI', 0);
-                setParam('ParamU', 0);
-                setParam('ParamE', 0);
-                setParam('ParamO', 0);
+
+                // Gentle Procedural Breathing & Subtle Sway
+                const breathVal = (Math.sin(_idleBreathClock) + 1) * 0.5;
+                setParam('ParamBreath', breathVal);
+                setParam('PARAM_BREATH', breathVal);
 
                 // 2. Emotional Expressions & Real-time Parameter Reactions
                 if (_mascotEmotionTimer > 0) {
                     _mascotEmotionTimer -= 0.016;
                     if (_mascotEmotionState === 'pat') {
+                        // Happy / Smiling / Blushing Patting
                         setParam('ParamEyeLSmile', 1.0);
                         setParam('ParamEyeRSmile', 1.0);
                         setParam('PARAM_EYE_L_SMILE', 1.0);
                         setParam('PARAM_EYE_R_SMILE', 1.0);
-                        setParam('ParamCheek', 1.0);
-                        setParam('PARAM_CHEEK', 1.0);
-                        setParam('ParamBrowLY', 0.5);
-                        setParam('ParamBrowRY', 0.5);
-                        setParam('ParamAngleY', -6);
-                        setParam('ParamMouthForm', 1.0);
-                    } else if (_mascotEmotionState === 'poke') {
-                        setParam('ParamEyeLOpen', 0.0);
-                        setParam('ParamEyeROpen', 1.0);
-                        setParam('PARAM_EYE_L_OPEN', 0.0);
-                        setParam('PARAM_EYE_R_OPEN', 1.0);
-                        setParam('ParamCheek', 0.85);
-                        setParam('PARAM_CHEEK', 0.85);
-                        setParam('ParamMouthForm', 1.0);
-                    } else if (_mascotEmotionState === 'correct') {
-                        setParam('ParamEyeLSmile', 1.0);
-                        setParam('ParamEyeRSmile', 1.0);
-                        setParam('PARAM_EYE_L_SMILE', 1.0);
-                        setParam('PARAM_EYE_R_SMILE', 1.0);
+                        setParam('ParamEyeLOpen', 0.85);
+                        setParam('ParamEyeROpen', 0.85);
                         setParam('ParamCheek', 1.0);
                         setParam('PARAM_CHEEK', 1.0);
                         setParam('ParamBrowLY', 0.6);
                         setParam('ParamBrowRY', 0.6);
+                        setParam('ParamBrowLAngle', 0.3);
+                        setParam('ParamBrowRAngle', 0.3);
+                        setParam('ParamAngleZ', 5.5 * Math.sin(_idleBreathClock * 2));
+                        setParam('PARAM_ANGLE_Z', 5.5 * Math.sin(_idleBreathClock * 2));
+                        setParam('ParamAngleY', -5);
+                        setParam('ParamMouthForm', 1.0);
+                    } else if (_mascotEmotionState === 'poke') {
+                        // Shy / Cute Winking / Blushing Poke
+                        setParam('ParamEyeLOpen', 0.0);
+                        setParam('ParamEyeROpen', 1.0);
+                        setParam('PARAM_EYE_L_OPEN', 0.0);
+                        setParam('PARAM_EYE_R_OPEN', 1.0);
+                        setParam('ParamCheek', 0.95);
+                        setParam('PARAM_CHEEK', 0.95);
+                        setParam('ParamAngleZ', -4.5);
+                        setParam('PARAM_ANGLE_Z', -4.5);
+                        setParam('ParamAngleX', 7.0);
+                        setParam('ParamBrowLY', 0.4);
+                        setParam('ParamBrowRY', 0.75);
+                        setParam('ParamMouthForm', 0.9);
+                    } else if (_mascotEmotionState === 'correct') {
+                        // Proud / Excited / Cheerful Streak
+                        setParam('ParamEyeLSmile', 1.0);
+                        setParam('ParamEyeRSmile', 1.0);
+                        setParam('PARAM_EYE_L_SMILE', 1.0);
+                        setParam('PARAM_EYE_R_SMILE', 1.0);
+                        setParam('ParamCheek', 1.0);
+                        setParam('PARAM_CHEEK', 1.0);
+                        setParam('ParamBrowLY', 0.65);
+                        setParam('ParamBrowRY', 0.65);
+                        setParam('ParamAngleY', 6);
+                        setParam('ParamBodyAngleX', 3);
                         setParam('ParamMouthForm', 1.0);
                     } else if (_mascotEmotionState === 'wrong') {
-                        setParam('ParamEyeLOpen', 0.5);
-                        setParam('ParamEyeROpen', 0.5);
-                        setParam('ParamBrowLY', -0.7);
-                        setParam('ParamBrowRY', -0.7);
-                        setParam('ParamBrowLForm', -0.6);
-                        setParam('ParamBrowRForm', -0.6);
-                        setParam('ParamMouthForm', -0.6);
+                        // Pouting / Flustered / Upset Reaction
+                        setParam('ParamEyeLOpen', 0.55);
+                        setParam('ParamEyeROpen', 0.55);
+                        setParam('ParamBrowLY', -0.8);
+                        setParam('ParamBrowRY', -0.8);
+                        setParam('ParamBrowLForm', -0.75);
+                        setParam('ParamBrowRForm', -0.75);
+                        setParam('ParamCheek', 0.8);
+                        setParam('ParamMouthForm', -0.7);
+                        setParam('ParamAngleX', -6);
+                        setParam('ParamAngleZ', -3);
                     }
                 }
 
                 return origCoreUpdate();
             };
+        }
+
+        let _currentMotionPlaylist = [];
+        let _motionPlaylistIdx = 0;
+
+        function getAllModelMotionItems(model) {
+            if (!model || !model.internalModel) return [];
+            const mm = model.internalModel.motionManager;
+            const defs = (mm && mm.definitions) || (model.internalModel.settings && model.internalModel.settings.motions);
+            if (!defs) return [];
+            const items = [];
+            for (const group of Object.keys(defs)) {
+                const arr = defs[group];
+                if (Array.isArray(arr) && arr.length > 0) {
+                    for (let i = 0; i < arr.length; i++) {
+                        items.push({ group, index: i, name: `${group} #${i + 1}` });
+                    }
+                } else {
+                    items.push({ group, index: 0, name: group });
+                }
+            }
+            return items;
+        }
+
+        // Universal Live2D Motion Trigger Helper with full posture & motion cycling support
+        function triggerLive2DMotion(motionType = null) {
+            if (!live2dModel) return null;
+            try {
+                const allItems = getAllModelMotionItems(live2dModel);
+                if (allItems.length === 0) return null;
+
+                const nonIdle = allItems.filter(it => !it.group.toLowerCase().includes('idle'));
+                const pool = nonIdle.length > 0 ? nonIdle : allItems;
+
+                let chosen = null;
+
+                if (motionType === 'head' || motionType === 'pat') {
+                    const headItems = pool.filter(it => /head|flick|pat|face|tap_face/i.test(it.group));
+                    if (headItems.length > 0) {
+                        chosen = headItems[Math.floor(Math.random() * headItems.length)];
+                    }
+                } else if (motionType === 'poke' || motionType === 'body') {
+                    const bodyItems = pool.filter(it => /body|breast|belly|tap_body|main_2|main_3/i.test(it.group));
+                    if (bodyItems.length > 0) {
+                        chosen = bodyItems[Math.floor(Math.random() * bodyItems.length)];
+                    }
+                } else if (motionType === 'special' || motionType === 'cheer' || motionType === 'correct') {
+                    const specialItems = pool.filter(it => /special|wedding|complete|mission|mail|win|born|main_1/i.test(it.group));
+                    if (specialItems.length > 0) {
+                        chosen = specialItems[Math.floor(Math.random() * specialItems.length)];
+                    }
+                } else if (motionType === 'wrong' || motionType === 'angry') {
+                    const angryItems = pool.filter(it => /special|breast|body|main_3|head/i.test(it.group));
+                    if (angryItems.length > 0) {
+                        chosen = angryItems[Math.floor(Math.random() * angryItems.length)];
+                    }
+                }
+
+                // If not matched or for general dynamic cycling: cycle through the entire shuffle playlist!
+                if (!chosen) {
+                    if (_currentMotionPlaylist.length === 0 || _motionPlaylistIdx >= _currentMotionPlaylist.length) {
+                        _currentMotionPlaylist = [...pool].sort(() => Math.random() - 0.5);
+                        _motionPlaylistIdx = 0;
+                    }
+                    chosen = _currentMotionPlaylist[_motionPlaylistIdx++];
+                }
+
+                if (chosen) {
+                    live2dModel.motion(chosen.group, chosen.index, 3); // Priority 3 = FORCE
+                    return chosen;
+                }
+            } catch(e) {
+                console.warn('Motion trigger error:', e);
+            }
+            return null;
+        }
+
+        // Universal Live2D Expression Trigger Helper
+        function triggerLive2DExpression(expType) {
+            if (!live2dModel) return;
+            try {
+                const em = live2dModel.internalModel && live2dModel.internalModel.motionManager && live2dModel.internalModel.motionManager.expressionManager;
+                if (em && em.definitions && em.definitions.length > 0) {
+                    if (expType === 'happy' || expType === 'smile') {
+                        em.setExpression(0);
+                    } else if (expType === 'blush' || expType === 'shy') {
+                        em.setExpression(Math.min(1, em.definitions.length - 1));
+                    } else if (expType === 'angry' || expType === 'wrong') {
+                        em.setExpression(Math.min(2, em.definitions.length - 1));
+                    } else {
+                        em.setRandomExpression();
+                    }
+                } else if (live2dModel.expression) {
+                    if (expType === 'happy') live2dModel.expression('exp_01') || live2dModel.expression('F01');
+                    else if (expType === 'blush') live2dModel.expression('exp_02') || live2dModel.expression('F02');
+                    else if (expType === 'wrong') live2dModel.expression('exp_03') || live2dModel.expression('F03');
+                    else live2dModel.expression();
+                }
+            } catch(e) {}
+        }
+
+        // Cycle through all available poses / motions on demand
+        function cycleMascotNextPose(event) {
+            if (event && event.stopPropagation) event.stopPropagation();
+            const chosen = triggerLive2DMotion();
+            triggerLive2DExpression('random');
+
+            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bunny_carolina;
+            const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '2';
+            const pool = modelCfg.quotes || [];
+            if (pool.length > 0) {
+                const quote = pool[Math.floor(Math.random() * pool.length)];
+                playTTS(quote, speaker);
+            }
+
+            const card = document.getElementById('mascot-portrait-card');
+            if (card && window.gsap) {
+                gsap.fromTo(card, { scale: 1.035, y: -10 }, { scale: 1, y: 0, duration: 0.5, ease: "back.out(2)" });
+            }
+
+            const friendlyName = chosen ? chosen.name.replace(/_/g, ' ') : 'Tư thế mới';
+            showMascotFeedbackFX(event, `💃 ${friendlyName}`);
+            showToast(`💃 Đổi chuyển động: ${friendlyName}`, 'info');
         }
 
         async function initLive2DCompanion() {
@@ -5619,8 +6087,8 @@
                 const { Live2DModel } = PIXI.live2d;
                 Live2DModel.registerTicker(PIXI.Ticker);
 
-                const width = 340;
-                const height = 500;
+                const width = 480;
+                const height = 420;
 
                 live2dApp = new PIXI.Application({
                     view: canvas,
@@ -5644,8 +6112,8 @@
                 });
 
                 // Load initial model
-                let saved = localStorage.getItem('selected_mascot_model') || 'bronya';
-                if (saved !== 'bronya' && saved !== 'mao' && saved !== 'wanko') saved = 'bronya';
+                let saved = localStorage.getItem('selected_mascot_model') || 'bunny_carolina';
+                if (saved !== 'bunny_carolina' && saved !== 'dafeng' && saved !== 'bronya' && saved !== 'kiana' && saved !== 'mao' && saved !== 'wanko') saved = 'bunny_carolina';
                 await loadLive2DModel(saved);
 
                 // Start idle afk care timer
@@ -5661,8 +6129,8 @@
         }
 
         async function loadLive2DModel(modelKey) {
-            if (modelKey !== 'bronya' && modelKey !== 'mao' && modelKey !== 'wanko') modelKey = 'bronya';
-            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.bronya;
+            if (modelKey !== 'bunny_carolina' && modelKey !== 'dafeng' && modelKey !== 'bronya' && modelKey !== 'kiana' && modelKey !== 'mao' && modelKey !== 'wanko') modelKey = 'bunny_carolina';
+            const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.bunny_carolina;
             currentLive2DModelKey = modelKey;
             localStorage.setItem('selected_mascot_model', modelKey);
 
@@ -5701,12 +6169,25 @@
 
                 live2dModel = newModel;
                 live2dApp.stage.addChild(newModel);
+                _currentMotionPlaylist = [];
+                _motionPlaylistIdx = 0;
 
-                // Auto scale and center
-                const scale = modelCfg.scale || 0.52;
+                // Auto scale and center (with saved manual adjustment support)
+                const savedTransforms = JSON.parse(localStorage.getItem('mascot_transforms') || '{}');
+                const userTransform = savedTransforms[modelKey] || {};
+                const baseScale = modelCfg.scale || 0.52;
+                const scale = userTransform.scale !== undefined ? userTransform.scale : baseScale;
                 newModel.scale.set(scale);
-                newModel.x = 170 - (newModel.width * 0.5);
-                newModel.y = modelCfg.yOffset !== undefined ? modelCfg.yOffset : 0;
+
+                const defaultX = (live2dApp.screen.width * 0.5) - (newModel.width * 0.5);
+                const defaultY = modelCfg.yOffset !== undefined ? modelCfg.yOffset : 0;
+                newModel.x = userTransform.x !== undefined ? userTransform.x : defaultX;
+                newModel.y = userTransform.y !== undefined ? userTransform.y : defaultY;
+
+                updateZoomLabel(scale / baseScale);
+
+                // Setup Drag & Pan and Wheel Zoom
+                setupMascotInteractiveTransform(newModel, modelKey, baseScale, defaultX, defaultY);
 
                 // Attach robust lip-sync & emotion hook
                 hookLive2DCoreModel(newModel);
@@ -5732,6 +6213,128 @@
             loadLive2DModel(modelKey);
             const modelCfg = LIVE2D_VTUBER_MODELS[modelKey] || LIVE2D_VTUBER_MODELS.bronya;
             showToast(`✨ Đã chuyển sang VTuber: ${modelCfg.name}`, 'success');
+        }
+
+        // ========== MASCOT INTERACTIVE ZOOM & DRAG & LOCK SYSTEM ==========
+        let isMascotLocked = localStorage.getItem('mascot_locked') === 'true';
+
+        function updateMascotLockUI() {
+            const btn = document.getElementById('mascot-lock-btn');
+            if (!btn) return;
+            if (isMascotLocked) {
+                btn.textContent = '🔒 Khoá';
+                btn.style.color = '#ef4444';
+                btn.title = 'Đang khoá vị trí & zoom (Bấm để mở chỉnh)';
+            } else {
+                btn.textContent = '🔓 Mở';
+                btn.style.color = '#10b981';
+                btn.title = 'Đang mở (Kéo để di chuyển, cuộn chuột để zoom, bấm để khoá lại)';
+            }
+        }
+
+        function toggleMascotLock(e) {
+            if (e) e.stopPropagation();
+            isMascotLocked = !isMascotLocked;
+            localStorage.setItem('mascot_locked', isMascotLocked);
+            updateMascotLockUI();
+            showToast(isMascotLocked ? '🔒 Đã khoá vị trí & zoom của VTuber' : '🔓 Đã mở chỉnh sửa (Kéo thả & Cuộn chuột để căn góc)', 'info');
+        }
+
+        function updateZoomLabel(ratio) {
+            const el = document.getElementById('mascot-zoom-val');
+            if (el) el.textContent = `${Math.round(ratio * 100)}%`;
+        }
+
+        function saveCurrentMascotTransform(modelKey, scale, x, y) {
+            const saved = JSON.parse(localStorage.getItem('mascot_transforms') || '{}');
+            saved[modelKey] = { scale, x, y };
+            localStorage.setItem('mascot_transforms', JSON.stringify(saved));
+        }
+
+        function adjustMascotZoom(delta, e) {
+            if (e) e.stopPropagation();
+            if (!live2dModel) return;
+            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bunny_carolina;
+            const baseScale = modelCfg.scale || 0.52;
+            let currentScale = live2dModel.scale.x;
+            let newScale = Math.max(baseScale * 0.3, Math.min(baseScale * 3.5, currentScale + delta * baseScale));
+
+            // Adjust position so zoom centers nicely
+            const centerX = live2dApp ? live2dApp.screen.width * 0.5 : 240;
+            const centerY = live2dApp ? live2dApp.screen.height * 0.5 : 210;
+            const scaleFactor = newScale / currentScale;
+            live2dModel.x = centerX + (live2dModel.x - centerX) * scaleFactor;
+            live2dModel.y = centerY + (live2dModel.y - centerY) * scaleFactor;
+            live2dModel.scale.set(newScale);
+
+            updateZoomLabel(newScale / baseScale);
+            saveCurrentMascotTransform(currentLive2DModelKey, newScale, live2dModel.x, live2dModel.y);
+        }
+
+        function resetMascotTransform(e) {
+            if (e) e.stopPropagation();
+            if (!live2dModel) return;
+            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bunny_carolina;
+            const baseScale = modelCfg.scale || 0.52;
+            const defaultX = (live2dApp ? live2dApp.screen.width * 0.5 : 240) - (live2dModel.width * (baseScale / live2dModel.scale.x) * 0.5);
+            const defaultY = modelCfg.yOffset !== undefined ? modelCfg.yOffset : 0;
+
+            live2dModel.scale.set(baseScale);
+            live2dModel.x = (live2dApp ? live2dApp.screen.width * 0.5 : 240) - (live2dModel.width * 0.5);
+            live2dModel.y = defaultY;
+
+            updateZoomLabel(1.0);
+            saveCurrentMascotTransform(currentLive2DModelKey, baseScale, live2dModel.x, live2dModel.y);
+            showToast('↺ Đã reset vị trí & kích thước về mặc định', 'info');
+        }
+
+        function setupMascotInteractiveTransform(model, modelKey, baseScale, defX, defY) {
+            const container = document.getElementById('mascot-canvas-container');
+            if (!container) return;
+            updateMascotLockUI();
+
+            // Wheel zoom on canvas container
+            container.onwheel = (e) => {
+                if (isMascotLocked) return;
+                e.preventDefault();
+                const delta = e.deltaY < 0 ? 0.04 : -0.04;
+                adjustMascotZoom(delta);
+            };
+
+            // Drag & Move
+            let isDragging = false;
+            let startX = 0, startY = 0;
+            let modelStartX = 0, modelStartY = 0;
+            let hasMoved = false;
+
+            container.onmousedown = (e) => {
+                if (isMascotLocked) return;
+                // Ignore if clicked on control buttons
+                if (e.target.closest('#mascot-adjust-bar')) return;
+                isDragging = true;
+                hasMoved = false;
+                startX = e.clientX;
+                startY = e.clientY;
+                modelStartX = model.x;
+                modelStartY = model.y;
+            };
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging || isMascotLocked) return;
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
+                model.x = modelStartX + dx;
+                model.y = modelStartY + dy;
+            });
+
+            window.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                if (hasMoved) {
+                    saveCurrentMascotTransform(modelKey, model.scale.x, model.x, model.y);
+                }
+            });
         }
 
         function init3DMascotCompanion() {
@@ -5793,10 +6396,8 @@
             _mascotEmotionState = 'correct';
             _mascotEmotionTimer = 2.2;
 
-            if (live2dModel) {
-                try { if (live2dModel.motion) live2dModel.motion('TapBody') || live2dModel.motion('tap_face'); } catch(e) {}
-                try { if (live2dModel.expression) live2dModel.expression('exp_01') || live2dModel.expression('F01'); } catch(e) {}
-            }
+            triggerLive2DMotion('correct');
+            triggerLive2DExpression('happy');
 
             const card = document.getElementById('mascot-portrait-card');
             if (card && window.gsap) {
@@ -5809,9 +6410,8 @@
             _mascotEmotionState = 'wrong';
             _mascotEmotionTimer = 1.8;
 
-            if (live2dModel) {
-                try { if (live2dModel.expression) live2dModel.expression('exp_03') || live2dModel.expression('F03'); } catch(e) {}
-            }
+            triggerLive2DMotion('wrong');
+            triggerLive2DExpression('wrong');
 
             const card = document.getElementById('mascot-portrait-card');
             if (card && window.gsap) {
@@ -5825,9 +6425,8 @@
             _mascotEmotionState = 'correct';
             _mascotEmotionTimer = 2.0;
 
-            if (live2dModel) {
-                try { if (live2dModel.motion) live2dModel.motion('TapBody') || live2dModel.motion('tap_face') || live2dModel.motion('born'); } catch(e) {}
-            }
+            triggerLive2DMotion('special');
+            triggerLive2DExpression('happy');
 
             const card = document.getElementById('mascot-portrait-card');
             if (card && window.gsap) {
@@ -5873,10 +6472,8 @@
                 _mascotEmotionState = 'wrong';
                 _mascotEmotionTimer = 2.4;
 
-                if (live2dModel) {
-                    try { if (live2dModel.motion) live2dModel.motion('tap_breast') || live2dModel.motion('TapBody') || live2dModel.motion('flick_head'); } catch(e) {}
-                    try { if (live2dModel.expression) live2dModel.expression('exp_03') || live2dModel.expression('F03'); } catch(e) {}
-                }
+                const chosen = triggerLive2DMotion('angry');
+                triggerLive2DExpression('wrong');
 
                 if (card && window.gsap) {
                     gsap.fromTo(card, { x: -14, rotation: -3 }, { x: 0, rotation: 0, duration: 0.45, ease: "elastic.out(1.8, 0.25)" });
@@ -5893,39 +6490,56 @@
                 return;
             }
 
-            // Click 1-2 lần nhẹ: Phản ứng biểu cảm & chuyển động mượt mà (KHÔNG nói gì thêm)
+            // ★★★ KHI CHỌC VÀO NHÂN VẬT: MỖI LẦN CLICK LÀ MỘT CHUYỂN ĐỘNG & TƯ THẾ MỚI KÈM GIỌNG NÓI ★★★
+            let feedbackText = '✨ Tương tác';
+            let chosenMotion = null;
+
             if (clickY < 0.36) {
+                // Zone 1: HEAD (Tai thỏ / Đầu)
                 _mascotEmotionState = 'pat';
-                _mascotEmotionTimer = 2.0;
-                if (live2dModel) {
-                    try { if (live2dModel.motion) live2dModel.motion('flick_head') || live2dModel.motion('TapHead') || live2dModel.motion('TapBody'); } catch(e) {}
-                    try { if (live2dModel.expression) live2dModel.expression('exp_01') || live2dModel.expression('F01'); } catch(e) {}
-                }
+                _mascotEmotionTimer = 2.2;
+                chosenMotion = triggerLive2DMotion('head');
+                triggerLive2DExpression('happy');
                 if (card && window.gsap) {
                     gsap.fromTo(card, { y: 6, scale: 0.985 }, { y: 0, scale: 1, duration: 0.5, ease: "elastic.out(1.2, 0.4)" });
                 }
-                showMascotFeedbackFX(event, _mascotPokeStreak === 2 ? '⚡ Chọc lần 2...' : '💖 Xoa đầu');
+                const pool = modelCfg.headQuotes || modelCfg.quotes;
+                const quote = pool[Math.floor(Math.random() * pool.length)];
+                playTTS(quote, speaker);
+                feedbackText = currentLive2DModelKey === 'bunny_carolina' ? '🐰 Vuốt tai thỏ' : '💖 Xoa đầu';
             } else if (clickY <= 0.65) {
+                // Zone 2: FACE / CHEST (Mặt / Ngực)
                 _mascotEmotionState = 'poke';
-                _mascotEmotionTimer = 2.0;
-                if (live2dModel) {
-                    try { if (live2dModel.motion) live2dModel.motion('tap_face') || live2dModel.motion('TapFace') || live2dModel.motion('TapBody'); } catch(e) {}
-                    try { if (live2dModel.expression) live2dModel.expression('exp_02') || live2dModel.expression('F02'); } catch(e) {}
-                }
+                _mascotEmotionTimer = 2.2;
+                chosenMotion = triggerLive2DMotion('poke');
+                triggerLive2DExpression('blush');
                 if (card && window.gsap) {
-                    gsap.fromTo(card, { rotation: clickX < 0.5 ? -2 : 2 }, { rotation: 0, duration: 0.4, ease: "back.out(2)" });
+                    gsap.fromTo(card, { rotation: clickX < 0.5 ? -2.5 : 2.5 }, { rotation: 0, duration: 0.45, ease: "back.out(2)" });
                 }
-                showMascotFeedbackFX(event, _mascotPokeStreak === 2 ? '⚡ Chọc lần 2...' : '✨ Chọc má');
+                const pool = modelCfg.faceQuotes || modelCfg.quotes;
+                const quote = pool[Math.floor(Math.random() * pool.length)];
+                playTTS(quote, speaker);
+                feedbackText = '✨ Chọc má';
             } else {
+                // Zone 3: BODY / SPECIAL (Thân / Đùi / Tư thế đặc biệt)
                 _mascotEmotionState = 'correct';
-                _mascotEmotionTimer = 1.8;
-                if (live2dModel) {
-                    try { if (live2dModel.motion) live2dModel.motion('tap_breast') || live2dModel.motion('tap_belly') || live2dModel.motion('TapBody'); } catch(e) {}
-                }
+                _mascotEmotionTimer = 2.0;
+                chosenMotion = triggerLive2DMotion('special');
+                triggerLive2DExpression('random');
                 if (card && window.gsap) {
                     gsap.fromTo(card, { y: -10, scale: 1.025 }, { y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" });
                 }
-                showMascotFeedbackFX(event, _mascotPokeStreak === 2 ? '⚡ Chọc lần 2...' : '⭐ Cổ vũ');
+                const pool = modelCfg.bodyQuotes || modelCfg.quotes;
+                const quote = pool[Math.floor(Math.random() * pool.length)];
+                playTTS(quote, speaker);
+                feedbackText = '💃 Đổi tư thế';
+            }
+
+            if (chosenMotion) {
+                const actionLabel = chosenMotion.name ? chosenMotion.name.replace(/_/g, ' ') : '';
+                showMascotFeedbackFX(event, `${feedbackText} (${actionLabel})`);
+            } else {
+                showMascotFeedbackFX(event, feedbackText);
             }
         }
 
