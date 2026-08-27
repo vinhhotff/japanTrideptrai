@@ -3478,7 +3478,7 @@
 
                             <div class="mascot-portrait-footer">
                                 <div style="font-size: 0.8rem; color: var(--text3); display: flex; align-items: center; justify-content: center; gap: 6px;">
-                                    <span>🔊 Bấm vào VTuber để nghe nói chuyện</span>
+                                    <span>💃 Bấm vào VTuber để đổi dáng & cử động (Yên lặng)</span>
                                 </div>
                             </div>
                         </div>
@@ -6070,22 +6070,11 @@
             } catch(e) {}
         }
 
-        // Cycle through all available poses / motions on demand sequentially
+        // Cycle through all available poses / motions on demand sequentially (Quiet mode)
         function cycleMascotNextPose(event) {
             if (event && event.stopPropagation) event.stopPropagation();
             const chosen = triggerSequentialLive2DMotion();
             triggerLive2DExpression('random');
-
-            // ★★★ KHÔNG PHÁT VOICE LIÊN TỤC: ĐỢI NÓI XONG MỚI PHÁT TIẾP ★★★
-            if (!isCurrentlySpeaking()) {
-                const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bunny_carolina;
-                const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '2';
-                const pool = modelCfg.quotes || [];
-                if (pool.length > 0) {
-                    const quote = pool[Math.floor(Math.random() * pool.length)];
-                    playTTS(quote, speaker);
-                }
-            }
 
             const card = document.getElementById('mascot-portrait-card');
             if (card && window.gsap) {
@@ -6495,7 +6484,7 @@
             const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '8';
             const card = document.getElementById('mascot-portrait-card');
 
-            // ★★★ KHI CHỌC QUÁ NHIỀU (Streak >= 3) -> LA LÊN VÀ PHÀN NÀN! ★★★
+            // ★★★ KHI CHỌC QUÁ NHIỀU (Streak >= 3) -> BIỂU CẢM HỜN DỖI YÊN LẶNG ★★★
             if (_mascotPokeStreak >= 3) {
                 _mascotPokeStreak = 0; // Reset
                 _mascotEmotionState = 'wrong';
@@ -6508,32 +6497,13 @@
                     gsap.fromTo(card, { x: -14, rotation: -3 }, { x: 0, rotation: 0, duration: 0.45, ease: "elastic.out(1.8, 0.25)" });
                 }
 
-                // Không nói đè nếu âm thanh đang phát
-                if (!isCurrentlySpeaking()) {
-                    const pool = modelCfg.screamQuotes || [
-                        "きゃーっ！やめてください！",
-                        "もう〜！つつきすぎです！",
-                        "いたっ！何するのですか！"
-                    ];
-                    const scream = pool[Math.floor(Math.random() * pool.length)];
-                    playTTS(scream, speaker);
-                }
                 showMascotFeedbackFX(event, '💢 Á! Đừng chọc nữa!');
                 return;
             }
 
-            // ★★★ 1. ĐỔI DÁNG THEO THỨ TỰ & GIỮ NGUYÊN TƯ THẾ (KHÔNG VỀ DÁNG CŨ) ★★★
+            // ★★★ 1. ĐỔI DÁNG THEO THỨ TỰ & GIỮ NGUYÊN TƯ THẾ (YÊN LẶNG) ★★★
             const chosen = triggerSequentialLive2DMotion();
             triggerLive2DExpression('random');
-
-            // ★★★ 2. KHÔNG PHÁT VOICE LIÊN TỤC: ĐỢI NÓI XONG RỒI MỚI TIẾP ★★★
-            if (!isCurrentlySpeaking()) {
-                const quotesPool = (clickY < 0.36 ? modelCfg.headQuotes : (clickY <= 0.65 ? modelCfg.faceQuotes : modelCfg.quotes)) || modelCfg.quotes;
-                if (quotesPool && quotesPool.length > 0) {
-                    const quote = quotesPool[Math.floor(Math.random() * quotesPool.length)];
-                    playTTS(quote, speaker);
-                }
-            }
 
             // Cảm giác tương tác theo vùng chạm
             let feedbackText = '💃 Đổi dáng';
