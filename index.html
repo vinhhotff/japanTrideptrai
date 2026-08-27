@@ -5948,8 +5948,7 @@
             };
         }
 
-        let _currentMotionPlaylist = [];
-        let _motionPlaylistIdx = 0;
+        let _sequentialMotionIndex = 0;
 
         function getAllModelMotionItems(model) {
             if (!model || !model.internalModel) return [];
@@ -5970,8 +5969,52 @@
             return items;
         }
 
-        // Universal Live2D Motion Trigger Helper with full posture & motion cycling support
+        // Play next posture / motion in sequential order and HOLD the final posture indefinitely
+        function triggerSequentialLive2DMotion() {
+            if (!live2dModel) return null;
+            try {
+                const allItems = getAllModelMotionItems(live2dModel);
+                if (allItems.length === 0) return null;
+
+                // Priority: Use all non-idle motions so every pose is distinct
+                const nonIdle = allItems.filter(it => !it.group.toLowerCase().includes('idle'));
+                const pool = nonIdle.length > 0 ? nonIdle : allItems;
+
+                if (_sequentialMotionIndex >= pool.length || _sequentialMotionIndex < 0) {
+                    _sequentialMotionIndex = 0;
+                }
+
+                const chosen = pool[_sequentialMotionIndex];
+                const poseNumber = _sequentialMotionIndex + 1;
+                const totalPoses = pool.length;
+
+                // Advance to next posture index in strict sequential order
+                _sequentialMotionIndex = (_sequentialMotionIndex + 1) % pool.length;
+
+                // ★★★ GIỮ NGUYÊN DÁNG MỚI (Không tự động quay về dáng idle cũ) ★★★
+                if (live2dModel.internalModel && live2dModel.internalModel.motionManager) {
+                    live2dModel.internalModel.motionManager.idleMotionGroup = null;
+                    if (live2dModel.internalModel.motionManager.options) {
+                        live2dModel.internalModel.motionManager.options.idleMotionGroup = null;
+                    }
+                }
+
+                try {
+                    live2dModel.motion(chosen.group, chosen.index, 3); // Priority 3 = FORCE
+                } catch(e) {
+                    try { live2dModel.motion(chosen.group); } catch(err) {}
+                }
+
+                return { ...chosen, poseNumber, totalPoses };
+            } catch(e) {
+                console.warn('Sequential motion error:', e);
+            }
+            return null;
+        }
+
+        // Universal Live2D Motion Trigger Helper
         function triggerLive2DMotion(motionType = null) {
+            if (!motionType) return triggerSequentialLive2DMotion();
             if (!live2dModel) return null;
             try {
                 const allItems = getAllModelMotionItems(live2dModel);
@@ -5981,42 +6024,22 @@
                 const pool = nonIdle.length > 0 ? nonIdle : allItems;
 
                 let chosen = null;
-
-                if (motionType === 'head' || motionType === 'pat') {
-                    const headItems = pool.filter(it => /head|flick|pat|face|tap_face/i.test(it.group));
-                    if (headItems.length > 0) {
-                        chosen = headItems[Math.floor(Math.random() * headItems.length)];
-                    }
-                } else if (motionType === 'poke' || motionType === 'body') {
-                    const bodyItems = pool.filter(it => /body|breast|belly|tap_body|main_2|main_3/i.test(it.group));
-                    if (bodyItems.length > 0) {
-                        chosen = bodyItems[Math.floor(Math.random() * bodyItems.length)];
-                    }
-                } else if (motionType === 'special' || motionType === 'cheer' || motionType === 'correct') {
-                    const specialItems = pool.filter(it => /special|wedding|complete|mission|mail|win|born|main_1/i.test(it.group));
-                    if (specialItems.length > 0) {
-                        chosen = specialItems[Math.floor(Math.random() * specialItems.length)];
-                    }
-                } else if (motionType === 'wrong' || motionType === 'angry') {
+                if (motionType === 'angry' || motionType === 'wrong') {
                     const angryItems = pool.filter(it => /special|breast|body|main_3|head/i.test(it.group));
-                    if (angryItems.length > 0) {
-                        chosen = angryItems[Math.floor(Math.random() * angryItems.length)];
-                    }
+                    if (angryItems.length > 0) chosen = angryItems[Math.floor(Math.random() * angryItems.length)];
+                } else if (motionType === 'idle') {
+                    const idleItems = allItems.filter(it => it.group.toLowerCase().includes('idle'));
+                    if (idleItems.length > 0) chosen = idleItems[0];
                 }
 
-                // If not matched or for general dynamic cycling: cycle through the entire shuffle playlist!
-                if (!chosen) {
-                    if (_currentMotionPlaylist.length === 0 || _motionPlaylistIdx >= _currentMotionPlaylist.length) {
-                        _currentMotionPlaylist = [...pool].sort(() => Math.random() - 0.5);
-                        _motionPlaylistIdx = 0;
-                    }
-                    chosen = _currentMotionPlaylist[_motionPlaylistIdx++];
+                if (!chosen) return triggerSequentialLive2DMotion();
+
+                if (live2dModel.internalModel && live2dModel.internalModel.motionManager) {
+                    live2dModel.internalModel.motionManager.idleMotionGroup = null;
                 }
 
-                if (chosen) {
-                    live2dModel.motion(chosen.group, chosen.index, 3); // Priority 3 = FORCE
-                    return chosen;
-                }
+                live2dModel.motion(chosen.group, chosen.index, 3);
+                return chosen;
             } catch(e) {
                 console.warn('Motion trigger error:', e);
             }
@@ -6047,18 +6070,21 @@
             } catch(e) {}
         }
 
-        // Cycle through all available poses / motions on demand
+        // Cycle through all available poses / motions on demand sequentially
         function cycleMascotNextPose(event) {
             if (event && event.stopPropagation) event.stopPropagation();
-            const chosen = triggerLive2DMotion();
+            const chosen = triggerSequentialLive2DMotion();
             triggerLive2DExpression('random');
 
-            const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bunny_carolina;
-            const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '2';
-            const pool = modelCfg.quotes || [];
-            if (pool.length > 0) {
-                const quote = pool[Math.floor(Math.random() * pool.length)];
-                playTTS(quote, speaker);
+            // ★★★ KHÔNG PHÁT VOICE LIÊN TỤC: ĐỢI NÓI XONG MỚI PHÁT TIẾP ★★★
+            if (!isCurrentlySpeaking()) {
+                const modelCfg = LIVE2D_VTUBER_MODELS[currentLive2DModelKey] || LIVE2D_VTUBER_MODELS.bunny_carolina;
+                const speaker = modelCfg.speaker || localStorage.getItem('voicevox_speaker') || '2';
+                const pool = modelCfg.quotes || [];
+                if (pool.length > 0) {
+                    const quote = pool[Math.floor(Math.random() * pool.length)];
+                    playTTS(quote, speaker);
+                }
             }
 
             const card = document.getElementById('mascot-portrait-card');
@@ -6066,9 +6092,9 @@
                 gsap.fromTo(card, { scale: 1.035, y: -10 }, { scale: 1, y: 0, duration: 0.5, ease: "back.out(2)" });
             }
 
-            const friendlyName = chosen ? chosen.name.replace(/_/g, ' ') : 'Tư thế mới';
+            const friendlyName = chosen ? `Dáng [${chosen.poseNumber}/${chosen.totalPoses}] ${chosen.name.replace(/_/g, ' ')}` : 'Dáng mới';
             showMascotFeedbackFX(event, `💃 ${friendlyName}`);
-            showToast(`💃 Đổi chuyển động: ${friendlyName}`, 'info');
+            showToast(`💃 Chuyển sang: ${friendlyName}`, 'info');
         }
 
         async function initLive2DCompanion() {
@@ -6283,9 +6309,12 @@
             live2dModel.x = (live2dApp ? live2dApp.screen.width * 0.5 : 240) - (live2dModel.width * 0.5);
             live2dModel.y = defaultY;
 
+            _sequentialMotionIndex = 0;
+            triggerLive2DMotion('idle');
+
             updateZoomLabel(1.0);
             saveCurrentMascotTransform(currentLive2DModelKey, baseScale, live2dModel.x, live2dModel.y);
-            showToast('↺ Đã reset vị trí & kích thước về mặc định', 'info');
+            showToast('↺ Đã reset vị trí, kích thước & tư thế mặc định', 'info');
         }
 
         function setupMascotInteractiveTransform(model, modelKey, baseScale, defX, defY) {
@@ -6479,65 +6508,61 @@
                     gsap.fromTo(card, { x: -14, rotation: -3 }, { x: 0, rotation: 0, duration: 0.45, ease: "elastic.out(1.8, 0.25)" });
                 }
 
-                const pool = modelCfg.screamQuotes || [
-                    "きゃーっ！やめてください！",
-                    "もう〜！つつきすぎです！",
-                    "いたっ！何するのですか！"
-                ];
-                const scream = pool[Math.floor(Math.random() * pool.length)];
-                playTTS(scream, speaker);
+                // Không nói đè nếu âm thanh đang phát
+                if (!isCurrentlySpeaking()) {
+                    const pool = modelCfg.screamQuotes || [
+                        "きゃーっ！やめてください！",
+                        "もう〜！つつきすぎです！",
+                        "いたっ！何するのですか！"
+                    ];
+                    const scream = pool[Math.floor(Math.random() * pool.length)];
+                    playTTS(scream, speaker);
+                }
                 showMascotFeedbackFX(event, '💢 Á! Đừng chọc nữa!');
                 return;
             }
 
-            // ★★★ KHI CHỌC VÀO NHÂN VẬT: MỖI LẦN CLICK LÀ MỘT CHUYỂN ĐỘNG & TƯ THẾ MỚI KÈM GIỌNG NÓI ★★★
-            let feedbackText = '✨ Tương tác';
-            let chosenMotion = null;
+            // ★★★ 1. ĐỔI DÁNG THEO THỨ TỰ & GIỮ NGUYÊN TƯ THẾ (KHÔNG VỀ DÁNG CŨ) ★★★
+            const chosen = triggerSequentialLive2DMotion();
+            triggerLive2DExpression('random');
 
+            // ★★★ 2. KHÔNG PHÁT VOICE LIÊN TỤC: ĐỢI NÓI XONG RỒI MỚI TIẾP ★★★
+            if (!isCurrentlySpeaking()) {
+                const quotesPool = (clickY < 0.36 ? modelCfg.headQuotes : (clickY <= 0.65 ? modelCfg.faceQuotes : modelCfg.quotes)) || modelCfg.quotes;
+                if (quotesPool && quotesPool.length > 0) {
+                    const quote = quotesPool[Math.floor(Math.random() * quotesPool.length)];
+                    playTTS(quote, speaker);
+                }
+            }
+
+            // Cảm giác tương tác theo vùng chạm
+            let feedbackText = '💃 Đổi dáng';
             if (clickY < 0.36) {
-                // Zone 1: HEAD (Tai thỏ / Đầu)
                 _mascotEmotionState = 'pat';
-                _mascotEmotionTimer = 2.2;
-                chosenMotion = triggerLive2DMotion('head');
-                triggerLive2DExpression('happy');
+                _mascotEmotionTimer = 2.0;
                 if (card && window.gsap) {
                     gsap.fromTo(card, { y: 6, scale: 0.985 }, { y: 0, scale: 1, duration: 0.5, ease: "elastic.out(1.2, 0.4)" });
                 }
-                const pool = modelCfg.headQuotes || modelCfg.quotes;
-                const quote = pool[Math.floor(Math.random() * pool.length)];
-                playTTS(quote, speaker);
                 feedbackText = currentLive2DModelKey === 'bunny_carolina' ? '🐰 Vuốt tai thỏ' : '💖 Xoa đầu';
             } else if (clickY <= 0.65) {
-                // Zone 2: FACE / CHEST (Mặt / Ngực)
                 _mascotEmotionState = 'poke';
-                _mascotEmotionTimer = 2.2;
-                chosenMotion = triggerLive2DMotion('poke');
-                triggerLive2DExpression('blush');
+                _mascotEmotionTimer = 2.0;
                 if (card && window.gsap) {
                     gsap.fromTo(card, { rotation: clickX < 0.5 ? -2.5 : 2.5 }, { rotation: 0, duration: 0.45, ease: "back.out(2)" });
                 }
-                const pool = modelCfg.faceQuotes || modelCfg.quotes;
-                const quote = pool[Math.floor(Math.random() * pool.length)];
-                playTTS(quote, speaker);
                 feedbackText = '✨ Chọc má';
             } else {
-                // Zone 3: BODY / SPECIAL (Thân / Đùi / Tư thế đặc biệt)
                 _mascotEmotionState = 'correct';
-                _mascotEmotionTimer = 2.0;
-                chosenMotion = triggerLive2DMotion('special');
-                triggerLive2DExpression('random');
+                _mascotEmotionTimer = 1.8;
                 if (card && window.gsap) {
                     gsap.fromTo(card, { y: -10, scale: 1.025 }, { y: 0, scale: 1, duration: 0.45, ease: "back.out(2)" });
                 }
-                const pool = modelCfg.bodyQuotes || modelCfg.quotes;
-                const quote = pool[Math.floor(Math.random() * pool.length)];
-                playTTS(quote, speaker);
-                feedbackText = '💃 Đổi tư thế';
+                feedbackText = '💃 Tạo dáng mới';
             }
 
-            if (chosenMotion) {
-                const actionLabel = chosenMotion.name ? chosenMotion.name.replace(/_/g, ' ') : '';
-                showMascotFeedbackFX(event, `${feedbackText} (${actionLabel})`);
+            if (chosen) {
+                const poseLabel = `Dáng [${chosen.poseNumber}/${chosen.totalPoses}] ${chosen.name.replace(/_/g, ' ')}`;
+                showMascotFeedbackFX(event, `✨ ${feedbackText}: ${poseLabel}`);
             } else {
                 showMascotFeedbackFX(event, feedbackText);
             }
