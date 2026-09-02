@@ -3124,6 +3124,117 @@
             background: #3f3f46 !important;
         }
 
+        /* Vocabulary Grid Cards View (matching user design) */
+        .sheet-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            width: 100%;
+        }
+
+        .vocab-card-item {
+            background: var(--card2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 124px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .vocab-card-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(239, 68, 68, 0.5);
+            background: var(--card);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+        }
+
+        .vocab-card-item.selected {
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.08) !important;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4) !important;
+        }
+
+        .vocab-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .vocab-card-num {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ef4444;
+        }
+
+        .vocab-card-speaker {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 2px 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .vocab-card-speaker:hover {
+            color: #ef4444;
+            transform: scale(1.18);
+        }
+
+        .vocab-card-kanji {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text);
+            font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+            line-height: 1.25;
+            margin-bottom: 3px;
+        }
+
+        .vocab-card-hira {
+            font-size: 0.86rem;
+            color: var(--text3);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .vocab-card-mean {
+            font-size: 0.88rem;
+            color: var(--text2);
+            line-height: 1.35;
+            margin-top: 2px;
+        }
+
+        .sheet-view-toggle-btn {
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .sheet-view-toggle-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: var(--glow);
+        }
+
         .sheet-tables-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -3181,7 +3292,24 @@
             cursor: not-allowed;
         }
 
+        @media (max-width: 1200px) {
+            .sheet-cards-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+        }
+
         @media (max-width: 768px) {
+            .sheet-cards-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+            .vocab-card-item {
+                padding: 12px 14px !important;
+                min-height: 110px !important;
+            }
+            .vocab-card-kanji {
+                font-size: 1.25rem !important;
+            }
             .vocab-list {
                 grid-template-columns: 1fr !important;
             }
@@ -3200,6 +3328,12 @@
             }
             .sheet-mobile-pagination {
                 display: flex !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sheet-cards-grid {
+                grid-template-columns: 1fr !important;
             }
         }
         /* Kana Alphabet Grid styles */
@@ -3932,12 +4066,20 @@
                         </div>
                     </div>
                 </div>
-                <!-- Filter buttons for sheet view -->
-                <div style="display:flex; gap:8px; margin-top:14px; margin-bottom:14px; align-items:center; flex-wrap:wrap; background:var(--bg); padding:8px 12px; border-radius:10px; border:1px solid var(--border);">
-                    <span style="font-size:0.8rem; color:var(--text3); font-weight:700; text-transform:uppercase;">Lọc hiển thị:</span>
-                    <button type="button" class="filter-pill active" id="sf-all" onclick="setSheetFilter('all')">🌐 Tất cả <span class="pill-badge" id="sf-count-all">0</span></button>
-                    <button type="button" class="filter-pill" id="sf-kanji" onclick="setSheetFilter('kanji')">🈸 Có Kanji <span class="pill-badge" id="sf-count-kanji">0</span></button>
-                    <button type="button" class="filter-pill" id="sf-no-kanji" onclick="setSheetFilter('no-kanji')">🎌 Không có Kanji (Thuần Hiragana) <span class="pill-badge" id="sf-count-no-kanji">0</span></button>
+                <!-- Filter buttons and View Mode Toggle for sheet view -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; margin-bottom:14px; gap:8px; flex-wrap:wrap;">
+                    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; background:var(--bg); padding:6px 12px; border-radius:10px; border:1px solid var(--border);">
+                        <span style="font-size:0.8rem; color:var(--text3); font-weight:700; text-transform:uppercase;">Lọc hiển thị:</span>
+                        <button type="button" class="filter-pill active" id="sf-all" onclick="setSheetFilter('all')">🌐 Tất cả <span class="pill-badge" id="sf-count-all">0</span></button>
+                        <button type="button" class="filter-pill" id="sf-kanji" onclick="setSheetFilter('kanji')">🈸 Có Kanji <span class="pill-badge" id="sf-count-kanji">0</span></button>
+                        <button type="button" class="filter-pill" id="sf-no-kanji" onclick="setSheetFilter('no-kanji')">🎌 Không có Kanji (Thuần Hiragana) <span class="pill-badge" id="sf-count-no-kanji">0</span></button>
+                    </div>
+                    <!-- View Mode: Cards (default, matching user image) vs Table -->
+                    <div style="display:flex; align-items:center; gap:6px; background:var(--bg); padding:5px 8px; border-radius:10px; border:1px solid var(--border);">
+                        <span style="font-size:0.78rem; color:var(--text3); font-weight:700; text-transform:uppercase; margin-right:4px;">Hiển thị:</span>
+                        <button type="button" id="btn-sheet-view-cards" class="sheet-view-toggle-btn active" onclick="setSheetViewMode('cards')">🎴 Dạng Thẻ</button>
+                        <button type="button" id="btn-sheet-view-table" class="sheet-view-toggle-btn" onclick="setSheetViewMode('table')">📋 Dạng Bảng</button>
+                    </div>
                 </div>
                 <div class="sheet-container" id="sheet-container">
                     <!-- Sheet table rendered here -->
@@ -5043,6 +5185,17 @@
         // ========== SHEET VIEW ==========
         let sheetCurrentPage = 0;
         const sheetPageSize = 20;
+        let sheetViewMode = localStorage.getItem('sheet_view_mode') || 'cards';
+
+        function setSheetViewMode(mode) {
+            sheetViewMode = mode;
+            localStorage.setItem('sheet_view_mode', mode);
+            const btnCards = document.getElementById('btn-sheet-view-cards');
+            const btnTable = document.getElementById('btn-sheet-view-table');
+            if (btnCards) btnCards.classList.toggle('active', mode === 'cards');
+            if (btnTable) btnTable.classList.toggle('active', mode === 'table');
+            renderSheetView();
+        }
 
         function renderSheetView() {
             const vocab = loadVocab();
@@ -5094,6 +5247,43 @@
                 return sheetSort.order === 'asc' ? '<span class="sort-icon">↑</span>' : '<span class="sort-icon">↓</span>';
             };
 
+            // 1. DẠNG THẺ TỪ (Card Grid 4 cột giống ảnh thiết kế)
+            const renderCardGrid = (items, startIdx) => {
+                let html = `<div class="sheet-cards-grid">`;
+                items.forEach((v, index) => {
+                    const realIndex = startIdx + index;
+                    const isSelected = selectedSheetWords.has(v.kanji);
+                    const hasKanjiChar = hasKanji(v.kanji);
+                    const escapedKanji = (v.kanji || '').replace(/'/g, "\\'");
+                    const ttsText = (v.hiragana || v.kanji || '').replace(/'/g, "\\'");
+
+                    html += `
+                        <div class="vocab-card-item ${isSelected ? 'selected' : ''}" 
+                            onmousedown="handleSheetMouseDown(this, '${escapedKanji}')"
+                            onmouseenter="handleSheetMouseEnter(this, '${escapedKanji}')"
+                            oncontextmenu="return false;"
+                            title="Nhấn để chọn vào danh sách luyện gõ">
+                            <div class="vocab-card-header">
+                                <span class="vocab-card-num">${realIndex + 1}</span>
+                                <button type="button" class="vocab-card-speaker" onclick="event.stopPropagation(); playTTS('${ttsText}')" title="Phát âm">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="vocab-card-kanji">${escapeHtml(v.kanji)}</div>
+                            ${hasKanjiChar ? `<div class="vocab-card-hira">${escapeHtml(v.hiragana || '')}</div>` : ''}
+                            <div class="vocab-card-mean">${escapeHtml(v.meaning || '')}</div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+                return html;
+            };
+
+            // 2. DẠNG BẢNG TRUYỀN THỐNG (Table View)
             const renderTable = (items, startIdx) => {
                 let html = `<table class="vocab-sheet">
                     <thead>
@@ -5156,14 +5346,11 @@
                 pageInd.textContent = `(Trang ${sheetCurrentPage + 1} / ${maxPage + 1})`;
             }
 
-            container.innerHTML = `
-                <div class="sheet-layout-wrap" style="display: flex; align-items: center; gap: 16px; width: 100%;">
-                    <!-- Desktop Left Arrow -->
-                    <button class="nav-arrow-btn" onclick="sheetPrevPage()" ${sheetCurrentPage === 0 ? 'disabled' : ''} title="Trang trước">
-                        &lsaquo;
-                    </button>
-                    
-                    <!-- Tables Grid -->
+            let contentBody = '';
+            if (sheetViewMode === 'cards') {
+                contentBody = renderCardGrid(pageWords, pageStart);
+            } else {
+                contentBody = `
                     <div class="sheet-tables-grid">
                         <div style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--card); height: fit-content;">
                             ${renderTable(leftItems, pageStart)}
@@ -5171,6 +5358,20 @@
                         <div style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--card); height: fit-content;">
                             ${renderTable(rightItems, pageStart + half)}
                         </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="sheet-layout-wrap" style="display: flex; align-items: center; gap: 16px; width: 100%;">
+                    <!-- Desktop Left Arrow -->
+                    <button class="nav-arrow-btn" onclick="sheetPrevPage()" ${sheetCurrentPage === 0 ? 'disabled' : ''} title="Trang trước">
+                        &lsaquo;
+                    </button>
+                    
+                    <!-- Content (Cards Grid or Tables) -->
+                    <div style="flex: 1; min-width: 0; width: 100%;">
+                        ${contentBody}
                     </div>
                     
                     <!-- Desktop Right Arrow -->
@@ -7626,10 +7827,34 @@
             window.speechSynthesis.onvoiceschanged = () => { _jaVoiceCache = null; getJapaneseVoice(); };
         }
 
-        function playWebSpeech(text) {
-            if (!('speechSynthesis' in window) || !text) return;
+        function playGoogleTTS(text) {
+            if (!text) return;
             try {
-                stopAllTTSAudio();
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=ja&client=tw-ob&q=${encodeURIComponent(text.trim())}`;
+                const audio = new Audio(url);
+                audio.volume = getTtsVolume();
+                _currentAudioInstance = audio;
+                audio.onplay = () => { isTtsSpeaking = true; };
+                audio.onplaying = () => { isTtsSpeaking = true; };
+                audio.onended = () => { isTtsSpeaking = false; };
+                audio.onerror = () => { isTtsSpeaking = false; };
+                audio.play().catch(e => {
+                    console.warn('Google TTS audio play error', e);
+                    isTtsSpeaking = false;
+                });
+            } catch(e) {
+                console.warn('Google TTS exception', e);
+                isTtsSpeaking = false;
+            }
+        }
+
+        function playWebSpeech(text) {
+            if (!text) return;
+            if (!('speechSynthesis' in window)) {
+                playGoogleTTS(text);
+                return;
+            }
+            try {
                 if (window.speechSynthesis.paused) {
                     window.speechSynthesis.resume();
                 }
@@ -7643,12 +7868,18 @@
                 
                 utterance.onstart = () => { isTtsSpeaking = true; };
                 utterance.onend = () => { isTtsSpeaking = false; _activeUtterance = null; };
-                utterance.onerror = () => { isTtsSpeaking = false; _activeUtterance = null; };
+                utterance.onerror = (err) => { 
+                    console.warn('Speech synthesis error, falling back to Google TTS', err);
+                    isTtsSpeaking = false; 
+                    _activeUtterance = null; 
+                    playGoogleTTS(text);
+                };
 
                 window.speechSynthesis.speak(utterance);
             } catch (e) {
-                console.warn('Speech synthesis error', e);
+                console.warn('Speech synthesis exception, falling back to Google TTS', e);
                 isTtsSpeaking = false;
+                playGoogleTTS(text);
             }
         }
 
