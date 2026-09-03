@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
+    <meta name="referrer" content="no-referrer">
     <title>日本語タイピング練習 - Luyện Gõ Tiếng Nhật</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
@@ -5373,20 +5374,33 @@
             `).join('');
         }
 
+
         // ========== ENGLISH VOICE & TTS SYSTEM (US/UK) ==========
         let currentEnAudioInstance = null;
         let enVoiceAccent = localStorage.getItem('en_tts_accent') || 'en-US';
+        let _activeEnUtterance = null;
+        let _cachedEnVoices = [];
+
+        function loadEnVoices() {
+            if ('speechSynthesis' in window) {
+                _cachedEnVoices = window.speechSynthesis.getVoices() || [];
+            }
+        }
+        if ('speechSynthesis' in window) {
+            loadEnVoices();
+            window.speechSynthesis.onvoiceschanged = () => { loadEnVoices(); };
+        }
 
         function setEnVoiceAccent(accent) {
-            enVoiceAccent = accent;
-            localStorage.setItem('en_tts_accent', accent);
+            enVoiceAccent = (accent === 'en-GB' || accent === 'uk') ? 'en-GB' : 'en-US';
+            localStorage.setItem('en_tts_accent', enVoiceAccent);
             const btnUs = document.getElementById('en-accent-us');
             const btnUk = document.getElementById('en-accent-uk');
-            if (btnUs) btnUs.classList.toggle('active', accent === 'en-US');
-            if (btnUk) btnUk.classList.toggle('active', accent === 'en-GB');
+            if (btnUs) btnUs.classList.toggle('active', enVoiceAccent === 'en-US');
+            if (btnUk) btnUk.classList.toggle('active', enVoiceAccent === 'en-GB');
             const barToggle = document.getElementById('en-bar-accent-toggle');
             if (barToggle) {
-                barToggle.textContent = accent === 'en-US' ? '🇺🇸 US (Mỹ)' : '🇬🇧 UK (Anh)';
+                barToggle.textContent = enVoiceAccent === 'en-US' ? '🇺🇸 US (Mỹ)' : '🇬🇧 UK (Anh)';
             }
         }
 
@@ -5397,41 +5411,118 @@
             replayCurrentEnWordAudio();
         }
 
-        function playGoogleEnTTS(text, accent = 'en-US') {
-            if (!text) return;
+        function getEnglishVoice(accent = 'en-US') {
+            loadEnVoices();
+            const voices = _cachedEnVoices;
+            if (!voices || voices.length === 0) return null;
+
+            const isUk = (accent === 'en-GB' || accent === 'uk');
+            if (isUk) {
+                const gb = voices.find(v => {
+                    const l = (v.lang || '').toLowerCase();
+                    const n = (v.name || '').toLowerCase();
+                    return (l === 'en-gb' || l === 'en_gb') && (n.includes('google') || n.includes('natural') || n.includes('daniel') || n.includes('serena') || n.includes('oliver'));
+                }) || voices.find(v => {
+                    const l = (v.lang || '').toLowerCase();
+                    return l === 'en-gb' || l === 'en_gb';
+                }) || voices.find(v => {
+                    const n = (v.name || '').toLowerCase();
+                    return n.includes('united kingdom') || n.includes('british');
+                });
+                if (gb) return gb;
+            }
+
+            const us = voices.find(v => {
+                const l = (v.lang || '').toLowerCase();
+                const n = (v.name || '').toLowerCase();
+                return (l === 'en-us' || l === 'en_us') && (n.includes('google') || n.includes('natural') || n.includes('samantha') || n.includes('ava') || n.includes('david') || n.includes('zira'));
+            }) || voices.find(v => {
+                const l = (v.lang || '').toLowerCase();
+                return l === 'en-us' || l === 'en_us';
+            }) || voices.find(v => {
+                const n = (v.name || '').toLowerCase();
+                return n.includes('united states') || n.includes('american');
+            }) || voices.find(v => (v.lang || '').toLowerCase().startsWith('en'));
+
+            return us || null;
+        }
+
+        function playWebSpeechEn(text, accent = 'en-US') {
+            if (!('speechSynthesis' in window)) return;
             try {
-                if (currentEnAudioInstance) {
-                    try { currentEnAudioInstance.pause(); currentEnAudioInstance.src = ''; } catch(e){}
-                    currentEnAudioInstance = null;
+                if (window.speechSynthesis.paused) {
+                    window.speechSynthesis.resume();
                 }
-                const langCode = accent === 'en-GB' ? 'en-GB' : 'en';
-                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${langCode}&client=tw-ob&q=${encodeURIComponent(text.trim())}`;
-                const audio = new Audio(url);
-                audio.volume = getTtsVolume();
-                currentEnAudioInstance = audio;
-                _currentAudioInstance = audio;
-                audio.play().catch(e => { console.warn('Google EN TTS audio error', e); });
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text.trim());
+                const isUk = (accent === 'en-GB' || accent === 'uk');
+                utterance.lang = isUk ? 'en-GB' : 'en-US';
+                utterance.rate = 0.9;
+                utterance.volume = Math.max(0.2, getTtsVolume());
+
+                const enVoice = getEnglishVoice(accent);
+                if (enVoice) {
+                    utterance.voice = enVoice;
+                    utterance.lang = enVoice.lang || utterance.lang;
+                }
+
+                _activeEnUtterance = utterance;
+                utterance.onend = () => { _activeEnUtterance = null; };
+                utterance.onerror = (e) => {
+                    console.warn('Speech synthesis utterance error', e);
+                    _activeEnUtterance = null;
+                };
+
+                if (window.speechSynthesis.paused) {
+                    window.speechSynthesis.resume();
+                }
+                window.speechSynthesis.speak(utterance);
             } catch(e) {
-                console.warn('Google EN TTS exception', e);
+                console.warn('Web speech EN exception', e);
             }
         }
 
-        function getEnglishVoice(accent = 'en-US') {
-            if (!('speechSynthesis' in window)) return null;
-            const voices = window.speechSynthesis.getVoices();
-            if (!voices || voices.length === 0) return null;
-            
-            if (accent === 'en-GB') {
-                const gbVoice = voices.find(v => (v.lang === 'en-GB' || v.lang === 'en_GB') && (v.name.includes('Google') || v.name.includes('Daniel') || v.name.includes('Natural') || v.name.includes('Serena')))
-                    || voices.find(v => v.lang === 'en-GB' || v.lang === 'en_GB')
-                    || voices.find(v => v.name.toLowerCase().includes('united kingdom') || v.name.toLowerCase().includes('british'));
-                if (gbVoice) return gbVoice;
-            }
+        function playGoogleEnTTS(text, accent = 'en-US') {
+            if (!text) return;
+            const cleanText = text.trim();
+            if (!cleanText) return;
 
-            const usVoice = voices.find(v => (v.lang === 'en-US' || v.lang === 'en_US') && (v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Natural') || v.name.includes('Ava') || v.name.includes('David') || v.name.includes('Zira')))
-                || voices.find(v => v.lang === 'en-US' || v.lang === 'en_US')
-                || voices.find(v => v.lang.startsWith('en'));
-            return usVoice || null;
+            try {
+                if (currentEnAudioInstance) {
+                    try {
+                        currentEnAudioInstance.pause();
+                        currentEnAudioInstance.src = '';
+                    } catch(e){}
+                    currentEnAudioInstance = null;
+                }
+                const isUk = (accent === 'en-GB' || accent === 'uk');
+                const langCode = isUk ? 'en-GB' : 'en-US';
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${langCode}&client=tw-ob&q=${encodeURIComponent(cleanText)}`;
+                const audio = new Audio(url);
+                audio.volume = Math.max(0.2, getTtsVolume());
+                currentEnAudioInstance = audio;
+                _currentAudioInstance = audio;
+
+                audio.onended = () => { currentEnAudioInstance = null; };
+                audio.onerror = (e) => {
+                    console.warn('Google EN TTS failed, falling back to Web Speech', e);
+                    currentEnAudioInstance = null;
+                    playWebSpeechEn(cleanText, accent);
+                };
+
+                const playPromise = audio.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(err => {
+                        console.warn('Google EN TTS play prevented, falling back to Web Speech', err);
+                        currentEnAudioInstance = null;
+                        playWebSpeechEn(cleanText, accent);
+                    });
+                }
+            } catch(e) {
+                console.warn('Google EN TTS exception', e);
+                playWebSpeechEn(cleanText, accent);
+            }
         }
 
         function playEnTTS(text, customAccent = null) {
@@ -5440,38 +5531,23 @@
             if (!cleanText) return;
             const accent = customAccent || enVoiceAccent || 'en-US';
 
-            if (currentEnAudioInstance) {
-                try { currentEnAudioInstance.pause(); currentEnAudioInstance.src = ''; } catch(e){}
-                currentEnAudioInstance = null;
-            }
+            // Primary: Google TTS (studio-quality, human pronunciation with no-referrer)
+            // Fallback: Web Speech API (offline native voice)
+            playGoogleEnTTS(cleanText, accent);
+        }
 
-            if (!('speechSynthesis' in window)) {
-                playGoogleEnTTS(cleanText, accent);
-                return;
-            }
-
+        let _audioUnlocked = false;
+        function unlockAudioContext() {
+            if (_audioUnlocked) return;
+            _audioUnlocked = true;
             try {
-                window.speechSynthesis.cancel();
-                if (window.speechSynthesis.paused) {
+                if ('speechSynthesis' in window && window.speechSynthesis.paused) {
                     window.speechSynthesis.resume();
                 }
-                const utterance = new SpeechSynthesisUtterance(cleanText);
-                utterance.lang = accent;
-                utterance.rate = 0.92;
-                utterance.volume = getTtsVolume();
-                
-                const enVoice = getEnglishVoice(accent);
-                if (enVoice) utterance.voice = enVoice;
-
-                utterance.onerror = () => {
-                    playGoogleEnTTS(cleanText, accent);
-                };
-
-                window.speechSynthesis.speak(utterance);
-            } catch(e) {
-                playGoogleEnTTS(cleanText, accent);
-            }
+            } catch(e){}
         }
+        window.addEventListener('click', unlockAudioContext, { passive: true });
+        window.addEventListener('keydown', unlockAudioContext, { passive: true });
 
         // ========== ENGLISH JSON BACKUP ==========
         function exportEnJson() {
