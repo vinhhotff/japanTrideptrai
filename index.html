@@ -1842,6 +1842,206 @@
             background: rgba(99, 102, 241, 0.1);
         }
 
+        /* English Typing & Preset Styles */
+        .en-preset-badge {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15));
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .en-presets-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 10, 15, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .en-presets-modal-overlay.active {
+            display: flex;
+        }
+
+        .en-presets-modal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            max-width: 920px;
+            width: 100%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .en-presets-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card2);
+        }
+
+        .en-presets-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            padding: 20px 24px;
+            overflow-y: auto;
+        }
+
+        .en-preset-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .en-preset-card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        .en-preset-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .en-preset-preview {
+            font-size: 0.82rem;
+            color: var(--text3);
+            line-height: 1.4;
+            background: var(--bg);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* English Prompt Card */
+        .en-topic-indicator-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.12);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 3px 12px;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .en-prompt-word {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            line-height: 1.2;
+            transition: all 0.2s ease;
+        }
+
+        .en-prompt-ipa {
+            font-size: 1.15rem;
+            color: var(--accent3);
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .en-prompt-meaning {
+            font-size: 1.3rem;
+            color: var(--text2);
+            font-weight: 600;
+            margin-bottom: 18px;
+            line-height: 1.4;
+        }
+
+        .en-letter-blanks {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .en-letter-box {
+            width: 38px;
+            height: 46px;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            background: var(--bg2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text);
+            font-family: monospace;
+            text-transform: lowercase;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+
+        .en-letter-box.correct {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.18);
+            color: #34d399;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .en-letter-box.wrong {
+            border-color: #f43f5e;
+            background: rgba(244, 63, 94, 0.18);
+            color: #fb7185;
+            animation: shake 0.3s ease;
+        }
+
+        .en-letter-box.active {
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+            transform: scale(1.06);
+        }
+
+        .en-letter-box.space {
+            width: 18px;
+            border-color: transparent;
+            background: transparent;
+        }
+
+        @media (max-width: 768px) {
+            .en-presets-grid {
+                grid-template-columns: 1fr;
+            }
+            .en-prompt-word {
+                font-size: 2.1rem;
+            }
+            .en-letter-box {
+                width: 30px;
+                height: 38px;
+                font-size: 1.2rem;
+            }
+        }
+
         .panel {
             background: var(--card);
             border: 1px solid var(--border);
@@ -3404,6 +3604,7 @@
                 </div>
                 <div class="nav-tabs">
                     <button class="nav-tab active" onclick="switchTab('practice')" id="tab-practice">Luyện gõ JP</button>
+                    <button class="nav-tab" onclick="switchTab('en-practice')" id="tab-en-practice">Luyện gõ EN</button>
                     <button class="nav-tab" onclick="switchTab('vocab')" id="tab-vocab">Từ vựng JP</button>
                     <button class="nav-tab" onclick="switchTab('sheet')" id="tab-sheet">Bảng từ JP</button>
                     <button class="nav-tab" onclick="switchTab('en-vocab')" id="tab-en-vocab">Từ vựng Anh</button>
@@ -3779,6 +3980,141 @@
             </div>
         </div>
 
+        <!-- ENGLISH PRACTICE TAB -->
+        <div class="tab-content" id="content-en-practice">
+            <!-- English Session Setup -->
+            <div id="en-session-setup-view" class="session-setup">
+                <h2>🇬🇧 Luyện Gõ Tiếng Anh (English Typing)</h2>
+                <p>Luyện tập gõ phím từ vựng tiếng Anh theo chủ đề, kèm phiên âm IPA chuẩn quốc tế và âm thanh phát âm bản xứ (US/UK).</p>
+
+                <!-- Topic selection -->
+                <div style="margin:16px 0; text-align:left; max-width:540px; margin-left:auto; margin-right:auto;">
+                    <span class="opt-label" style="text-align:left; display:block; margin-bottom:6px;">📂 Chọn chủ đề tiếng Anh:</span>
+                    <select id="en-practice-topic-select" class="form-input" style="width:100%; padding:10px 14px; font-size:0.95rem; font-weight:600; background:var(--bg2); color:var(--text); border-radius:10px;" onchange="onEnPracticeTopicSelectChange()">
+                        <option value="all">🌐 Tất cả từ vựng tiếng Anh</option>
+                    </select>
+                </div>
+
+                <!-- Mode selection -->
+                <div style="margin:16px 0">
+                    <span class="opt-label">Chế độ luyện gõ</span>
+                    <div class="session-options">
+                        <button class="opt-btn active" id="en-mode-visual" onclick="setEnTypingMode('visual')">👁️ Nhìn từ tiếng Anh gõ (Visual)</button>
+                        <button class="opt-btn" id="en-mode-recall" onclick="setEnTypingMode('recall')">🇻🇳 Nhìn nghĩa Việt & Nhớ từ (Recall)</button>
+                        <button class="opt-btn" id="en-mode-audio" onclick="setEnTypingMode('audio')">🎧 Luyện nghe & Gõ (Dictation)</button>
+                    </div>
+                </div>
+
+                <!-- Voice Accent selection -->
+                <div style="margin:16px 0">
+                    <span class="opt-label">Giọng phát âm tiếng Anh chuẩn</span>
+                    <div class="session-options">
+                        <button class="opt-btn active" id="en-accent-us" onclick="setEnVoiceAccent('en-US')">🇺🇸 US English (Mỹ chuẩn)</button>
+                        <button class="opt-btn" id="en-accent-uk" onclick="setEnVoiceAccent('en-GB')">🇬🇧 UK English (Anh chuẩn)</button>
+                    </div>
+                </div>
+
+                <!-- Word Order -->
+                <div style="margin:16px 0">
+                    <span class="opt-label">Thứ tự từ</span>
+                    <div class="session-options">
+                        <button class="opt-btn active" id="en-opt-random" onclick="setEnOrder('random')">Ngẫu nhiên</button>
+                        <button class="opt-btn" id="en-opt-order" onclick="setEnOrder('order')">Theo thứ tự</button>
+                    </div>
+                </div>
+
+                <div id="en-no-vocab-msg" style="display:none; color:#ef4444; margin-bottom:16px; font-size:0.9rem;">
+                    Chưa có từ vựng tiếng Anh trong chủ đề này! Hãy bấm nút bên dưới để nạp chủ đề mẫu.
+                </div>
+
+                <div style="display:flex; gap:14px; margin-top:20px; flex-wrap:wrap; justify-content:center;">
+                    <button class="btn-start" style="flex:1; min-width:200px;" onclick="startEnPracticeSession()">🚀 Bắt đầu luyện gõ</button>
+                    <button class="btn-start" style="background:var(--blue); border-color:var(--blue); color:#fff; min-width:180px;" onclick="openEnPresetModal()">⚡ Nạp chủ đề mẫu (+200 từ)</button>
+                </div>
+            </div>
+
+            <!-- English Practice Arena -->
+            <div id="en-practice-view" style="display:none;">
+                <div class="practice-layout">
+                    <!-- Main Typing Arena -->
+                    <div class="practice-main-column">
+                        <div class="word-card" id="en-word-card">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <button type="button" class="btn btn-hint" style="padding:3px 10px; font-size:0.8rem; height:28px; border-radius:8px;" onclick="backToEnSetup()" title="Thoát (Esc)">🔙 Thoát / Cài đặt</button>
+                                    <div class="word-index" id="en-word-index">1 / 10</div>
+                                    <div id="en-combo-badge" class="combo-pill" style="display:none;">🔥 COMBO x0</div>
+                                </div>
+                                <div class="quick-voice-bar" style="display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.05); border:1px solid var(--border); padding:3px 10px; border-radius:10px;">
+                                    <span style="font-size:0.78rem; color:var(--text3);">🎙️ Giọng:</span>
+                                    <button type="button" id="en-bar-accent-toggle" class="btn btn-hint" style="padding:2px 8px; font-size:0.78rem; height:26px; border-radius:6px; font-weight:700;" onclick="toggleEnBarAccent()">🇺🇸 US (Mỹ)</button>
+                                    <button type="button" class="btn btn-hint" style="padding:2px 8px; font-size:0.75rem; height:26px; border-radius:6px;" onclick="replayCurrentEnWordAudio()" title="Nghe lại (Space/F2)">🔊 Nghe lại</button>
+                                    <div style="display:flex; align-items:center; gap:4px; border-left:1px solid rgba(255,255,255,0.12); padding-left:6px; margin-left:2px;">
+                                        <span style="font-size:0.75rem;">🔈</span>
+                                        <input type="range" id="en-volume-slider" min="0" max="100" value="85" style="width:55px; height:4px; accent-color:var(--accent); cursor:pointer;" oninput="onTtsVolumeChange(this.value)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="text-align:center;">
+                                <div class="en-topic-indicator-badge" id="en-practice-current-topic">Chủ đề: ...</div>
+                                <div class="en-prompt-word" id="en-prompt-word">Word</div>
+                                <div class="en-prompt-ipa" id="en-prompt-ipa">/ipa/</div>
+                                <div class="en-prompt-meaning" id="en-prompt-meaning">Ý nghĩa tiếng Việt</div>
+                            </div>
+
+                            <div class="input-area">
+                                <div class="en-letter-blanks" id="en-letter-blanks"></div>
+                                <div class="romaji-input-wrap">
+                                    <input type="text" class="romaji-input" id="en-typing-input"
+                                        placeholder="Gõ từ tiếng Anh vào đây..." autocomplete="off" autocorrect="off" spellcheck="false">
+                                </div>
+                                <div class="answer-result" id="en-answer-result"></div>
+                                <div class="action-btns">
+                                    <button class="btn btn-hint" onclick="toggleEnHint()" tabindex="-1">Mở gợi ý (Tab)</button>
+                                    <button class="btn btn-check" id="btn-en-check" onclick="checkEnAnswer()">Kiểm tra (Enter)</button>
+                                    <button class="btn btn-skip" onclick="skipEnWord()">Bỏ qua (Enter x2)</button>
+                                </div>
+                                <div class="hint-text">Enter: kiểm tra / từ kế &middot; Tab: gợi ý chữ &middot; Space/F2: nghe phát âm tiếng Anh</div>
+                            </div>
+                        </div>
+
+                        <!-- Result Panel -->
+                        <div class="result-panel" id="en-result-panel" style="display:none;">
+                            <div class="result-icon" id="en-result-icon">🎉</div>
+                            <div class="result-score" id="en-result-score">0/0</div>
+                            <div class="result-label" id="en-result-label">Hoàn thành bài luyện gõ!</div>
+                            <div id="en-result-stats" style="display:flex; justify-content:center; gap:16px; margin:16px 0; color:var(--text2); font-weight:600;"></div>
+                            <div id="en-result-wrong-section" style="display:none; margin-top:18px;">
+                                <p style="font-size:0.95rem; color:#fff; font-weight:600; margin-bottom:10px;">📋 Từ chưa chính xác:</p>
+                                <div id="en-wrong-words-container" style="display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; text-align:left;"></div>
+                            </div>
+                            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:20px;">
+                                <button class="btn-restart" onclick="restartEnPracticeSession()">🔄 Luyện lại</button>
+                                <button class="btn-restart" id="btn-en-retry-wrong" style="display:none; background:var(--red); color:#fff;" onclick="retryEnWrongWords()">🔄 Luyện từ sai</button>
+                                <button class="btn-restart" onclick="backToEnSetup()">⚙️ Chọn chủ đề khác</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Shared Live2D Mascot Studio & Progress -->
+                    <div class="practice-right-sidebar">
+                        <div id="en-mascot-companion-slot">
+                            <!-- Live2D portrait card moves here dynamically while in EN practice -->
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">📊 Tiến trình Gõ EN</div>
+                            <div class="stat-row"><span class="stat-label">Đúng</span><span class="stat-val green" id="en-s-correct">0</span></div>
+                            <div class="stat-row"><span class="stat-label">Sai</span><span class="stat-val red" id="en-s-wrong">0</span></div>
+                            <div class="stat-row"><span class="stat-label">Bỏ qua</span><span class="stat-val yellow" id="en-s-skip">0</span></div>
+                            <div class="stat-row"><span class="stat-label">Độ chính xác</span><span class="stat-val" id="en-s-acc" style="color:var(--accent);">100%</span></div>
+                            <div class="stat-row"><span class="stat-label">Chuỗi (Streak)</span><span class="stat-val" id="en-s-streak" style="color:#f472b6;">0</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ENGLISH VOCAB TAB -->
         <div class="tab-content" id="content-en-vocab">
             <div class="vocab-layout">
@@ -3788,6 +4124,9 @@
                         <div class="panel-title">
                             <div class="icon">📁</div> Chủ đề Từ vựng (English)
                         </div>
+                        <button type="button" class="btn btn-start" style="width:100%; margin-bottom:12px; background:linear-gradient(135deg, #0284c7, #6366f1); border:none; color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; gap:8px; padding:10px 14px; border-radius:10px; box-shadow:0 4px 14px rgba(2,132,199,0.3);" onclick="openEnPresetModal()">
+                            ⚡ Kho Chủ Đề Mẫu (Import nhanh 1-click)
+                        </button>
                         <div class="form-group" style="display:flex; gap:8px;">
                             <input type="text" class="form-input" id="inp-en-topic" placeholder="Tên chủ đề mới... (vd: IT, Giao tiếp)"
                                 onkeydown="if(event.key==='Enter')addEnTopic()">
@@ -3825,9 +4164,14 @@
                 <!-- Right: Words inside selected topic -->
                 <div style="display:flex; flex-direction:column; gap:16px;">
                     <div class="panel" id="en-words-panel" style="display:none;">
-                        <div class="panel-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <div class="panel-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <div class="icon">🇬🇧</div> <span id="en-active-topic-title">Chủ đề: Giao tiếp</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <button type="button" class="btn btn-start" style="padding:6px 14px; font-size:0.85rem; margin:0; background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff; border:none; box-shadow:var(--glow); border-radius:8px; display:inline-flex; align-items:center; gap:6px;" onclick="startEnPracticeFromTopic(enActiveTopicName)">
+                                    ⌨️ Luyện gõ chủ đề này
+                                </button>
                             </div>
                         </div>
                         
@@ -3864,7 +4208,10 @@
                     <div class="panel" id="en-no-topic-selected-panel" style="padding:48px 24px; text-align:center;">
                         <div style="font-size:3rem; margin-bottom:16px;">👈</div>
                         <h3 style="color:var(--text2); margin-bottom:8px;">Chưa chọn chủ đề</h3>
-                        <p style="color:var(--text3); font-size:0.9rem;">Vui lòng chọn một chủ đề ở bên trái hoặc tạo mới để quản lý từ vựng tiếng Anh.</p>
+                        <p style="color:var(--text3); font-size:0.9rem; max-width:440px; margin:0 auto 16px; line-height:1.6;">Vui lòng chọn một chủ đề ở bên trái hoặc bấm nút bên dưới để xem và import nhanh các bộ chủ đề tiếng Anh thông dụng nhất.</p>
+                        <button type="button" class="btn btn-start" style="background:linear-gradient(135deg, #0284c7, #6366f1); border:none; color:#fff; font-weight:700; padding:11px 24px; border-radius:10px; box-shadow:0 4px 16px rgba(2,132,199,0.35); font-size:0.9rem;" onclick="openEnPresetModal()">
+                            ⚡ Mở Kho Chủ Đề Mẫu Tiếng Anh (+200 từ)
+                        </button>
                     </div>
                 </div>
             </div>
@@ -4482,8 +4829,281 @@
         function loadVocab() { try { return JSON.parse(localStorage.getItem('jp_vocab') || '[]'); } catch (e) { return []; } }
         function saveVocab(v) { localStorage.setItem('jp_vocab', JSON.stringify(v)); }
 
-        // ========== ENGLISH STORAGE & SESSION ==========
+        // ========== ENGLISH STORAGE & PRESET TOPICS ==========
         let enActiveTopicName = ''; // Tracks selected English topic name
+
+        const PRESET_EN_TOPICS = [
+            {
+                id: 'business',
+                topicName: '💼 Giao tiếp Công sở & Business',
+                description: 'Từ vựng thông dụng trong môi trường văn phòng, họp hành, báo cáo và dự án.',
+                words: [
+                    { word: 'schedule', ipa: '/ˈskedʒ.uːl/', meaning: 'lịch trình, kế hoạch làm việc' },
+                    { word: 'deadline', ipa: '/ˈded.laɪn/', meaning: 'hạn chót hoàn thành' },
+                    { word: 'colleague', ipa: '/ˈkɑː.liːɡ/', meaning: 'đồng nghiệp' },
+                    { word: 'meeting', ipa: '/ˈmiː.tɪŋ/', meaning: 'cuộc họp' },
+                    { word: 'proposal', ipa: '/prəˈpoʊ.zəl/', meaning: 'đề xuất, bản kiến nghị' },
+                    { word: 'presentation', ipa: '/ˌprez.ənˈteɪ.ʃən/', meaning: 'bài thuyết trình' },
+                    { word: 'negotiate', ipa: '/nəˈɡoʊ.ʃi.eɪt/', meaning: 'đàm phán, thương lượng' },
+                    { word: 'contract', ipa: '/ˈkɑːn.trækt/', meaning: 'hợp đồng ký kết' },
+                    { word: 'feedback', ipa: '/ˈfiːd.bæk/', meaning: 'phản hồi, ý kiến đóng góp' },
+                    { word: 'department', ipa: '/dɪˈpɑːrt.mənt/', meaning: 'phòng ban, bộ phận' },
+                    { word: 'manager', ipa: '/ˈmæn.ə.dʒɚ/', meaning: 'người quản lý, trưởng phòng' },
+                    { word: 'client', ipa: '/ˈklaɪ.ənt/', meaning: 'khách hàng, đối tác' },
+                    { word: 'collaborate', ipa: '/kəˈlæb.ə.reɪt/', meaning: 'hợp tác, cộng tác' },
+                    { word: 'budget', ipa: '/ˈbʌdʒ.ɪt/', meaning: 'ngân sách dự toán' },
+                    { word: 'strategy', ipa: '/ˈstræt̬.ə.dʒi/', meaning: 'chiến lược' },
+                    { word: 'revenue', ipa: '/ˈrev.ə.nuː/', meaning: 'doanh thu' },
+                    { word: 'profit', ipa: '/ˈprɑː.fɪt/', meaning: 'lợi nhuận' },
+                    { word: 'investment', ipa: '/ɪnˈvest.mənt/', meaning: 'khoản đầu tư' },
+                    { word: 'efficiency', ipa: '/ɪˈfɪʃ.ən.si/', meaning: 'hiệu quả, năng suất làm việc' },
+                    { word: 'report', ipa: '/rɪˈpɔːrt/', meaning: 'báo cáo tổng kết' }
+                ]
+            },
+            {
+                id: 'tech',
+                topicName: '💻 Công nghệ & Lập trình (IT & Tech)',
+                description: 'Thuật ngữ cốt lõi dành cho lập trình viên, kỹ sư công nghệ và người làm IT.',
+                words: [
+                    { word: 'algorithm', ipa: '/ˈæl.ɡə.rɪ.ðəm/', meaning: 'thuật toán' },
+                    { word: 'database', ipa: '/ˈdeɪ.t̬ə.beɪs/', meaning: 'cơ sở dữ liệu' },
+                    { word: 'framework', ipa: '/ˈfreɪm.wɝːk/', meaning: 'khung làm việc, framework' },
+                    { word: 'frontend', ipa: '/ˈfrʌnt.end/', meaning: 'giao diện người dùng' },
+                    { word: 'backend', ipa: '/ˈbæk.end/', meaning: 'hệ thống xử lý phía máy chủ' },
+                    { word: 'deployment', ipa: '/dɪˈplɔɪ.mənt/', meaning: 'việc triển khai ứng dụng' },
+                    { word: 'repository', ipa: '/rɪˈpɑː.zə.tɔːr.i/', meaning: 'kho lưu trữ mã nguồn' },
+                    { word: 'variable', ipa: '/ˈver.i.ə.bəl/', meaning: 'biến số' },
+                    { word: 'function', ipa: '/ˈfʌŋk.ʃən/', meaning: 'hàm số, chức năng' },
+                    { word: 'parameter', ipa: '/pəˈræm.ə.t̬ɚ/', meaning: 'tham số truyền vào' },
+                    { word: 'component', ipa: '/kəmˈpoʊ.nənt/', meaning: 'thành phần cấu thành' },
+                    { word: 'interface', ipa: '/ˈɪn.t̬ɚ.feɪs/', meaning: 'giao diện kết nối' },
+                    { word: 'network', ipa: '/ˈnet.wɝːk/', meaning: 'mạng máy tính' },
+                    { word: 'security', ipa: '/səˈkjʊr.ə.t̬i/', meaning: 'an ninh, bảo mật thông tin' },
+                    { word: 'encryption', ipa: '/ɪnˈkrɪp.ʃən/', meaning: 'sự mã hóa dữ liệu' },
+                    { word: 'performance', ipa: '/pɚˈfɔːr.məns/', meaning: 'hiệu năng vận hành' },
+                    { word: 'debugging', ipa: '/diːˈbʌɡ.ɪŋ/', meaning: 'tìm và sửa lỗi chương trình' },
+                    { word: 'automation', ipa: '/ˌɑː.t̬əˈmeɪ.ʃən/', meaning: 'tự động hóa quy trình' },
+                    { word: 'artificial', ipa: '/ˌɑːr.t̬əˈfɪʃ.əl/', meaning: 'nhân tạo' },
+                    { word: 'intelligence', ipa: '/ɪnˈtel.ə.dʒəns/', meaning: 'trí tuệ, thông minh' }
+                ]
+            },
+            {
+                id: 'daily',
+                topicName: '🗣️ Giao tiếp Đời sống (Daily Life)',
+                description: 'Các từ vựng thường nhật giúp bạn tự tin trò chuyện và kết bạn bằng tiếng Anh.',
+                words: [
+                    { word: 'conversation', ipa: '/ˌkɑːn.vɚˈseɪ.ʃən/', meaning: 'cuộc trò chuyện, đàm đạo' },
+                    { word: 'introduction', ipa: '/ˌɪn.trəˈdʌk.ʃən/', meaning: 'lời giới thiệu làm quen' },
+                    { word: 'compliment', ipa: '/ˈkɑːm.plə.mənt/', meaning: 'lời khen ngợi' },
+                    { word: 'apology', ipa: '/əˈpɑː.lə.dʒi/', meaning: 'lời xin lỗi chân thành' },
+                    { word: 'invitation', ipa: '/ˌɪn.vəˈteɪ.ʃən/', meaning: 'lời mời tham dự' },
+                    { word: 'appreciate', ipa: '/əˈpriː.ʃi.eɪt/', meaning: 'cảm kích, trân trọng' },
+                    { word: 'neighborhood', ipa: '/ˈneɪ.bɚ.hʊd/', meaning: 'khu phố, xóm giềng' },
+                    { word: 'appointment', ipa: '/əˈpɔɪnt.mənt/', meaning: 'cuộc hẹn đã định' },
+                    { word: 'convenient', ipa: '/kənˈviː.ni.ənt/', meaning: 'tiện lợi, thuận tiện' },
+                    { word: 'comfortable', ipa: '/ˈkʌm.fɚ.t̬ə.bəl/', meaning: 'dễ chịu, thoải mái' },
+                    { word: 'experience', ipa: '/ɪkˈspɪr.i.əns/', meaning: 'trải nghiệm thực tế' },
+                    { word: 'opinion', ipa: '/əˈpɪn.jən/', meaning: 'quan điểm, ý kiến' },
+                    { word: 'suggestion', ipa: '/səˈdʒes.tʃən/', meaning: 'lời gợi ý hữu ích' },
+                    { word: 'celebration', ipa: '/ˌsel.əˈbreɪ.ʃən/', meaning: 'lễ kỷ niệm, bữa tiệc ăn mừng' },
+                    { word: 'atmosphere', ipa: '/ˈæt.məs.fɪr/', meaning: 'bầu không khí' },
+                    { word: 'relationship', ipa: '/rɪˈleɪ.ʃən.ʃɪp/', meaning: 'mối quan hệ gắn bó' },
+                    { word: 'enthusiastic', ipa: '/ɪnˌθuː.ziˈæs.tɪk/', meaning: 'nhiệt tình, hào hứng' },
+                    { word: 'wonderful', ipa: '/ˈwʌn.dɚ.fəl/', meaning: 'tuyệt diệu, tuyệt vời' },
+                    { word: 'gratitude', ipa: '/ˈɡræt̬.ə.tuːd/', meaning: 'lòng biết ơn' },
+                    { word: 'pleasure', ipa: '/ˈpleʒ.ɚ/', meaning: 'niềm vinh hạnh, niềm vui' }
+                ]
+            },
+            {
+                id: 'travel',
+                topicName: '✈️ Du lịch & Khách sạn (Travel & Hotel)',
+                description: 'Từ vựng du lịch, đặt phòng khách sạn, sân bay và khám phá thế giới.',
+                words: [
+                    { word: 'departure', ipa: '/dɪˈpɑːr.tʃɚ/', meaning: 'chuyến khởi hành' },
+                    { word: 'arrival', ipa: '/əˈraɪ.vəl/', meaning: 'chuyến đến nơi' },
+                    { word: 'luggage', ipa: '/ˈlʌɡ.ɪdʒ/', meaning: 'hành lý mang theo' },
+                    { word: 'passport', ipa: '/ˈpæs.pɔːrt/', meaning: 'hộ chiếu xuất nhập cảnh' },
+                    { word: 'boarding', ipa: '/ˈbɔːr.dɪŋ/', meaning: 'việc lên tàu / máy bay' },
+                    { word: 'destination', ipa: '/ˌdes.təˈneɪ.ʃən/', meaning: 'điểm đến du lịch' },
+                    { word: 'reservation', ipa: '/ˌrez.ɚˈveɪ.ʃən/', meaning: 'đặt phòng / chỗ trước' },
+                    { word: 'receptionist', ipa: '/rɪˈsep.ʃən.ɪst/', meaning: 'nhân viên lễ tân' },
+                    { word: 'accommodation', ipa: '/əˌkɑː.məˈdeɪ.ʃən/', meaning: 'chỗ nghỉ ngơi, lưu trú' },
+                    { word: 'itinerary', ipa: '/aɪˈtɪn.ə.rer.i/', meaning: 'lịch trình chuyến đi' },
+                    { word: 'sightseeing', ipa: '/ˈsaɪtˌsiː.ɪŋ/', meaning: 'ngắm cảnh, tham quan' },
+                    { word: 'souvenir', ipa: '/ˌsuː.vəˈnɪr/', meaning: 'quà lưu niệm' },
+                    { word: 'passenger', ipa: '/ˈpæs.ən.dʒɚ/', meaning: 'hành khách' },
+                    { word: 'currency', ipa: '/ˈkɝː.ən.si/', meaning: 'tiền tệ quốc gia' },
+                    { word: 'exchange', ipa: '/ɪksˈtʃeɪndʒ/', meaning: 'đổi tiền, giao dịch' },
+                    { word: 'terminal', ipa: '/ˈtɝː.mə.nəl/', meaning: 'nhà ga sân bay' },
+                    { word: 'explore', ipa: '/ɪkˈsplɔːr/', meaning: 'thám hiểm, khám phá' },
+                    { word: 'attraction', ipa: '/əˈtræk.ʃən/', meaning: 'địa điểm thu hút du khách' },
+                    { word: 'adventure', ipa: '/ədˈven.tʃɚ/', meaning: 'chuyến phiêu lưu kỳ thú' },
+                    { word: 'guide', ipa: '/ɡaɪd/', meaning: 'hướng dẫn viên du lịch' }
+                ]
+            },
+            {
+                id: 'food',
+                topicName: '🍔 Ẩm thực & Nhà hàng (Food & Dining)',
+                description: 'Món ăn, gọi món nhà hàng, hương vị và nghệ thuật ẩm thực.',
+                words: [
+                    { word: 'delicious', ipa: '/dɪˈlɪʃ.əs/', meaning: 'thơm ngon, ngon miệng' },
+                    { word: 'beverage', ipa: '/ˈbev.ɚ.ɪdʒ/', meaning: 'đồ uống, thức uống' },
+                    { word: 'appetizer', ipa: '/ˈæp.ə.taɪ.zɚ/', meaning: 'món khai vị nhẹ' },
+                    { word: 'dessert', ipa: '/dɪˈzɝːt/', meaning: 'món tráng miệng ngọt' },
+                    { word: 'ingredient', ipa: '/ɪnˈɡriː.di.ənt/', meaning: 'nguyên liệu nấu ăn' },
+                    { word: 'recipe', ipa: '/ˈres.ə.pi/', meaning: 'công thức chế biến' },
+                    { word: 'flavor', ipa: '/ˈfleɪ.vɚ/', meaning: 'hương vị đặc trưng' },
+                    { word: 'vegetarian', ipa: '/ˌvedʒ.əˈter.i.ən/', meaning: 'món ăn chay, người ăn chay' },
+                    { word: 'nutrition', ipa: '/nuːˈtrɪʃ.ən/', meaning: 'dinh dưỡng tốt' },
+                    { word: 'seafood', ipa: '/ˈsiː.fuːd/', meaning: 'hải sản tươi sống' },
+                    { word: 'recommendation', ipa: '/ˌrek.ə.menˈdeɪ.ʃən/', meaning: 'món gợi ý của quán' },
+                    { word: 'bill', ipa: '/bɪl/', meaning: 'hóa đơn thanh toán' },
+                    { word: 'cutlery', ipa: '/ˈkʌt.lɚ.i/', meaning: 'bộ dao nĩa muỗng' },
+                    { word: 'spicy', ipa: '/ˈspaɪ.si/', meaning: 'vị cay nồng' },
+                    { word: 'savory', ipa: '/ˈseɪ.vɚ.i/', meaning: 'vị mặn đậm đà' },
+                    { word: 'breakfast', ipa: '/ˈbrek.fəst/', meaning: 'bữa điểm tâm sáng' },
+                    { word: 'cuisine', ipa: '/kwɪˈziːn/', meaning: 'nền ẩm thực' },
+                    { word: 'refreshing', ipa: '/rɪˈfreʃ.ɪŋ/', meaning: 'tươi mát, sảng khoái' },
+                    { word: 'traditional', ipa: '/trəˈdɪʃ.ən.əl/', meaning: 'truyền thống lâu đời' },
+                    { word: 'specialty', ipa: '/ˈspeʃ.əl.ti/', meaning: 'món ăn đặc sản' }
+                ]
+            },
+            {
+                id: 'shopping',
+                topicName: '🛒 Mua sắm & Chi tiêu (Shopping & Retail)',
+                description: 'Mua sắm thông minh, săn khuyến mãi, thanh toán và bảo hành.',
+                words: [
+                    { word: 'discount', ipa: '/ˈdɪs.kaʊnt/', meaning: 'mức chiết khấu, giảm giá' },
+                    { word: 'receipt', ipa: '/rɪˈsiːt/', meaning: 'hóa đơn, biên lai' },
+                    { word: 'purchase', ipa: '/ˈpɝː.tʃəs/', meaning: 'mua sắm, vật phẩm mua' },
+                    { word: 'customer', ipa: '/ˈkʌs.tə.mɚ/', meaning: 'khách hàng mua sắm' },
+                    { word: 'promotion', ipa: '/prəˈmoʊ.ʃən/', meaning: 'chương trình ưu đãi' },
+                    { word: 'bargain', ipa: '/ˈbɑːr.ɡɪn/', meaning: 'món hời, sự mặc cả' },
+                    { word: 'refund', ipa: '/ˈriː.fʌnd/', meaning: 'hoàn trả lại tiền' },
+                    { word: 'warranty', ipa: '/ˈwɔːr.ən.ti/', meaning: 'giấy bảo hành' },
+                    { word: 'quality', ipa: '/ˈkwɑː.lə.t̬i/', meaning: 'chất lượng hàng hóa' },
+                    { word: 'quantity', ipa: '/ˈkwɑːn.t̬ə.t̬i/', meaning: 'số lượng sản phẩm' },
+                    { word: 'cashier', ipa: '/kæʃˈɪr/', meaning: 'nhân viên thu ngân' },
+                    { word: 'affordable', ipa: '/əˈfɔːr.də.bəl/', meaning: 'giá cả phải chăng, vừa túi tiền' },
+                    { word: 'expensive', ipa: '/ɪkˈspen.sɪv/', meaning: 'đắt đỏ, giá cao' },
+                    { word: 'checkout', ipa: '/ˈtʃek.aʊt/', meaning: 'quầy làm thủ tục tính tiền' },
+                    { word: 'voucher', ipa: '/ˈvaʊ.tʃɚ/', meaning: 'phiếu ưu đãi giảm giá' },
+                    { word: 'installment', ipa: '/ɪnˈstɑːl.mənt/', meaning: 'khoản trả góp định kỳ' },
+                    { word: 'delivery', ipa: '/dɪˈlɪv.ɚ.i/', meaning: 'dịch vụ giao hàng tận nơi' },
+                    { word: 'brand', ipa: '/brænd/', meaning: 'nhãn hiệu, thương hiệu' },
+                    { word: 'clothing', ipa: '/ˈkloʊ.ðɪŋ/', meaning: 'trang phục, quần áo' },
+                    { word: 'catalogue', ipa: '/ˈkæt̬.əl.ɑːɡ/', meaning: 'danh mục tra cứu sản phẩm' }
+                ]
+            },
+            {
+                id: 'emotions',
+                topicName: '❤️ Cảm xúc & Tính cách (Emotions & Traits)',
+                description: 'Biểu đạt cảm xúc, tính cách con người và tâm lý sâu sắc.',
+                words: [
+                    { word: 'optimistic', ipa: '/ˌɑːp.təˈmɪs.tɪk/', meaning: 'lạc quan, yêu đời' },
+                    { word: 'pessimistic', ipa: '/ˌpes.əˈmɪs.tɪk/', meaning: 'bi quan' },
+                    { word: 'confident', ipa: '/ˈkɑːn.fə.dənt/', meaning: 'tự tin vào bản thân' },
+                    { word: 'generous', ipa: '/ˈdʒen.ər.əs/', meaning: 'hào phóng, rộng rãi' },
+                    { word: 'patient', ipa: '/ˈpeɪ.ʃənt/', meaning: 'kiên nhẫn, điềm đạm' },
+                    { word: 'creative', ipa: '/kriˈeɪ.t̬ɪv/', meaning: 'sáng tạo độc đáo' },
+                    { word: 'reliable', ipa: '/rɪˈlaɪ.ə.bəl/', meaning: 'đáng tin cậy' },
+                    { word: 'sympathy', ipa: '/ˈsɪm.pə.θi/', meaning: 'sự đồng cảm, trắc ẩn' },
+                    { word: 'anxious', ipa: '/ˈæŋk.ʃəs/', meaning: 'lo lắng, bồn chồn' },
+                    { word: 'curious', ipa: '/ˈkjʊr.i.əs/', meaning: 'tò mò, thích khám phá' },
+                    { word: 'grateful', ipa: '/ˈɡreɪt.fəl/', meaning: 'biết ơn sâu sắc' },
+                    { word: 'honest', ipa: '/ˈɑː.nɪst/', meaning: 'thật thà, trung thực' },
+                    { word: 'passionate', ipa: '/ˈpæʃ.ən.ət/', meaning: 'say mê, nhiệt huyết' },
+                    { word: 'humble', ipa: '/ˈhʌm.bəl/', meaning: 'khiêm tốn nhã nhặn' },
+                    { word: 'courageous', ipa: '/kəˈreɪ.dʒəs/', meaning: 'dũng cảm, can trường' },
+                    { word: 'ambitious', ipa: '/æmˈbɪʃ.əs/', meaning: 'có hoài bão lớn' },
+                    { word: 'affectionate', ipa: '/əˈfek.ʃən.ət/', meaning: 'giàu tình cảm, trìu mến' },
+                    { word: 'frustrated', ipa: '/ˈfrʌs.treɪ.t̬ɪd/', meaning: 'bực bội, bất lực' },
+                    { word: 'satisfied', ipa: '/ˈsæt̬.ɪs.faɪd/', meaning: 'hài lòng, mãn nguyện' },
+                    { word: 'peaceful', ipa: '/ˈpiːs.fəl/', meaning: 'bình yên, thanh tịnh' }
+                ]
+            },
+            {
+                id: 'health',
+                topicName: '🏥 Sức khỏe & Y tế (Health & Medical)',
+                description: 'Từ vựng khám bệnh, triệu chứng, điều trị và chăm sóc cơ thể.',
+                words: [
+                    { word: 'prescription', ipa: '/prɪˈskrɪp.ʃən/', meaning: 'đơn thuốc của bác sĩ' },
+                    { word: 'symptom', ipa: '/ˈsɪmp.təm/', meaning: 'triệu chứng bệnh' },
+                    { word: 'treatment', ipa: '/ˈtriːt.mənt/', meaning: 'liệu trình điều trị' },
+                    { word: 'pharmacy', ipa: '/ˈfɑːr.mə.si/', meaning: 'tiệm thuốc tây' },
+                    { word: 'infection', ipa: '/ɪnˈfek.ʃən/', meaning: 'nhiễm trùng' },
+                    { word: 'temperature', ipa: '/ˈtem.prə.tʃɚ/', meaning: 'nhiệt độ, sốt' },
+                    { word: 'headache', ipa: '/ˈhed.eɪk/', meaning: 'chứng đau đầu' },
+                    { word: 'healthy', ipa: '/ˈhel.θi/', meaning: 'khỏe mạnh, lành mạnh' },
+                    { word: 'exercise', ipa: '/ˈek.sɚ.saɪz/', meaning: 'tập thể dục thể thao' },
+                    { word: 'recovery', ipa: '/rɪˈkʌv.ɚ.i/', meaning: 'sự hồi phục sức khỏe' },
+                    { word: 'emergency', ipa: '/ɪˈmɝː.dʒən.si/', meaning: 'trường hợp cấp cứu' },
+                    { word: 'hospital', ipa: '/ˈhɑː.spɪ.t̬əl/', meaning: 'bệnh viện' },
+                    { word: 'ambulance', ipa: '/ˈæm.bjə.ləns/', meaning: 'xe cứu thương' },
+                    { word: 'examination', ipa: '/ɪɡˌzæm.əˈneɪ.ʃən/', meaning: 'cuộc thăm khám' },
+                    { word: 'vitamin', ipa: '/ˈvaɪ.t̬ə.mɪn/', meaning: 'chất dinh dưỡng vi lượng' },
+                    { word: 'nutrition', ipa: '/nuːˈtrɪʃ.ən/', meaning: 'chế độ dinh dưỡng' },
+                    { word: 'allergy', ipa: '/ˈæl.ɚ.dʒi/', meaning: 'dị ứng cơ địa' },
+                    { word: 'bandage', ipa: '/ˈbæn.dɪdʒ/', meaning: 'băng gạc vết thương' },
+                    { word: 'dentist', ipa: '/ˈden.tɪst/', meaning: 'nha sĩ khám răng' },
+                    { word: 'prevention', ipa: '/prɪˈven.ʃən/', meaning: 'sự phòng ngừa dịch bệnh' }
+                ]
+            },
+            {
+                id: 'academic',
+                topicName: '🎓 Học thuật & IELTS / TOEIC (Academic Core)',
+                description: 'Từ vựng học thuật học sâu, hỗ trợ thi chứng chỉ IELTS, TOEIC band cao.',
+                words: [
+                    { word: 'achievement', ipa: '/əˈtʃiːv.mənt/', meaning: 'thành tựu vẻ vang' },
+                    { word: 'comprehend', ipa: '/ˌkɑːm.prəˈhend/', meaning: 'lĩnh hội, thấu hiểu sâu' },
+                    { word: 'perspective', ipa: '/pɚˈspek.tɪv/', meaning: 'góc nhìn, lăng kính phân tích' },
+                    { word: 'significant', ipa: '/sɪɡˈnɪf.ə.kənt/', meaning: 'có ý nghĩa quan trọng, đáng kể' },
+                    { word: 'evaluate', ipa: '/ɪˈvæl.ju.eɪt/', meaning: 'đánh giá, thẩm định' },
+                    { word: 'demonstrate', ipa: '/ˈdem.ən.streɪt/', meaning: 'chứng minh, giải thích rõ' },
+                    { word: 'hypothesis', ipa: '/haɪˈpɑː.θə.sɪs/', meaning: 'giả thuyết khoa học' },
+                    { word: 'consequence', ipa: '/ˈkɑːn.sə.kwəns/', meaning: 'hệ quả, kết quả tất yếu' },
+                    { word: 'fundamental', ipa: '/ˌfʌn.dəˈmen.t̬əl/', meaning: 'nền tảng, cốt lõi' },
+                    { word: 'phenomenon', ipa: '/fəˈnɑː.mə.nɑːn/', meaning: 'hiện tượng tự nhiên / xã hội' },
+                    { word: 'investigate', ipa: '/ɪnˈves.tə.ɡeɪt/', meaning: 'điều tra, nghiên cứu kỹ' },
+                    { word: 'circumstance', ipa: '/ˈsɝː.kəm.stæns/', meaning: 'hoàn cảnh, bối cảnh xung quanh' },
+                    { word: 'characteristic', ipa: '/ˌker.ək.təˈrɪs.tɪk/', meaning: 'đặc điểm tiêu biểu' },
+                    { word: 'interpretation', ipa: '/ɪnˌtɝː.prəˈteɪ.ʃən/', meaning: 'sự diễn giải, giải thích' },
+                    { word: 'contribution', ipa: '/ˌkɑːn.trəˈbjuː.ʃən/', meaning: 'sự đóng góp to lớn' },
+                    { word: 'potential', ipa: '/poʊˈten.ʃəl/', meaning: 'tiềm năng phát triển' },
+                    { word: 'essential', ipa: '/ɪˈsen.ʃəl/', meaning: 'thiết yếu, cực kỳ cần thiết' },
+                    { word: 'distinction', ipa: '/dɪˈstɪŋk.ʃən/', meaning: 'nét khác biệt, sự phân biệt' },
+                    { word: 'generate', ipa: '/ˈdʒen.ə.reɪt/', meaning: 'tạo ra, phát sinh ra' },
+                    { word: 'acquire', ipa: '/əˈkwaɪɚ/', meaning: 'tiếp thu, đạt được kỹ năng' }
+                ]
+            },
+            {
+                id: 'nature',
+                topicName: '🌿 Thiên nhiên & Môi trường (Nature & Ecology)',
+                description: 'Môi trường, sinh thái, thời tiết, động vật hoang dã và hành tinh.',
+                words: [
+                    { word: 'ecosystem', ipa: '/ˈiː.koʊˌsɪs.təm/', meaning: 'hệ sinh thái tự nhiên' },
+                    { word: 'biodiversity', ipa: '/ˌbaɪ.oʊ.daɪˈvɝː.sə.t̬i/', meaning: 'tính đa dạng sinh học' },
+                    { word: 'conservation', ipa: '/ˌkɑːn.sɚˈveɪ.ʃən/', meaning: 'bảo tồn thiên nhiên' },
+                    { word: 'endangered', ipa: '/ɪnˈdeɪn.dʒɚd/', meaning: 'có nguy cơ tuyệt chủng' },
+                    { word: 'sustainable', ipa: '/səˈsteɪ.nə.bəl/', meaning: 'phát triển bền vững' },
+                    { word: 'atmosphere', ipa: '/ˈæt.məs.fɪr/', meaning: 'bầu khí quyển trái đất' },
+                    { word: 'pollution', ipa: '/pəˈluː.ʃən/', meaning: 'ô nhiễm môi trường' },
+                    { word: 'renewable', ipa: '/rɪˈnuː.ə.bəl/', meaning: 'năng lượng tái tạo được' },
+                    { word: 'wildlife', ipa: '/ˈwaɪld.laɪf/', meaning: 'động vật hoang dã' },
+                    { word: 'climate', ipa: '/ˈklaɪ.mət/', meaning: 'khí hậu vùng miền' },
+                    { word: 'catastrophe', ipa: '/kəˈtæs.trə.fi/', meaning: 'thảm họa thiên tai lớn' },
+                    { word: 'landscape', ipa: '/ˈlænd.skeɪp/', meaning: 'phong cảnh, cảnh quan' },
+                    { word: 'vegetation', ipa: '/ˌvedʒ.əˈteɪ.ʃən/', meaning: 'thảm thực vật xanh' },
+                    { word: 'natural', ipa: '/ˈnætʃ.ɚ.əl/', meaning: 'thuộc về thiên nhiên' },
+                    { word: 'resources', ipa: '/ˈriː.sɔːr.sɪz/', meaning: 'nguồn tài nguyên quý giá' },
+                    { word: 'temperature', ipa: '/ˈtem.prə.tʃɚ/', meaning: 'nhiệt độ thời tiết' },
+                    { word: 'glacier', ipa: '/ˈɡleɪ.ʃɚ/', meaning: 'sông băng tan chảy' },
+                    { word: 'habitat', ipa: '/ˈhæb.ə.tæt/', meaning: 'môi trường sống tự nhiên' },
+                    { word: 'species', ipa: '/ˈspiː.ʃiːz/', meaning: 'loài sinh vật' },
+                    { word: 'preservation', ipa: '/ˌprez.ɚˈveɪ.ʃən/', meaning: 'sự giữ gìn, bảo tồn' }
+                ]
+            }
+        ];
 
         function loadEnVocab() {
             try {
@@ -4495,6 +5115,109 @@
 
         function saveEnVocab(v) {
             localStorage.setItem('en_vocab', JSON.stringify(v));
+        }
+
+        // ========== ENGLISH PRESET TOPIC MODAL ==========
+        function openEnPresetModal() {
+            const overlay = document.getElementById('en-presets-modal-overlay');
+            if (overlay) {
+                renderEnPresetModalCards();
+                overlay.classList.add('active');
+            }
+        }
+
+        function closeEnPresetModal() {
+            const overlay = document.getElementById('en-presets-modal-overlay');
+            if (overlay) overlay.classList.remove('active');
+        }
+
+        function renderEnPresetModalCards() {
+            const container = document.getElementById('en-presets-grid-container');
+            if (!container) return;
+            const currentEnVocab = loadEnVocab();
+
+            container.innerHTML = PRESET_EN_TOPICS.map(p => {
+                const existing = currentEnVocab.find(t => t.topicName.toLowerCase() === p.topicName.toLowerCase());
+                const sampleWords = p.words.slice(0, 5).map(w => w.word).join(', ');
+                const isImported = existing && existing.words.length >= p.words.length;
+
+                return `
+                    <div class="en-preset-card">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+                                <div class="en-preset-title">${p.topicName}</div>
+                                <span class="en-preset-badge">${p.words.length} từ</span>
+                            </div>
+                            <div style="font-size:0.83rem; color:var(--text2); margin-bottom:8px;">${p.description}</div>
+                            <div class="en-preset-preview">
+                                <strong>Xem trước:</strong> ${sampleWords}, ...
+                            </div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                            ${isImported ? '<span style="font-size:0.8rem; color:#34d399; font-weight:700;">✓ Đã nạp</span>' : '<span style="font-size:0.8rem; color:var(--text3);">Sẵn sàng</span>'}
+                            <button type="button" class="btn-start" style="padding:6px 14px; font-size:0.82rem; margin:0; background:${isImported ? 'rgba(52,211,153,0.15)' : 'var(--accent)'}; color:${isImported ? '#34d399' : '#fff'}; border:${isImported ? '1px solid #34d399' : 'none'};" onclick="importPresetEnTopic('${p.id}')">
+                                ${isImported ? '🔄 Nạp lại' : '📥 Nạp chủ đề này'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function importPresetEnTopic(topicId) {
+            const preset = PRESET_EN_TOPICS.find(p => p.id === topicId);
+            if (!preset) return;
+
+            const enVocab = loadEnVocab();
+            let topic = enVocab.find(t => t.topicName.toLowerCase() === preset.topicName.toLowerCase());
+            let addedCount = 0;
+
+            if (!topic) {
+                topic = { topicName: preset.topicName, words: [] };
+                enVocab.push(topic);
+            }
+
+            preset.words.forEach(w => {
+                const exists = topic.words.some(x => x.word.toLowerCase() === w.word.toLowerCase());
+                if (!exists) {
+                    topic.words.push({ word: w.word, ipa: w.ipa || '', meaning: w.meaning });
+                    addedCount++;
+                }
+            });
+
+            saveEnVocab(enVocab);
+            enActiveTopicName = preset.topicName;
+            renderEnTopics();
+            renderEnWords();
+            renderEnPresetModalCards();
+            showToast(`✅ Đã nạp thành công chủ đề "${preset.topicName}" (+${preset.words.length} từ)!`, 'success');
+        }
+
+        function importAllPresetEnTopics() {
+            const enVocab = loadEnVocab();
+            let totalAdded = 0;
+
+            PRESET_EN_TOPICS.forEach(preset => {
+                let topic = enVocab.find(t => t.topicName.toLowerCase() === preset.topicName.toLowerCase());
+                if (!topic) {
+                    topic = { topicName: preset.topicName, words: [] };
+                    enVocab.push(topic);
+                }
+                preset.words.forEach(w => {
+                    const exists = topic.words.some(x => x.word.toLowerCase() === w.word.toLowerCase());
+                    if (!exists) {
+                        topic.words.push({ word: w.word, ipa: w.ipa || '', meaning: w.meaning });
+                        totalAdded++;
+                    }
+                });
+            });
+
+            saveEnVocab(enVocab);
+            enActiveTopicName = PRESET_EN_TOPICS[0].topicName;
+            renderEnTopics();
+            renderEnWords();
+            closeEnPresetModal();
+            showToast(`🎉 Đã nạp toàn bộ 10 chủ đề mẫu tiếng Anh (+200 từ vựng)!`, 'success');
         }
 
         // ========== ENGLISH TOPIC OPERATIONS ==========
@@ -4514,7 +5237,9 @@
             enVocab.push({ topicName: topicName, words: [] });
             saveEnVocab(enVocab);
             topicInput.value = '';
+            enActiveTopicName = topicName;
             renderEnTopics();
+            renderEnWords();
             showToast(`✅ Đã tạo chủ đề "${topicName}"!`, 'success');
         }
 
@@ -4526,7 +5251,7 @@
             enVocab = enVocab.filter(t => t.topicName !== topicName);
             saveEnVocab(enVocab);
             if (enActiveTopicName === topicName) {
-                enActiveTopicName = '';
+                enActiveTopicName = enVocab.length ? enVocab[0].topicName : '';
             }
             renderEnTopics();
             renderEnWords();
@@ -4542,8 +5267,9 @@
         function renderEnTopics() {
             const enVocab = loadEnVocab();
             const listContainer = document.getElementById('en-topics-list');
+            if (!listContainer) return;
             if (enVocab.length === 0) {
-                listContainer.innerHTML = '<div style="color:var(--text3); font-size:0.85rem; padding: 10px; text-align: center;">Chưa có chủ đề nào. Hãy tạo một chủ đề!</div>';
+                listContainer.innerHTML = '<div style="color:var(--text3); font-size:0.85rem; padding: 12px; text-align: center;">Chưa có chủ đề nào.<br><button type="button" class="btn btn-start" style="padding:6px 12px; font-size:0.8rem; margin-top:8px;" onclick="openEnPresetModal()">⚡ Nạp chủ đề mẫu</button></div>';
                 return;
             }
             listContainer.innerHTML = enVocab.map(t => {
@@ -4620,6 +5346,7 @@
         function renderEnWords() {
             const wordsPanel = document.getElementById('en-words-panel');
             const noTopicPanel = document.getElementById('en-no-topic-selected-panel');
+            if (!wordsPanel || !noTopicPanel) return;
             
             if (!enActiveTopicName) {
                 wordsPanel.style.display = 'none';
@@ -4630,22 +5357,25 @@
             wordsPanel.style.display = 'block';
             noTopicPanel.style.display = 'none';
 
-            document.getElementById('en-active-topic-title').textContent = `Chủ đề: ${enActiveTopicName}`;
+            const activeTitle = document.getElementById('en-active-topic-title');
+            if (activeTitle) activeTitle.textContent = `Chủ đề: ${enActiveTopicName}`;
 
             const enVocab = loadEnVocab();
             const topic = enVocab.find(t => t.topicName === enActiveTopicName);
             if (!topic) return;
 
-            const q = normalize(document.getElementById('en-search-input').value || '');
+            const q = normalize(document.getElementById('en-search-input')?.value || '');
             const filtered = topic.words.filter(w =>
                 !q || normalize(w.word).includes(q) || normalize(w.meaning).includes(q) || normalize(w.ipa || '').includes(q)
             );
 
-            document.getElementById('en-vocab-count').textContent = `${topic.words.length} từ`;
+            const countEl = document.getElementById('en-vocab-count');
+            if (countEl) countEl.textContent = `${topic.words.length} từ`;
 
             const listContainer = document.getElementById('en-word-list');
+            if (!listContainer) return;
             if (filtered.length === 0) {
-                listContainer.innerHTML = '<div style="color:var(--text3); font-size:0.85rem; padding: 24px; text-align: center;">Không tìm thấy từ nào. Hãy thêm từ vựng mới!</div>';
+                listContainer.innerHTML = '<div style="color:var(--text3); font-size:0.85rem; padding: 24px; text-align: center;">Chưa có từ nào trong chủ đề này. Hãy thêm từ vựng mới hoặc nạp chủ đề mẫu!</div>';
                 return;
             }
 
@@ -4659,20 +5389,111 @@
                         <div class="en-word-meaning">${escapeHtml(w.meaning)}</div>
                     </div>
                     <div class="en-word-actions">
-                        <button class="en-tts-btn" onclick="playEnTTS('${w.word.replace(/'/g, "\\'")}')" title="Phát âm">🔊</button>
+                        <button class="en-tts-btn" onclick="playEnTTS('${w.word.replace(/'/g, "\\'")}')" title="Phát âm tiếng Anh chuẩn">🔊</button>
                         <button class="en-word-delete" onclick="deleteEnWord('${w.word.replace(/'/g, "\\'")}')" title="Xóa từ">✕ Xóa</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function playEnTTS(text) {
-            if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
+        // ========== ENGLISH VOICE & TTS SYSTEM (US/UK) ==========
+        let currentEnAudioInstance = null;
+        let enVoiceAccent = localStorage.getItem('en_tts_accent') || 'en-US';
+
+        function setEnVoiceAccent(accent) {
+            enVoiceAccent = accent;
+            localStorage.setItem('en_tts_accent', accent);
+            const btnUs = document.getElementById('en-accent-us');
+            const btnUk = document.getElementById('en-accent-uk');
+            if (btnUs) btnUs.classList.toggle('active', accent === 'en-US');
+            if (btnUk) btnUk.classList.toggle('active', accent === 'en-GB');
+            const barToggle = document.getElementById('en-bar-accent-toggle');
+            if (barToggle) {
+                barToggle.textContent = accent === 'en-US' ? '🇺🇸 US (Mỹ)' : '🇬🇧 UK (Anh)';
+            }
+        }
+
+        function toggleEnBarAccent() {
+            const next = enVoiceAccent === 'en-US' ? 'en-GB' : 'en-US';
+            setEnVoiceAccent(next);
+            showToast(`🎙️ Đã đổi sang giọng phát âm ${next === 'en-US' ? 'Mỹ (US)' : 'Anh (UK)'}!`, 'info');
+            replayCurrentEnWordAudio();
+        }
+
+        function playGoogleEnTTS(text, accent = 'en-US') {
+            if (!text) return;
+            try {
+                if (currentEnAudioInstance) {
+                    try { currentEnAudioInstance.pause(); currentEnAudioInstance.src = ''; } catch(e){}
+                    currentEnAudioInstance = null;
+                }
+                const langCode = accent === 'en-GB' ? 'en-GB' : 'en';
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${langCode}&client=tw-ob&q=${encodeURIComponent(text.trim())}`;
+                const audio = new Audio(url);
+                audio.volume = getTtsVolume();
+                currentEnAudioInstance = audio;
+                _currentAudioInstance = audio;
+                audio.play().catch(e => { console.warn('Google EN TTS audio error', e); });
+            } catch(e) {
+                console.warn('Google EN TTS exception', e);
+            }
+        }
+
+        function getEnglishVoice(accent = 'en-US') {
+            if (!('speechSynthesis' in window)) return null;
+            const voices = window.speechSynthesis.getVoices();
+            if (!voices || voices.length === 0) return null;
+            
+            if (accent === 'en-GB') {
+                const gbVoice = voices.find(v => (v.lang === 'en-GB' || v.lang === 'en_GB') && (v.name.includes('Google') || v.name.includes('Daniel') || v.name.includes('Natural') || v.name.includes('Serena')))
+                    || voices.find(v => v.lang === 'en-GB' || v.lang === 'en_GB')
+                    || voices.find(v => v.name.toLowerCase().includes('united kingdom') || v.name.toLowerCase().includes('british'));
+                if (gbVoice) return gbVoice;
+            }
+
+            const usVoice = voices.find(v => (v.lang === 'en-US' || v.lang === 'en_US') && (v.name.includes('Google') || v.name.includes('Samantha') || v.name.includes('Natural') || v.name.includes('Ava') || v.name.includes('David') || v.name.includes('Zira')))
+                || voices.find(v => v.lang === 'en-US' || v.lang === 'en_US')
+                || voices.find(v => v.lang.startsWith('en'));
+            return usVoice || null;
+        }
+
+        function playEnTTS(text, customAccent = null) {
+            if (!text) return;
+            const cleanText = text.trim();
+            if (!cleanText) return;
+            const accent = customAccent || enVoiceAccent || 'en-US';
+
+            if (currentEnAudioInstance) {
+                try { currentEnAudioInstance.pause(); currentEnAudioInstance.src = ''; } catch(e){}
+                currentEnAudioInstance = null;
+            }
+
+            if (!('speechSynthesis' in window)) {
+                playGoogleEnTTS(cleanText, accent);
+                return;
+            }
+
+            try {
+                window.speechSynthesis.cancel();
+                if (window.speechSynthesis.paused) {
+                    window.speechSynthesis.resume();
+                }
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = accent;
+                utterance.rate = 0.92;
+                utterance.volume = getTtsVolume();
+                
+                const enVoice = getEnglishVoice(accent);
+                if (enVoice) utterance.voice = enVoice;
+
+                utterance.onerror = () => {
+                    playGoogleEnTTS(cleanText, accent);
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } catch(e) {
+                playGoogleEnTTS(cleanText, accent);
+            }
         }
 
         // ========== ENGLISH JSON BACKUP ==========
@@ -4684,11 +5505,12 @@
             }
             const txt = JSON.stringify(enVocab, null, 2);
             navigator.clipboard.writeText(txt).then(() => showToast('📋 Đã copy JSON từ vựng Anh!', 'success'));
-            document.getElementById('json-en-input').value = txt;
+            const inp = document.getElementById('json-en-input');
+            if (inp) inp.value = txt;
         }
 
         function importEnJson() {
-            const raw = document.getElementById('json-en-input').value.trim();
+            const raw = document.getElementById('json-en-input')?.value.trim();
             if (!raw) {
                 showToast('Dán JSON vào ô trước!', 'error');
                 return;
@@ -4753,8 +5575,462 @@
             saveEnVocab(enVocab);
             renderEnTopics();
             renderEnWords();
-            document.getElementById('json-en-input').value = '';
+            const inp = document.getElementById('json-en-input');
+            if (inp) inp.value = '';
             showToast(`✅ Đã import: ${addedTopics} chủ đề và ${addedWords} từ vựng!`, 'success');
+        }
+
+        // ========== ENGLISH TYPING PRACTICE ENGINE ==========
+        let enSession = {
+            words: [],
+            idx: 0,
+            correct: 0,
+            wrong: 0,
+            skip: 0,
+            streak: 0,
+            wrongWords: [],
+            typingMode: 'visual', // 'visual', 'recall', 'audio'
+            order: 'random',
+            checked: false,
+            hintRevealedLetters: 0,
+            selectedTopic: 'all',
+            wordLoadedAt: 0
+        };
+
+        function setEnTypingMode(mode) {
+            enSession.typingMode = mode;
+            ['visual', 'recall', 'audio'].forEach(m => {
+                const btn = document.getElementById(`en-mode-${m}`);
+                if (btn) btn.classList.toggle('active', m === mode);
+            });
+        }
+
+        function setEnOrder(order) {
+            enSession.order = order;
+            ['random', 'order'].forEach(o => {
+                const btn = document.getElementById(`en-opt-${o}`);
+                if (btn) btn.classList.toggle('active', o === order);
+            });
+        }
+
+        function renderEnTopicDropdown() {
+            const select = document.getElementById('en-practice-topic-select');
+            if (!select) return;
+            const enVocab = loadEnVocab();
+            let totalWords = 0;
+            enVocab.forEach(t => totalWords += (t.words ? t.words.length : 0));
+
+            let html = `<option value="all">🌐 Tất cả từ vựng tiếng Anh (${totalWords} từ)</option>`;
+            enVocab.forEach(t => {
+                html += `<option value="${escapeHtml(t.topicName)}">📂 ${escapeHtml(t.topicName)} (${t.words.length} từ)</option>`;
+            });
+
+            select.innerHTML = html;
+            if (enActiveTopicName && enVocab.some(t => t.topicName === enActiveTopicName)) {
+                select.value = enActiveTopicName;
+            }
+        }
+
+        function onEnPracticeTopicSelectChange() {
+            const select = document.getElementById('en-practice-topic-select');
+            if (select && select.value !== 'all') {
+                enActiveTopicName = select.value;
+            }
+        }
+
+        function startEnPracticeFromTopic(topicName) {
+            enActiveTopicName = topicName;
+            switchTab('en-practice');
+            const select = document.getElementById('en-practice-topic-select');
+            if (select) select.value = topicName;
+            startEnPracticeSession();
+        }
+
+        function startEnPracticeSession() {
+            const select = document.getElementById('en-practice-topic-select');
+            const selectedTopic = select ? select.value : 'all';
+            const enVocab = loadEnVocab();
+            let words = [];
+
+            if (selectedTopic === 'all') {
+                enVocab.forEach(t => {
+                    if (t.words) words.push(...t.words);
+                });
+            } else {
+                const topic = enVocab.find(t => t.topicName === selectedTopic);
+                if (topic && topic.words) words = [...topic.words];
+            }
+
+            const noVocabMsg = document.getElementById('en-no-vocab-msg');
+            if (!words.length) {
+                if (noVocabMsg) noVocabMsg.style.display = 'block';
+                return;
+            }
+            if (noVocabMsg) noVocabMsg.style.display = 'none';
+
+            if (enSession.order === 'random') {
+                words = words.sort(() => Math.random() - 0.5);
+            }
+
+            enSession.words = words;
+            enSession.idx = 0;
+            enSession.correct = 0;
+            enSession.wrong = 0;
+            enSession.skip = 0;
+            enSession.streak = 0;
+            enSession.wrongWords = [];
+            enSession.selectedTopic = selectedTopic;
+
+            document.getElementById('en-session-setup-view').style.display = 'none';
+            document.getElementById('en-practice-view').style.display = 'block';
+            document.getElementById('en-result-panel').style.display = 'none';
+            document.getElementById('en-word-card').style.display = 'block';
+
+            syncMascotCompanionPosition('en-practice');
+            updateEnSidebar();
+            loadEnWord();
+        }
+
+        function loadEnWord() {
+            if (enSession.idx >= enSession.words.length) {
+                endEnPracticeSession();
+                return;
+            }
+
+            const w = enSession.words[enSession.idx];
+            enSession.checked = false;
+            enSession.hintRevealedLetters = 0;
+            enSession.wordLoadedAt = Date.now();
+
+            const wordIndexEl = document.getElementById('en-word-index');
+            if (wordIndexEl) wordIndexEl.textContent = `${enSession.idx + 1} / ${enSession.words.length}`;
+
+            const topicBadge = document.getElementById('en-practice-current-topic');
+            if (topicBadge) topicBadge.textContent = enSession.selectedTopic === 'all' ? '🌐 Tất cả chủ đề' : `📂 ${enSession.selectedTopic}`;
+
+            const promptWord = document.getElementById('en-prompt-word');
+            const promptIpa = document.getElementById('en-prompt-ipa');
+            const promptMeaning = document.getElementById('en-prompt-meaning');
+
+            if (enSession.typingMode === 'audio') {
+                if (promptWord) promptWord.innerHTML = '<span style="font-size:2rem; color:var(--text3);">🎧 Lắng nghe phát âm...</span>';
+                if (promptIpa) promptIpa.textContent = '[Ẩn trong chế độ luyện nghe]';
+                if (promptMeaning) promptMeaning.textContent = `🇻🇳 ${w.meaning}`;
+                setTimeout(() => playEnTTS(w.word), 250);
+            } else if (enSession.typingMode === 'recall') {
+                if (promptWord) promptWord.innerHTML = `<span style="font-size:1.8rem; color:#38bdf8;">🇻🇳 HÃY NHỚ TỪ TIẾNG ANH</span>`;
+                if (promptIpa) promptIpa.textContent = w.ipa || '';
+                if (promptMeaning) promptMeaning.innerHTML = `<span style="font-size:1.6rem; color:var(--text); font-weight:700;">${escapeHtml(w.meaning)}</span>`;
+            } else {
+                // Visual mode
+                if (promptWord) promptWord.textContent = w.word;
+                if (promptIpa) promptIpa.textContent = w.ipa || '';
+                if (promptMeaning) promptMeaning.textContent = `🇻🇳 ${w.meaning}`;
+                setTimeout(() => playEnTTS(w.word), 200);
+            }
+
+            const inputEl = document.getElementById('en-typing-input');
+            if (inputEl) {
+                inputEl.value = '';
+                inputEl.className = 'romaji-input';
+                inputEl.style.borderColor = '';
+                inputEl.style.backgroundColor = '';
+                inputEl.style.boxShadow = '';
+                inputEl.focus();
+            }
+
+            const ansResult = document.getElementById('en-answer-result');
+            if (ansResult) {
+                ansResult.textContent = '';
+                ansResult.className = 'answer-result';
+            }
+
+            const btnCheck = document.getElementById('btn-en-check');
+            if (btnCheck) btnCheck.textContent = 'Kiểm tra (Enter)';
+
+            renderEnLetterBlanks(w.word, '');
+            updateEnComboBadge();
+        }
+
+        function renderEnLetterBlanks(targetWord, typedText) {
+            const container = document.getElementById('en-letter-blanks');
+            if (!container) return;
+            const target = (targetWord || '').trim();
+            const typed = (typedText || '').trim().toLowerCase();
+            const targetLower = target.toLowerCase();
+
+            let html = '';
+            for (let i = 0; i < target.length; i++) {
+                const char = target[i];
+                if (char === ' ') {
+                    html += `<div class="en-letter-box space"></div>`;
+                    continue;
+                }
+
+                let boxClass = 'en-letter-box';
+                let displayChar = '_';
+
+                if (i < typed.length) {
+                    if (typed[i] === targetLower[i]) {
+                        boxClass += ' correct';
+                        displayChar = target[i];
+                    } else {
+                        boxClass += ' wrong';
+                        displayChar = typed[i];
+                    }
+                } else if (i === typed.length) {
+                    boxClass += ' active';
+                    if (enSession.typingMode === 'visual') {
+                        displayChar = target[i];
+                    } else if (i < enSession.hintRevealedLetters) {
+                        displayChar = target[i];
+                        boxClass += ' correct';
+                    }
+                } else {
+                    if (enSession.typingMode === 'visual') {
+                        displayChar = target[i];
+                    } else if (i < enSession.hintRevealedLetters) {
+                        displayChar = target[i];
+                        boxClass += ' correct';
+                    }
+                }
+
+                html += `<div class="${boxClass}">${escapeHtml(displayChar)}</div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function updateEnLetterBlanksFromInput(val, w) {
+            renderEnLetterBlanks(w.word, val);
+        }
+
+        function checkEnAnswer() {
+            if (enSession.idx >= enSession.words.length) return;
+            const w = enSession.words[enSession.idx];
+            const inputEl = document.getElementById('en-typing-input');
+            const typed = inputEl ? inputEl.value.trim().toLowerCase() : '';
+            const target = (w.word || '').trim();
+            const targetLower = target.toLowerCase();
+            const ansResult = document.getElementById('en-answer-result');
+            const promptWord = document.getElementById('en-prompt-word');
+            const promptIpa = document.getElementById('en-prompt-ipa');
+
+            if (enSession.checked) {
+                // Advance to next word
+                enSession.idx++;
+                loadEnWord();
+                return;
+            }
+
+            enSession.checked = true;
+            const isCorrect = (typed === targetLower);
+
+            // Always speak the English word
+            playEnTTS(target);
+
+            // Reveal full word in Recall or Audio mode
+            if (promptWord) promptWord.textContent = target;
+            if (promptIpa) promptIpa.textContent = w.ipa || '';
+
+            if (isCorrect) {
+                enSession.correct++;
+                enSession.streak++;
+                triggerCardImpact();
+                triggerConfettiBurst(enSession.streak >= 5 && enSession.streak % 5 === 0);
+                spawnFloatingScoreFX(document.getElementById('en-word-card'), `+${100 + enSession.streak * 25} PTS`);
+                onMascotWordCorrect();
+
+                if (inputEl) {
+                    inputEl.className = 'romaji-input correct';
+                    inputEl.style.borderColor = '#10b981';
+                    inputEl.style.backgroundColor = 'rgba(16, 185, 129, 0.12)';
+                }
+
+                if (ansResult) {
+                    ansResult.innerHTML = `✅ Chuẩn xác tuyệt đối! Nhấn Enter để tiếp tục`;
+                    ansResult.className = 'answer-result show ok';
+                }
+
+                renderEnLetterBlanks(target, target);
+            } else {
+                enSession.wrong++;
+                enSession.streak = 0;
+                enSession.wrongWords.push(w);
+                triggerCardImpact();
+
+                if (inputEl) {
+                    inputEl.className = 'romaji-input wrong';
+                    inputEl.style.borderColor = '#f43f5e';
+                    inputEl.style.backgroundColor = 'rgba(244, 63, 94, 0.12)';
+                }
+
+                if (ansResult) {
+                    ansResult.innerHTML = `❌ Chưa chính xác! Đáp án đúng: <strong>${escapeHtml(target)}</strong> ${w.ipa ? `<em>(${escapeHtml(w.ipa)})</em>` : ''}`;
+                    ansResult.className = 'answer-result show ng';
+                }
+
+                renderEnLetterBlanks(target, target);
+            }
+
+            const btnCheck = document.getElementById('btn-en-check');
+            if (btnCheck) btnCheck.textContent = '→ Tiếp theo (Enter)';
+
+            updateEnSidebar();
+            updateEnComboBadge();
+        }
+
+        function skipEnWord() {
+            if (enSession.idx >= enSession.words.length) return;
+            const w = enSession.words[enSession.idx];
+            enSession.skip++;
+            enSession.streak = 0;
+            enSession.wrongWords.push(w);
+            enSession.checked = true;
+
+            playEnTTS(w.word);
+            document.getElementById('en-prompt-word').textContent = w.word;
+            document.getElementById('en-prompt-ipa').textContent = w.ipa || '';
+            
+            const ansResult = document.getElementById('en-answer-result');
+            if (ansResult) {
+                ansResult.innerHTML = `⏭️ Đã bỏ qua! Đáp án: <strong>${escapeHtml(w.word)}</strong>`;
+                ansResult.className = 'answer-result show ng';
+            }
+
+            renderEnLetterBlanks(w.word, w.word);
+            updateEnSidebar();
+            updateEnComboBadge();
+
+            const btnCheck = document.getElementById('btn-en-check');
+            if (btnCheck) btnCheck.textContent = '→ Tiếp theo (Enter)';
+        }
+
+        function toggleEnHint() {
+            if (enSession.idx >= enSession.words.length || enSession.checked) return;
+            const w = enSession.words[enSession.idx];
+            const target = (w.word || '').trim();
+            if (enSession.hintRevealedLetters < target.length) {
+                enSession.hintRevealedLetters++;
+                renderEnLetterBlanks(target, document.getElementById('en-typing-input')?.value || '');
+            }
+            playEnTTS(target);
+        }
+
+        function replayCurrentEnWordAudio() {
+            if (enSession.words && enSession.words[enSession.idx]) {
+                playEnTTS(enSession.words[enSession.idx].word);
+            }
+        }
+
+        function updateEnSidebar() {
+            const correctEl = document.getElementById('en-s-correct');
+            const wrongEl = document.getElementById('en-s-wrong');
+            const skipEl = document.getElementById('en-s-skip');
+            const accEl = document.getElementById('en-s-acc');
+            const streakEl = document.getElementById('en-s-streak');
+
+            if (correctEl) correctEl.textContent = enSession.correct;
+            if (wrongEl) wrongEl.textContent = enSession.wrong;
+            if (skipEl) skipEl.textContent = enSession.skip;
+            if (streakEl) streakEl.textContent = enSession.streak;
+
+            const total = enSession.correct + enSession.wrong;
+            const acc = total > 0 ? Math.round((enSession.correct / total) * 100) : 100;
+            if (accEl) accEl.textContent = `${acc}%`;
+        }
+
+        function updateEnComboBadge() {
+            const badge = document.getElementById('en-combo-badge');
+            if (!badge) return;
+            if (enSession.streak >= 2) {
+                badge.style.display = 'inline-block';
+                badge.textContent = `🔥 COMBO x${enSession.streak}`;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function endEnPracticeSession() {
+            document.getElementById('en-word-card').style.display = 'none';
+            const resPanel = document.getElementById('en-result-panel');
+            resPanel.style.display = 'block';
+
+            const total = enSession.words.length;
+            const totalDone = enSession.correct + enSession.wrong + enSession.skip;
+            const acc = (enSession.correct + enSession.wrong) > 0 ? Math.round((enSession.correct / (enSession.correct + enSession.wrong)) * 100) : 100;
+
+            document.getElementById('en-result-score').textContent = `${enSession.correct} / ${total}`;
+            document.getElementById('en-result-stats').innerHTML = `
+                <span>🎯 Độ chính xác: ${acc}%</span> &bull; 
+                <span>❌ Từ sai: ${enSession.wrong}</span> &bull; 
+                <span>⏭️ Bỏ qua: ${enSession.skip}</span>
+            `;
+
+            const wrongSection = document.getElementById('en-result-wrong-section');
+            const wrongContainer = document.getElementById('en-wrong-words-container');
+            const btnRetryWrong = document.getElementById('btn-en-retry-wrong');
+
+            if (enSession.wrongWords.length > 0) {
+                wrongSection.style.display = 'block';
+                btnRetryWrong.style.display = 'inline-block';
+                wrongContainer.innerHTML = enSession.wrongWords.map(w => `
+                    <div style="background:var(--bg2); border:1px solid var(--border); padding:10px 14px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong style="color:var(--text); font-size:1.05rem;">${escapeHtml(w.word)}</strong>
+                            <span style="color:var(--accent3); margin-left:8px; font-size:0.85rem;">${escapeHtml(w.ipa || '')}</span>
+                            <div style="color:var(--text2); font-size:0.85rem; margin-top:2px;">${escapeHtml(w.meaning)}</div>
+                        </div>
+                        <button type="button" class="btn btn-hint" style="padding:4px 8px; font-size:0.85rem;" onclick="playEnTTS('${w.word.replace(/'/g, "\\'")}')">🔊 Nghe</button>
+                    </div>
+                `).join('');
+            } else {
+                wrongSection.style.display = 'none';
+                btnRetryWrong.style.display = 'none';
+                triggerConfettiBurst(true);
+            }
+        }
+
+        function restartEnPracticeSession() {
+            startEnPracticeSession();
+        }
+
+        function retryEnWrongWords() {
+            if (!enSession.wrongWords.length) return;
+            enSession.words = [...enSession.wrongWords];
+            enSession.idx = 0;
+            enSession.correct = 0;
+            enSession.wrong = 0;
+            enSession.skip = 0;
+            enSession.streak = 0;
+            enSession.wrongWords = [];
+
+            document.getElementById('en-result-panel').style.display = 'none';
+            document.getElementById('en-word-card').style.display = 'block';
+            updateEnSidebar();
+            loadEnWord();
+        }
+
+        function backToEnSetup() {
+            document.getElementById('en-practice-view').style.display = 'none';
+            document.getElementById('en-session-setup-view').style.display = 'block';
+            renderEnTopicDropdown();
+        }
+
+        function syncMascotCompanionPosition(currentTab) {
+            const mascotCard = document.getElementById('mascot-portrait-card');
+            if (!mascotCard) return;
+            if (currentTab === 'en-practice') {
+                const enSlot = document.getElementById('en-mascot-companion-slot');
+                if (enSlot && !enSlot.contains(mascotCard)) {
+                    enSlot.appendChild(mascotCard);
+                }
+            } else if (currentTab === 'practice') {
+                const jpSidebar = document.querySelector('#practice-view .practice-right-sidebar');
+                if (jpSidebar && !jpSidebar.contains(mascotCard)) {
+                    jpSidebar.insertBefore(mascotCard, jpSidebar.firstChild);
+                }
+            }
         }
 
         // ========== GLOBAL STATES FOR LESSONS & ALPHABET ==========
@@ -4814,6 +6090,10 @@
             const targetTab = document.getElementById('tab-' + tab);
             if (targetContent) targetContent.classList.add('active');
             if (targetTab) targetTab.classList.add('active');
+            if (typeof syncMascotCompanionPosition === 'function') syncMascotCompanionPosition(tab);
+            if (tab === 'en-practice') {
+                if (typeof renderEnTopicDropdown === 'function') renderEnTopicDropdown();
+            }
             if (tab === 'vocab') renderVocabList();
             if (tab === 'sheet') renderSheetView();
             if (tab === 'en-vocab') renderEnTopics();
@@ -10074,9 +11354,45 @@ CONVERSATION RULES:
             updateBlanksFromInput(this.value, w);
         });
 
+        const enInputEl = document.getElementById('en-typing-input');
+        if (enInputEl) {
+            enInputEl.addEventListener('input', function () {
+                if (enSession.idx >= enSession.words.length || enSession.checked) return;
+                const w = enSession.words[enSession.idx];
+                updateEnLetterBlanksFromInput(this.value, w);
+                if (this.value.trim().toLowerCase() === (w.word || '').trim().toLowerCase()) {
+                    checkEnAnswer();
+                }
+            });
+        }
+
         document.addEventListener('keydown', function (e) {
             const activeTab = document.querySelector('.tab-content.active');
-            if (!activeTab || activeTab.id !== 'content-practice') return;
+            if (!activeTab) return;
+
+            // Xử lý phím tắt cho English Practice
+            if (activeTab.id === 'content-en-practice') {
+                const enPrView = document.getElementById('en-practice-view');
+                if (enPrView && enPrView.style.display === 'block') {
+                    if (e.key === 'Enter') {
+                        if (e.isComposing || e.keyCode === 229) return;
+                        e.preventDefault();
+                        checkEnAnswer();
+                    } else if (e.key === 'Tab') {
+                        e.preventDefault();
+                        toggleEnHint();
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault();
+                        backToEnSetup();
+                    } else if (e.key === 'F2') {
+                        e.preventDefault();
+                        replayCurrentEnWordAudio();
+                    }
+                }
+                return;
+            }
+
+            if (activeTab.id !== 'content-practice') return;
 
             // Xử lý phím tắt cho thẻ Flashcard
             const fcView = document.getElementById('flashcard-view');
@@ -10254,6 +11570,29 @@ CONVERSATION RULES:
         loadTtsSettings();
         setTimeout(init3DMascotCompanion, 200);
     </script>
+    <!-- ENGLISH PRESETS MODAL -->
+    <div class="en-presets-modal-overlay" id="en-presets-modal-overlay" onclick="if(event.target===this)closeEnPresetModal()">
+        <div class="en-presets-modal">
+            <div class="en-presets-header">
+                <div>
+                    <h3 style="margin:0; font-size:1.25rem; color:var(--text); display:flex; align-items:center; gap:8px;">
+                        <span>⚡ Kho Chủ Đề Tiếng Anh Mẫu</span>
+                        <span class="en-preset-badge">10 Chủ đề • 200 từ</span>
+                    </h3>
+                    <p style="margin:4px 0 0; font-size:0.85rem; color:var(--text3);">Chọn từng chủ đề hoặc nạp tất cả để bắt đầu luyện gõ ngay lập tức.</p>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <button type="button" class="btn btn-start" style="padding:8px 16px; font-size:0.85rem; background:linear-gradient(135deg, #0284c7, #6366f1); border:none; color:#fff; font-weight:700; border-radius:8px;" onclick="importAllPresetEnTopics()">
+                        ⚡ Nạp tất cả 10 chủ đề (+200 từ)
+                    </button>
+                    <button type="button" class="btn-copy" style="font-size:1.1rem; padding:4px 10px; border-radius:8px;" onclick="closeEnPresetModal()" title="Đóng">✕</button>
+                </div>
+            </div>
+            <div class="en-presets-grid" id="en-presets-grid-container">
+                <!-- Injected by renderEnPresetModalCards() -->
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
