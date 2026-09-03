@@ -2023,6 +2023,20 @@
             transform: scale(1.06);
         }
 
+        .en-letter-box.active:empty::after {
+            content: '';
+            width: 14px;
+            height: 3px;
+            background: #38bdf8;
+            border-radius: 2px;
+            animation: enCursorBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes enCursorBlink {
+            0%, 100% { opacity: 1; transform: scaleX(1); }
+            50% { opacity: 0.2; transform: scaleX(0.7); }
+        }
+
         .en-letter-box.space {
             width: 18px;
             border-color: transparent;
@@ -5821,7 +5835,7 @@
                 }
 
                 let boxClass = 'en-letter-box';
-                let displayChar = '_';
+                let displayChar = '';
 
                 if (i < typed.length) {
                     if (typed[i] === targetLower[i]) {
@@ -5831,18 +5845,11 @@
                         boxClass += ' wrong';
                         displayChar = typed[i];
                     }
-                } else if (i === typed.length) {
-                    boxClass += ' active';
-                    if (enSession.typingMode === 'visual') {
-                        displayChar = target[i];
-                    } else if (i < enSession.hintRevealedLetters) {
-                        displayChar = target[i];
-                        boxClass += ' correct';
-                    }
                 } else {
-                    if (enSession.typingMode === 'visual') {
-                        displayChar = target[i];
-                    } else if (i < enSession.hintRevealedLetters) {
+                    if (i === typed.length) {
+                        boxClass += ' active';
+                    }
+                    if (i < enSession.hintRevealedLetters) {
                         displayChar = target[i];
                         boxClass += ' correct';
                     }
